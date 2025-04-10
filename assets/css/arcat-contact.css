@@ -112,3 +112,7 @@
 #cove-input-name {
   display: none;
 }
+
+#cove + div[style*="text-align:right;font-size:12px"] {
+  display: none;
+}
