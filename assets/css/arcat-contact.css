@@ -105,8 +105,10 @@
   cursor: not-allowed !important;
 }
 
-
-
 #cove-comments {
+  display: none;
+}
+
+#cove-input-name {
   display: none;
 }
