@@ -1,5 +1,5 @@
 /* Arcat Header Styles */
-.arcat-header {
+.community-header {
     position: relative;
     height: 60px;
     width: 100%;
@@ -7,42 +7,42 @@
     padding: 12px 15px;
 }
 
-.arcat-header-wrapper {
+.community-header-wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.arcat-logo-wrapper {
+.community-logo-wrapper {
     display: flex;
     align-items: flex-end;
     gap: 8px;
 }
 
-.arcat-logo {
+.community-logo {
     width: 80px; /* 幅を縮小 */
     height: 20px; /* 高さを縮小 */
 }
 
 
-.arcat-logo-text {
+.community-logo-text {
     width: 50px; /* 幅を縮小 */
     height: 8px; /* 高さを縮小 */
 }
 
-.arcat-nav-user{
+.community-nav-user{
     display: flex;
     align-items: center;
     margin-left: auto;
 }
 
-.arcat-user-avatar {
+.community-user-avatar {
     width: 28px;
     height: 28px;
     border-radius: 50%;
 }
 
-.arcat-nav-user-avatar-placeholder {
+.community-nav-user-avatar-placeholder {
 	width: 28px;
 	height: 28px;
 	border-radius: 50%;
@@ -56,34 +56,34 @@
     text-transform: uppercase;
 }
 
-.arcat-nav-user-initial {
+.community-nav-user-initial {
     line-height: 1;
 }
 
-.arcat-nav {
+.community-nav {
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
-.arcat-login, .arcat-signup {
+.community-login, .community-signup {
     display: inline-block;
     padding: 8px 12px;
     font-size: 1.2rem;
     font-weight: 700;
 }
 
-.arcat-login {
+.community-login {
     color: #000;
-    border-bottom: 3px solid #FDEC01;;
+    border-bottom: 3px solid #D1FF19;;
 }
 
-.arcat-signup {
+.community-signup {
     color: #000;
     border-bottom: 3px solid #000;
 }
 
-.arcat-menu-button {
+.community-menu-button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -97,29 +97,29 @@
 }
 
 @media screen and (width >= calc(900px + 10vw)) {
-    .arcat-menu-button {
+    .community-menu-button {
         display: none;
     }
 }
 
-.arcat-hamburger {
+.community-hamburger {
     width: 28px;
     height: 24px;
 }
 
-.arcat-hamburger svg:last-child {
+.community-hamburger svg:last-child {
     display: none;
 }
 
-.is-open .arcat-hamburger svg:first-child {
+.is-open .community-hamburger svg:first-child {
     display: none;
 }
 
-.is-open .arcat-hamburger svg:last-child {
+.is-open .community-hamburger svg:last-child {
     display: block;
 }
 
-.arcat-nav-menu {
+.community-nav-menu {
     position: absolute;
     top: 60px;
     right: 0;
@@ -134,14 +134,14 @@
     opacity: 0;
 }
 
-.is-open.arcat-nav-menu {
+.is-open.community-nav-menu {
     transform: translateX(0);
     pointer-events: auto; /* 表示時はクリック可能 */
     visibility: visible; /* メニューを表示 */
     opacity: 1; /* メニューを不透明に */
 }
 
-.arcat-nav-overlay {
+.community-nav-overlay {
     position: absolute;
     top: 60px;
     right: 0;
@@ -153,21 +153,21 @@
     opacity: 0;
 }
 
-.is-open.arcat-nav-overlay {
+.is-open.community-nav-overlay {
     pointer-events: none;
     transition: opacity 0.3s ease-in-out;
     visibility: visible;
     opacity: 1;
 }
 
-.arcat-nav-menu-primary {
+.community-nav-menu-primary {
     display: flex;
     flex-direction: column;
     gap: 24px;
     padding: 40px 20px;
 }
 
-.arcat-nav-menu-primary ul {
+.community-nav-menu-primary ul {
     list-style: none;
     margin: 0;
     display: flex;
@@ -176,7 +176,7 @@
     padding: 0;
 }
 
-.arcat-nav-menu-primary li a {
+.community-nav-menu-primary li a {
     text-decoration: none;
     color: #000;
     flex: 1;
@@ -185,7 +185,7 @@
     margin: 0;
 }
 
-.arcat-nav-menu-external-link {
+.community-nav-menu-external-link {
     display: flex;
     align-items: center;
     text-decoration: none;
@@ -195,13 +195,13 @@
     font-size: 1.2rem;
 }
 
-.arcat-nav-menu-external-link svg {
+.community-nav-menu-external-link svg {
     width: 20px;
     height: 20px;
 
 }
 
-.arcat-nav-menu-signout {
+.community-nav-menu-signout {
     color: #EEBB08CC;
     font-weight: 700;
     font-size: 1.2rem;

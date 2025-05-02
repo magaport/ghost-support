@@ -1,11 +1,11 @@
-<footer class="arcat-footer">
-    <div class="arcat-footer-logo-container">
-        <img class="arcat-footer-logo" src="{{asset "images/arcat-footer-logo.svg"}}" alt="Arcat" />
+<footer class="community-footer">
+    <div class="community-footer-logo-container">
+        <img class="community-footer-logo" src="{{asset "images/community-logo.svg"}}" alt="Arcat" />
     </div>
-    <nav class="arcat-footer-menu">
+    <nav class="community-footer-menu">
         {{navigation type="secondary"}}
     </nav>
-    <p class="arcat-footer-copyright">
+    <p class="community-footer-copyright">
         &copy; 2025 FUJISAN MAGAZINE SERVICE Co., Ltd.
     </p>
 </footer>
@@ -17,7 +17,7 @@
 
         // If not logged in, hide the .nav-contact link
         // (assuming there is a <li class="nav-contact"> inside <ul class="nav">)
-        const navContact = document.querySelector('.arcat-footer-menu ul.nav li.nav-owen-ihe-wase');
+        const navContact = document.querySelector('.community-footer-menu ul.nav li.nav-owen-ihe-wase');
         if (navContact && !isLoggedIn) {
             navContact.style.display = 'none';
         }

@@ -1,24 +1,24 @@
 {{!< default}}
 {{#page}}
-<main class="arcat-gallery-main">
-    <h1 class="arcat-post-list-title">
+<main class="community-gallery-main">
+    <h1 class="community-post-list-title">
         {{> "icons/cat-footprint"}}
         <span>Gallery</span>
     </h1>
     <article>
         {{#if @member.paid}}
-            <section class="arcat-gallery-section">
+            <section class="community-gallery-section">
                 {{content}}
             </section>
         {{else}}
-            <aside class="arcat-cta">
-                <div class="arcat-cta-content">
+            <aside class="community-cta">
+                <div class="community-cta-content">
                     <h2>この先は有料会員限定</h2>
                     {{#if @member}}
-                        <a class="arcat-cta-btn" data-portal="account/plans">プランを確認</a>
+                        <a class="community-cta-btn" data-portal="account/plans">プランを確認</a>
                     {{else}}
-                        <a class="arcat-cta-btn" data-portal="signup">新規登録</a>
-                        <p class="arcat-cta-note"><small>すでにアカウントをお持ちの場合 <a data-portal="signin">ログイン</a></small></p>
+                        <a class="community-cta-btn" data-portal="signup">新規登録</a>
+                        <p class="community-cta-note"><small>すでにアカウントをお持ちの場合 <a data-portal="signin">ログイン</a></small></p>
                     {{/if}}
                 </div>
             </aside>

@@ -6,36 +6,36 @@
     * limit (number)
     * showPagenation (true, false)
 --}}
-<section class="arcat-post-list-section">
-    <h2 class="arcat-post-list-title">
+<section class="community-post-list-section">
+    <h2 class="community-post-list-title">
         {{> "icons/cat-footprint"}}
         <span>{{sectionTitle}}</span>
     </h2>
     {{#if hasMore}}
-        <div class="arcat-post-list-subtitle">
+        <div class="community-post-list-subtitle">
             <h3>{{subSectionTitle}}</h3>
-            <a class="arcat-post-list-more" href="/posts">
+            <a class="community-post-list-more" href="/posts">
                 <span>More</span>
             </a>
         </div>
     {{else}}
-        <h3 class="arcat-post-list-subtitle-no-more">
+        <h3 class="community-post-list-subtitle-no-more">
             {{subSectionTitle}}
         </h3>
     {{/if}}
-    <div class="arcat-post-list">
+    <div class="community-post-list">
         {{#get "posts" include="authors" limit=limit}}
             {{#foreach posts}}
-                <article class="arcat-post-item">
+                <article class="community-post-item">
                     <a href="{{url}}">
                         {{#if feature_image}}
-                            <img class="arcat-post-item-image" src="{{feature_image}}" alt="{{title}}">
+                            <img class="community-post-item-image" src="{{feature_image}}" alt="{{title}}">
                         {{else}}
-                            <img class="arcat-post-item-image" src="{{asset "images/default_post_feature.png"}}" alt="{{title}}">
+                            <img class="community-post-item-image" src="{{asset "images/default_post_feature.png"}}" alt="{{title}}">
                         {{/if}}
-                        <div class="arcat-post-title">
+                        <div class="community-post-title">
                             <h4>{{title}}</h4>
-                            <div class="arcat-post-meta">
+                            <div class="community-post-meta">
                                 <time datetime="{{date format="YYYY-MM-DD"}}">
                                     {{date format="YYYY/MM/DD"}}
                                 </time>

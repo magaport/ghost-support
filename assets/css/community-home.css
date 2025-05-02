@@ -1,29 +1,39 @@
-/* Arcat HomePage Styles */
+/* Community HomePage Styles */
+.community-bg-wrapper {
+    position: fixed;
+    bottom: 80px;
+    left: 30px;
+}
+
+.community-bg-image {
+    width: 100%;
+    height: 100%;
+}
 /* トップページ全体の幅を最大390pxに制限 */
-.arcat-home-root {
+.community-home-root {
     width: 100%;
     margin: 0 auto;
     flex-grow: 1;
 }
 
 /* メインビジュアル */
-.arcat-home-main-visual {
+.community-home-main-visual {
     margin: 0 auto;
     padding-bottom: 40px;
 }
 
-.arcat-home-key-visual-container {
+.community-home-key-visual-container {
     position: relative;
     z-index: 0;
 }
 
-.arcat-home-key-visual {
+.community-home-key-visual {
     width: 100%;
     height: auto;
     display: block;
 }
 
-.arcat-home-site-message-wrapper {
+.community-home-site-message-wrapper {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -37,7 +47,7 @@
     justify-content: center;
 }
 
-.arcat-home-site-message {
+.community-home-site-message {
     display: flex;
     flex-direction: column;
     gap: 24px;
@@ -45,14 +55,14 @@
     justify-content: center;
 }
 
-.arcat-home-key-visual-logo {
+.community-home-key-visual-logo {
     width: 230px;
 }
 
 /* ボタン */
-.arcat-home-key-visual-button {
-    background-color: #FDEC01; /* 例: ゴールド系 */
-    color: #000;
+.community-home-key-visual-button {
+    background-color: #000;
+    color: #fff;
     padding: 8px 32px;
     border: none;
     border-radius: 8px;
@@ -63,7 +73,7 @@
     width: fit-content;
 }
 
-.arcat-home-section-message {
+.community-home-section-message {
     margin-top: 24px;
     color: #797979;
     font-size: 14px;
@@ -71,13 +81,13 @@
 }
 
 /* セクションのタイトルや要素配置 */
-.arcat-home-communication {
+.community-home-communication {
     margin: 0 auto;
     padding: 24px 16px 40px;
 }
 
 
-.arcat-home-section-title {
+.community-home-section-title {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -89,27 +99,27 @@
     margin-bottom: 16px;
 }
 
-.arcat-home-section-title svg {
+.community-home-section-title svg {
     width: 28px;
     height: 24px;
 }
 
-.arcat-home-section-title span {
+.community-home-section-title span {
     text-align: center;
 }
 
-.arcat-home-highlighted-title {
+.community-home-highlighted-title {
     font-weight: 900;
-    background: linear-gradient(transparent 60%, #FDEC01 30%);
+    background: linear-gradient(transparent 60%, #D1FF19 30%);
     display: inline-block;
 }
 
-.arcat-home-tyatora-message {
+.community-home-tyatora-message {
     position: relative;
     margin-top: 24px;
 }
 
-.arcat-home-tyatora-message p {
+.community-home-tyatora-message p {
     font-weight: 700;
     font-size: 18px;
     display: inline-block;
@@ -121,36 +131,36 @@
 }
 
 /* 猫のイラスト・写真の共通スタイル */
-.arcat-home-tyatora,
-.arcat-home-shironeko,
-.arcat-home-black-cat {
+.community-home-tyatora,
+.community-home-shironeko,
+.community-home-black-cat {
     width: 100%;
     height: auto;
     object-fit: cover;
 }
 
-.arcat-home-shirohuwaneko {
+.community-home-shirohuwaneko {
     width: 100%;
     height: auto;
     object-fit: cover;
     margin-top: -16px;
 }
 
-.arcat-home-experts-content {
+.community-home-experts-content {
     margin: 0 auto;
     padding: 24px 16px 40px;
-    background: #FFFAB9;
+    background: rgba(209, 255, 25, .1);
 }
 
 /* リンクグループ（メディアを探す / ユーザーを探す 等） */
-.arcat-home-link-group {
+.community-home-link-group {
     display: flex;
     gap: 8px;
     justify-content: center;
     margin-top: 16px;
 }
 
-.arcat-home-link-group a {
+.community-home-link-group a {
     border-radius: 8px;
     background: #1C1B1B;; /* 例: 薄い黄色 */
     color: #fff;
@@ -160,29 +170,29 @@
     font-size: 1.5rem;
 }
 
-.arcat-home-premium {
+.community-home-premium {
     margin: 0 auto;
     padding: 24px 16px 40px;
     background: #F8F6F2;
 }
 /* プレミアムセクション */
-.arcat-home-premium-label {
+.community-home-premium-label {
     font-size: 18px;
     font-weight: bold;
     color: #F00; /* 例: 赤文字 */
     text-align: center;
 }
 
-.arcat-home-premium-link-group {
+.community-home-premium-link-group {
     display: flex;
     justify-content: center;
     margin-top: 16px;
 }
 
-.arcat-home-premium-link {
+.community-home-premium-link {
     padding: 8px 24px;
-    background-color: #FDEC01;
-    color: #000;
+    background-color: #000;
+    color: #fff;
     text-decoration: none;
     border-radius: 8px;
     font-weight: 700;
@@ -190,18 +200,18 @@
 }
 
 /* ギャラリー */
-.arcat-home-gallery {
+.community-home-gallery {
     margin: 0 auto;
     padding: 24px 16px 40px;
 }
 
-.arcat-home-gallery-link-group {
+.community-home-gallery-link-group {
     display: flex;
     justify-content: center;
     margin-top: 16px;
 }
 
-.arcat-home-gallery-link {
+.community-home-gallery-link {
     padding: 8px 24px;
     background-color: #000;
     color: #fff;

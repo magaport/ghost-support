@@ -1,9 +1,9 @@
-<div class="arcat-fixed-naigation">
-    <nav class="arcat-fixed-naigation-list">
+<div class="community-fixed-naigation">
+    <nav class="community-fixed-naigation-list">
 		{{navigation}}
 	</nav>
 	{{#unless @member}}
-		<a class="arcat-signin-link" href="#/portal/signin" data-portal="signin">
+		<a class="community-signin-link" href="#/portal/signin" data-portal="signin">
 			Arcatをはじめよう
         </a>
 	{{/unless}}
@@ -16,7 +16,7 @@
 
         // If not logged in, hide the .nav-contact link
         // (assuming there is a <li class="nav-contact"> inside <ul class="nav">)
-        const navContact = document.querySelector('.arcat-fixed-naigation-list ul.nav li.nav-contact');
+        const navContact = document.querySelector('.community-fixed-naigation-list ul.nav li.nav-contact');
         if (navContact && !isLoggedIn) {
             navContact.style.display = 'none';
         }

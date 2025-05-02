@@ -1,4 +1,4 @@
-.arcat-error-main {
+.community-error-main {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6,7 +6,7 @@
     background-color: #EFEFEF !important;
     flex-grow: 1;
 }
-.arcat-error-content {
+.community-error-content {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -14,17 +14,17 @@
     gap: 20px;
 }
 
-.arcat-error-content svg {
+.community-error-content svg {
     width: 36px;
     height: 32px;
 }
 
-.arcat-error-content svg path {
+.community-error-content svg path {
     stroke: #797979;
     fill: #797979;
 }
 
-.arcat-error-message {
+.community-error-message {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -34,7 +34,7 @@
     color: #797979;;
 }
 
-.arcat-error-link {
+.community-error-link {
     display: flex;
     align-items: center;
     justify-content: center;

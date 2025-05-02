@@ -6,7 +6,7 @@
  */
 function pagination(isInfinite = false, done, isMasonry = false) {
     // 記事一覧の要素を取得
-    const feedElement = document.querySelector('.arcat-post-list');
+    const feedElement = document.querySelector('.community-post-list');
     if (!feedElement) return; // なければ中断
 
     let loading = false;
@@ -16,7 +16,7 @@ function pagination(isInfinite = false, done, isMasonry = false) {
     const target = document.querySelector('.pagination');
 
     // 「もっと読む」ボタンがあるなら取得（今回はHTMLに無いが、将来追加するかもしれない場合を想定）
-    const buttonElement = document.querySelector('.arcat-loadmore');
+    const buttonElement = document.querySelector('.community-loadmore');
 
     // 次ページのURLは <link rel="next"> で管理する想定（Ghostの標準的な方法）
     // 現在のHTMLには <link rel="next"> が無い場合があるので、その場合はボタンを消す
@@ -37,8 +37,8 @@ function pagination(isInfinite = false, done, isMasonry = false) {
             const parser = new DOMParser();
             const doc = parser.parseFromString(html, 'text/html');
 
-            // 次ページの `.arcat-post-list` 内の子要素を全部取得
-            const postElements = doc.querySelectorAll('.arcat-post-list > *');
+            // 次ページの `.community-post-list` 内の子要素を全部取得
+            const postElements = doc.querySelectorAll('.community-post-list > *');
             const fragment = document.createDocumentFragment();
             const elems = [];
 
@@ -54,7 +54,7 @@ function pagination(isInfinite = false, done, isMasonry = false) {
                 elems.push(clonedItem);
             });
 
-            // 今のページの .arcat-post-list に次ページの要素を追加
+            // 今のページの .community-post-list に次ページの要素を追加
             feedElement.appendChild(fragment);
 
             // コールバックが指定されていれば呼ぶ（Masonryの再計算など）

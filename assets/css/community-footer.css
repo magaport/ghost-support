@@ -1,4 +1,4 @@
-.arcat-footer {
+.community-footer {
     /* フッター全体が親要素390px内に収まるように */
     width: 100%;
     margin: 0 auto;
@@ -6,29 +6,29 @@
 }
 
 /* ロゴ部分のスタイリング */
-.arcat-footer-logo-container {
+.community-footer-logo-container {
     padding: 20px 15px;
     text-align: left; /* ロゴを中央配置する場合 */
 }
 
-.arcat-footer-logo {
+.community-footer-logo {
     width: 90px;
     height: auto;
 }
 
 /* メニュー部分のスタイリング */
-.arcat-footer-menu {
+.community-footer-menu {
     padding: 0 15px;
     box-sizing: border-box;
 }
 
-.arcat-footer-menu ul {
+.community-footer-menu ul {
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-.arcat-footer-menu li {
+.community-footer-menu li {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -38,7 +38,7 @@
 }
 
 
-.arcat-footer-menu li a {
+.community-footer-menu li a {
     text-decoration: none;
     color: #000;
     flex: 1;
@@ -47,7 +47,7 @@
 }
 
 /* 右端に矢印を表示する例 */
-.arcat-footer-menu li::after {
+.community-footer-menu li::after {
     content: '>';
     color: #000;
     margin-left: 8px; /* テキストと矢印の間隔 */
@@ -55,7 +55,7 @@
 }
 
 /* コピーライト部分のスタイリング */
-.arcat-footer-copyright {
+.community-footer-copyright {
     background-color: #000;
     color: #fff;
     text-align: center;

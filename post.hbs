@@ -1,37 +1,37 @@
 {{!< default}}
 {{#post}}
-<main class="arcat-post-main">
+<main class="community-post-main">
     <article>
-        <section class="arcat-post-header">
+        <section class="community-post-header">
             {{> "feature-image"}}
-            <h1 class="arcat-post-title">{{title}}</h1>
+            <h1 class="community-post-title">{{title}}</h1>
             {{#if custom_excerpt}}
-                <p class="arcat-post-excerpt">{{custom_excerpt}}</p>
+                <p class="community-post-excerpt">{{custom_excerpt}}</p>
             {{/if}}
-            <time class="arcat-post-date" datetime="{{date format="YYYY-MM-DD"}}">{{date format="YYYY/MM/DD"}}</time>
-            <div class="arcat-post-authors">
+            <time class="community-post-date" datetime="{{date format="YYYY-MM-DD"}}">{{date format="YYYY/MM/DD"}}</time>
+            <div class="community-post-authors">
                 {{#foreach authors}}
                     {{#if profile_image}}
-                        <a class="arcat-post-author-link" href="{{url}}">
+                        <a class="community-post-author-link" href="{{url}}">
                             <img src="{{img_url profile_image size="xs"}}" alt="{{name}}">
                         </a>
                     {{else}}
-                        <a class="arcat-post-author-link" href="{{url}}">{{> "icons/avatar"}}</a>
+                        <a class="community-post-author-link" href="{{url}}">{{> "icons/avatar"}}</a>
                     {{/if}}
                 {{/foreach}}
-                <h4 class="arcat-post-author-name">{{authors}}</h4>
+                <h4 class="community-post-author-name">{{authors}}</h4>
             </div>
         </section>
-        <section class="arcat-post-body gh-content gh-canvas is-body{{#if @custom.enable_drop_caps_on_posts}} drop-cap{{/if}}">
+        <section class="community-post-body gh-content gh-canvas is-body{{#if @custom.enable_drop_caps_on_posts}} drop-cap{{/if}}">
             {{content}}
         </section>
     </article>
 
     {{#if comments}}
         <section>
-            <div class="arcat-post-actions">
-                <div class="arcat-post-commments">
-                    <button class="arcat-post-commment-icon" type="button" data-toggle="comments">
+            <div class="community-post-actions">
+                <div class="community-post-commments">
+                    <button class="community-post-commment-icon" type="button" data-toggle="comments">
                         {{> "icons/chat"}}
                     </button>
                     {{comment_count singular="" plural=""}}
@@ -40,7 +40,7 @@
                     {{> "components/post-like" post_id=id}}
                 {{/if}}
             </div>
-            <div class="arcat-post-comments">
+            <div class="community-post-comments">
                 {{comments title="" count=false mode="light"}}
             </div>
         </section>
@@ -51,22 +51,22 @@
 
 {{#get "posts" include="authors" filter="id:-{{post.id}}" limit="5" as |next|}}
     {{#if next}}
-        <section class="arcat-post-list-section">
-            <h3 class="arcat-post-list-subtitle-no-more">
+        <section class="community-post-list-section">
+            <h3 class="community-post-list-subtitle-no-more">
                 その他の記事
             </h3>
-        <div class="arcat-post-list">
+        <div class="community-post-list">
             {{#foreach posts}}
-                <article class="arcat-post-item">
+                <article class="community-post-item">
                     <a href="{{url}}">
                         {{#if feature_image}}
-                            <img class="arcat-post-item-image" src="{{feature_image}}" alt="{{title}}">
+                            <img class="community-post-item-image" src="{{feature_image}}" alt="{{title}}">
                         {{else}}
-                            <img class="arcat-post-item-image" src="{{asset "images/default_post_feature.png"}}" alt="{{title}}">
+                            <img class="community-post-item-image" src="{{asset "images/default_post_feature.png"}}" alt="{{title}}">
                         {{/if}}
-                        <div class="arcat-post-title">
+                        <div class="community-post-title">
                             <h4>{{title}}</h4>
-                            <div class="arcat-post-meta">
+                            <div class="community-post-meta">
                                 <time datetime="{{date format="YYYY-MM-DD"}}">
                                     {{date format="YYYY/MM/DD"}}
                                 </time>
@@ -84,8 +84,8 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const toggleButton = document.querySelector('.arcat-post-commment-icon');
-    const commentsDiv = document.querySelector('.arcat-post-comments');
+    const toggleButton = document.querySelector('.community-post-commment-icon');
+    const commentsDiv = document.querySelector('.community-post-comments');
     if (toggleButton && commentsDiv) {
         toggleButton.addEventListener('click', function() {
             // トグル処理：非表示の場合は表示、表示中の場合は非表示にする

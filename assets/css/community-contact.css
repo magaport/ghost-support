@@ -1,17 +1,17 @@
 /* 全体のコンテナ */
-.arcat-contact-main {
+.community-contact-main {
   width: 100%;
   margin: 0 auto;
   padding: 24px 16px 40px;
   flex-grow: 1;
 }
 
-.arcat-contact-explain {
+.community-contact-explain {
   color: #000;
   font-size: 14px;
   font-weight: 500;
 }
-.arcat-contact-note {
+.community-contact-note {
   color: #999;
   font-size: 14px;
   margin-bottom: 20px;

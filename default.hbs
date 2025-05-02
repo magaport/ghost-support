@@ -49,11 +49,14 @@
 </head>
 <body class="{{body_class}}">
 
-<div class="arcat-viewport">
+<div class="community-viewport">
     {{> "components/header"}}
     {{> "components/fixed-navigation"}}
     {{{body}}}
     {{> "components/footer"}}
+</div>
+<div class="community-bg-wrapper">
+    <img class="community-bg-image" src="{{asset "images/community-bg.svg"}}" alt="" />
 </div>
 
 {{!-- Scripts - handle responsive videos, infinite scroll, and navigation dropdowns --}}

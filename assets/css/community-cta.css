@@ -1,10 +1,10 @@
-.arcat-cta {
+.community-cta {
     padding-top: 10px;
     position: relative;
     margin-top: 0;
 }
 
-.arcat-cta-gradation {
+.community-cta-gradation {
     position: absolute;
     bottom: 190px;
     height: 800px;
@@ -13,7 +13,7 @@
     pointer-events: none;
 }
 
-.arcat-cta-content {
+.community-cta-content {
     position: relative;
     background-color: #fff;
     display: flex;
@@ -24,18 +24,18 @@
     padding: 20px 10px;
 }
 
-.arcat-cta-content h2 {
+.community-cta-content h2 {
     font-size: 24px !important;
     font-weight: 700;
     color: #000;
 }
 
-.arcat-cta-btn {
+.community-cta-btn {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 8px 40px;
-    background-color: #FDEC01;
+    background-color: #D1FF19;
     text-decoration: none !important;;
     color: #000 !important;
     font-size: 16px;
@@ -43,11 +43,11 @@
     border-radius: 8px;
 }
 
-.arcat-cta-note {
+.community-cta-note {
     color: #999 !important;
     font-size: 16px !important;
 }
 
-.arcat-cta-note a {
+.community-cta-note a {
     color: #000 !important;
 }

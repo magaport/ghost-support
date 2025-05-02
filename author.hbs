@@ -1,60 +1,60 @@
 {{!< default}}
-<main class="arcat-author-main">
+<main class="community-author-main">
     {{#author}}
-        <section class="arcat-author-profile">
+        <section class="community-author-profile">
             {{#if cover_image}}
                 <img
-                    class="arcat-author-cover"
+                    class="community-author-cover"
                     src="{{img_url cover_image size="l"}}"
                     alt="{{name}}"
                 >
             {{else}}
-                <img class="arcat-author-cover" src="{{asset "images/default_author_feature.png"}}" alt="{{name}}">
+                <img class="community-author-cover" src="{{asset "images/default_author_feature.png"}}" alt="{{name}}">
             {{/if}}
             {{#if profile_image}}
-                <img class="arcat-author-profile-image" src="{{img_url profile_image size="s"}}" alt="{{name}}">
+                <img class="community-author-profile-image" src="{{img_url profile_image size="s"}}" alt="{{name}}">
             {{else}}
-                <div class="arcat-author-profile-image">
+                <div class="community-author-profile-image">
                     {{> "icons/avatar"}}
                 </div>
 
             {{/if}}
-            <div class="arcat-author-details">
-                <h1 class="arcat-author-name">
+            <div class="community-author-details">
+                <h1 class="community-author-name">
                     {{name}}
                 </h1>
                 {{#if location}}
-                    <p class="arcat-author-location">{{location}}</p>
+                    <p class="community-author-location">{{location}}</p>
                 {{/if}}
             </div>
         </section>
-        <h2 class="arcat-post-list-title">
+        <h2 class="community-post-list-title">
             {{> "icons/cat-footprint"}}
-            <ul class="arcat-post-list-tabs">
-                <li class="arcat-tab active" data-tab="all">All</li>
-                <li class="arcat-tab" data-tab="free">Free</li>
-                <li class="arcat-tab" data-tab="vip">VIP</li>
+            <ul class="community-post-list-tabs">
+                <li class="community-tab active" data-tab="all">All</li>
+                <li class="community-tab" data-tab="free">Free</li>
+                <li class="community-tab" data-tab="vip">VIP</li>
             </ul>
         </h2>
         {{!-- All posts --}}
         {{#get "posts" include="authors" filter="authors:{{slug}}"  order="published_at desc" as |postsAll|}}
             {{#if postsAll}}
-                <section id="posts-all" class="arcat-post-list-section">
-                    <h3 class="arcat-post-list-subtitle-no-more">
+                <section id="posts-all" class="community-post-list-section">
+                    <h3 class="community-post-list-subtitle-no-more">
                         最新記事
                     </h3>
-                    <div class="arcat-post-list">
+                    <div class="community-post-list">
                         {{#foreach postsAll}}
-                            <article class="arcat-post-item">
+                            <article class="community-post-item">
                                 <a href="{{url}}">
                                     {{#if feature_image}}
-                                        <img class="arcat-post-item-image" src="{{feature_image}}" alt="{{title}}">
+                                        <img class="community-post-item-image" src="{{feature_image}}" alt="{{title}}">
                                     {{else}}
-                                        <img class="arcat-post-item-image" src="{{asset "images/default_post_feature.png"}}" alt="{{title}}">
+                                        <img class="community-post-item-image" src="{{asset "images/default_post_feature.png"}}" alt="{{title}}">
                                     {{/if}}
-                                    <div class="arcat-post-title">
+                                    <div class="community-post-title">
                                         <h4>{{title}}</h4>
-                                        <div class="arcat-post-meta">
+                                        <div class="community-post-meta">
                                             <time datetime="{{date format="YYYY-MM-DD"}}">
                                                 {{date format="YYYY/MM/DD"}}
                                             </time>
@@ -74,23 +74,23 @@
         {{!-- Free posts --}}
         {{#get "posts" include="authors" filter="authors:{{slug}}" order="published_at desc" as |postsFree|}}
             {{#if postsFree}}
-                <section id="posts-free" class="arcat-post-list-section" style="display: none;">
-                    <h3 class="arcat-post-list-subtitle-no-more">
+                <section id="posts-free" class="community-post-list-section" style="display: none;">
+                    <h3 class="community-post-list-subtitle-no-more">
                         最新記事
                     </h3>
-                    <div class="arcat-post-list">
+                    <div class="community-post-list">
                         {{#foreach postsFree visibility='all'}}
                             {{#has visibility="public"}}
-                                <article class="arcat-post-item">
+                                <article class="community-post-item">
                                     <a href="{{url}}">
                                         {{#if feature_image}}
-                                            <img class="arcat-post-item-image" src="{{feature_image}}" alt="{{title}}">
+                                            <img class="community-post-item-image" src="{{feature_image}}" alt="{{title}}">
                                         {{else}}
-                                            <img class="arcat-post-item-image" src="{{asset "images/default_post_feature.png"}}" alt="{{title}}">
+                                            <img class="community-post-item-image" src="{{asset "images/default_post_feature.png"}}" alt="{{title}}">
                                         {{/if}}
-                                        <div class="arcat-post-title">
+                                        <div class="community-post-title">
                                             <h4>{{title}}</h4>
-                                            <div class="arcat-post-meta">
+                                            <div class="community-post-meta">
                                                 <time datetime="{{date format="YYYY-MM-DD"}}">
                                                     {{date format="YYYY/MM/DD"}}
                                                 </time>
@@ -111,23 +111,23 @@
         {{!-- VIP posts --}}
         {{#get "posts" include="authors" filter="authors:{{slug}}" order="published_at desc" as |postsVIP|}}
             {{#if postsVIP}}
-                <section id="posts-vip" class="arcat-post-list-section" style="display: none;">
-                    <h3 class="arcat-post-list-subtitle-no-more">
+                <section id="posts-vip" class="community-post-list-section" style="display: none;">
+                    <h3 class="community-post-list-subtitle-no-more">
                         最新記事
                     </h3>
-                    <div class="arcat-post-list">
+                    <div class="community-post-list">
                         {{#foreach postsVIP visibility='all'}}
                             {{#has visibility="paid"}}
-                                <article class="arcat-post-item">
+                                <article class="community-post-item">
                                     <a href="{{url}}">
                                         {{#if feature_image}}
-                                            <img class="arcat-post-item-image" src="{{feature_image}}" alt="{{title}}">
+                                            <img class="community-post-item-image" src="{{feature_image}}" alt="{{title}}">
                                         {{else}}
-                                            <img class="arcat-post-item-image" src="{{asset "images/default_post_feature.png"}}" alt="{{title}}">
+                                            <img class="community-post-item-image" src="{{asset "images/default_post_feature.png"}}" alt="{{title}}">
                                         {{/if}}
-                                        <div class="arcat-post-title">
+                                        <div class="community-post-title">
                                             <h4>{{title}}</h4>
-                                            <div class="arcat-post-meta">
+                                            <div class="community-post-meta">
                                                 <time datetime="{{date format="YYYY-MM-DD"}}">
                                                     {{date format="YYYY/MM/DD"}}
                                                 </time>
@@ -150,7 +150,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function(){
-        const tabs = document.querySelectorAll('.arcat-tab');
+        const tabs = document.querySelectorAll('.community-tab');
         const sections = {
             all: document.getElementById('posts-all'),
             free: document.getElementById('posts-free'),

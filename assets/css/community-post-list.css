@@ -1,12 +1,12 @@
 /* Arcat PostList Styles */
 /* トップページ全体の幅を最大390pxに制限 */
-.arcat-post-list-section {
+.community-post-list-section {
     width: 100%;
     margin: 0 auto;
     padding: 24px 16px 40px;
 }
 
-.arcat-post-list-title {
+.community-post-list-title {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -18,27 +18,27 @@
     margin-bottom: 16px;
 }
 
-.arcat-post-list-title svg {
+.community-post-list-title svg {
     width: 28px;
     height: 24px;
 }
 
-.arcat-post-list-title span {
+.community-post-list-title span {
     text-align: center;
 }
 
-.arcat-post-list-subtitle {
+.community-post-list-subtitle {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.arcat-post-list-subtitle h3 {
+.community-post-list-subtitle h3 {
     font-size: 18px;
     font-weight: 700;
     color: #000;
 }
 
-.arcat-post-list-more {
+.community-post-list-more {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -50,7 +50,7 @@
     font-size: 14px;
 }
 
-.arcat-post-list-more span::after {
+.community-post-list-more span::after {
     content: '→';
     color: #999;
     margin-left: 4px;
@@ -58,24 +58,24 @@
     font-size: 14px;
 }
 
-.arcat-post-list-subtitle-no-more {
+.community-post-list-subtitle-no-more {
     font-size: 18px;
     font-weight: 700;
     color: #000;
 }
 
-.arcat-post-list {
+.community-post-list {
     margin-top: 16px;
 }
 
-.arcat-post-item {
+.community-post-item {
     border-top: 1px solid #ddd;
     padding-top: 16px;
     padding-bottom: 16px;
     overflow: hidden;
 }
 
-.arcat-post-item a {
+.community-post-item a {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -83,7 +83,7 @@
     gap: 16px;
 }
 
-.arcat-post-item a::after {
+.community-post-item a::after {
     content: '>';
     color: #000;
     text-align: right;
@@ -92,13 +92,13 @@
     margin-left: 16px;
 }
 
-.arcat-post-item-image {
+.community-post-item-image {
     width: 80px;
     height: 80px;
     object-fit: cover;
 }
 
-.arcat-post-title {
+.community-post-title {
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -106,12 +106,12 @@
     width: 100%;
 }
 
-.arcat-post-title h4 {
+.community-post-title h4 {
     font-size: 14px;
     font-weight: 700;
 }
 
-.arcat-post-meta {
+.community-post-meta {
     font-size: 14px;
     color: #666;
     display: flex;

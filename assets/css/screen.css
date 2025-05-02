@@ -47,19 +47,19 @@ production stylesheet in assets/built/screen.css
 
 */
 
-@import 'arcat-header.css';
-@import 'arcat-footer.css';
-@import 'arcat-home.css';
-@import 'arcat-post-list.css';
-@import 'arcat-post.css';
-@import 'arcat-author.css';
+@import 'community-header.css';
+@import 'community-footer.css';
+@import 'community-home.css';
+@import 'community-post-list.css';
+@import 'community-post.css';
+@import 'community-author.css';
 @import 'feature-image.css';
-@import 'arcat-gallery.css';
-@import 'arcat-cta.css';
-@import 'arcat-error.css';
-@import 'arcat-fixed-navigation.css';
-@import 'arcat-contact.css';
-@import 'arcat-pagination.css';
+@import 'community-gallery.css';
+@import 'community-cta.css';
+@import 'community-error.css';
+@import 'community-fixed-navigation.css';
+@import 'community-contact.css';
+@import 'community-pagination.css';
 
 /* 1. Variables
 /* ---------------------------------------------------------- */
@@ -151,11 +151,6 @@ body {
     font-size: 1.6rem;
     background-color: #F8F6F2;
     color: var(--color-primary-text);
-    background-image: url("../images/arcat-bg.png");
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: auto 90%;
 }
 
 
@@ -383,7 +378,7 @@ body[class*=" gh-font-heading"]:not(.gh-font-heading-fira-sans):not(.gh-font-hea
 /* 5. Layout
 /* ---------------------------------------------------------- */
 
-.arcat-viewport {
+.community-viewport {
     position: relative;
     display: flex;
     flex-direction: column;

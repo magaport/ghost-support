@@ -1,7 +1,7 @@
-.arcat-article-image {
+.community-article-image {
     grid-column: wide;
 }
 
-.arcat-article-image img {
+.community-article-image img {
     width: 100%;
 }
