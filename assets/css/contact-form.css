@@ -1,0 +1,123 @@
+/** Variables **/
+
+.form-main {
+    width: 100%;
+    max-width: 600px;
+    margin-inline: auto;
+    padding: 32px;
+}
+
+:root {
+    --color-border-active: #da7105;
+    --color-border-default: #d1d1d1;
+    --color-text-default: #262626;
+    --color-text-muted: #4f4f4f;
+}
+
+.fs-form {
+    display: grid;
+    row-gap: 2.4rem;
+}
+
+.fs-form:where(.fs-layout__2-column) {
+    column-gap: 2.4rem;
+    grid-template-columns: 1fr 1fr;
+}
+
+.fs-field {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.8rem;
+}
+
+.fs-label {
+    color: var(--color-text-default);
+    display: block;
+    font-size: 1.6rem;
+    line-height: 2rem;
+}
+
+.fs-button-wrapper {
+    justify-self: flex-end;
+}
+
+.fs-button {
+    /* Layout */
+    display: grid;
+    place-content: center;
+
+    /* Size */
+    padding: 10px var(--space-xl);
+    height: 42px;
+
+    /* Typography */
+    font: var(--text-regular-medium);
+    letter-spacing: var(--letter-spacing-wide-xs);
+    color: var(--color-text-primary);
+    text-align: center;
+    white-space: nowrap;
+
+    /* Background & Border */
+    background: var(--color-bg-gray);
+    border: 3px solid transparent;
+    border-radius: 100px;
+
+    /* Effects */
+    cursor: pointer;
+    transition: opacity 0.1s ease;
+
+    /* Reset browser defaults */
+    appearance: none;
+    text-decoration: none;
+
+    &:not(:disabled):hover {
+        opacity: 0.8;
+    }
+}
+
+.fs-input {
+    appearance: none;
+    border-radius: var(--radius-xs);
+    border-width: 0;
+    box-shadow: var(--color-border-default) 0 0 0 1px inset;
+    color: var(--color-text-default);
+    font-size: 1.6rem;
+    height: 3rem;
+    line-height: 1.5rem;
+    outline: none;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.fs-input:focus-visible {
+    box-shadow: var(--color-border-active) 0 0 0 1px inset;
+}
+
+.fs-input::placeholder {
+    color: var(--color-text-muted);
+}
+
+.fs-textarea {
+    appearance: none;
+    border-radius: var(--radius-xs);
+    border-width: 0;
+    box-shadow: var(--color-border-default) 0 0 0 1px inset;
+    color: var(--color-text-default);
+    font-size: 1.6rem;
+    line-height: 1.5rem;
+    outline: none;
+    padding: 0.8rem 1.2rem;
+    resize: vertical;
+}
+
+.fs-textarea:focus-visible {
+    box-shadow: var(--color-border-active) 0 0 0 1px inset;
+}
+
+.fs-textarea::placeholder {
+    color: var(--color-text-muted);
+}
+
+.fs-textarea::placeholder {
+    color: var(--color-text-muted);
+}

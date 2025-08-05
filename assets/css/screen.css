@@ -70,6 +70,7 @@ production stylesheet in assets/built/screen.css
 @import "magazine.css";
 @import "content-cta.css";
 @import "post-likes.css";
+@import "contact-form.css";
 /* 1. Variables
 /* ---------------------------------------------------------- */
 

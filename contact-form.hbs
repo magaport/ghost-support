@@ -1,0 +1,44 @@
+{{!< default}}
+<main class="form-main gh-main">
+    <form
+      action="https://formspree.io/f/xvgqwkkj"
+      class="fs-form"
+      target="_top"
+      enctype="multipart/form-data"
+      method="POST"
+    >
+      <div class="fs-field">
+        <label class="fs-label" for="name">氏名（ニックネーム）</label>
+        <input class="fs-input" id="name" name="name" required />
+      </div>
+      <div class="fs-field">
+        <label class="fs-label" for="email">メールアドレス</label>
+        <input class="fs-input" id="email" name="email" type="email" required />
+      </div>
+      <div class="fs-field">
+        <label class="fs-label" for="message">問い合わせ件名</label>
+        <input class="fs-input" id="subject" name="subject" required maxlength="48" />
+      </div>
+      <div class="fs-field">
+        <label class="fs-label" for="message">問い合わせ内容</label>
+        <textarea
+          class="fs-textarea"
+          id="message"
+          name="message"
+          maxlength="400"
+          rows="3"
+          required
+        ></textarea>
+      </div>
+        <div class="fs-field">
+            <label class="fs-label" for="attachment">ファイル添付（任意）</label>
+            <input type="file" name="attachment">
+        </div>
+        <input type="hidden" name="user_id" value="{{@member.uuid}}" />
+        <input type="hidden" name="user_status" value="{{#if @member.paid}}paid{{else}}free{{/if}}" />
+      <div class="fs-button-wrapper">
+        <button class="fs-button" type="submit">送信</button>
+      </div>
+    </form>
+</main>
+
