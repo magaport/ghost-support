@@ -18,12 +18,21 @@
         }
 
         const mainElement = document.querySelector('.post-main');
-        const tag = mainElement?.getAttribute('data-filter-tag');
         const currentPostId = mainElement?.getAttribute('data-post-id');
+        const tag = mainElement?.getAttribute('data-filter-tag');
+
+        fetchRecommendArticles(currentPostId, tag);
+
+        // 有料会員のみページビューを記録
+        if (window.currentMember?.paid) {
+            await recordPageView(currentPostId);
+        }
+    }
+
+    function fetchRecommendArticles(currentPostId, tag) {
         if (!tag || !currentPostId) {
             return;
         }
-
 
         const cardContainerSelector = '.articles-section-card';
         const {handleLoadMoreButton} = useFetchPosts(cardContainerSelector, {
@@ -35,10 +44,5 @@
         }, 'featured');
 
         handleLoadMoreButton();
-
-        // 有料会員のみページビューを記録
-        if (window.currentMember?.paid) {
-            await recordPageView(currentPostId);
-        }
     }
 })();
