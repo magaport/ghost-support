@@ -1,0 +1,132 @@
+{{!-- Sidebar Component --}}
+<div id="sidebar1" class="sidebar m-all t-1of3 d-2of7 last-col cf" role="complementary">
+    <aside>
+        <div class="insidesp">
+            <div id="notfix">
+
+                {{> "widgets/magazines" id="categories-dropdown-7"}}
+                {{> "widgets/popular-posts"}}
+
+                {{!-- Widget: Advertisement --}}
+                <div id="ad-widget" class="widget widget_block">
+                    <div class="wp-widget-group__inner-blocks">
+                        <div id="ad-container" class="ad-content">
+                            {{!-- Ad code placeholder (300x600) --}}
+                            <div class="ad-placeholder ad-placeholder-300x600">
+                                <div class="ad-placeholder-content">
+                                    <p>広告スペース</p>
+                                    <p class="ad-size">300x600</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{> "widgets/subscription-banner"}}
+
+                {{!-- Widget: Calendar --}}
+                <div id="calendar-widget" class="widget widget_block">
+                    <h4 class="widgettitle dfont">発売カレンダー</h4>
+                    <div class="wp-widget-group__inner-blocks">
+                        <div id="calendar-datepicker">
+                            <div id="datepicker"></div>
+                        </div>
+                    </div>
+                </div>
+
+                {{!-- Widget: Square Ad (200x200) --}}
+                <div id="square-ad-widget" class="widget widget_block">
+                    <div class="wp-widget-group__inner-blocks">
+                        <div id="square-ad-container" class="ad-content">
+                            {{!-- Ad code placeholder (200x200) --}}
+                            <div class="ad-placeholder ad-placeholder-200x200">
+                                <div class="ad-placeholder-content">
+                                    <p>広告スペース</p>
+                                    <p class="ad-size">200x200</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{!-- Fixed Sidebar Area --}}
+            <div id="fixed_sidebar" class="">
+                {{!-- Additional fixed widgets can be added here --}}
+            </div>
+        </div>
+    </aside>
+
+    {{!-- Bottom Ad (300x250) - Outside Sidebar --}}
+    <div id="bottom-ad-widget" class="widget widget_block">
+        <div class="wp-widget-group__inner-blocks">
+            <div id="bottom-ad-container" class="ad-content">
+                {{!-- Ad code placeholder (300x250) --}}
+                <div class="ad-placeholder ad-placeholder-300x250">
+                    <div class="ad-placeholder-content">
+                        <p>広告スペース</p>
+                        <p class="ad-size">300x250</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{!-- Calendar Script --}}
+<script>
+// Datepicker Japanese locale - Vanilla JavaScript implementation
+(function() {
+    // jQuery UI Datepicker Japanese locale configuration
+    if (typeof jQuery !== 'undefined' && jQuery.datepicker) {
+        jQuery.datepicker.regional.ja = {
+            closeText: "閉じる",
+            prevText: "&#x3C;前",
+            nextText: "次&#x3E;",
+            currentText: "今日",
+            monthNames: [ "1月","2月","3月","4月","5月","6月",
+            "7月","8月","9月","10月","11月","12月" ],
+            monthNamesShort: [ "1月","2月","3月","4月","5月","6月",
+            "7月","8月","9月","10月","11月","12月" ],
+            dayNames: [ "日曜日","月曜日","火曜日","水曜日","木曜日","金曜日","土曜日" ],
+            dayNamesShort: [ "日","月","火","水","木","金","土" ],
+            dayNamesMin: [ "日","月","火","水","木","金","土" ],
+            weekHeader: "週",
+            dateFormat: "yy/mm/dd",
+            firstDay: 0,
+            isRTL: false,
+            showMonthAfterYear: true,
+            yearSuffix: "年"
+        };
+        jQuery.datepicker.setDefaults(jQuery.datepicker.regional.ja);
+    }
+
+    // Initialize datepicker when DOM is ready
+    function initDatepicker() {
+        const YEAR_PADDING = 4;
+        const MONTH_DAY_PADDING = 2;
+        const MONTH_OFFSET = 1;
+
+        const datepickerElement = document.querySelector('#calendar-datepicker #datepicker');
+
+        if (datepickerElement && typeof jQuery !== 'undefined' && jQuery.datepicker) {
+            jQuery(datepickerElement).datepicker({
+                onSelect: function(date, obj) {
+                    const year = ('0'.repeat(YEAR_PADDING) + obj.selectedYear).slice(-YEAR_PADDING);
+                    const month = ('0'.repeat(MONTH_DAY_PADDING) + (obj.selectedMonth + MONTH_OFFSET)).slice(-MONTH_DAY_PADDING);
+                    const day = ('0'.repeat(MONTH_DAY_PADDING) + obj.selectedDay).slice(-MONTH_DAY_PADDING);
+                    const calendarUrl = '/calendar' + year + month + '/#day_' + month + '_' + day;
+                    window.location.href = calendarUrl;
+                }
+            });
+        }
+    }
+
+    // Check if DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initDatepicker);
+    } else {
+        initDatepicker();
+    }
+})();
+</script>

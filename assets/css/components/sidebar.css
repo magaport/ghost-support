@@ -1,0 +1,348 @@
+/* Sidebar Component
+/* ---------------------------------------------------------- */
+
+/* Sidebar Aside */
+.sidebar aside {
+    background: #FFF;
+    box-shadow: 1px 1px 2px #CCC;
+    box-sizing: border-box;
+    padding: 5px;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 300px;
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+.sidebar aside {
+    display: block;
+}
+
+.insidesp {
+    display: block;
+}
+
+/* Single post and page layout adjustments */
+.single .insidesp,
+.page .insidesp {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 2%;
+}
+
+#notfix {
+    display: block;
+}
+
+/* Widget Base Styles */
+.widget {
+    margin-bottom: 15px;
+    padding: 0;
+    background: #fff;
+    box-sizing: border-box;
+}
+
+.widgettitle {
+    color: #FFFFFF !important;
+    background-color: #57585A !important;
+    background-position: 5px 2px;
+    background-repeat: no-repeat;
+    background-size: 8px;
+    border-bottom: 1px solid #57585A;
+    border-left: 3px solid #7F0019;
+    font-size: 14px;
+    padding: 5px 0 5px 10px;
+    margin: 0 0 0 0;
+    font-weight: 700;
+}
+
+.widget > *:not(.widgettitle) {
+    padding: 8px 0;
+}
+
+.widget .wp-widget-group__inner-blocks {
+    padding: 8px 0;
+}
+
+.widgettitle.dfont {
+    font-family: inherit;
+}
+
+.screen-reader-text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Widget title icons */
+.sidebar .widgettitle:before {
+    padding-right: 4px;
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+}
+
+/* Categories Widget */
+.sidebar .widget_categories .widgettitle:before {
+    content: "\f0ca";
+}
+
+.widget_categories select.postform,
+.sidebar .postform {
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #CCC;
+    border-radius: 4px;
+    background-image: url(/assets/images/dropdown-arrow.png);
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: 97.5% center;
+    outline: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.widget_categories select.postform:focus,
+.sidebar .postform:focus {
+    outline: 0;
+    border-color: #CCC;
+}
+
+.widget_categories select.postform option,
+.sidebar .postform option {
+    padding: 5px;
+}
+
+/* Popular Posts Widget */
+.popular-posts {
+    display: block;
+}
+
+.popular-posts .wpp-list {
+    padding: 8px 0;
+}
+
+.wpp-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+}
+
+.wpp-list li {
+    display: block;
+    margin: 0 2px 2px 2px;
+}
+
+.wpp-list li a {
+    display: block;
+    line-height: 0;
+}
+
+.wpp-list img.wpp-thumbnail {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 4px;
+    transition: opacity 0.2s ease;
+    aspect-ratio: 1;
+    object-fit: cover;
+}
+
+.wpp-list .wpp-thumbnail-placeholder {
+    width: 100%;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #DFE6E9;
+    border-radius: 4px;
+    transition: opacity 0.2s ease;
+}
+
+.wpp-list .wpp-thumbnail-placeholder .wpp-rank {
+    color: #333;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.wpp-list li a:hover img.wpp-thumbnail,
+.wpp-list li a:hover .wpp-thumbnail-placeholder {
+    opacity: 0.8;
+}
+
+/* Subscription Banner Widget */
+.info_banner {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.info_banner li {
+    display: block;
+    text-align: center;
+}
+
+.info_banner a {
+    display: block;
+    padding-top: 10px;
+}
+
+.info_banner img {
+    width: 100%;
+    height: auto;
+    max-width: 276px;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Calendar Widget */
+#calendar-datepicker {
+    display: block;
+    width: 100%;
+}
+
+/* Advertisement Widget */
+.ad-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.ad-content > div {
+    max-width: 100%;
+}
+
+/* Ad Placeholder Styles */
+.ad-placeholder {
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #999;
+}
+
+.ad-placeholder-300x600 {
+    width: 300px;
+    height: 600px;
+}
+
+.ad-placeholder-200x200 {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+}
+
+.ad-placeholder-300x250 {
+    width: 300px;
+    height: 250px;
+}
+
+.ad-placeholder-content p {
+    margin: 0;
+}
+
+.ad-placeholder-content .ad-size {
+    margin-top: 5px;
+    font-size: 12px;
+}
+
+#bottom-ad-widget {
+    margin-top: 15px;
+}
+
+#datepicker {
+    width: 100%;
+}
+
+/* jQuery UI Datepicker Customization */
+.ui-datepicker {
+    width: 100% !important;
+    border: none !important;
+}
+
+.ui-datepicker .ui-datepicker-title {
+    margin: 0 2.3em;
+    line-height: 1.8em;
+    text-align: center;
+}
+
+.ui-datepicker .ui-datepicker-header {
+    background: #dbdeaf;
+    border: none;
+}
+
+.ui-datepicker-calendar {
+    width: 100%;
+}
+
+.ui-datepicker-calendar td,
+.ui-datepicker-calendar th {
+    border: none !important;
+}
+
+.ui-datepicker-calendar td a {
+    background: #dbdeaf !important;
+    border: none !important;
+}
+
+.ui-datepicker-calendar td.ui-datepicker-today a {
+    background: #fbf9ee !important;
+    border: 1px solid #fcefa1 !important;
+    color: #363636 !important;
+}
+
+/* Fixed Sidebar */
+#fixed_sidebar {
+    position: sticky;
+    top: 20px;
+    margin-top: 30px;
+}
+
+/* Responsive Styles */
+@media only screen and (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        margin-top: 30px;
+    }
+
+    .widget {
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .widgettitle {
+        font-size: 1.2rem;
+    }
+
+    .wpp-list {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+
+    #fixed_sidebar {
+        position: relative;
+        top: auto;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .wpp-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

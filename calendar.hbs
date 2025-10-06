@@ -1,10 +1,15 @@
 {{!< default}}
 {{!-- Template for /calendar page - showing upcoming release calendar --}}
 
-{{> "components/search-box"}}
+{{> "components/search-form"}}
 
 {{> "components/breadcrumb"}}
 
-{{> "components/content-menu" active="calendar"}}
+<div class="gh-content-wrapper">
+    <main class="gh-main-content">
+        {{> "components/content-menu" active="calendar"}}
 
-{{> "components/post-list" feed="page" postFeedStyle=@custom.post_feed_style showTitle=false showSidebar=@custom.show_publication_info_sidebar}}
+        {{> "components/post-list" feed="page" postFeedStyle=@custom.post_feed_style showTitle=false showSidebar=@custom.show_publication_info_sidebar}}
+    </main>
+    {{> "sidebar"}}
+</div>
