@@ -13,7 +13,21 @@
     <main class="gh-main-content">
         {{> "components/content-menu" active="home"}}
 
-        {{> "components/post-list" feed="home" postFeedStyle=@custom.post_feed_style showTitle=true showSidebar=@custom.show_publication_info_sidebar}}
+        <div class="post-grid">
+            {{#get "posts" include="authors,tags" limit="24"}}
+                {{#foreach posts}}
+                    {{> "post-card"}}
+                {{/foreach}}
+            {{/get}}
+        </div>
+
+        <div class="text-center">
+            <p>
+                <a href="/page/2/" class="btn raised red-bc strong center">もっと見る</a>
+            </p>
+        </div>
+
+        {{> "components/content-menu" active="home"}}
     </main>
 
     {{> "sidebar"}}
