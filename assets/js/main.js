@@ -72,3 +72,27 @@
         }
     });
 })();
+
+/* Show updated date only if different from published date */
+(function () {
+    const updatedTime = document.querySelector('.entry-header .updated');
+    if (!updatedTime) return;
+
+    const publishedDate = updatedTime.getAttribute('data-published');
+    const updatedDate = updatedTime.getAttribute('data-updated');
+
+    if (publishedDate !== updatedDate) {
+        updatedTime.classList.add('show');
+    }
+})();
+
+/* Set background image from data attribute */
+(function () {
+    const bgImageElement = document.querySelector('.fab__contents_img[data-bg-image]');
+    if (!bgImageElement) return;
+
+    const imageUrl = bgImageElement.getAttribute('data-bg-image');
+    if (imageUrl) {
+        bgImageElement.style.backgroundImage = `url(${imageUrl})`;
+    }
+})();
