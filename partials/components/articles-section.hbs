@@ -2,7 +2,7 @@
     <div class="articles-section-header">
         <span class="articles-section-label">{{enTitle}}</span>
         <h2 class="articles-section-title">{{jaTitle}}</h2>
-        <p class="articles-section-description">{{description}}</p>
+        <p class="articles-section-description">{{@site.title}}{{description}}</p>
     </div>
     <div class="articles-section-card" {{#if articlesSectionId}}id="{{articlesSectionId}}"{{/if}}>
       {{#foreach posts}}

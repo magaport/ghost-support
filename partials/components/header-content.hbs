@@ -1,4 +1,3 @@
-{{!-- Magaco Header Component --}}
 <header class="header">
     <div class="header-container">
         {{!-- Logo Section --}}
@@ -28,7 +27,7 @@
                     {{#if @member}}
                     <a class="header-fullscreen-nav-link" href="/post-likes">お気に入り</a>
                     {{/if}}
-                    <a class="header-fullscreen-nav-link" href="/about">Magacoについて</a>
+                    <a class="header-fullscreen-nav-link" href="/about">{{@site.title}}について</a>
                 </div>
             </div>
         </div>
@@ -55,7 +54,7 @@
             </ul>
 
             <div class="header-nav-desktop">
-                <a class="header-nav-desktop-link" href="/about">Magacoについて</a>
+                <a class="header-nav-desktop-link" href="/about">{{@site.title}}について</a>
                 <a class="header-nav-desktop-link" href="/search-results">新着記事</a>
                 {{#if @member}}
                 <a class="header-nav-desktop-link" href="/post-likes">お気に入り</a>
