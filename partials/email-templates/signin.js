@@ -4,18 +4,23 @@
  * - パスワードレスログイン時のマジックリンクメール
  *
  */
+const siteTitleSub = '（カバード）';
 
-const contactUrl = 'https://www.fujisan.co.jp/Support/CSMail.asp';
-
-module.exports = ({ t, url, siteTitle, siteUrl }) => `
+module.exports = ({t, url, siteTitle, siteUrl}) => `
 <!doctype html>
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>${t('{siteTitle} へのログインリンクのお知らせ', { siteTitle, interpolation: { escapeValue: false } })}</title>
+    <title>${t('{siteTitle} へのログインリンクのお知らせ', {
+        siteTitle: siteTitle + siteTitleSub,
+        interpolation: {escapeValue: false}
+    })}</title>
   </head>
   <body>
-    <p>${t('{siteTitle} へのログインリクエストを受け付けました。', { siteTitle, interpolation: { escapeValue: false } })}</p>
+    <p>${t('{siteTitle} へのログインリクエストを受け付けました。', {
+        siteTitle: siteTitle + siteTitleSub,
+        interpolation: {escapeValue: false}
+    })}</p>
 
     <p>以下のリンクをクリックしてログインしてください。</p>
 
@@ -27,17 +32,17 @@ module.exports = ({ t, url, siteTitle, siteUrl }) => `
 
     <hr>
 
-    <p>${t('{siteTitle} 運営事務局', { siteTitle, interpolation: { escapeValue: false } })}<br>
+    <p>${t('{siteTitle} 運営事務局', {
+        siteTitle: siteTitle + siteTitleSub,
+        interpolation: {escapeValue: false}
+    })}<br>
     <a href="${siteUrl}">${siteUrl}</a></p>
 
     <p>
       ※ このメールはシステムにより自動送信されています。ご返信いただいても対応できませんのでご了承ください。<br>
       ※ このメールにお心当たりがない場合は、第三者が誤ってあなたのメールアドレスを入力した可能性があります。<br>
-      お手数ですが本メールを破棄していただきますようお願いいたします。<br>
-      ※ ご不明な点がございましたら、以下のお問い合わせフォームよりご連絡ください。<br>
-      <a href="${contactUrl}">${contactUrl}</a>
+      お手数ですが本メールを破棄していただきますようお願いいたします。
     </p>
   </body>
 </html>
 `;
-
