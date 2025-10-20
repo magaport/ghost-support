@@ -262,11 +262,11 @@ def extract_posts_from_xml(xml_file):
 
         # Author - Set all required author fields (author_id, created_by, updated_by, published_by)
         creator_match = re.search(r'<dc:creator><!\[CDATA\[(.*?)\]\]></dc:creator>', item)
-        author_wp_id = 1  # Default to owner (ID: 1) if author not found
+        author_wp_id = '1'  # Default to owner (ID: '1') if author not found
         if creator_match:
             author_login = creator_match.group(1)
             if author_login in authors_dict:
-                author_wp_id = int(authors_dict[author_login]['wp_id'])
+                author_wp_id = str(authors_dict[author_login]['wp_id'])
 
         post['author_id'] = author_wp_id
         post['created_by'] = author_wp_id
@@ -577,9 +577,9 @@ def create_tag_pages(tags: list) -> list:
             'canonical_url': None,
             'newsletter_id': None,
             'show_title_and_feature_image': 1,
-            'created_by': 1,
-            'updated_by': 1,
-            'published_by': 1
+            'created_by': '1',
+            'updated_by': '1',
+            'published_by': '1'
         }
 
         pages.append(page)
@@ -644,9 +644,9 @@ def create_category_pages(categories: list) -> list:
             'canonical_url': None,
             'newsletter_id': None,
             'show_title_and_feature_image': 1,
-            'created_by': 1,
-            'updated_by': 1,
-            'published_by': 1
+            'created_by': '1',
+            'updated_by': '1',
+            'published_by': '1'
         }
 
         pages.append(page)
@@ -833,12 +833,12 @@ def create_ghost_json_from_sample_xml(xml_file):
     posts_authors = []
     for post in all_posts + category_pages + tag_pages:
         post_id = post['id']
-        author_id = post.get('author_id', 1)  # Default to owner if not set
+        author_id = post.get('author_id', '1')  # Default to owner if not set
 
         posts_authors.append({
             'id': generate_object_id(),
             'post_id': post_id,
-            'author_id': author_id,
+            'author_id': str(author_id),  # Ensure it's string
             'sort_order': 0  # Primary author
         })
 
@@ -867,9 +867,20 @@ def create_ghost_json_from_sample_xml(xml_file):
 
     # Create users list
     users = []
+
+    # Add Owner (ID: 1) as the first user - required by Ghost
+    # This ensures that posts/pages with author_id: 1 can be properly imported
+    users.append({
+        'id': '1',
+        'slug': 'owner',
+        'name': 'Owner',
+        'email': 'owner@furoku.life'
+    })
+
+    # Add WordPress authors
     for author_info in all_authors_dict.values():
         users.append({
-            'id': int(author_info['wp_id']),  # Ensure ID is integer
+            'id': str(author_info['wp_id']),  # Convert to string
             'slug': author_info['slug'],
             'name': author_info['name'],
             'email': author_info['email']
