@@ -829,6 +829,19 @@ def create_ghost_json_from_sample_xml(xml_file):
         # Remove temporary field
         del post['_tags']
 
+    # Build posts_authors relationships (required for Ghost to properly link authors)
+    posts_authors = []
+    for post in all_posts + category_pages + tag_pages:
+        post_id = post['id']
+        author_id = post.get('author_id', 1)  # Default to owner if not set
+
+        posts_authors.append({
+            'id': generate_object_id(),
+            'post_id': post_id,
+            'author_id': author_id,
+            'sort_order': 0  # Primary author
+        })
+
     # Build posts_meta for SEO fields
     posts_meta = []
     for post in all_posts + category_pages + tag_pages:
@@ -875,6 +888,7 @@ def create_ghost_json_from_sample_xml(xml_file):
                 "posts": all_posts_and_pages,
                 "tags": tags_list,
                 "posts_tags": posts_tags,
+                "posts_authors": posts_authors,
                 "posts_meta": posts_meta,
                 "users": users
             }
@@ -927,6 +941,7 @@ def main():
     print(f"Total posts+pages: {len(data['posts'])}")
     print(f"Tags: {len(data['tags'])}")
     print(f"Posts-Tags relationships: {len(data['posts_tags'])}")
+    print(f"Posts-Authors relationships: {len(data['posts_authors'])}")
     print(f"Posts-Meta (SEO): {len(data['posts_meta'])}")
     print(f"Users: {len(data['users'])}")
 
