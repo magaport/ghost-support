@@ -830,16 +830,15 @@ def create_ghost_json_from_sample_xml(xml_file):
         del post['_tags']
 
     # Build posts_authors relationships (required for Ghost to properly link authors)
+    # According to Ghost docs, only post_id and author_id are required
     posts_authors = []
     for post in all_posts + category_pages + tag_pages:
         post_id = post['id']
         author_id = post.get('author_id', '1')  # Default to owner if not set
 
         posts_authors.append({
-            'id': generate_object_id(),
             'post_id': post_id,
-            'author_id': str(author_id),  # Ensure it's string
-            'sort_order': 0  # Primary author
+            'author_id': str(author_id)  # Ensure it's string
         })
 
     # Build posts_meta for SEO fields
@@ -874,7 +873,8 @@ def create_ghost_json_from_sample_xml(xml_file):
         'id': '1',
         'slug': 'owner',
         'name': 'Owner',
-        'email': 'owner@furoku.life'
+        'email': 'owner@furoku.life',
+        'roles': ['Administrator']  # Owner role will be converted to Administrator by Ghost
     })
 
     # Add WordPress authors
@@ -883,7 +883,8 @@ def create_ghost_json_from_sample_xml(xml_file):
             'id': str(author_info['wp_id']),  # Convert to string
             'slug': author_info['slug'],
             'name': author_info['name'],
-            'email': author_info['email']
+            'email': author_info['email'],
+            'roles': ['Author']  # Default role for WordPress authors
         })
 
     # Combine posts, category pages, and tag pages
@@ -893,7 +894,7 @@ def create_ghost_json_from_sample_xml(xml_file):
         "db": [{
             "meta": {
                 "exported_on": int(datetime.now().timestamp() * 1000),
-                "version": "5.96.0"
+                "version": "6.0.6"
             },
             "data": {
                 "posts": all_posts_and_pages,
