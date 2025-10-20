@@ -267,6 +267,67 @@ def extract_posts_from_xml(xml_file):
             if author_login in authors_dict:
                 post['author_id'] = authors_dict[author_login]['wp_id']
 
+        # Extract custom post meta fields
+        post_meta = {}
+
+        # Amazon ASIN code
+        asin_match = re.search(
+            r'<wp:meta_key><!\[CDATA\[asin\]\]></wp:meta_key>\s*<wp:meta_value><!\[CDATA\[(.*?)\]\]></wp:meta_value>',
+            item,
+            re.DOTALL
+        )
+        if asin_match and asin_match.group(1):
+            post_meta['amazon_code'] = asin_match.group(1)
+
+        # Published date (release date)
+        published_date_match = re.search(
+            r'<wp:meta_key><!\[CDATA\[published-date\]\]></wp:meta_key>\s*<wp:meta_value><!\[CDATA\[(.*?)\]\]></wp:meta_value>',
+            item,
+            re.DOTALL
+        )
+        if published_date_match and published_date_match.group(1):
+            post_meta['release_date'] = published_date_match.group(1)
+
+        # Magazine title
+        furoku_title_match = re.search(
+            r'<wp:meta_key><!\[CDATA\[title\]\]></wp:meta_key>\s*<wp:meta_value><!\[CDATA\[(.*?)\]\]></wp:meta_value>',
+            item,
+            re.DOTALL
+        )
+        if furoku_title_match and furoku_title_match.group(1):
+            post_meta['furoku_title'] = furoku_title_match.group(1)
+
+        # Lead text (furoku description)
+        lead_text_match = re.search(
+            r'<wp:meta_key><!\[CDATA\[lead-text\]\]></wp:meta_key>\s*<wp:meta_value><!\[CDATA\[(.*?)\]\]></wp:meta_value>',
+            item,
+            re.DOTALL
+        )
+        if lead_text_match and lead_text_match.group(1):
+            post_meta['furoku_lead_text'] = lead_text_match.group(1)
+
+        # SEO Title
+        seo_title_match = re.search(
+            r'<wp:meta_key><!\[CDATA\[sng_title\]\]></wp:meta_key>\s*<wp:meta_value><!\[CDATA\[(.*?)\]\]></wp:meta_value>',
+            item,
+            re.DOTALL
+        )
+        if seo_title_match and seo_title_match.group(1):
+            post['meta_title'] = seo_title_match.group(1)
+
+        # SEO Meta Description
+        seo_desc_match = re.search(
+            r'<wp:meta_key><!\[CDATA\[sng_meta_description\]\]></wp:meta_key>\s*<wp:meta_value><!\[CDATA\[(.*?)\]\]></wp:meta_value>',
+            item,
+            re.DOTALL
+        )
+        if seo_desc_match and seo_desc_match.group(1):
+            post['meta_description'] = seo_desc_match.group(1)
+
+        # Set custom_excerpt with post meta if any
+        if post_meta:
+            post['custom_excerpt'] = json.dumps(post_meta, ensure_ascii=False)
+
         # Extract tags and categories
         post_tags = re.findall(r'<category domain="post_tag" nicename="([^"]+)"><!\[CDATA\[([^\]]+)\]\]></category>', item)
         categories = re.findall(r'<category domain="category" nicename="([^"]+)"><!\[CDATA\[([^\]]+)\]\]></category>', item)
@@ -282,7 +343,8 @@ def extract_posts_from_xml(xml_file):
             tags_set.add((slug, name))
             post['_tags'].append(slug)
 
-        print(f"    Post {wp_post_id}: {post['title'][:50]}... ({len(post_tags)} tags, {len(categories)} categories)")
+        meta_info = f" [meta: {len(post_meta)} fields]" if post_meta else ""
+        print(f"    Post {wp_post_id}: {post['title'][:50]}... ({len(post_tags)} tags, {len(categories)} categories){meta_info}")
 
         posts.append(post)
 
@@ -761,6 +823,29 @@ def create_ghost_json_from_sample_xml(xml_file):
         # Remove temporary field
         del post['_tags']
 
+    # Build posts_meta for SEO fields
+    posts_meta = []
+    for post in all_posts + category_pages + tag_pages:
+        post_id = post['id']
+
+        # Add meta_title if present
+        if 'meta_title' in post and post['meta_title']:
+            posts_meta.append({
+                'post_id': post_id,
+                'meta_title': post['meta_title']
+            })
+            # Remove from post dict as it should be in posts_meta
+            del post['meta_title']
+
+        # Add meta_description if present
+        if 'meta_description' in post and post['meta_description']:
+            posts_meta.append({
+                'post_id': post_id,
+                'meta_description': post['meta_description']
+            })
+            # Remove from post dict as it should be in posts_meta
+            del post['meta_description']
+
     # Create users list
     users = []
     for author_info in all_authors_dict.values():
@@ -784,6 +869,7 @@ def create_ghost_json_from_sample_xml(xml_file):
                 "posts": all_posts_and_pages,
                 "tags": tags_list,
                 "posts_tags": posts_tags,
+                "posts_meta": posts_meta,
                 "users": users
             }
         }]
@@ -835,7 +921,12 @@ def main():
     print(f"Total posts+pages: {len(data['posts'])}")
     print(f"Tags: {len(data['tags'])}")
     print(f"Posts-Tags relationships: {len(data['posts_tags'])}")
+    print(f"Posts-Meta (SEO): {len(data['posts_meta'])}")
     print(f"Users: {len(data['users'])}")
+
+    # Count posts with custom_excerpt (meta fields)
+    posts_with_excerpt = sum(1 for post in posts_only if post.get('custom_excerpt'))
+    print(f"Posts with custom metadata: {posts_with_excerpt}")
 
     # Feature image stats (posts only)
     posts_with_images = sum(1 for post in posts_only if 'feature_image' in post and post['feature_image'])
@@ -886,6 +977,9 @@ def main():
     print(f"  4. 親カテゴリータグを追加（{parent_tag_count}件）")
     print(f"  5. カテゴリーページを生成（{category_pages_count}件、product_id付き: {pages_with_product_id}件）")
     print(f"  6. タグページを生成（{tag_pages_count}件、description付き: {tags_with_descriptions}件）")
+    print(f"  7. 投稿のカスタムメタデータを抽出（{posts_with_excerpt}件の投稿）")
+    print(f"     - amazon_code, release_date, furoku_title, furoku_lead_text")
+    print(f"  8. SEOメタデータを抽出（meta_title, meta_description）")
     print()
     print("="*80)
 
