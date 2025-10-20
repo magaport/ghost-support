@@ -260,12 +260,18 @@ def extract_posts_from_xml(xml_file):
         post['type'] = 'post'
         post['visibility'] = 'public'
 
-        # Author
+        # Author - Set all required author fields (author_id, created_by, updated_by, published_by)
         creator_match = re.search(r'<dc:creator><!\[CDATA\[(.*?)\]\]></dc:creator>', item)
+        author_wp_id = 1  # Default to owner (ID: 1) if author not found
         if creator_match:
             author_login = creator_match.group(1)
             if author_login in authors_dict:
-                post['author_id'] = authors_dict[author_login]['wp_id']
+                author_wp_id = int(authors_dict[author_login]['wp_id'])
+
+        post['author_id'] = author_wp_id
+        post['created_by'] = author_wp_id
+        post['updated_by'] = author_wp_id
+        post['published_by'] = author_wp_id
 
         # Extract custom post meta fields
         post_meta = {}
@@ -850,7 +856,7 @@ def create_ghost_json_from_sample_xml(xml_file):
     users = []
     for author_info in all_authors_dict.values():
         users.append({
-            'id': author_info['wp_id'],
+            'id': int(author_info['wp_id']),  # Ensure ID is integer
             'slug': author_info['slug'],
             'name': author_info['name'],
             'email': author_info['email']
