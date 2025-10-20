@@ -401,6 +401,35 @@ def text_to_lexical_json(text: str) -> str:
     }
     return json.dumps(lexical_obj, ensure_ascii=False)
 
+def extract_tags_from_xml(xml_content: str) -> list:
+    """Extract tag definitions from WordPress XML"""
+    tags = []
+
+    # Find all wp:tag blocks
+    tag_pattern = r'<wp:tag>(.*?)</wp:tag>'
+    tag_blocks = re.findall(tag_pattern, xml_content, re.DOTALL)
+
+    for block in tag_blocks:
+        term_id_match = re.search(r'<wp:term_id>(\d+)</wp:term_id>', block)
+        slug_match = re.search(r'<wp:tag_slug><!\[CDATA\[(.*?)\]\]>', block)
+        name_match = re.search(r'<wp:tag_name><!\[CDATA\[(.*?)\]\]>', block)
+        desc_match = re.search(r'<wp:tag_description><!\[CDATA\[(.*?)\]\]>', block, re.DOTALL)
+
+        if slug_match and name_match:
+            # URL decode slug
+            import urllib.parse
+            decoded_slug = urllib.parse.unquote(slug_match.group(1))
+
+            tag_data = {
+                'term_id': term_id_match.group(1) if term_id_match else None,
+                'slug': decoded_slug,
+                'name': name_match.group(1),
+                'description': desc_match.group(1) if desc_match else ''
+            }
+            tags.append(tag_data)
+
+    return tags
+
 def extract_categories_from_xml(xml_content: str) -> list:
     """Extract category definitions from WordPress XML"""
     categories = []
@@ -410,20 +439,84 @@ def extract_categories_from_xml(xml_content: str) -> list:
     cat_blocks = re.findall(cat_pattern, xml_content, re.DOTALL)
 
     for block in cat_blocks:
+        term_id_match = re.search(r'<wp:term_id>(\d+)</wp:term_id>', block)
         slug_match = re.search(r'<wp:category_nicename><!\[CDATA\[(.*?)\]\]>', block)
         name_match = re.search(r'<wp:cat_name><!\[CDATA\[(.*?)\]\]>', block)
         parent_match = re.search(r'<wp:category_parent><!\[CDATA\[(.*?)\]\]>', block)
         desc_match = re.search(r'<wp:category_description><!\[CDATA\[(.*?)\]\]>', block, re.DOTALL)
 
+        # Extract productid from termmeta
+        productid_match = re.search(
+            r'<wp:meta_key><!\[CDATA\[productid\]\]></wp:meta_key>\s*<wp:meta_value><!\[CDATA\[(\d+)\]\]></wp:meta_value>',
+            block,
+            re.DOTALL
+        )
+
         if slug_match and name_match:
-            categories.append({
+            cat_data = {
+                'term_id': term_id_match.group(1) if term_id_match else None,
                 'slug': slug_match.group(1),
                 'name': name_match.group(1),
                 'parent': parent_match.group(1) if parent_match else '',
-                'description': desc_match.group(1) if desc_match else ''
-            })
+                'description': desc_match.group(1) if desc_match else '',
+                'product_id': productid_match.group(1) if productid_match and productid_match.group(1) != '0' else None
+            }
+            categories.append(cat_data)
 
     return categories
+
+def create_tag_pages(tags: list) -> list:
+    """Create Ghost pages for all WordPress tags"""
+    pages = []
+
+    for tag in tags:
+        page_id = generate_object_id()
+        page_uuid = generate_uuid()
+        page_slug = f"tag-{tag['slug']}"
+
+        # Use description if available, otherwise empty
+        description = tag.get('description', '')
+
+        # Convert description to HTML (simple paragraph wrap)
+        html = f"<p>{description}</p>" if description else ""
+        plaintext = description
+        lexical = text_to_lexical_json(description)
+
+        page = {
+            'id': page_id,
+            'uuid': page_uuid,
+            'title': tag['name'],
+            'slug': page_slug,
+            'mobiledoc': None,
+            'lexical': lexical,
+            'html': html,
+            'comment_id': page_id,
+            'plaintext': plaintext,
+            'feature_image': None,
+            'featured': 0,
+            'type': 'page',
+            'status': 'published',
+            'locale': None,
+            'visibility': 'public',
+            'email_recipient_filter': 'none',
+            'created_at': int(datetime.now().timestamp() * 1000),
+            'updated_at': int(datetime.now().timestamp() * 1000),
+            'published_at': int(datetime.now().timestamp() * 1000),
+            'custom_excerpt': None,
+            'codeinjection_head': None,
+            'codeinjection_foot': None,
+            'custom_template': None,
+            'canonical_url': None,
+            'newsletter_id': None,
+            'show_title_and_feature_image': 1,
+            'created_by': 1,
+            'updated_by': 1,
+            'published_by': 1
+        }
+
+        pages.append(page)
+
+    return pages
 
 def create_category_page_slug(category_slug: str, parent_slug: str = '') -> str:
     """Generate Ghost page slug for a category"""
@@ -446,6 +539,16 @@ def create_category_pages(categories: list) -> list:
         plaintext = cat['description']
         lexical = text_to_lexical_json(cat['description'])
 
+        # Set custom_excerpt with product_id if available
+        custom_excerpt = None
+        if cat.get('product_id'):
+            custom_excerpt = json.dumps({'product_id': cat['product_id']}, ensure_ascii=False)
+
+        # Set feature_image URL if product_id is available
+        feature_image = None
+        if cat.get('product_id'):
+            feature_image = f"https://img.fujisan.co.jp/images/products/{cat['product_id']}_p.jpg"
+
         page = {
             'id': page_id,
             'uuid': page_uuid,
@@ -456,7 +559,7 @@ def create_category_pages(categories: list) -> list:
             'html': html,
             'comment_id': page_id,
             'plaintext': plaintext,
-            'feature_image': None,
+            'feature_image': feature_image,
             'featured': 0,
             'type': 'page',
             'status': 'published',
@@ -466,7 +569,7 @@ def create_category_pages(categories: list) -> list:
             'created_at': int(datetime.now().timestamp() * 1000),
             'updated_at': int(datetime.now().timestamp() * 1000),
             'published_at': int(datetime.now().timestamp() * 1000),
-            'custom_excerpt': None,
+            'custom_excerpt': custom_excerpt,
             'codeinjection_head': None,
             'codeinjection_foot': None,
             'custom_template': None,
@@ -538,11 +641,18 @@ def create_ghost_json_from_sample_xml(xml_file):
     category_pages = create_category_pages(categories)
     print(f"  Created {len(category_pages)} category pages")
     for page in category_pages:
-        print(f"    - {page['title']} (slug: {page['slug']})")
+        product_info = f" (product_id: {json.loads(page['custom_excerpt'])['product_id']})" if page.get('custom_excerpt') else ""
+        print(f"    - {page['title']} (slug: {page['slug']}){product_info}")
 
-    # Create tags list with Ghost IDs
+    # Extract tags from XML to get descriptions
+    print(f"\n  Extracting tags from XML...")
+    tags_from_xml = extract_tags_from_xml(xml_content)
+    tags_from_xml_dict = {tag['slug']: tag for tag in tags_from_xml}
+
+    # Create tags list with Ghost IDs and collect all unique tags
     tags_list = []
     tag_slug_to_id = {}
+    all_tag_data = {}  # slug -> {name, description}
 
     # Add parent category tags first (with dynamically generated IDs)
     for parent_slug in sorted(parent_slugs_used):
@@ -558,6 +668,10 @@ def create_ghost_json_from_sample_xml(xml_file):
             tag_data['description'] = parent_tag.get('description', '')
             tags_list.append(tag_data)
             tag_slug_to_id[parent_slug] = tag_id
+            all_tag_data[parent_slug] = {
+                'name': parent_tag['name'],
+                'description': parent_tag.get('description', '')
+            }
             print(f"    Added parent tag: {parent_slug} ({parent_tag['name']}) [ID: {tag_id}]")
 
     # Add regular tags
@@ -573,6 +687,67 @@ def create_ghost_json_from_sample_xml(xml_file):
             'name': name
         })
         tag_slug_to_id[slug] = tag_id
+
+        # Store tag data with description from XML if available
+        description = tags_from_xml_dict.get(slug, {}).get('description', '')
+        all_tag_data[slug] = {
+            'name': name,
+            'description': description
+        }
+
+    # Create pages for all tags
+    print(f"\n  Creating tag pages...")
+    tag_pages = []
+    for slug, tag_info in all_tag_data.items():
+        page_id = generate_object_id()
+        page_uuid = generate_uuid()
+        page_slug = f"tag-{slug}"
+
+        description = tag_info.get('description', '')
+        html = f"<p>{description}</p>" if description else ""
+        plaintext = description
+        lexical = text_to_lexical_json(description)
+
+        page = {
+            'id': page_id,
+            'uuid': page_uuid,
+            'title': tag_info['name'],
+            'slug': page_slug,
+            'mobiledoc': None,
+            'lexical': lexical,
+            'html': html,
+            'comment_id': page_id,
+            'plaintext': plaintext,
+            'feature_image': None,
+            'featured': 0,
+            'type': 'page',
+            'status': 'published',
+            'locale': None,
+            'visibility': 'public',
+            'email_recipient_filter': 'none',
+            'created_at': int(datetime.now().timestamp() * 1000),
+            'updated_at': int(datetime.now().timestamp() * 1000),
+            'published_at': int(datetime.now().timestamp() * 1000),
+            'custom_excerpt': None,
+            'codeinjection_head': None,
+            'codeinjection_foot': None,
+            'custom_template': None,
+            'canonical_url': None,
+            'newsletter_id': None,
+            'show_title_and_feature_image': 1,
+            'created_by': 1,
+            'updated_by': 1,
+            'published_by': 1
+        }
+        tag_pages.append(page)
+
+    tags_with_desc = sum(1 for p in tag_pages if p['plaintext'])
+    print(f"  Created {len(tag_pages)} tag pages (description付き: {tags_with_desc}件)")
+    for page in tag_pages[:5]:  # Show first 5 as sample
+        desc_preview = page['plaintext'][:30] + "..." if len(page['plaintext']) > 30 else (page['plaintext'] or "(説明なし)")
+        print(f"    - {page['title']} (slug: {page['slug']}) - {desc_preview}")
+    if len(tag_pages) > 5:
+        print(f"    ... and {len(tag_pages) - 5} more tag pages")
 
     # Build posts_tags relationships
     posts_tags = []
@@ -596,8 +771,8 @@ def create_ghost_json_from_sample_xml(xml_file):
             'email': author_info['email']
         })
 
-    # Combine posts and category pages
-    all_posts_and_pages = all_posts + category_pages
+    # Combine posts, category pages, and tag pages
+    all_posts_and_pages = all_posts + category_pages + tag_pages
 
     ghost_json = {
         "db": [{
@@ -622,7 +797,7 @@ def main():
     print("="*80)
     print()
 
-    xml_file = Path(__file__).parent.parent / 'xml' / 'WordPress-sample-5posts.xml'
+    xml_file = Path(__file__).parent / 'sampleData' / 'WordPress-sample-5posts.xml'
 
     if not xml_file.exists():
         print(f"ERROR: {xml_file} not found")
@@ -631,7 +806,10 @@ def main():
     ghost_json = create_ghost_json_from_sample_xml(xml_file)
 
     # Save to file
-    output_file = Path(__file__).parent.parent / 'xml' / 'ghost_import_sample_5posts.json'
+    output_dir = Path(__file__).parent / 'output'
+    output_dir.mkdir(exist_ok=True)
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    output_file = output_dir / f'ghost_import_sample_5posts_{timestamp}.json'
     print()
     print(f"Writing to {output_file}...")
     with open(output_file, 'w', encoding='utf-8') as f:
@@ -644,12 +822,16 @@ def main():
     posts_only = [p for p in data['posts'] if p.get('type') == 'post']
     pages_only = [p for p in data['posts'] if p.get('type') == 'page']
 
+    # Count category pages and tag pages
+    category_pages_count = sum(1 for p in pages_only if p['slug'].startswith('category-'))
+    tag_pages_count = sum(1 for p in pages_only if p['slug'].startswith('tag-'))
+
     print()
     print("="*80)
     print(f"✓ Ghost JSON created: {output_file}")
     print("="*80)
     print(f"Posts: {len(posts_only)}")
-    print(f"Pages (category pages): {len(pages_only)}")
+    print(f"Pages: {len(pages_only)} (category: {category_pages_count}, tag: {tag_pages_count})")
     print(f"Total posts+pages: {len(data['posts'])}")
     print(f"Tags: {len(data['tags'])}")
     print(f"Posts-Tags relationships: {len(data['posts_tags'])}")
@@ -688,15 +870,22 @@ def main():
     # Count parent tags (check if description key exists, not if it's truthy)
     parent_tag_count = sum(1 for tag in data['tags'] if 'description' in tag)
 
+    # Count pages with product_id
+    pages_with_product_id = sum(1 for p in pages_only if p.get('custom_excerpt'))
+
     print()
     print("="*80)
     print("適用された修正:")
     print("="*80)
+    # Count tag pages with descriptions
+    tags_with_descriptions = sum(1 for p in pages_only if p['slug'].startswith('tag-') and p.get('plaintext'))
+
     print("  1. 投稿のslugを修正（-postid サフィックスの削除、180文字制限）")
     print("  2. opening値から内部タグを追加（#発売予告, #開封レビュー, #その他）")
     print("  3. 重複slugのチェックと修正")
     print(f"  4. 親カテゴリータグを追加（{parent_tag_count}件）")
-    print(f"  5. カテゴリーページを生成（{len(pages_only)}件）")
+    print(f"  5. カテゴリーページを生成（{category_pages_count}件、product_id付き: {pages_with_product_id}件）")
+    print(f"  6. タグページを生成（{tag_pages_count}件、description付き: {tags_with_descriptions}件）")
     print()
     print("="*80)
 
