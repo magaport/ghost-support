@@ -137,17 +137,28 @@ function renderPaginationNumbers() {
         return;
     }
 
+    // 既存のページ番号をクリア
+    pageNumbersList.innerHTML = '';
+
     const buildPageUrl = function (pageNum) {
+        let baseUrl;
+
         if (pageNum === 1) {
-            return firstUrl;
+            baseUrl = firstUrl;
+        } else if (secondUrl) {
+            baseUrl = secondUrl.replace(/2(\/)?$/, `${pageNum}$1`);
+        } else {
+            const normalized = firstUrl.endsWith('/') ? firstUrl : `${firstUrl}/`;
+            baseUrl = `${normalized}page/${pageNum}/`;
         }
 
-        if (secondUrl) {
-            return secondUrl.replace(/2(\/)?$/, `${pageNum}$1`);
+        // 現在のクエリパラメータを保持
+        const currentParams = new URLSearchParams(window.location.search);
+        if (currentParams.toString()) {
+            return `${baseUrl}?${currentParams.toString()}`;
         }
 
-        const normalized = firstUrl.endsWith('/') ? firstUrl : `${firstUrl}/`;
-        return `${normalized}page/${pageNum}/`;
+        return baseUrl;
     };
 
     // 前へボタン

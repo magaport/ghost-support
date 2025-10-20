@@ -13,21 +13,29 @@
     <main class="gh-main-content">
         {{> "components/content-menu" active="home"}}
 
-        <div class="post-grid">
-            {{#get "posts" include="authors,tags" limit="24"}}
-                {{#foreach posts}}
-                    {{> "post-card"}}
-                {{/foreach}}
-            {{/get}}
+        <div class="search_results__header"></div>
+
+        <div class="post-grid" id="search-results-container">
         </div>
 
-        <div class="text-center">
+        <div class="load-more-wrap text-center">
             <p>
                 <a href="/page/2/" class="btn raised red-bc strong center">もっと見る</a>
             </p>
         </div>
 
-        {{> "components/content-menu" active="home"}}
+        <div class="search-pagination-wrap" style="display: none;">
+            <nav
+                class="pagination dfont"
+                role="navigation"
+                data-current-page="1"
+                data-total-pages="1"
+                data-first-url="/"
+                data-second-url="/page/2/"
+            >
+                <ul class="page-numbers"></ul>
+            </nav>
+        </div>
     </main>
 
     {{> "sidebar"}}

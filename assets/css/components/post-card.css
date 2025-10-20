@@ -5,6 +5,10 @@
     margin: 0;
 }
 
+.post-grid:has(.notfound) {
+    grid-template-columns: 1fr;
+}
+
 .post-card {
     background: #fff;
     overflow: hidden;
