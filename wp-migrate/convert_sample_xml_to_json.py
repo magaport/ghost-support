@@ -622,7 +622,7 @@ def main():
     print("="*80)
     print()
 
-    xml_file = Path(__file__).parent.parent / 'xml' / 'WordPress-sample-5posts.xml'
+    xml_file = Path(__file__).parent / 'sampleData' / 'WordPress-sample-5posts.xml'
 
     if not xml_file.exists():
         print(f"ERROR: {xml_file} not found")
@@ -631,7 +631,9 @@ def main():
     ghost_json = create_ghost_json_from_sample_xml(xml_file)
 
     # Save to file
-    output_file = Path(__file__).parent.parent / 'xml' / 'ghost_import_sample_5posts.json'
+    output_dir = Path(__file__).parent / 'output'
+    output_dir.mkdir(exist_ok=True)
+    output_file = output_dir / 'ghost_import_sample_5posts.json'
     print()
     print(f"Writing to {output_file}...")
     with open(output_file, 'w', encoding='utf-8') as f:
