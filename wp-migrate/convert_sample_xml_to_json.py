@@ -340,13 +340,14 @@ def extract_posts_from_xml(xml_file):
         if seo_desc_match and seo_desc_match.group(1):
             post['meta_description'] = seo_desc_match.group(1)
 
-        # Set custom_excerpt with WordPress post ID for SQL mapping
-        # This allows us to fix posts_authors after import
-        post['custom_excerpt'] = f'wp_post_id:{wp_post_id}'
-
-        # Store post meta separately if needed
+        # Set custom_excerpt with WordPress post ID AND post meta
+        # This allows us to:
+        # 1. Fix posts_authors after import (using wp_post_id)
+        # 2. Store custom metadata (amazon_code, release_date, etc.)
+        excerpt_data = {'wp_post_id': wp_post_id}
         if post_meta:
-            post['_post_meta_temp'] = post_meta  # Temporary field for later use
+            excerpt_data.update(post_meta)
+        post['custom_excerpt'] = json.dumps(excerpt_data, ensure_ascii=False)
 
         # Extract tags and categories
         post_tags = re.findall(r'<category domain="post_tag" nicename="([^"]+)"><!\[CDATA\[([^\]]+)\]\]></category>', item)
@@ -700,6 +701,7 @@ def generate_fix_authors_sql(post_author_mapping: dict, authors_dict: dict, outp
     sql_lines.extend([
         "",
         "-- Update posts_authors table using custom_excerpt as the key",
+        "-- custom_excerpt contains JSON with wp_post_id field",
         "UPDATE posts_authors pa",
         "INNER JOIN posts p ON pa.post_id = p.id",
         "INNER JOIN (",
@@ -710,28 +712,30 @@ def generate_fix_authors_sql(post_author_mapping: dict, authors_dict: dict, outp
     for wp_post_id, author_login in sorted(post_author_mapping.items(), key=lambda x: int(x[0])):
         author_info = authors_dict.get(author_login, {'slug': 'owner'})
         author_slug = author_info['slug']
-        wp_key = f'wp_post_id:{wp_post_id}'
-        union_statements.append(f"    SELECT '{wp_key}' as wp_key, '{author_slug}' as author_slug")
+        union_statements.append(f"    SELECT '{wp_post_id}' as wp_post_id, '{author_slug}' as author_slug")
 
     sql_lines.append("\n    UNION ALL\n".join(union_statements))
 
     sql_lines.extend([
-        ") AS wp_mapping ON p.custom_excerpt = wp_mapping.wp_key",
+        ") AS wp_mapping ON JSON_UNQUOTE(JSON_EXTRACT(p.custom_excerpt, '$.wp_post_id')) = wp_mapping.wp_post_id",
         "INNER JOIN users u ON u.slug = wp_mapping.author_slug",
         "SET pa.author_id = u.id",
-        "WHERE pa.author_id != u.id;",
+        "WHERE pa.author_id != u.id",
+        "  AND p.custom_excerpt IS NOT NULL",
+        "  AND JSON_EXTRACT(p.custom_excerpt, '$.wp_post_id') IS NOT NULL;",
         "",
         "-- Verification query (optional - run this to check the results):",
         "-- SELECT ",
-        "--   p.custom_excerpt,",
+        "--   JSON_UNQUOTE(JSON_EXTRACT(p.custom_excerpt, '$.wp_post_id')) as wp_post_id,",
         "--   p.title,",
         "--   u.name as author_name,",
-        "--   u.email as author_email",
+        "--   u.email as author_email,",
+        "--   p.custom_excerpt",
         "-- FROM posts p",
         "-- INNER JOIN posts_authors pa ON p.id = pa.post_id",
         "-- INNER JOIN users u ON pa.author_id = u.id",
-        "-- WHERE p.custom_excerpt LIKE 'wp_post_id:%'",
-        "-- ORDER BY p.custom_excerpt;",
+        "-- WHERE JSON_EXTRACT(p.custom_excerpt, '$.wp_post_id') IS NOT NULL",
+        "-- ORDER BY CAST(JSON_UNQUOTE(JSON_EXTRACT(p.custom_excerpt, '$.wp_post_id')) AS UNSIGNED);",
     ])
 
     # Write to file

@@ -112,20 +112,22 @@ mysql -u root ghost_development < /Users/soichiro/workspace/magaport/Unleash/mai
 
 ```sql
 SELECT
-  p.custom_excerpt,
+  JSON_UNQUOTE(JSON_EXTRACT(p.custom_excerpt, '$.wp_post_id')) as wp_post_id,
   p.title,
   u.name as author_name,
-  u.email as author_email
+  u.email as author_email,
+  p.custom_excerpt
 FROM posts p
 INNER JOIN posts_authors pa ON p.id = pa.post_id
 INNER JOIN users u ON pa.author_id = u.id
-WHERE p.custom_excerpt LIKE 'wp_post_id:%'
-ORDER BY p.custom_excerpt;
+WHERE JSON_EXTRACT(p.custom_excerpt, '$.wp_post_id') IS NOT NULL
+ORDER BY CAST(JSON_UNQUOTE(JSON_EXTRACT(p.custom_excerpt, '$.wp_post_id')) AS UNSIGNED);
 ```
 
 **期待される結果**:
 - 各投稿の `author_name` が WordPress の著者名と一致している
-- `custom_excerpt` に `wp_post_id:XXX` の形式で WordPress の投稿IDが記録されている
+- `custom_excerpt` にJSON形式で `wp_post_id` と他のメタデータが記録されている
+  - 例: `{"wp_post_id": "123", "amazon_code": "B089J21FQ9", "release_date": "2020-06-22"}`
 
 ### 3.4 Ghost管理画面で確認
 
@@ -224,24 +226,47 @@ WHERE pa.author_id != u.id;
 
 ## custom_excerpt フィールドについて
 
-`custom_excerpt` フィールドには WordPress の投稿IDが `wp_post_id:XXX` の形式で保存されます。
+`custom_excerpt` フィールドにはJSON形式で以下の情報が保存されます：
+
+- `wp_post_id`: WordPress の投稿ID（著者マッピングに使用）
+- `amazon_code`: Amazon ASIN コード
+- `release_date`: 発売日
+- `furoku_title`: 付録タイトル
+- `furoku_lead_text`: 付録説明文
+
+### 例
+
+```json
+{
+  "wp_post_id": "54054",
+  "amazon_code": "B089J21FQ9",
+  "release_date": "2020-06-22",
+  "furoku_title": "VOCE（ヴォーチェ）2020年8月号",
+  "furoku_lead_text": "透明美肌スペシャルBOX（SABON新作スキンケア3点＆アクセーヌ4点セット）"
+}
+```
 
 ### なぜ custom_excerpt を使うのか？
 
 1. **一意性**: 投稿タイトルは重複する可能性がありますが、WordPress投稿IDは一意です
 2. **永続性**: Ghostインポート後もフィールドが保持されます
-3. **SQL照合の容易さ**: シンプルな文字列マッチングでWordPress投稿を特定できます
+3. **SQL照合の容易さ**: JSONパスでWordPress投稿IDを抽出して照合できます
+4. **メタデータの保存**: WordPressのカスタムフィールド情報をそのまま保持できます
 
 ### インポート後にcustom_excerptをクリアする必要はありますか？
 
-**不要です**。`custom_excerpt` は Ghost の標準フィールドで、サイト上では表示されません（テーマで明示的に使用しない限り）。
+**不要です**。`custom_excerpt` は Ghost の標準フィールドで、以下の用途で活用できます：
 
-もし将来的にクリアしたい場合は、以下のSQLを実行します：
+1. **著者マッピングの追跡**: 再インポート時に `wp_post_id` で照合可能
+2. **カスタムフィールドの利用**: テーマで `amazon_code` などを読み取って表示可能
+3. **データ移行の検証**: WordPress とのデータ整合性確認に使用
+
+もし将来的にクリアしたい場合は、以下のSQLを実行します（**非推奨**）：
 
 ```sql
 UPDATE posts
 SET custom_excerpt = NULL
-WHERE custom_excerpt LIKE 'wp_post_id:%';
+WHERE JSON_EXTRACT(custom_excerpt, '$.wp_post_id') IS NOT NULL;
 ```
 
 ## 再インポートする場合
