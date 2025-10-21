@@ -1,77 +1,126 @@
 /**
- * Onsale page - Filter onsale detail pages
+ * Onsale page - Load all onsale pages using Ghost Content API
  */
 (function() {
     'use strict';
 
-    function filterOnsaleListPage() {
+    async function loadOnsaleListPage() {
         // onsale一覧ページにいるかチェック
         if (window.location.pathname !== '/onsale/') {
             return;
         }
 
+        // Wait for fetchAllPages to be available
+        if (typeof window.fetchAllPages !== 'function') {
+            console.error('fetchAllPages function not found');
+            return;
+        }
+
+        const allPages = await window.fetchAllPages();
+
+        // Filter onsale pages
+        const onsalePages = allPages.filter(function(page) {
+            return page.slug && page.slug.match(/^onsale\d{6}$/);
+        });
+
+        console.log('Onsale pages found:', onsalePages.length);
+
         // 最新3件セクション
-        const recentItems = document.querySelectorAll('.onsale-recent');
-        let recentCount = 0;
+        const recentContainer = document.querySelector('#recent_sale p');
+        if (recentContainer) {
+            recentContainer.innerHTML = '';
+            onsalePages.slice(0, 3).forEach(function(page, index) {
+                const span = document.createElement('span');
+                span.className = 'calendar-item onsale-recent';
+                span.setAttribute('data-slug', page.slug);
+                span.setAttribute('data-index', index);
 
-        recentItems.forEach(function(item) {
-            const slug = item.getAttribute('data-slug');
-            // onsaleYYYYMMフォーマットかチェック
-            if (slug && slug.match(/^onsale\d{6}$/)) {
-                if (recentCount < 3) {
-                    // 最初の3件を表示
-                    recentCount++;
-                } else {
-                    // 4件目以降は非表示
-                    item.style.display = 'none';
+                // Extract YYYYMM from slug (e.g., onsale202307 -> 2023/07の付録)
+                const match = page.slug.match(/onsale(\d{4})(\d{2})/);
+                let displayText = page.title;
+                if (match) {
+                    const year = match[1];
+                    const month = match[2];
+                    displayText = year + '/' + month + 'の付録';
                 }
-            } else {
-                // onsale以外は非表示
-                item.style.display = 'none';
-            }
-        });
 
-        // 残りの年月リストセクション
-        const pastItems = document.querySelectorAll('.onsale-past');
-        let pastCount = 0;
+                span.innerHTML = '<small><a href="' + page.url + '">' + displayText + '</a></small>';
+                recentContainer.appendChild(span);
+            });
+        }
 
-        pastItems.forEach(function(item) {
-            const slug = item.getAttribute('data-slug');
-            // onsaleYYYYMMフォーマットかチェック
-            if (slug && slug.match(/^onsale\d{6}$/)) {
-                if (pastCount < 3) {
-                    // 最初の3件は非表示（上に表示済み）
-                    item.style.display = 'none';
-                    pastCount++;
+        // 残りの年月リスト
+        const pastContainer = document.querySelector('#past_sale p');
+        if (pastContainer) {
+            pastContainer.innerHTML = '';
+            onsalePages.slice(3).forEach(function(page, index) {
+                const span = document.createElement('span');
+                span.className = 'calendar-item onsale-past';
+                span.setAttribute('data-slug', page.slug);
+                span.setAttribute('data-index', index + 3);
+
+                // Extract YYYYMM from slug (e.g., onsale202307 -> 2023/07の付録)
+                const match = page.slug.match(/onsale(\d{4})(\d{2})/);
+                let displayText = page.title;
+                if (match) {
+                    const year = match[1];
+                    const month = match[2];
+                    displayText = year + '/' + month + 'の付録';
                 }
-                // 4件目以降は表示
-            } else {
-                // onsale以外は非表示
-                item.style.display = 'none';
-            }
-        });
+
+                span.innerHTML = '<small><a href="' + page.url + '">' + displayText + '</a></small>';
+                pastContainer.appendChild(span);
+            });
+        }
     }
 
-    function filterOnsaleDetailPage() {
+    async function loadOnsaleDetailPage() {
         // onsale詳細ページかチェック
         if (!document.getElementById('onsale-detail-content')) {
             return;
         }
 
-        const items = document.querySelectorAll('.calendar-item');
+        // Wait for fetchAllPages to be available
+        if (typeof window.fetchAllPages !== 'function') {
+            console.error('fetchAllPages function not found');
+            return;
+        }
 
-        items.forEach(function(item) {
-            const slug = item.getAttribute('data-slug');
-            // onsaleYYYYMMフォーマットかチェック
-            if (!slug || !slug.match(/^onsale\d{6}$/)) {
-                item.style.display = 'none';
-            }
+        const allPages = await window.fetchAllPages();
+
+        // Filter onsale pages
+        const onsalePages = allPages.filter(function(page) {
+            return page.slug && page.slug.match(/^onsale\d{6}$/);
         });
+
+        console.log('Onsale detail pages found:', onsalePages.length);
+
+        const container = document.querySelector('#past_sale p');
+        if (container) {
+            container.innerHTML = '';
+            onsalePages.forEach(function(page) {
+                const span = document.createElement('span');
+                span.className = 'calendar-item';
+                span.setAttribute('data-slug', page.slug);
+
+                // Extract YYYYMM from slug (e.g., onsale202307 -> 2023/07の付録)
+                const match = page.slug.match(/onsale(\d{4})(\d{2})/);
+                let displayText = page.title;
+                if (match) {
+                    const year = match[1];
+                    const month = match[2];
+                    displayText = year + '/' + month + 'の付録';
+                }
+
+                span.innerHTML = '<small><a href="' + page.url + '">' + displayText + '</a></small>';
+                container.appendChild(span);
+            });
+        }
     }
 
-    function init() {
-        filterOnsaleListPage();
-        filterOnsaleDetailPage();
+    async function init() {
+        await loadOnsaleListPage();
+        await loadOnsaleDetailPage();
     }
 
     // DOMの準備ができるまで待機

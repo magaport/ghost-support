@@ -28,13 +28,7 @@
         {{!-- Calendar content --}}
         <div id="past_sale" class="cf">
             <p>
-                {{#get "pages" limit="all" order="slug desc"}}
-                    {{#foreach pages}}
-                        <span class="calendar-item" data-slug="{{slug}}">
-                            <small><a href="{{url}}">{{title}}</a></small>
-                        </span>
-                    {{/foreach}}
-                {{/get}}
+                {{!-- Content will be loaded dynamically by calendar.js --}}
             </p>
         </div>
 

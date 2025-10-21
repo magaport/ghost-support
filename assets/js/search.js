@@ -9,7 +9,7 @@
         return;
     }
 
-    const POSTS_PER_PAGE = 12;
+    const POSTS_PER_PAGE = 40;
 
     // DOMContentLoaded後に初期化
     if (document.readyState === 'loading') {

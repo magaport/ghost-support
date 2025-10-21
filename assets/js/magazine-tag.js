@@ -306,20 +306,54 @@
             return;
         }
 
-        const placeholders = document.querySelectorAll('.breadcrumb-placeholder[data-tag-slug]');
-        if (!placeholders || placeholders.length === 0) {
-            return;
-        }
+        // 投稿ページのplaceholder（data-tags属性を持つ）
+        let placeholder = document.querySelector('.breadcrumb-placeholder[data-tags]');
+        let tagSlug, tagName, postTitle;
 
-        // 最初のplaceholderのみ処理（重複を避ける）
-        const placeholder = placeholders[0];
-        const tagSlug = placeholder.getAttribute('data-tag-slug');
-        const tagName = placeholder.getAttribute('data-tag-name');
-        const postTitle = placeholder.getAttribute('data-post-title');
+        if (placeholder) {
+            // 投稿ページの場合：全てのタグから適切なカテゴリータグを見つける
+            const tagsJson = placeholder.getAttribute('data-tags');
+            postTitle = placeholder.getAttribute('data-post-title');
 
-        // 他のplaceholderを削除
-        for (let i = 1; i < placeholders.length; i++) {
-            placeholders[i].remove();
+            if (tagsJson) {
+                try {
+                    const tags = JSON.parse('[' + tagsJson + ']');
+                    // MAGAZINE_CATEGORIESに登録されているタグを優先的に見つける
+                    const categoryTag = findMagazineTag(tags);
+
+                    if (categoryTag) {
+                        tagSlug = categoryTag.slug;
+                        tagName = categoryTag.name;
+                    } else {
+                        // カテゴリータグが見つからない場合はplaceholderを削除
+                        placeholder.remove();
+                        return;
+                    }
+                } catch (e) {
+                    // JSONパースエラーの場合はplaceholderを削除
+                    placeholder.remove();
+                    return;
+                }
+            } else {
+                placeholder.remove();
+                return;
+            }
+        } else {
+            // カテゴリーページのplaceholder（data-tag-slug属性を持つ）
+            const placeholders = document.querySelectorAll('.breadcrumb-placeholder[data-tag-slug]');
+            if (!placeholders || placeholders.length === 0) {
+                return;
+            }
+
+            placeholder = placeholders[0];
+            tagSlug = placeholder.getAttribute('data-tag-slug');
+            tagName = placeholder.getAttribute('data-tag-name');
+            postTitle = placeholder.getAttribute('data-post-title');
+
+            // 他のplaceholderを削除
+            for (let i = 1; i < placeholders.length; i++) {
+                placeholders[i].remove();
+            }
         }
 
         // カテゴリーページかどうかを判定（URLに/category/が含まれる）

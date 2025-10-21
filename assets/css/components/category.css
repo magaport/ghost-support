@@ -10,7 +10,7 @@
     height: 228px;
     background-size: auto !important;
     background-position: 0% 0% !important;
-    background-repeat: no-repeat !important;
+    background-repeat: repeat-x !important;
     position: relative;
     margin: 0 auto 20px;
 }

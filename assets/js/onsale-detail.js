@@ -6,17 +6,54 @@
     'use strict';
 
     /**
+     * Decode HTML entities
+     */
+    function decodeHTMLEntities(text) {
+        const textarea = document.createElement('textarea');
+        textarea.innerHTML = text;
+        return textarea.value;
+    }
+
+    /**
+     * Parse excerpt to extract release_date
+     */
+    function parseExcerpt(excerpt) {
+        if (!excerpt) {
+            return {};
+        }
+
+        // HTMLエンティティをデコード
+        const decodedExcerpt = decodeHTMLEntities(excerpt);
+
+        // JSON形式の場合
+        if (decodedExcerpt.trim().startsWith('{')) {
+            try {
+                return JSON.parse(decodedExcerpt);
+            } catch (e) {
+                return {};
+            }
+        }
+
+        return {};
+    }
+
+    /**
      * Generate onsale post cards HTML
      */
     function generateOnsaleHTML(posts, targetYearMonth) {
         let html = '';
 
         posts.forEach(function(post) {
-            // published_atから年月を抽出 (YYYY-MM形式)
-            const publishedDate = new Date(post.published_at);
-            const year = publishedDate.getFullYear();
-            const month = String(publishedDate.getMonth() + 1).padStart(2, '0');
-            const postYearMonth = year + '-' + month;
+            // excerptからrelease_dateを取得
+            const excerptData = parseExcerpt(post.excerpt);
+            const releaseDate = excerptData.release_date;
+
+            if (!releaseDate) {
+                return;
+            }
+
+            // release_dateから年月を抽出 (YYYY-MM形式)
+            const postYearMonth = releaseDate.substring(0, 7); // YYYY-MM-DD -> YYYY-MM
 
             // 該当年月の投稿のみ表示
             if (postYearMonth !== targetYearMonth) {
