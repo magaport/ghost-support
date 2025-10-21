@@ -1,10 +1,10 @@
 /**
- * Calendar page - Filter calendar detail pages
+ * Calendar page - Load all calendar pages using Ghost Content API
  */
 (function() {
     'use strict';
 
-    function filterCalendarPages() {
+    async function loadCalendarPages() {
         // onsaleページでは実行しない
         if (window.location.pathname === '/onsale/') {
             return;
@@ -15,18 +15,46 @@
             return;
         }
 
-        const items = document.querySelectorAll('.calendar-item');
-
-        if (items.length === 0) {
+        const container = document.querySelector('#past_sale p');
+        if (!container) {
             return;
         }
 
-        items.forEach(function(item) {
-            const slug = item.getAttribute('data-slug');
-            // slug が "calendar" で始まり、その後に6桁の数字が続くかチェック
-            if (!slug || !slug.match(/^calendar\d{6}$/)) {
-                item.style.display = 'none';
+        // Wait for fetchAllPages to be available
+        if (typeof window.fetchAllPages !== 'function') {
+            console.error('fetchAllPages function not found');
+            return;
+        }
+
+        const allPages = await window.fetchAllPages();
+
+        // Filter calendar pages
+        const calendarPages = allPages.filter(function(page) {
+            return page.slug && page.slug.match(/^calendar\d{6}$/);
+        });
+
+        console.log('Calendar pages found:', calendarPages.length);
+
+        // Clear existing content
+        container.innerHTML = '';
+
+        // Add calendar pages
+        calendarPages.forEach(function(page) {
+            const span = document.createElement('span');
+            span.className = 'calendar-item';
+            span.setAttribute('data-slug', page.slug);
+
+            // Extract YYYYMM from slug (e.g., calendar202307 -> 2023/07の発売情報)
+            const match = page.slug.match(/calendar(\d{4})(\d{2})/);
+            let displayText = page.title;
+            if (match) {
+                const year = match[1];
+                const month = match[2];
+                displayText = year + '/' + month + 'の発売情報';
             }
+
+            span.innerHTML = '<small><a href="' + page.url + '">' + displayText + '</a></small>';
+            container.appendChild(span);
         });
     }
 
@@ -39,18 +67,18 @@
 
         // 今日の日付を取得
         const today = new Date();
-        const month = String(today.getMonth() + 1); // 月は0始まりなので+1
-        const day = String(today.getDate());
+        const month = String(today.getMonth() + 1).padStart(2, '0'); // 月は0始まりなので+1
+        const day = String(today.getDate()).padStart(2, '0');
 
-        // mm_dd形式で作成
-        const dateHash = month + '_' + day;
+        // day_mm_dd形式で作成
+        const dateHash = 'day_' + month + '_' + day;
 
         // hrefを更新
         todayButton.href = '#' + dateHash;
     }
 
-    function init() {
-        filterCalendarPages();
+    async function init() {
+        await loadCalendarPages();
         updateTodayButton();
     }
 

@@ -47,6 +47,7 @@
                         title: "{{title}}",
                         feature_image: {{#if feature_image}}"{{feature_image}}"{{else}}null{{/if}},
                         excerpt: `{{excerpt}}`,
+                        published_at: "{{published_at}}",
                         tags: [{{#if tags}}{{#foreach tags}}{"slug":"{{slug}}","name":"{{name}}","url":"{{url}}"}{{#unless @last}},{{/unless}}{{/foreach}}{{/if}}]
                     }{{#unless @last}},{{/unless}}
                     {{/foreach}}

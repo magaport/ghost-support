@@ -90,7 +90,7 @@
             const dateParts = date.split('-');
             const monthDay = dateParts[1] + '_' + dateParts[2];
 
-            html += '<p class="bar-day" id="' + monthDay + '">' + formattedDate + '</p>';
+            html += '<p class="bar-day" id="day_' + monthDay + '">' + formattedDate + '</p>';
 
             groupedByDate[date].forEach(function(post) {
                 html += '<article class="calendar__article">';
@@ -126,22 +126,32 @@
 
     function scrollToHash() {
         // URLにハッシュがあれば、その要素までスクロール
-        if (window.location.hash) {
-            let hash = window.location.hash.substring(1); // '#' を除去
+        if (!window.location.hash) {
+            return;
+        }
 
-            // "day_" プレフィックスを除去（例：day_01_25 → 01_25）
-            if (hash.startsWith('day_')) {
-                hash = hash.substring(4);
-            }
+        let hash = window.location.hash.substring(1); // '#' を除去
+        console.log('Original hash:', hash);
 
-            const targetElement = document.getElementById(hash);
+        // day_プレフィックスがない場合は追加
+        if (!hash.startsWith('day_')) {
+            hash = 'day_' + hash;
+        }
 
-            if (targetElement) {
-                // 少し遅延させてから実行（DOMの準備を待つ）
-                setTimeout(function() {
-                    targetElement.scrollIntoView({behavior: 'smooth', block: 'start'});
-                }, 300);
-            }
+        console.log('Processed hash:', hash);
+
+        const targetElement = document.getElementById(hash);
+        console.log('Target element:', targetElement);
+
+        if (targetElement) {
+            // スクロール実行
+            setTimeout(function() {
+                targetElement.scrollIntoView({behavior: 'smooth', block: 'start'});
+                // ヘッダーの高さ分上にオフセット
+                window.scrollBy(0, -100);
+            }, 100);
+        } else {
+            console.log('Target element not found for hash:', hash);
         }
     }
 
@@ -172,8 +182,12 @@
 
         contentDiv.innerHTML = html;
 
-        // HTMLを挿入した後、ハッシュがあればスクロール
-        scrollToHash();
+        // HTMLを挿入した後、requestAnimationFrameで次のフレームでスクロールを実行
+        requestAnimationFrame(function() {
+            requestAnimationFrame(function() {
+                scrollToHash();
+            });
+        });
     }
 
     // DOMの準備ができるまで待機
@@ -182,4 +196,11 @@
     } else {
         initCalendarDetail();
     }
+
+    // ページ読み込み完了後にもスクロールを試みる（画像読み込み待ち）
+    window.addEventListener('load', function() {
+        if (window.location.hash) {
+            scrollToHash();
+        }
+    });
 })();
