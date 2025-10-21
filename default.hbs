@@ -6,11 +6,11 @@
     <title>{{meta_title}}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     {{!-- Preload main styles and scripts for better performance --}}
     <link rel="preload" as="style" href="{{asset "built/screen.css"}}">
     <link rel="preload" as="script" href="{{asset "built/source.js"}}">
-    
+
     {{!-- Fonts are preloaded and defined in the default template to avoid layout shift --}}
     {{> "typography/fonts"}}
 
@@ -73,6 +73,12 @@
 {{#is "post, page"}}
     {{> "lightbox"}}
 {{/is}}
+
+<script>
+  window.ghostConfig = {
+    contentApiKey: "{{content_api_key}}"
+  };
+</script>
 
 {{!-- スクリプト - レスポンシブ動画、無限スクロール、ナビゲーションドロップダウンを処理 --}}
 <script src="{{asset "built/source.js"}}"></script>
