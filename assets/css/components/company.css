@@ -1,0 +1,13 @@
+.company_image {
+    width: 100%;
+}
+
+.company_container {
+    padding: 10px 40px 25.68px;
+    font-size: 1.712rem;
+}
+
+.company_container a {
+    text-decoration: underline;
+    color: #4f96f6;
+}

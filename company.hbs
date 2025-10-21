@@ -1,0 +1,188 @@
+{{!< default}}
+
+{{> "components/search-form"}}
+
+<div class="gh-content-wrapper">
+<main id="main" class="post-main m-all t-2of3 d-5of7 cf">
+    <article id="entry" class="cf post-entry {{post_class}}">
+        <header class="article-header entry-header">
+            {{> "components/breadcrumb"}}
+            {{!-- レビューナビゲーション --}}
+            <div class="review-nav"
+                 data-post-title="{{title}}"
+                 data-post-slug="{{slug}}"
+                 data-post-tags="{{#foreach tags visibility="all"}}{{slug}},{{/foreach}}">
+                {{!-- コンテンツはJavaScriptで生成されます --}}
+            </div>
+            <h1 class="entry-title single-title">会社概要</h1>
+            <div id="fab__contents">
+                <div class="fab__contents-main dfont">
+                    <label class="close" for="fab"><span></span></label>
+                    <p class="fab__contents_title">SHARE</p>
+                    {{#if feature_image}}
+                    <div class="fab__contents_img" data-bg-image="{{img_url feature_image size="m"}}"></div>
+                    {{/if}}
+                    <div class="sns-btn">
+                        <ul>
+                            <li class="tw sns-btn__item">
+                                <a href="https://twitter.com/share?url={{encode (url absolute="true")}}&amp;text={{encode title}}" target="_blank" rel="nofollow">
+                                    <i class="fa fa-twitter"></i>
+                                    <span class="share_txt">ツイート</span>
+                                </a>
+                            </li>
+                            <li class="fb sns-btn__item">
+                                <a href="https://www.facebook.com/share.php?u={{encode (url absolute="true")}}&amp;t={{encode title}}" target="_blank" rel="nofollow">
+                                    <i class="fa fa-facebook"></i>
+                                    <span class="share_txt">シェア</span>
+                                </a>
+                            </li>
+                            <li class="hatebu sns-btn__item">
+                                <a href="https://b.hatena.ne.jp/add?mode=confirm&amp;url={{encode (url absolute="true")}}" target="_blank" rel="nofollow">
+                                    <i class="fa fa-hatebu"></i>
+                                    <span class="share_txt">はてブ</span>
+                                </a>
+                            </li>
+                            <li class="gplus sns-btn__item">
+                                <a href="https://plus.google.com/share?url={{encode (url absolute="true")}}" target="_blank" rel="nofollow">
+                                    <i class="fa fa-google-plus" aria-hidden="true"></i>
+                                    <span class="share_txt">Google+</span>
+                                </a>
+                            </li>
+                            <li class="pkt sns-btn__item">
+                                <a href="https://getpocket.com/edit?url={{encode (url absolute="true")}}&amp;title={{encode title}}" target="_blank" rel="nofollow">
+                                    <i class="fa fa-get-pocket"></i>
+                                    <span class="share_txt">Pocket</span>
+                                </a>
+                            </li>
+                            <li class="line sns-btn__item">
+                                <a href="https://line.me/R/msg/text/?{{encode title}}%0D%0A{{encode (url absolute="true")}}" target="_blank" rel="nofollow">
+                                    <i class="fa fa-comment"></i>
+                                    <span class="share_txt dfont">LINE</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <img width="455" height="142" src="{{asset "images/fujisan_logo.jpg"}}" alt="" decoding="async" fetchpriority="high" class="company_image" />
+        </header>
+        <div class="company_container">
+            <p>
+                株式会社富士山マガジンサービスが運営しております。<br />
+                会社概要はFujisan.co.jpにてご確認ください。 <br/>
+                <a href="https://www.fujisan.co.jp/ir/company/info/">https://www.fujisan.co.jp/ir/company/info/</a>
+            <p>
+        </div>
+
+        <footer class="article-footer entry-header">
+            <aside>
+                <div class="footer-contents">
+                    <div class="sns-btn normal-sns">
+                        <span class="sns-btn__title dfont">SHARE</span>
+                        <ul>
+                            <li class="tw sns-btn__item">
+                                <a href="https://twitter.com/share?url={{encode (url absolute="true")}}&amp;text={{encode title}}" target="_blank" rel="nofollow">
+                                    <i class="fa fa-twitter"></i>
+                                    <span class="share_txt">ツイート</span>
+                                </a>
+                            </li>
+                            <li class="fb sns-btn__item">
+                                <a href="https://www.facebook.com/share.php?u={{encode (url absolute="true")}}&amp;t={{encode title}}" target="_blank" rel="nofollow">
+                                    <i class="fa fa-facebook"></i>
+                                    <span class="share_txt">シェア</span>
+                                </a>
+                            </li>
+                            <li class="hatebu sns-btn__item">
+                                <a href="https://b.hatena.ne.jp/add?mode=confirm&amp;url={{encode (url absolute="true")}}" target="_blank" rel="nofollow">
+                                    <i class="fa fa-hatebu"></i>
+                                    <span class="share_txt">はてブ</span>
+                                </a>
+                            </li>
+                            <li class="gplus sns-btn__item">
+                                <a href="https://plus.google.com/share?url={{encode (url absolute="true")}}" target="_blank" rel="nofollow">
+                                    <i class="fa fa-google-plus" aria-hidden="true"></i>
+                                    <span class="share_txt">Google+</span>
+                                </a>
+                            </li>
+                            <li class="pkt sns-btn__item">
+                                <a href="https://getpocket.com/edit?url={{encode (url absolute="true")}}&amp;title={{encode title}}" target="_blank" rel="nofollow">
+                                    <i class="fa fa-get-pocket"></i>
+                                    <span class="share_txt">Pocket</span>
+                                </a>
+                            </li>
+                            <li class="line sns-btn__item">
+                                <a href="https://line.me/R/msg/text/?{{encode title}}%0D%0A{{encode (url absolute="true")}}" target="_blank" rel="nofollow">
+                                    <i class="fa fa-comment"></i>
+                                    <span class="share_txt dfont">LINE</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer-meta dfont">
+                        <div class="post-category-placeholder" data-magazine-tags='{{#if tags}}[{{#foreach tags}}{"slug":"{{slug}}","name":"{{name}}","url":"{{url}}"}{{#unless @last}},{{/unless}}{{/foreach}}]{{/if}}'></div>
+                        {{#if tags}}
+                        <div class="meta-tag">
+                            <p class="footer-meta_title">TAGS :</p>
+                            <ul>
+                                {{#foreach tags}}
+                                <li><a href="{{url}}" rel="tag">{{name}}</a></li>
+                                {{/foreach}}
+                            </ul>
+                        </div>
+                        {{/if}}
+                    </div>
+                </div>
+                {{#primary_author}}
+                <div class="author-info pastel-bc">
+                    <div class="author-info__inner">
+                        <div class="tb">
+                            <div class="tb-left">
+                                <div class="author_label">
+                                    <span>私が書いたレビュー</span>
+                                </div>
+                                <div class="author_img">
+                                    {{#if profile_image}}
+                                    <img alt="{{name}}" src="{{img_url profile_image size="s"}}" srcset="{{img_url profile_image size="m"}} 2x" class="avatar avatar-100 photo" height="100" width="100" loading="lazy" decoding="async">
+                                    {{else}}
+                                    <span class="author-placeholder">{{name}}</span>
+                                    {{/if}}
+                                </div>
+                                <dl class="aut">
+                                    <dt>
+                                        <a class="dfont" href="{{url}}"><span>{{name}}</span></a>
+                                    </dt>
+                                    <dd>{{#if location}}{{location}}{{/if}}</dd>
+                                </dl>
+                            </div>
+                            <div class="tb-right">
+                                {{#if bio}}
+                                <p>{{bio}}</p>
+                                {{/if}}
+                                <div class="follow_btn dfont"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/primary_author}}
+            </aside>
+        </footer>
+    </article>
+</main>
+
+{{!-- サイドバー --}}
+{{> "sidebar"}}
+</div>
+
+{{!-- レビューナビゲーション用の投稿データ --}}
+{{!-- hash-before（予告）とhash-after（レビュー）の両方のデータを取得 --}}
+<script id="review-nav-posts-before" type="application/json">
+{{#get "posts" filter="tag:hash-before" limit="500"}}
+[{{#foreach posts}}{"title":"{{title}}","slug":"{{slug}}","url":"{{url absolute="true"}}"}{{#unless @last}},{{/unless}}{{/foreach}}]
+{{/get}}
+</script>
+
+<script id="review-nav-posts-after" type="application/json">
+{{#get "posts" filter="tag:hash-after" limit="500"}}
+[{{#foreach posts}}{"title":"{{title}}","slug":"{{slug}}","url":"{{url absolute="true"}}"}{{#unless @last}},{{/unless}}{{/foreach}}]
+{{/get}}
+</script>
