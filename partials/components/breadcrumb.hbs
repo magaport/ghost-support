@@ -10,9 +10,7 @@
         {{!-- For post pages with tags --}}
         {{#if tags}}
             {{#unless tag}}
-                {{#foreach tags limit="1"}}
-                    <li class="breadcrumb-placeholder" data-tag-slug="{{slug}}" data-tag-name="{{name}}" data-post-title="{{../title}}"></li>
-                {{/foreach}}
+                <li class="breadcrumb-placeholder" data-tags='{{#foreach tags}}{"slug":"{{slug}}","name":"{{name}}"}{{#unless @last}},{{/unless}}{{/foreach}}' data-post-title="{{title}}"></li>
             {{/unless}}
         {{/if}}
 
