@@ -110,6 +110,11 @@
 {{!-- Onsale detail script --}}
 <script src="{{asset "js/onsale-detail.js"}}"></script>
 
+{{!-- AmazonJS script --}}
+{{#is "post, page"}}
+<script src="{{asset "js/amazonjs.js"}}"></script>
+{{/is}}
+
 {{!-- Ghost outputs required functional scripts with this tag, it should always be the last thing before the closing body tag --}}
 {{ghost_foot}}
 

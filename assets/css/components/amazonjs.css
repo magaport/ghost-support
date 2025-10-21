@@ -28,22 +28,9 @@
     clear: both;
 }
 
-.amazonjs_item .amazonjs_indicator .amazonjs_indicator_img {
-    float: left;
-    display: block;
-    width: 32px;
-    height: 32px;
-    background: transparent url(../images/ajax-loader.gif) no-repeat center;
-}
-
 .amazonjs_item .amazonjs_indicator .amazonjs_indicator_title {
     display: block;
     line-height: 32px;
-    margin-left: 42px;
-}
-
-.amazonjs_item .amazonjs_indicator .amazonjs_indicator_footer {
-    clear: both;
 }
 
 .amazonjs_item .amazonjs_image {
