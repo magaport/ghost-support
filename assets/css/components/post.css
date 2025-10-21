@@ -562,6 +562,16 @@ aside {
     border-radius: 0;
 }
 
+.entry-content h2:first-child, .entry-content h3:first-child, .entry-content h4:first-child, #inner-content .hh:first-child {
+    margin-top: 0;
+}
+
+.entry-content h2 {
+    margin: 2.5em 0 .7em;
+    font-size: 1.4em;
+    line-height: 1.6;
+}
+
 #content h3,
 .entry-content h3 {
     background-color: rgb(87, 88, 90);
