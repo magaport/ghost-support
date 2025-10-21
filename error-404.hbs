@@ -1,0 +1,48 @@
+{{!< default}}
+{{!-- 404 Error Page --}}
+
+{{> "components/search-form"}}
+
+<div class="gh-content-wrapper">
+    <main class="gh-main-content">
+        <article class="notfound">
+            <div class="nofound-title">
+                <i class="fa fa-tint fa-lg"></i>
+                お探しのページが見つかりませんでした。
+            </div>
+            <div class="nofound-img">
+                <img src="{{asset "images/notfound.jpg"}}" alt="記事が見つかりませんでした">
+            </div>
+            <div class="nofound-contents">
+                <p>お探しのページは「すでに削除されている」、「アクセスしたアドレスが異なっている」などの理由で見つかりませんでした。以下でキーワードやカテゴリーから記事を探すことができます。</p>
+                <form role="search" method="get" id="searchform" class="searchform" action="/">
+                    <div>
+                        <input type="search" id="s" name="s" value="" class="search-results-input">
+                        <button type="submit" id="searchsubmit"><i class="fa fa-search"></i></button>
+                    </div>
+                </form>
+                <p>以下のカテゴリー一覧から記事を探すこともできます。</p>
+                <div class="withtag_list">
+                    <span>カテゴリー</span>
+                    <ul id="category-list-placeholder">
+                        <li>読み込み中...</li>
+                    </ul>
+                </div>
+                <div class="ct">
+                    <a class="raised accent-bc" href="/"><i class="fa fa-home"></i> ホームに戻る</a>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    {{> "sidebar"}}
+</div>
+
+<script>
+    // カテゴリー一覧を読み込む
+    document.addEventListener('DOMContentLoaded', async function() {
+        if (typeof loadCategoryList === 'function') {
+            await loadCategoryList();
+        }
+    });
+</script>

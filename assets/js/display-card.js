@@ -175,3 +175,6 @@ async function loadCategoryList() {
         }
     }
 }
+
+// グローバルに公開
+window.loadCategoryList = loadCategoryList;
