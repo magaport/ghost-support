@@ -45,6 +45,11 @@ function useFetchPosts(postsSelector, baseParams) {
 
     async function displayPosts(posts) {
         displayArticleCards(posts, postsSelector);
+
+        // カテゴリータグを処理
+        if (window.MagazineTag && typeof window.MagazineTag.processPostCardMagazineTags === 'function') {
+            window.MagazineTag.processPostCardMagazineTags();
+        }
     }
 
     return {fetchPosts, displayPosts};

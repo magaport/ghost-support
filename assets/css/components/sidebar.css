@@ -66,6 +66,16 @@
     padding: 8px 0;
 }
 
+.widget h4 + * {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 8px 0;
+}
+
+.widget-popular h4 + * {
+    padding: 0;
+}
+
 .widgettitle.dfont {
     font-family: inherit;
 }
@@ -125,12 +135,17 @@
 }
 
 /* Popular Posts Widget */
+.sidebar .widget-popular .popular-posts {
+    display: block;
+    padding: 8px 0;
+}
+
 .popular-posts {
     display: block;
 }
 
 .popular-posts .wpp-list {
-    padding: 8px 0;
+    padding: 0;
 }
 
 .wpp-list {
@@ -156,7 +171,6 @@
     width: 100%;
     height: auto;
     display: block;
-    border-radius: 4px;
     transition: opacity 0.2s ease;
     aspect-ratio: 1;
     object-fit: cover;
@@ -169,7 +183,6 @@
     align-items: center;
     justify-content: center;
     background: #DFE6E9;
-    border-radius: 4px;
     transition: opacity 0.2s ease;
 }
 
