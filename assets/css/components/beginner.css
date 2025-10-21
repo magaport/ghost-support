@@ -1,0 +1,33 @@
+.beginner_container {
+    padding: 10px 40px 25.68px;
+    font-size: 1.712rem;
+
+    > h2 {
+        margin: 2.5em 0 0.7em;
+        font-size: 2.39rem;
+        line-height: 1.6;
+    }
+}
+
+.beginner_blockquote {
+    box-sizing: border-box;
+    position: relative;
+    margin: 1.5em 0;
+    padding: 13px 15px 13px 50px;
+    color: #464646;
+    background-color: #f5f2e9;
+    border: solid 2px #464646;
+
+    &::before {
+        color: #000000;
+        display: inline-block;
+        position: absolute;
+        top: 20px;
+        left: 15px;
+        font-family: FontAwesome;
+        font-size: 25px;
+        vertical-align: middle;
+        line-height: 1;
+        content: '\f10d';
+    }
+}
