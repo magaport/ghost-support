@@ -290,13 +290,15 @@
 .withtag_list ul.children {
     display: block;
     margin: 0;
-    padding: 4px 0 4px 20px;
-    list-style: none;
+    padding: 4px 0 4px 1em;
+    list-style-type: disc;
     background: transparent;
+    font-size: 1.7rem;
 }
 
 .withtag_list ul.children li {
-    display: block;
+    display: list-item;
     margin: 2px 0;
+    font-size: 1.7rem;
 }
 
