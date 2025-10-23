@@ -62,10 +62,6 @@
     padding: 8px 0;
 }
 
-.sidebar .widget .wp-widget-group__inner-blocks {
-    padding: 8px 0;
-}
-
 .widget h4 + * {
     margin-top: 0;
     margin-bottom: 0;
@@ -135,22 +131,30 @@
 }
 
 /* Popular Posts Widget */
-.sidebar .widget-popular .popular-posts {
+.sidebar .widget-popular {
     display: block;
-    padding: 8px 0;
+}
+
+.sidebar .widget-popular .popular-posts {
+    padding: 0;
 }
 
 .popular-posts {
     display: block;
 }
 
-.popular-posts .wpp-list {
-    padding: 0;
+.sidebar .wpp-list {
+    list-style: none;
+    padding: 8px 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
 }
 
 .wpp-list {
     list-style: none;
-    padding: 0;
+    padding: 8px 0;
     margin: 0;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
