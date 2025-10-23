@@ -141,14 +141,26 @@
 }
 
 .nofound-title {
+    position: relative;
     display: block;
     margin: 0;
-    padding: 11px 5.5px;
+    padding: 1em .5em;
     font-size: 18px;
-    font-weight: 700;
+    font-weight: bold;
     color: #252525;
     background: #fff;
     text-align: center;
+}
+
+.nofound-title:before {
+    position: absolute;
+    z-index: 99;
+    top: 100%;
+    left: 50%;
+    margin-left: -20px;
+    border: 20px solid transparent;
+    border-top: 20px solid #fff;
+    content: "";
 }
 
 .nofound-title .fa-tint {
