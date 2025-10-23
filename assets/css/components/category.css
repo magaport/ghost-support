@@ -12,7 +12,7 @@
     background-position: 0% 0% !important;
     background-repeat: repeat-x !important;
     position: relative;
-    margin: 0 auto 20px;
+    /* margin: 0 auto 20px; */
 }
 
 .cat-headerWrap .bkRGBA {
@@ -48,7 +48,7 @@
     border-left: 3px solid #7F0019;
     border-bottom: 1px solid #57585A;
     color: #FFFFFF;
-    font-size: 18px;
+    font-size: 18px !important;
     padding: 5px 5px 5px 10px;
 }
 
