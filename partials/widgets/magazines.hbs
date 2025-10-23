@@ -2,17 +2,11 @@
     <h4 class="widgettitle">雑誌名から探す</h4>
     <form>
         <label class="screen-reader-text" for="{{id}}">雑誌名から探す</label>
-        <select id="{{id}}" class="postform">
-            <option value="">雑誌名を選択</option>
+        <select id="{{id}}" class="postform" data-current-url="{{url}}">
+            <option value="" selected>雑誌名を選択</option>
 
             {{!-- ブランドムック --}}
-            {{#get "tags" filter="slug:brandmook" include="count.posts" limit="1"}}
-                {{#foreach tags}}
-                    {{#if @first}}
-                <option value="/brandmook/">ブランドムック ({{count.posts}})</option>
-                    {{/if}}
-                {{/foreach}}
-            {{/get}}
+            <option value="/brandmook/">ブランドムック</option>
 
             {{!-- 女性ファッション雑誌 --}}
             <option value="/women-magazine/">女性ファッション雑誌</option>
@@ -91,3 +85,31 @@
         </select>
     </form>
 </div>
+
+<script>
+(function() {
+    var select = document.getElementById('{{id}}');
+    if (select) {
+        var currentPath = window.location.pathname;
+        var options = select.options;
+        var matchedIndex = -1;
+
+        for (var i = 0; i < options.length; i++) {
+            if (options[i].value === currentPath) {
+                matchedIndex = i;
+                break;
+            }
+            if (options[i].value && currentPath.indexOf(options[i].value) === 0 && options[i].value !== '/') {
+                matchedIndex = i;
+            }
+        }
+
+        if (matchedIndex !== -1) {
+            if (options[0]) {
+                options[0].removeAttribute('selected');
+            }
+            select.selectedIndex = matchedIndex;
+        }
+    }
+})();
+</script>

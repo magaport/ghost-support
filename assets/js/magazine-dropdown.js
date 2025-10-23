@@ -67,7 +67,7 @@
         };
     }
 
-    // Initialize all magazine dropdowns on page load
+    // Initialize immediately for any existing dropdowns
     function init() {
         // Find all magazine dropdown widgets
         const dropdowns = document.querySelectorAll('.widget-categories select.postform');
@@ -78,10 +78,13 @@
         });
     }
 
-    // Wait for DOM to be ready
+    // Run immediately if possible, otherwise wait for DOM
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {
         init();
     }
+
+    // Also run on load to ensure it catches all dropdowns
+    window.addEventListener('load', init);
 })();
