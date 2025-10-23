@@ -2,10 +2,10 @@
     'use strict';
 
     // トップページまたはページネーションページでのみ実行
-    const isHomePage =
-        window.location.pathname === '/' ||
-        /^\/page\/\d+\/?$/.test(window.location.pathname);
-    if (!isHomePage) {
+    const currentPath = window.location.pathname;
+    const isSupportedPage =
+        /^\/(?:new\/)?(?:page\/\d+\/?)?$/.test(currentPath);
+    if (!isSupportedPage) {
         return;
     }
 
