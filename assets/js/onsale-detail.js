@@ -88,6 +88,11 @@
             html += '</article>';
         });
 
+        // 投稿がない場合のメッセージ
+        if (html === '') {
+            html = '<div class="notfound"><p class="nofound-message">該当する付録がありません</p></div>';
+        }
+
         return html;
     }
 
