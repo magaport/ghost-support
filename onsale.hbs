@@ -26,7 +26,7 @@
 
         {{!-- 最新3件の年月リンク --}}
         <div id="recent_sale" class="cf">
-            <p class="loaded">
+            <p>
                 {{#get "tags" limit="500" order="slug desc" filter="slug:~^onsale"}}
                     {{#foreach tags}}
                         <span class="calendar-item onsale-recent" data-slug="{{slug}}" data-index="{{@index}}">
@@ -63,11 +63,9 @@
             };
         </script>
 
-        {{> "components/sns-share"}}
-
         {{!-- 残りの年月リスト --}}
         <div id="past_sale" class="cf">
-            <p class="loaded">
+            <p>
                 {{#get "pages" limit="all" order="slug desc"}}
                     {{#foreach pages}}
                         <span class="calendar-item onsale-past" data-slug="{{slug}}" data-index="{{@index}}">
@@ -77,6 +75,8 @@
                 {{/get}}
             </p>
         </div>
+
+        {{> "components/sns-share"}}
 
         {{> "components/content-menu" active="onsale"}}
     </main>
