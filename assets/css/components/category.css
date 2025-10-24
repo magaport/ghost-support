@@ -57,6 +57,10 @@
     padding: 20px;
 }
 
+#cat_header .taxonomy-description p {
+    margin: 0;
+}
+
 .taxonomy-description p {
     color: #666;
     font-size: 1.4rem;
