@@ -1,6 +1,8 @@
 /* Category page styles */
 
 #cat_header {
+    max-width: 1180px;
+    margin: 10px auto;
     padding: 20px 0;
 }
 
@@ -62,8 +64,8 @@
 }
 
 .taxonomy-description p {
-    color: #666;
-    font-size: 1.4rem;
+    color: #252525;
+    font-size: 1.5rem;
 }
 
 /* Card type layout */
@@ -175,5 +177,11 @@
 
     #cat_header h1 {
         font-size: 2rem;
+    }
+}
+
+@media only screen and (min-width: 1240px) {
+    .single .wrap, .page .wrap, .archive .wrap, .single #inner-content, .page #inner-content {
+        width: 1180px;
     }
 }
