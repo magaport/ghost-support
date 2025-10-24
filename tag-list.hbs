@@ -1,6 +1,11 @@
 {{!< default}}
 {{!-- Template for /tag/ page - showing all tags --}}
 
+{{!-- ページタイトルを設定 --}}
+<script>
+    document.title = 'タグ一覧 | {{@site.title}}';
+</script>
+
 {{> "components/search-form"}}
 
 {{#match @custom.header_style "!=" "Highlight"}}

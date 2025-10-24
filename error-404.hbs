@@ -1,6 +1,11 @@
 {{!< default}}
 {{!-- 404 Error Page --}}
 
+{{!-- ページタイトルを設定 --}}
+<script>
+    document.title = 'ページが見つかりませんでした | {{@site.title}}';
+</script>
+
 {{> "components/search-form"}}
 
 <div class="gh-content-wrapper">
