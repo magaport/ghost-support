@@ -23,9 +23,9 @@
                 {{/foreach}}
             {{else}}
                 {{!-- ページが見つからない場合、タグ自体の情報を使用 --}}
-                <h1 style="margin-bottom: 20px;">{{../name}}</h1>
+                <h1>{{../name}}</h1>
                 {{#if ../description}}
-                <div class="taxonomy-description entry-content" style="margin-bottom: 20px;">
+                <div class="taxonomy-description entry-content">
                     <p>{{../description}}</p>
                 </div>
                 {{/if}}
