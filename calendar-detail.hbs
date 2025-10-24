@@ -1,5 +1,7 @@
 {{!< default}}
-{{!-- Template for /calendar202401/ page --}}
+{{!-- Template for individual calendar pages (calendar199402, calendar202401, etc.) --}}
+
+{{#post}}
 
 {{> "components/search-form"}}
 
@@ -23,7 +25,7 @@
         </div>
 
         {{!-- Calendar detail content --}}
-        <div id="calendar-detail-content" data-page-slug="calendar201808"></div>
+        <div id="calendar-detail-content" data-page-slug="{{slug}}"></div>
 
         {{> "calendar-posts-data"}}
 
@@ -45,3 +47,5 @@
 
     {{> "sidebar"}}
 </div>
+
+{{/post}}
