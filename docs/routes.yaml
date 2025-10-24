@@ -706,6 +706,10 @@ routes:
     template: category
 
 collections:
+  /new/:
+    permalink: /post/{slug}/
+    template: index
+    limit: 40
   /:
     permalink: /{slug}/
     template: index
