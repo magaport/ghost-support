@@ -1,6 +1,11 @@
 {{!< default}}
 {{!-- Template for /calendar page - showing upcoming release calendar --}}
 
+{{!-- ページタイトルを設定 --}}
+<script>
+    document.title = '発売カレンダー | {{@site.title}}';
+</script>
+
 {{> "components/search-form"}}
 
 {{#match @custom.header_style "!=" "Highlight"}}

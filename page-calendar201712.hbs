@@ -1,6 +1,25 @@
 {{!< default}}
 {{!-- Template for /calendar202401/ page --}}
 
+
+{{!-- ページタイトルを設定 --}}
+<script>
+    // ページのタイトルを取得して設定
+    document.addEventListener('DOMContentLoaded', function() {
+        const titleElement = document.querySelector('#calendar-detail-content');
+        if (titleElement) {
+            // calendar-detail.jsがタイトルを設定するまで待つ
+            const observer = new MutationObserver(function(mutations) {
+                const h2 = document.querySelector('#calendar-detail-content h2');
+                if (h2) {
+                    document.title = h2.textContent + ' | {{@site.title}}';
+                    observer.disconnect();
+                }
+            });
+            observer.observe(titleElement, { childList: true, subtree: true });
+        }
+    });
+</script>
 {{> "components/search-form"}}
 
 {{#match @custom.header_style "!=" "Highlight"}}
