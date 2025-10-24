@@ -2,10 +2,10 @@
     'use strict';
 
     // トップページまたはページネーションページでのみ実行
-    const isHomePage =
-        window.location.pathname === '/' ||
-        /^\/page\/\d+\/?$/.test(window.location.pathname);
-    if (!isHomePage) {
+    const currentPath = window.location.pathname;
+    const isSupportedPage =
+        /^\/(?:new\/)?(?:page\/\d+\/?)?$/.test(currentPath);
+    if (!isSupportedPage) {
         return;
     }
 
@@ -39,7 +39,8 @@
         const urlParams = new URLSearchParams(window.location.search);
         const isSearchMode = urlParams.has('s');
         const isPageTwo = params.page >= 2;
-        toggleSearchResultsMode(isSearchMode, isPageTwo);
+        const isNewPage = currentPath.startsWith('/new');
+        toggleSearchResultsMode(isSearchMode, isPageTwo, isNewPage);
 
         const filter = getSearchFilter(params);
         const searchParams = new URLSearchParams({
@@ -125,7 +126,7 @@
         await displaySearchResults(params);
     }
 
-    function toggleSearchResultsMode(isSearchMode, isPageTwoOrMore) {
+    function toggleSearchResultsMode(isSearchMode, isPageTwoOrMore, isNewPage) {
         const contentMenuWrap = document.querySelector('.content-menu-wrap');
         const searchHeader = document.querySelector('.search_results__header');
         const loadMoreWrap = document.querySelector('.load-more-wrap');
@@ -140,8 +141,8 @@
             loadMoreWrap && (loadMoreWrap.style.display = 'none');
             searchPaginationWrap &&
                 (searchPaginationWrap.style.display = 'block');
-        } else if (isPageTwoOrMore) {
-            // 2ページ目以降（検索なし）: content-menu-wrapを表示、もっと見るを非表示、ページネーションを表示
+        } else if (isPageTwoOrMore || isNewPage) {
+            // 2ページ目以降または /new/ ページ: content-menu-wrapを表示、もっと見るを非表示、ページネーションを表示
             contentMenuWrap && (contentMenuWrap.style.display = '');
             searchHeader && (searchHeader.style.display = 'none');
             loadMoreWrap && (loadMoreWrap.style.display = 'none');

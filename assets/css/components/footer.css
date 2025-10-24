@@ -2,7 +2,7 @@
     background: #e0e4eb;
     border-top: none;
     padding: 60px 0 60px;
-    margin-top: 80px;
+    margin-top: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     line-height: 1.75;
     word-break: normal;
@@ -125,7 +125,7 @@
 @media (max-width: 768px) {
     .footer {
         padding: 40px 0 40px;
-        margin-top: 50px;
+        margin-top: 0;
     }
 
     .footer-links {
