@@ -36,6 +36,7 @@
         console.log('Calendar pages found:', calendarPages.length);
 
         // Clear existing content
+        container.classList.remove('loaded');
         container.innerHTML = '';
 
         // Add calendar pages
@@ -56,6 +57,8 @@
             span.innerHTML = '<small><a href="' + page.url + '">' + displayText + '</a></small>';
             container.appendChild(span);
         });
+
+        container.classList.add('loaded');
     }
 
     function updateTodayButton() {

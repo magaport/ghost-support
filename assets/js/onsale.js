@@ -28,6 +28,7 @@
         // 最新3件セクション
         const recentContainer = document.querySelector('#recent_sale p');
         if (recentContainer) {
+            recentContainer.classList.remove('loaded');
             recentContainer.innerHTML = '';
             onsalePages.slice(0, 3).forEach(function(page, index) {
                 const span = document.createElement('span');
@@ -47,11 +48,13 @@
                 span.innerHTML = '<small><a href="' + page.url + '">' + displayText + '</a></small>';
                 recentContainer.appendChild(span);
             });
+            recentContainer.classList.add('loaded');
         }
 
         // 残りの年月リスト
         const pastContainer = document.querySelector('#past_sale p');
         if (pastContainer) {
+            pastContainer.classList.remove('loaded');
             pastContainer.innerHTML = '';
             onsalePages.slice(3).forEach(function(page, index) {
                 const span = document.createElement('span');
@@ -71,6 +74,7 @@
                 span.innerHTML = '<small><a href="' + page.url + '">' + displayText + '</a></small>';
                 pastContainer.appendChild(span);
             });
+            pastContainer.classList.add('loaded');
         }
     }
 
@@ -97,6 +101,7 @@
 
         const container = document.querySelector('#past_sale p');
         if (container) {
+            container.classList.remove('loaded');
             container.innerHTML = '';
             onsalePages.forEach(function(page) {
                 const span = document.createElement('span');
@@ -115,6 +120,7 @@
                 span.innerHTML = '<small><a href="' + page.url + '">' + displayText + '</a></small>';
                 container.appendChild(span);
             });
+            container.classList.add('loaded');
         }
     }
 
