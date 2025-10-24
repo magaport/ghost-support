@@ -6,7 +6,11 @@
             <option value="" selected>雑誌名を選択</option>
 
             {{!-- ブランドムック --}}
-            <option value="/brandmook/">ブランドムック</option>
+            {{#get "tags" filter="slug:brandmook" include="count.posts"}}
+                {{#foreach tags}}
+            <option value="/brandmook/">{{name}} ({{count.posts}})</option>
+                {{/foreach}}
+            {{/get}}
 
             {{!-- 女性ファッション雑誌 --}}
             <option value="/women-magazine/">女性ファッション雑誌</option>
