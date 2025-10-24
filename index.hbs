@@ -5,8 +5,10 @@
 <script>
     // 元のタイトルから "ページ N" を抽出（ページネーション対応）
     const originalTitle = document.title;
-    const pageMatch = originalTitle.match(/ページ \d+|Page \d+/);
-    const pagePart = pageMatch ? ` | ${pageMatch[0]}` : '';
+    const pageMatch = originalTitle.match(/ページ (\d+)|Page (\d+)/);
+    const pageNum = pageMatch ? (pageMatch[1] || pageMatch[2]) : null;
+    // 1ページ目の場合はページ番号を含めない
+    const pagePart = (pageMatch && pageNum !== '1') ? ` | ${pageMatch[0]}` : '';
 
     // URLに応じてタイトルを設定
     if (window.location.pathname === '/') {
