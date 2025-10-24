@@ -308,11 +308,110 @@ routes:
     data: tag.women-manga
     template: category
 
+  # 少女・女性マンガの付録 個別ページ
+  /women-manga/ciao-shogakukan/:
+    controller: channel
+    filter: tag:ciao-shogakukan
+    data: tag.ciao-shogakukan
+    template: category
+  /women-manga/nakayosi-kodansha/:
+    controller: channel
+    filter: tag:nakayosi-kodansha
+    data: tag.nakayosi-kodansha
+    template: category
+  /women-manga/ribon-shueisha/:
+    controller: channel
+    filter: tag:ribon-shueisha
+    data: tag.ribon-shueisha
+    template: category
+  /women-manga/shocomi-shogakukan/:
+    controller: channel
+    filter: tag:shocomi-shogakukan
+    data: tag.shocomi-shogakukan
+    template: category
+
   # 子供・児童学習 雑誌
   /child-magazine/:
     controller: channel
     filter: tag:[babybook-shogakukan,fukufuku-fukuinkan,genki-kodansha,inaiinai-kodansha,mebae-shogakukan,nene-shufu,okaitsu-kodansha,otomodachi-kodansha,pucchigumi-shogakukan,sho1-shogakukan,sho8-shogakukan,tanoyo-kodansha,telemaga-kodansha,televikun-shogakukan,youchien-shogakukan]
     data: tag.child-magazine
+    template: category
+
+  # 子供・児童学習 雑誌 個別ページ
+  /child-magazine/babybook-shogakukan/:
+    controller: channel
+    filter: tag:babybook-shogakukan
+    data: tag.babybook-shogakukan
+    template: category
+  /child-magazine/fukufuku-fukuinkan/:
+    controller: channel
+    filter: tag:fukufuku-fukuinkan
+    data: tag.fukufuku-fukuinkan
+    template: category
+  /child-magazine/genki-kodansha/:
+    controller: channel
+    filter: tag:genki-kodansha
+    data: tag.genki-kodansha
+    template: category
+  /child-magazine/inaiinai-kodansha/:
+    controller: channel
+    filter: tag:inaiinai-kodansha
+    data: tag.inaiinai-kodansha
+    template: category
+  /child-magazine/mebae-shogakukan/:
+    controller: channel
+    filter: tag:mebae-shogakukan
+    data: tag.mebae-shogakukan
+    template: category
+  /child-magazine/nene-shufu/:
+    controller: channel
+    filter: tag:nene-shufu
+    data: tag.nene-shufu
+    template: category
+  /child-magazine/okaitsu-kodansha/:
+    controller: channel
+    filter: tag:okaitsu-kodansha
+    data: tag.okaitsu-kodansha
+    template: category
+  /child-magazine/otomodachi-kodansha/:
+    controller: channel
+    filter: tag:otomodachi-kodansha
+    data: tag.otomodachi-kodansha
+    template: category
+  /child-magazine/pucchigumi-shogakukan/:
+    controller: channel
+    filter: tag:pucchigumi-shogakukan
+    data: tag.pucchigumi-shogakukan
+    template: category
+  /child-magazine/sho1-shogakukan/:
+    controller: channel
+    filter: tag:sho1-shogakukan
+    data: tag.sho1-shogakukan
+    template: category
+  /child-magazine/sho8-shogakukan/:
+    controller: channel
+    filter: tag:sho8-shogakukan
+    data: tag.sho8-shogakukan
+    template: category
+  /child-magazine/tanoyo-kodansha/:
+    controller: channel
+    filter: tag:tanoyo-kodansha
+    data: tag.tanoyo-kodansha
+    template: category
+  /child-magazine/telemaga-kodansha/:
+    controller: channel
+    filter: tag:telemaga-kodansha
+    data: tag.telemaga-kodansha
+    template: category
+  /child-magazine/televikun-shogakukan/:
+    controller: channel
+    filter: tag:televikun-shogakukan
+    data: tag.televikun-shogakukan
+    template: category
+  /child-magazine/youchien-shogakukan/:
+    controller: channel
+    filter: tag:youchien-shogakukan
+    data: tag.youchien-shogakukan
     template: category
 
   # ママ・主婦雑誌
@@ -322,11 +421,100 @@ routes:
     data: tag.mother-magazine
     template: category
 
+  # ママ・主婦雑誌 個別ページ
+  /mother-magazine/39mag-benesse/:
+    controller: channel
+    filter: tag:39mag-benesse
+    data: tag.39mag-benesse
+    template: category
+  /mother-magazine/akahoshi-shufunotomo/:
+    controller: channel
+    filter: tag:akahoshi-shufunotomo
+    data: tag.akahoshi-shufunotomo
+    template: category
+  /mother-magazine/babymo-shufunotomo/:
+    controller: channel
+    filter: tag:babymo-shufunotomo
+    data: tag.babymo-shufunotomo
+    template: category
+  /mother-magazine/cookpadplus-7andi/:
+    controller: channel
+    filter: tag:cookpadplus-7andi
+    data: tag.cookpadplus-7andi
+    template: category
+  /mother-magazine/croissant-magazinehouse/:
+    controller: channel
+    filter: tag:croissant-magazinehouse
+    data: tag.croissant-magazinehouse
+    template: category
+  /mother-magazine/ellegourmet-hearstfujingaho/:
+    controller: channel
+    filter: tag:ellegourmet-hearstfujingaho
+    data: tag.ellegourmet-hearstfujingaho
+    template: category
+  /mother-magazine/esse-fusosha/:
+    controller: channel
+    filter: tag:esse-fusosha
+    data: tag.esse-fusosha
+    template: category
+  /mother-magazine/hiyokoclub-benesse/:
+    controller: channel
+    filter: tag:hiyokoclub-benesse
+    data: tag.hiyokoclub-benesse
+    template: category
+  /mother-magazine/hugmug-sekaibunkasha/:
+    controller: channel
+    filter: tag:hugmug-sekaibunkasha
+    data: tag.hugmug-sekaibunkasha
+    template: category
+  /mother-magazine/kodomoe-hakusensha/:
+    controller: channel
+    filter: tag:kodomoe-hakusensha
+    data: tag.kodomoe-hakusensha
+    template: category
+  /mother-magazine/lettuceclub-kadokawa/:
+    controller: channel
+    filter: tag:lettuceclub-kadokawa
+    data: tag.lettuceclub-kadokawa
+    template: category
+  /mother-magazine/moe-hakusensha/:
+    controller: channel
+    filter: tag:moe-hakusensha
+    data: tag.moe-hakusensha
+    template: category
+  /mother-magazine/orangepage/:
+    controller: channel
+    filter: tag:orangepage
+    data: tag.orangepage
+    template: category
+  /mother-magazine/premo-shufunotomo/:
+    controller: channel
+    filter: tag:premo-shufunotomo
+    data: tag.premo-shufunotomo
+    template: category
+  /mother-magazine/sutekinaokusan-shufutoseikatsusha/:
+    controller: channel
+    filter: tag:sutekinaokusan-shufutoseikatsusha
+    data: tag.sutekinaokusan-shufutoseikatsusha
+    template: category
+
   # 結婚情報誌
   /wedding-magazine/:
     controller: channel
     filter: tag:[ellemariage-hearstfujingaho,zexy-recruit]
     data: tag.wedding-magazine
+    template: category
+
+  # 結婚情報誌 個別ページ
+  /wedding-magazine/ellemariage-hearstfujingaho/:
+    controller: channel
+    filter: tag:ellemariage-hearstfujingaho
+    data: tag.ellemariage-hearstfujingaho
+    template: category
+  /wedding-magazine/zexy-recruit/:
+    controller: channel
+    filter: tag:zexy-recruit
+    data: tag.zexy-recruit
     template: category
 
   # メンズファッション雑誌
@@ -336,11 +524,100 @@ routes:
     data: tag.men-magazine
     template: category
 
+  # メンズファッション雑誌 個別ページ
+  /men-magazine/dime-shogakukan/:
+    controller: channel
+    filter: tag:dime-shogakukan
+    data: tag.dime-shogakukan
+    template: category
+  /men-magazine/getnavi-gakkenplus/:
+    controller: channel
+    filter: tag:getnavi-gakkenplus
+    data: tag.getnavi-gakkenplus
+    template: category
+  /men-magazine/lightning-eipublishing/:
+    controller: channel
+    filter: tag:lightning-eipublishing
+    data: tag.lightning-eipublishing
+    template: category
+  /men-magazine/mensclub-hearstfujingaho/:
+    controller: channel
+    filter: tag:mensclub-hearstfujingaho
+    data: tag.mensclub-hearstfujingaho
+    template: category
+  /men-magazine/mensnonno-shueisha/:
+    controller: channel
+    filter: tag:mensnonno-shueisha
+    data: tag.mensnonno-shueisha
+    template: category
+  /men-magazine/monomaster-takarajimasha/:
+    controller: channel
+    filter: tag:monomaster-takarajimasha
+    data: tag.monomaster-takarajimasha
+    template: category
+  /men-magazine/monomax-takarajimasha/:
+    controller: channel
+    filter: tag:monomax-takarajimasha
+    data: tag.monomax-takarajimasha
+    template: category
+  /men-magazine/smart-takarajimasha/:
+    controller: channel
+    filter: tag:smart-takarajimasha
+    data: tag.smart-takarajimasha
+    template: category
+  /men-magazine/uomo-shueisha/:
+    controller: channel
+    filter: tag:uomo-shueisha
+    data: tag.uomo-shueisha
+    template: category
+
   # アウトドア雑誌
   /outdoor-magazine/:
     controller: channel
     filter: tag:[bepal-shogakukan,bicycleclub-eipublishing,camplife-yamakei,cyclesports-yaesu,fielder-kasakura,peaks-eipublishing,randonnee-eipublishing,wandervogel-yamakei]
     data: tag.outdoor-magazine
+    template: category
+
+  # アウトドア雑誌 個別ページ
+  /outdoor-magazine/bepal-shogakukan/:
+    controller: channel
+    filter: tag:bepal-shogakukan
+    data: tag.bepal-shogakukan
+    template: category
+  /outdoor-magazine/bicycleclub-eipublishing/:
+    controller: channel
+    filter: tag:bicycleclub-eipublishing
+    data: tag.bicycleclub-eipublishing
+    template: category
+  /outdoor-magazine/camplife-yamakei/:
+    controller: channel
+    filter: tag:camplife-yamakei
+    data: tag.camplife-yamakei
+    template: category
+  /outdoor-magazine/cyclesports-yaesu/:
+    controller: channel
+    filter: tag:cyclesports-yaesu
+    data: tag.cyclesports-yaesu
+    template: category
+  /outdoor-magazine/fielder-kasakura/:
+    controller: channel
+    filter: tag:fielder-kasakura
+    data: tag.fielder-kasakura
+    template: category
+  /outdoor-magazine/peaks-eipublishing/:
+    controller: channel
+    filter: tag:peaks-eipublishing
+    data: tag.peaks-eipublishing
+    template: category
+  /outdoor-magazine/randonnee-eipublishing/:
+    controller: channel
+    filter: tag:randonnee-eipublishing
+    data: tag.randonnee-eipublishing
+    template: category
+  /outdoor-magazine/wandervogel-yamakei/:
+    controller: channel
+    filter: tag:wandervogel-yamakei
+    data: tag.wandervogel-yamakei
     template: category
 
   # その他雑誌
@@ -350,11 +627,75 @@ routes:
     data: tag.other-magazine
     template: category
 
+  # その他雑誌 個別ページ
+  /other-magazine/modernliving-hearstfujingaho/:
+    controller: channel
+    filter: tag:modernliving-hearstfujingaho
+    data: tag.modernliving-hearstfujingaho
+    template: category
+  /other-magazine/nikkeiwoman-nikkeibp/:
+    controller: channel
+    filter: tag:nikkeiwoman-nikkeibp
+    data: tag.nikkeiwoman-nikkeibp
+    template: category
+  /other-magazine/serai-shogakukan/:
+    controller: channel
+    filter: tag:serai-shogakukan
+    data: tag.serai-shogakukan
+    template: category
+  /other-magazine/tabinotecho-kotsushinbun/:
+    controller: channel
+    filter: tag:tabinotecho-kotsushinbun
+    data: tag.tabinotecho-kotsushinbun
+    template: category
+  /other-magazine/tokyowalker-kadokawa/:
+    controller: channel
+    filter: tag:tokyowalker-kadokawa
+    data: tag.tokyowalker-kadokawa
+    template: category
+
   # エンタメ
   /entertainment/:
     controller: channel
     filter: tag:[campaign,furoku-favorite,furoku-ranking,furoku-sufficiency,other,recommended,subscription-tokuten]
     data: tag.entertainment
+    template: category
+
+  # エンタメ 個別ページ
+  /entertainment/campaign/:
+    controller: channel
+    filter: tag:campaign
+    data: tag.campaign
+    template: category
+  /entertainment/furoku-favorite/:
+    controller: channel
+    filter: tag:furoku-favorite
+    data: tag.furoku-favorite
+    template: category
+  /entertainment/furoku-ranking/:
+    controller: channel
+    filter: tag:furoku-ranking
+    data: tag.furoku-ranking
+    template: category
+  /entertainment/furoku-sufficiency/:
+    controller: channel
+    filter: tag:furoku-sufficiency
+    data: tag.furoku-sufficiency
+    template: category
+  /entertainment/other/:
+    controller: channel
+    filter: tag:other
+    data: tag.other
+    template: category
+  /entertainment/recommended/:
+    controller: channel
+    filter: tag:recommended
+    data: tag.recommended
+    template: category
+  /entertainment/subscription-tokuten/:
+    controller: channel
+    filter: tag:subscription-tokuten
+    data: tag.subscription-tokuten
     template: category
 
   # 未分類
