@@ -1,6 +1,17 @@
 {{!< default}}
 {{!-- Template for /onsale202106/ page --}}
 
+
+{{!-- ページタイトルを設定 --}}
+<script>
+    // h2タグからページタイトルを取得して設定
+    document.addEventListener('DOMContentLoaded', function() {
+        const titleElement = document.querySelector('.onsale-title');
+        if (titleElement) {
+            document.title = titleElement.textContent + ' | {{@site.title}}';
+        }
+    });
+</script>
 {{!-- onsale詳細ページで雑誌タグラベルを表示 --}}
 <style>
     .magazine-tag-placeholder {

@@ -1,6 +1,13 @@
 {{!< default}}
 {{!-- The tag above means: insert everything in this file into the body of the default.hbs template --}}
 
+{{!-- ページタイトルを設定 --}}
+<script>
+    {{#author}}
+    document.title = '{{name}}の書いた記事 | {{@site.title}}';
+    {{/author}}
+</script>
+
 <main class="gh-main gh-outer">
 
     {{#author}}

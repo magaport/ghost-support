@@ -26,12 +26,17 @@ a.btn-simple:hover {
 
 #past_sale p,
 #recent_sale p {
-    display: block;
+    display: none;
     margin-block-start: 1em;
     margin-block-end: 1em;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
     unicode-bidi: isolate;
+}
+
+#past_sale p.loaded,
+#recent_sale p.loaded {
+    display: block;
 }
 
 #past_sale span,

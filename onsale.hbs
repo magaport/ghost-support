@@ -1,6 +1,11 @@
 {{!< default}}
 {{!-- Template for /onsale page - showing posts tagged with "hash-after" --}}
 
+{{!-- ページタイトルを設定 --}}
+<script>
+    document.title = '開封レビュー | {{@site.title}}';
+</script>
+
 {{!-- onsaleページで雑誌タグラベルを表示 --}}
 <style>
     .magazine-tag-placeholder {
@@ -63,8 +68,6 @@
             };
         </script>
 
-        {{> "components/sns-share"}}
-
         {{!-- 残りの年月リスト --}}
         <div id="past_sale" class="cf">
             <p>
@@ -77,6 +80,8 @@
                 {{/get}}
             </p>
         </div>
+
+        {{> "components/sns-share"}}
 
         {{> "components/content-menu" active="onsale"}}
     </main>

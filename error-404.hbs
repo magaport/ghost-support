@@ -1,6 +1,11 @@
 {{!< default}}
 {{!-- 404 Error Page --}}
 
+{{!-- ページタイトルを設定 --}}
+<script>
+    document.title = 'ページが見つかりませんでした | {{@site.title}}';
+</script>
+
 {{> "components/search-form"}}
 
 <div class="gh-content-wrapper">
@@ -12,6 +17,7 @@
             </div>
             <div class="nofound-img">
                 <img src="{{asset "images/notfound.jpg"}}" alt="記事が見つかりませんでした">
+                <h2 class="dfont strong">404</h2>
             </div>
             <div class="nofound-contents">
                 <p>お探しのページは「すでに削除されている」、「アクセスしたアドレスが異なっている」などの理由で見つかりませんでした。以下でキーワードやカテゴリーから記事を探すことができます。</p>

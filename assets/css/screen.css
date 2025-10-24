@@ -2816,7 +2816,7 @@ body[class*=" gh-font-heading"]:not(.gh-font-heading-fira-sans):not(.gh-font-hea
 /* ---------------------------------------------------------- */
 
 .gh-footer {
-    margin-top: 12vw;
+    margin-top: 4vw;
     font-size: 1.5rem;
     color: var(--color-darker-gray);
 }

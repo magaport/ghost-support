@@ -1,5 +1,12 @@
 {{!< default}}
 
+{{!-- ページタイトルを設定 --}}
+<script>
+    {{#tag}}
+    document.title = '「{{name}}」の記事一覧 | {{@site.title}}';
+    {{/tag}}
+</script>
+
 {{> "components/search-form"}}
 
 {{!-- ヘッダーセクション: タグページ --}}

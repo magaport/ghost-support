@@ -141,21 +141,45 @@
 }
 
 .nofound-title {
+    position: relative;
     display: block;
     margin: 0;
-    padding: 11px 5.5px;
+    padding: 1em .5em;
     font-size: 18px;
-    font-weight: 700;
+    font-weight: bold;
     color: #252525;
     background: #fff;
     text-align: center;
+}
+
+.nofound-title:before {
+    position: absolute;
+    z-index: 99;
+    top: 100%;
+    left: 50%;
+    margin-left: -20px;
+    border: 20px solid transparent;
+    border-top: 20px solid #fff;
+    content: "";
 }
 
 .nofound-title .fa-tint {
     color: #84c2ff;
 }
 
+.nofound-message {
+    background: #fff;
+    color: #252525;
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+    padding: 1em 0.5em;
+    text-align: center;
+}
+
 .nofound-img {
+    position: relative;
     display: block;
     margin: 0;
     padding: 0;
@@ -167,6 +191,22 @@
     width: 100%;
     height: auto;
     margin: 0;
+}
+
+.nofound-img h2 {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    color: rgba(255, 255, 255, .8);
+    font-size: 10em;
+    font-weight: bold;
+    font-family: "Quicksand", "Avenir", "Arial", "YuGothic", "Yu Gothic", "Hiragino Sans", "ヒラギノ角ゴシック", "メイリオ", "Meiryo", "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+    text-align: center;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
 
 .nofound-contents {
@@ -261,13 +301,15 @@
 .withtag_list ul.children {
     display: block;
     margin: 0;
-    padding: 4px 0 4px 20px;
-    list-style: none;
+    padding: 4px 0 4px 1em;
+    list-style-type: disc;
     background: transparent;
+    font-size: 1.7rem;
 }
 
 .withtag_list ul.children li {
-    display: block;
+    display: list-item;
     margin: 2px 0;
+    font-size: 1.7rem;
 }
 
