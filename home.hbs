@@ -1,6 +1,28 @@
 {{!< default}}
 {{!-- The tag above means: insert everything in this file into the body of the default.hbs template --}}
 
+{{!-- ページタイトルを設定 --}}
+<script>
+    // 元のタイトルから "ページ N" を抽出（ページネーション対応）
+    const originalTitle = document.title;
+    const pageMatch = originalTitle.match(/ページ \d+|Page \d+/);
+    const pagePart = pageMatch ? ` | ${pageMatch[0]}` : '';
+
+    // URLに応じてタイトルを設定
+    if (window.location.pathname === '/') {
+        document.title = '{{@site.title}} | 雑誌の付録をフラゲ開封レビューでご紹介';
+    } else if (window.location.pathname.startsWith('/new')) {
+        document.title = '新着情報' + pagePart + ' | {{@site.title}}';
+    }
+
+    // 検索結果ページのタイトル設定
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchQuery = urlParams.get('s');
+    if (searchQuery) {
+        document.title = '"' + searchQuery + '" の検索結果 | {{@site.title}}';
+    }
+</script>
+
 {{> "components/search-form"}}
 
 {{#match @custom.header_style "!=" "Highlight"}}
