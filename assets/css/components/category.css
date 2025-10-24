@@ -68,6 +68,14 @@
     font-size: 1.5rem;
 }
 
+.gh-main-content > h2 {
+    font-size: 2.0rem;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: .375em;
+    line-height: 1.56;
+}
+
 /* Card type layout */
 .cardtype {
     display: grid !important;
