@@ -109,20 +109,23 @@
 }
 
 .cardtype__article {
-    background: #fff;
-    border-radius: 0;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    margin: 10px 5px;
     position: relative;
-    display: flex;
-    flex-direction: column;
+    width: 100%;
+    margin: 0 0 25px;
+    border-radius: 2px;
+    background: #fff;
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, .12), 0 2px 3px 0 rgba(0, 0, 0, .22);
+    cursor: pointer;
+    transition: .2s ease-in-out;
 }
 
 .cardtype__article:hover {
     transform: translateY(-4px);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.cardtype__link:hover {
+    opacity: 1;
 }
 
 .cardtype__link {
