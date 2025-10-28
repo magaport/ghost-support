@@ -202,6 +202,10 @@
     z-index: 10;
 }
 
+main h2 {
+    margin-top: 0;
+}
+
 @media (max-width: 768px) {
     .cardtype {
         grid-template-columns: 1fr;
@@ -213,6 +217,29 @@
 
     #cat_header h1 {
         font-size: 2rem;
+    }
+}
+
+@media only screen and (max-width: 786px) {
+    .gh-main-content h1, .gh-main-content > h2, .gh-main-content h3 {
+        font-size: 14px;
+    }
+
+    .cardtype__link h2 {
+        background: none !important;
+        border: none !important;
+        color: #57585A !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        overflow: hidden;
+        font-size: inherit !important;
+    }
+}
+
+@media only screen and (max-width: 468px) {
+    .cardtype__link h2 {
+        font-size: 10px !important;
+        line-height: 12px !important;
     }
 }
 

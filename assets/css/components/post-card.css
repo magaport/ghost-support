@@ -133,11 +133,6 @@
         gap: 8px;
     }
 
-    .post-card__info {
-        padding: 8px;
-        padding-bottom: 35px;
-    }
-
     .post-card__info h2 {
         font-size: 11px;
         line-height: 1.3;
