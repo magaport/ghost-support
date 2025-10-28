@@ -15,7 +15,7 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    margin: 15px 0 15px;
+    margin: 10px 5px;
     border-radius: 2px;
     box-shadow: 0 0 3px 0 rgba(0, 0, 0, .12), 0 2px 3px 0 rgba(0, 0, 0, .22);
     cursor: pointer;
@@ -55,8 +55,10 @@
 }
 
 .post-card__info {
-    padding: 15px;
-    padding-bottom: 45px;
+    margin: 1em 0 0 0;
+    height: 60px;
+    overflow: hidden;
+    position: relative;
 }
 
 .post-card__info h2 {
@@ -64,6 +66,7 @@
     line-height: 1.5;
     margin: 0;
     color: #333;
+    overflow: visible;
 }
 
 .post-card__info h2 span {
