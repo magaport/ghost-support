@@ -544,6 +544,29 @@ aside {
     margin: 0 0 1.5em;
 }
 
+.entry-content blockquote {
+    box-sizing: border-box;
+    position: relative;
+    margin: 1.5em 0;
+    padding: 13px 15px 13px 50px;
+    border: solid 2px #464646;
+    color: #464646;
+    background-color: #F5F2E9;
+}
+
+.entry-content blockquote:before {
+    display: inline-block;
+    position: absolute;
+    top: 20px;
+    left: 15px;
+    font-family: FontAwesome;
+    font-size: 25px;
+    vertical-align: middle;
+    line-height: 1;
+    content: "\f10d";
+    color: #000000;
+}
+
 .entry-content ul {
     list-style-type: disc;
     margin-bottom: 1.5em;
