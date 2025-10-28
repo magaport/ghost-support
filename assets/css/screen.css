@@ -59,6 +59,7 @@ production stylesheet in assets/built/screen.css
 @import "./components/drawer.css";
 @import "./components/post-card.css";
 @import "./components/post.css";
+@import "./components/author.css";
 @import "./components/custom-icons.css";
 @import "./components/amazonjs.css";
 @import "./components/popular-posts.css";
