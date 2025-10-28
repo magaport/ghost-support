@@ -707,7 +707,7 @@ routes:
 
 collections:
   /new/:
-    permalink: /post/{slug}/
+    permalink: /review/{slug}/
     template: index
     limit: 40
   /:
