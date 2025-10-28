@@ -1,0 +1,67 @@
+{{!< default}}
+
+{{!-- ページタイトルを設定 --}}
+<script>
+    document.title = '筆者一覧 | {{@site.title}}';
+</script>
+
+{{> "components/search-form"}}
+
+<div class="gh-content-wrapper" data-page="author-list">
+<main id="main" class="m-all t-2of3 d-5of7 cf" role="main">
+    <div id="entry">
+        <header id="archive_header">
+            {{!-- パンくずナビゲーション --}}
+            {{> "components/breadcrumb"}}
+        </header>
+
+        <section class="entry-content cf">
+            {{#get "authors" filter="slug:question" limit="1"}}
+                {{#foreach authors}}
+                <div class="author-info pastel-bc">
+                    <div class="author-info__inner">
+                        <div class="tb">
+                            <div class="tb-left">
+                                <div class="author_img">
+                                    {{#if profile_image}}
+                                    <img alt="{{name}}" src="{{img_url profile_image size="s"}}" srcset="{{img_url profile_image size="m"}} 2x" class="avatar avatar-100 photo" height="100" width="100" loading="lazy" decoding="async">
+                                    {{else}}
+                                    <span class="author-placeholder">{{name}}</span>
+                                    {{/if}}
+                                </div>
+                                <dl class="aut">
+                                    <dt>
+                                        <a class="dfont" href="{{url}}"><span>{{name}}</span></a>
+                                    </dt>
+                                    <dd>{{#if location}}{{location}}{{/if}}</dd>
+                                </dl>
+                            </div>
+                            <div class="tb-right">
+                                {{#if bio}}
+                                <p>{{bio}}</p>
+                                {{/if}}
+                                <div class="follow_btn dfont">
+                                    {{#if twitter}}
+                                        <a class="gh-author-social-link" href="{{social_url type="twitter"}}" target="_blank" rel="noopener">
+                                            <i class="fa fa-twitter"></i>
+                                        </a>
+                                    {{/if}}
+                                    {{#if instagram}}
+                                        <a class="gh-author-social-link" href="{{social_url type="instagram"}}" target="_blank" rel="noopener">
+                                            <i class="fa fa-instagram"></i>
+                                        </a>
+                                    {{/if}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/foreach}}
+            {{/get}}
+        </section>
+    </div>
+</main>
+
+{{!-- サイドバー --}}
+{{> "sidebar"}}
+</div>
