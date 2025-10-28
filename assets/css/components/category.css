@@ -234,12 +234,20 @@ main h2 {
         overflow: hidden;
         font-size: inherit !important;
     }
+
+    .cardtype__image {
+        height: 180px;
+    }
 }
 
 @media only screen and (max-width: 468px) {
     .cardtype__link h2 {
         font-size: 10px !important;
         line-height: 12px !important;
+    }
+
+    .cardtype__image {
+        height: 120px;
     }
 }
 

@@ -147,6 +147,12 @@
     }
 }
 
+@media only screen and (max-width: 468px) {
+    .post-card__image {
+        height: 120px;
+    }
+}
+
 /* デフォルトで雑誌タグを非表示 */
 .magazine-tag-placeholder {
     display: none !important;
