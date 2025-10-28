@@ -108,37 +108,56 @@
         return;
     }
 
-    // Get magazine tags from data attribute
-    const categoryPlaceholder = document.querySelector('.post-category-placeholder');
-    let magazineTags = [];
-    if (categoryPlaceholder) {
-        const magazineTagsData = categoryPlaceholder.getAttribute('data-magazine-tags');
-        if (magazineTagsData) {
-            try {
-                const parsedTags = JSON.parse(magazineTagsData);
-                magazineTags = parsedTags.map(function (tag) {
-                    return tag.slug;
-                });
-            } catch (e) {
-                console.error('Failed to parse magazine tags:', e);
-            }
-        }
-    }
-
-    // Entertainment and other category tags
-    const otherCategoryTags = [
-        'campaign',
-        'furoku-favorite',
-        'furoku-ranking',
-        'furoku-sufficiency',
-        'other',
-        'recommended',
-        'subscription-tokuten',
+    // Define all magazine category tags (from magazine-tag.js)
+    const magazineCategoryTags = [
+        // ブランドムック
         'brandmook',
-        'uncategorized'
+        // 女性ファッション雑誌
+        '25ans-hearstfujingaho', 'androsy-takarajimasha', 'baila-shueisha', 'bestory-kobunsha',
+        'bijinhyakka-kadokawaharuki', 'biteki-shogakukan', 'cancam-shogakukan', 'domani-shogakukan',
+        'eclat-shueisha', 'elledecor-hearstfujingaho', 'ellejapon-hearstfujingaho', 'fudge-saneishobo',
+        'fujingaho-hearstfujingaho', 'gina-bunkasha', 'ginger-gentosha', 'glow-takarajimasha',
+        'harpersbazaar-hearstfujingaho', 'inred-takarajimasha', 'jelly-bunkasha', 'jj-kobunsha',
+        'jsgirl-saneishobo', 'kimonoanne-tacshuppan', 'kirapichi-gakken', 'kunel-magazinehouse',
+        'lafarfa-bunkasha', 'larme-tokumashoten', 'lee-shueisha', 'liniere-takarajimasha',
+        'loveggg-mediaboy', 'maquia-shueisha', 'marisol-shueisha', 'mini-takarajimasha',
+        'more-shueisha', 'nicola-shinchosha', 'nicopuchi-shinchosha', 'nonno-shueisha',
+        'numerotokyo-fusosha', 'oggi-shogakukan', 'osharetecho-takarajimasha', 'otonamuse-takarajimasha',
+        'popteen-kadokawaharuki', 'richesse-hearstfujingaho', 'seventeen-shueisha', 'spring-takarajimasha',
+        'spur-shueisha', 'steady-takarajimasha', 'sutekinaanohito-takarajimasha', 'sweet-takarajimasha',
+        'utsukushiikimono-hearstfujingaho', 'vivi-kodansha', 'voce-kodansha', 'waraku-shogakukan',
+        'with-kodansha', 'yogini-peacs',
+        // 少女・女性マンガの付録
+        'ciao-shogakukan', 'nakayosi-kodansha', 'ribon-shueisha', 'shocomi-shogakukan',
+        // 子供・児童学習 雑誌
+        'babybook-shogakukan', 'fukufuku-fukuinkan', 'genki-kodansha', 'inaiinai-kodansha',
+        'mebae-shogakukan', 'nene-shufu', 'okaitsu-kodansha', 'otomodachi-kodansha',
+        'pucchigumi-shogakukan', 'sho1-shogakukan', 'sho8-shogakukan', 'tanoyo-kodansha',
+        'telemaga-kodansha', 'televikun-shogakukan', 'youchien-shogakukan',
+        // ママ・主婦雑誌
+        '39mag-benesse', 'akahoshi-shufunotomo', 'babymo-shufunotomo', 'cookpadplus-7andi',
+        'croissant-magazinehouse', 'ellegourmet-hearstfujingaho', 'esse-fusosha', 'hiyokoclub-benesse',
+        'hugmug-sekaibunkasha', 'kodomoe-hakusensha', 'lettuceclub-kadokawa', 'moe-hakusensha',
+        'orangepage', 'premo-shufunotomo', 'sutekinaokusan-shufutoseikatsusha',
+        // 結婚情報誌
+        'ellemariage-hearstfujingaho', 'zexy-recruit',
+        // メンズファッション雑誌
+        'dime-shogakukan', 'getnavi-gakkenplus', 'lightning-eipublishing', 'mensclub-hearstfujingaho',
+        'mensnonno-shueisha', 'monomaster-takarajimasha', 'monomax-takarajimasha', 'smart-takarajimasha',
+        'uomo-shueisha',
+        // アウトドア雑誌
+        'bepal-shogakukan', 'bicycleclub-eipublishing', 'camplife-yamakei', 'cyclesports-yaesu',
+        'fielder-kasakura', 'peaks-eipublishing', 'randonnee-eipublishing', 'wandervogel-yamakei',
+        // その他雑誌
+        'modernliving-hearstfujingaho', 'nikkeiwoman-nikkeibp', 'serai-shogakukan',
+        'tabinotecho-kotsushinbun', 'tokyowalker-kadokawa',
+        // エンタメ
+        'campaign', 'furoku-favorite', 'furoku-ranking', 'furoku-sufficiency', 'other',
+        'recommended', 'subscription-tokuten',
+        // 親カテゴリー
+        'women-magazine', 'women-manga', 'child-magazine', 'mother-magazine', 'wedding-magazine',
+        'men-magazine', 'outdoor-magazine', 'other-magazine', 'entertainment', 'uncategorized'
     ];
-
-    const allCategoryTags = magazineTags.concat(otherCategoryTags);
 
     // Check if any non-category tag exists
     let hasNonCategoryTag = false;
@@ -146,7 +165,7 @@
         const href = link.getAttribute('href');
         const slug = href.split('/tag/')[1]?.replace('/', '') || '';
 
-        const isCategoryTag = allCategoryTags.indexOf(slug) !== -1;
+        const isCategoryTag = magazineCategoryTags.indexOf(slug) !== -1;
 
         if (!isCategoryTag) {
             hasNonCategoryTag = true;
