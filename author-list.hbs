@@ -12,7 +12,20 @@
     <div id="entry">
         <header id="archive_header">
             {{!-- パンくずナビゲーション --}}
-            {{> "components/breadcrumb"}}
+            <nav id="breadcrumb">
+                <ul itemscope itemtype="http://schema.org/BreadcrumbList">
+                    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                        <a href="{{@site.url}}" itemprop="item">
+                            <span itemprop="name">ホーム</span>
+                        </a>
+                        <meta itemprop="position" content="1">
+                    </li>
+                    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                        <span itemprop="name">ライター一覧</span>
+                        <meta itemprop="position" content="2">
+                    </li>
+                </ul>
+            </nav>
         </header>
 
         <section class="entry-content cf">

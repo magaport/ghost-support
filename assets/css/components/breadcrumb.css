@@ -66,11 +66,11 @@
 }
 
 #breadcrumb li:last-child span {
-    color: #4f96f6 !important;
+    color: gray !important;
 }
 
 #breadcrumb li:last-child:hover span {
-    color: #4f96f6 !important;
+    color: gray !important;
 }
 
 #breadcrumb span {
