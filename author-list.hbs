@@ -2,7 +2,7 @@
 
 {{!-- ページタイトルを設定 --}}
 <script>
-    document.title = '筆者一覧 | {{@site.title}}';
+    document.title = 'ライター一覧 | {{@site.title}}';
 </script>
 
 {{> "components/search-form"}}
@@ -16,7 +16,7 @@
         </header>
 
         <section class="entry-content cf">
-            {{#get "authors" filter="slug:question" limit="1"}}
+            {{#get "authors" filter="slug:hiroki" limit="1"}}
                 {{#foreach authors}}
                 <div class="author-info pastel-bc">
                     <div class="author-info__inner">
