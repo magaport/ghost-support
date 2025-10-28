@@ -880,6 +880,11 @@ footer p {
     display: block;
     color: rgb(80, 80, 80);
     margin: 0px 15px 20px;
+    text-decoration: none;
+}
+
+.prnx:hover {
+    opacity: 1;
 }
 
 .prnx.pr {
@@ -889,17 +894,15 @@ footer p {
 
 .prnx.nx {
     float: right;
-    text-align: right;
+    text-align: left;
 }
 
 .prnx p {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin: 0 0 10px 0;
+    margin: 0;
+    padding: 4px;
+    color: rgba(0, 0, 0, .52);
     font-size: 1.4rem;
-    font-weight: 600;
-    color: var(--color-secondary-text);
+    font-weight: bold;
 }
 
 .prnx.pr p {
@@ -907,7 +910,7 @@ footer p {
 }
 
 .prnx.nx p {
-    justify-content: flex-end;
+    justify-content: flex-start;
 }
 
 .prnx_tb {
@@ -939,12 +942,12 @@ footer p {
 
 .prev-next__text {
     display: table-cell;
+    width: calc(100% - 95px);
     padding: 10px;
     font-size: 1.4rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: var(--color-primary-text);
     vertical-align: middle;
+    line-height: 1.4;
+    text-decoration: none;
 }
 
 .accent-bc {
