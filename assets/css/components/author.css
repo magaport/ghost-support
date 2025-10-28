@@ -61,3 +61,31 @@
         padding-left: 25px;
     }
 }
+
+/* Author list page styles */
+body:has([data-page="author-list"]) .author-info {
+    margin-top: 0;
+}
+
+@media only screen and (min-width: 1030px) {
+    body:has([data-page="author-list"]) .entry-content {
+        padding: 10px 40px 0;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    body:has([data-page="author-list"]) .entry-content {
+        padding: 10px 25px 0;
+    }
+}
+
+@media only screen and (min-width: 481px) {
+    body:has([data-page="author-list"]) .single-title,
+    body:has([data-page="author-list"]) .page-title,
+    body:has([data-page="author-list"]) .entry-title,
+    body:has([data-page="author-list"]) .entry-meta,
+    body:has([data-page="author-list"]) .entry-content {
+        padding-right: 25px;
+        padding-left: 25px;
+    }
+}
