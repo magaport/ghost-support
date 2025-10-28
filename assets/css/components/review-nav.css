@@ -48,6 +48,15 @@
     color: #ccc;
 }
 
+/* 関連レビュー記事のタイトルリンク */
+.related-review-link {
+    text-decoration: none;
+}
+
+.related-review-link:hover {
+    text-decoration: underline;
+}
+
 @media (max-width: 768px) {
     .review-nav {
         margin: 15px 0;
