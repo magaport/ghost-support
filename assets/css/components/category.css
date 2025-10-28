@@ -140,33 +140,20 @@
 }
 
 .cardtype__image {
-    display: block;
+    display: flex;
     position: relative;
     height: 60%;
     max-height: 60%;
     overflow: hidden;
+    align-items: center;
+    justify-content: center;
 }
 
 .cardtype__image img {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    max-width: 100% !important;
-    max-height: 100% !important;
-    min-width: 100% !important;
-    min-height: 100% !important;
-    object-fit: cover !important;
-    vertical-align: top;
-}
-
-.cardtype__image > div {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
+    max-width: 100%;
+    max-height: 100%;
+    height: auto;
+    object-fit: contain;
 }
 
 .cardtype__article-info {
