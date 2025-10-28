@@ -13,6 +13,8 @@ routes:
     template: beginner
   /company/:
     template: company
+  /review/author/:
+    template: author-list
 
   # 親カテゴリーページ（channel controller使用）
   # ブランドムック
