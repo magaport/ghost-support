@@ -140,16 +140,11 @@
 }
 
 .cardtype__image {
-    width: 100% !important;
-    position: relative !important;
-    overflow: hidden !important;
-    aspect-ratio: 1 / 1 !important;
-}
-
-.cardtype__image::before {
-    content: "";
     display: block;
-    padding-top: 100%;
+    position: relative;
+    height: 60%;
+    max-height: 60%;
+    overflow: hidden;
 }
 
 .cardtype__image img {
