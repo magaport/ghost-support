@@ -31,6 +31,13 @@
 .amazonjs_item .amazonjs_indicator .amazonjs_indicator_title {
     display: block;
     line-height: 32px;
+    margin-left: 42px;
+    color: #444;
+    text-decoration: none;
+}
+
+.amazonjs_item .amazonjs_indicator .amazonjs_indicator_title:hover {
+    color: #996633;
 }
 
 .amazonjs_item .amazonjs_image {
