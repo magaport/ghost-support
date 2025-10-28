@@ -885,6 +885,7 @@ footer p {
 .aut dt a {
     font-size: 1.6rem;
     font-weight: 700;
+    text-decoration: none;
 }
 
 .aut dd {
