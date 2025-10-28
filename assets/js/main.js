@@ -96,3 +96,68 @@
         bgImageElement.style.backgroundImage = `url(${imageUrl})`;
     }
 })();
+
+/* Hide TAGS section if only category tags exist */
+(function () {
+    const metaTag = document.querySelector('.meta-tag');
+    if (!metaTag) return;
+
+    const tagLinks = metaTag.querySelectorAll('ul li a[rel="tag"]');
+    if (tagLinks.length === 0) {
+        metaTag.style.display = 'none';
+        return;
+    }
+
+    // Get magazine tags from data attribute
+    const categoryPlaceholder = document.querySelector('.post-category-placeholder');
+    let magazineTags = [];
+    if (categoryPlaceholder) {
+        const magazineTagsData = categoryPlaceholder.getAttribute('data-magazine-tags');
+        if (magazineTagsData) {
+            try {
+                const parsedTags = JSON.parse(magazineTagsData);
+                magazineTags = parsedTags.map(function (tag) {
+                    return tag.slug;
+                });
+            } catch (e) {
+                console.error('Failed to parse magazine tags:', e);
+            }
+        }
+    }
+
+    // Entertainment and other category tags
+    const otherCategoryTags = [
+        'campaign',
+        'furoku-favorite',
+        'furoku-ranking',
+        'furoku-sufficiency',
+        'other',
+        'recommended',
+        'subscription-tokuten',
+        'brandmook',
+        'uncategorized'
+    ];
+
+    const allCategoryTags = magazineTags.concat(otherCategoryTags);
+
+    // Check if any non-category tag exists
+    let hasNonCategoryTag = false;
+    tagLinks.forEach(function (link) {
+        const href = link.getAttribute('href');
+        const slug = href.split('/tag/')[1]?.replace('/', '') || '';
+
+        const isCategoryTag = allCategoryTags.indexOf(slug) !== -1;
+
+        if (!isCategoryTag) {
+            hasNonCategoryTag = true;
+        } else {
+            // Hide category tags
+            link.parentElement.style.display = 'none';
+        }
+    });
+
+    // Hide TAGS section if no non-category tags exist
+    if (!hasNonCategoryTag) {
+        metaTag.style.display = 'none';
+    }
+})();
