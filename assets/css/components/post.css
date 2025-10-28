@@ -917,6 +917,7 @@ footer p {
         display: table-cell;
         width: calc(100% - 220px);
         padding: 20px;
+        vertical-align: middle;
     }
 }
 
