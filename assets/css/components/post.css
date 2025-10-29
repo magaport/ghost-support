@@ -576,6 +576,12 @@ aside {
     color: #000000;
 }
 
+.entry-content blockquote p {
+    margin: 10px 0;
+    padding: 0;
+    line-height: 1.7;
+}
+
 
 .entry-content ul {
     list-style-type: disc;
@@ -913,6 +919,10 @@ footer p {
     padding: 15px;
     font-size: 1.4rem;
     line-height: 1.7;
+}
+
+.author-info__inner .tb-right p {
+    white-space: pre-line;
 }
 
 @media only screen and (min-width: 1030px) {
