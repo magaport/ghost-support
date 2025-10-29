@@ -190,7 +190,7 @@
             html += '        </div>';
             html += '        <dl class="aut">';
             html += '          <dt>';
-            html += '            <a class="dfont" href="' + author.url + '"><span>' + author.name + '</span></a>';
+            html += '            <a class="dfont" href="/review/author/' + author.slug + '/"><span>' + author.name + '</span></a>';
             html += '          </dt>';
             html += '          <dd>' + (author.location || '') + '</dd>';
             html += '        </dl>';
