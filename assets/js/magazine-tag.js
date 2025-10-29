@@ -166,7 +166,7 @@
                 return {
                     slug: slug,
                     name: tags[i].name,
-                    url: '/category/' + parentCategory + '/' + slug + '/'
+                    url: '/' + parentCategory + '/' + slug + '/'
                 };
             }
         }
@@ -262,7 +262,7 @@
                         categoryElement.innerHTML = '<div>' +
                             '<p class="footer-meta_title">CATEGORY :</p>' +
                             '<ul class="post-categories">' +
-                            '<li><a href="/category/' + slug + '/" rel="category tag">' +
+                            '<li><a href="/' + slug + '/" rel="category tag">' +
                             tags[i].name + '</a></li>' +
                             '</ul>' +
                             '</div>';
@@ -356,8 +356,9 @@
             }
         }
 
-        // カテゴリーページかどうかを判定（URLに/category/が含まれる）
-        const isCategoryPage = window.location.pathname.indexOf('/category/') === 0;
+        // カテゴリーページかどうかを判定
+        const categoryPaths = ['/brandmook/', '/women-magazine/', '/women-manga/', '/child-magazine/', '/mother-magazine/', '/wedding-magazine/', '/men-magazine/', '/outdoor-magazine/', '/other-magazine/', '/entertainment/', '/uncategorized/'];
+        const isCategoryPage = categoryPaths.some(path => window.location.pathname.indexOf(path) === 0);
 
         // 投稿ページかどうかを判定（postTitleがある）
         const isPostPage = !!postTitle;
@@ -386,7 +387,7 @@
             } else {
                 // 投稿ページでは親カテゴリーリンクのみ表示
                 placeholder.innerHTML =
-                    '<a href="/category/' + tagSlug + '/" itemprop="item">' +
+                    '<a href="/' + tagSlug + '/" itemprop="item">' +
                     '<span itemprop="name">' + tagName + '</span>' +
                     '</a>' +
                     '<meta itemprop="position" content="2">';
@@ -405,7 +406,7 @@
                 parentLi.setAttribute('itemscope', '');
                 parentLi.setAttribute('itemtype', 'http://schema.org/ListItem');
                 parentLi.innerHTML =
-                    '<a href="/category/' + parentCategory + '/" itemprop="item">' +
+                    '<a href="/' + parentCategory + '/" itemprop="item">' +
                     '<span itemprop="name">' + parentCategoryNames[parentCategory] + '</span>' +
                     '</a>' +
                     '<meta itemprop="position" content="2">';
@@ -419,7 +420,7 @@
                 } else {
                     // 投稿ページでは子タグのリンクを表示（記事タイトルは表示しない）
                     placeholder.innerHTML =
-                        '<a href="/category/' + parentCategory + '/' + tagSlug + '/" itemprop="item">' +
+                        '<a href="/' + parentCategory + '/' + tagSlug + '/" itemprop="item">' +
                         '<span itemprop="name">' + tagName + '</span>' +
                         '</a>' +
                         '<meta itemprop="position" content="3">';
@@ -437,7 +438,8 @@
      */
     function init() {
         // カテゴリーページかどうかを判定してbodyクラスを追加
-        if (window.location.pathname.indexOf('/category/') === 0) {
+        const categoryPaths = ['/brandmook/', '/women-magazine/', '/women-manga/', '/child-magazine/', '/mother-magazine/', '/wedding-magazine/', '/men-magazine/', '/outdoor-magazine/', '/other-magazine/', '/entertainment/', '/uncategorized/'];
+        if (categoryPaths.some(path => window.location.pathname.indexOf(path) === 0)) {
             document.body.classList.add('category-page');
         }
 

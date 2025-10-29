@@ -1,8 +1,8 @@
 const categories = [
-    {name: 'ブランドムック', url: '/category/brandmook/', slugs: []},
+    {name: 'ブランドムック', url: '/brandmook/', slugs: []},
     {
         name: '女性ファッション雑誌',
-        url: '/category/women-magazine/',
+        url: '/women-magazine/',
         slugs: [
             '25ans-hearstfujingaho',
             'androsy-takarajimasha',
@@ -62,7 +62,7 @@ const categories = [
     },
     {
         name: '少女・女性マンガの付録',
-        url: '/category/women-manga/',
+        url: '/women-manga/',
         slugs: [
             'ciao-shogakukan',
             'nakayosi-kodansha',
@@ -72,7 +72,7 @@ const categories = [
     },
     {
         name: '子供・児童学習 雑誌',
-        url: '/category/child-magazine/',
+        url: '/child-magazine/',
         slugs: [
             'babybook-shogakukan',
             'fukufuku-fukuinkan',
@@ -93,7 +93,7 @@ const categories = [
     },
     {
         name: 'ママ・主婦雑誌',
-        url: '/category/mother-magazine/',
+        url: '/mother-magazine/',
         slugs: [
             '39mag-benesse',
             'akahoshi-shufunotomo',
@@ -114,12 +114,12 @@ const categories = [
     },
     {
         name: '結婚情報誌',
-        url: '/category/wedding-magazine/',
+        url: '/wedding-magazine/',
         slugs: ['ellemariage-hearstfujingaho', 'zexy-recruit']
     },
     {
         name: 'メンズファッション雑誌',
-        url: '/category/men-magazine/',
+        url: '/men-magazine/',
         slugs: [
             'dime-shogakukan',
             'getnavi-gakkenplus',
@@ -134,7 +134,7 @@ const categories = [
     },
     {
         name: 'アウトドア雑誌',
-        url: '/category/outdoor-magazine/',
+        url: '/outdoor-magazine/',
         slugs: [
             'bepal-shogakukan',
             'bicycleclub-eipublishing',
@@ -148,7 +148,7 @@ const categories = [
     },
     {
         name: 'その他雑誌',
-        url: '/category/other-magazine/',
+        url: '/other-magazine/',
         slugs: [
             'modernliving-hearstfujingaho',
             'nikkeiwoman-nikkeibp',
@@ -159,7 +159,7 @@ const categories = [
     },
     {
         name: 'エンタメ',
-        url: '/category/entertainment/',
+        url: '/entertainment/',
         slugs: [
             'campaign',
             'furoku-favorite',
@@ -170,7 +170,7 @@ const categories = [
             'subscription-tokuten'
         ]
     },
-    {name: 'Uncategorized', url: '/category/uncategorized/', slugs: []}
+    {name: 'Uncategorized', url: '/uncategorized/', slugs: []}
 ];
 
 async function fetchTags() {

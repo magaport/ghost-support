@@ -1,6 +1,8 @@
 /* Category page styles */
 
 #cat_header {
+    max-width: 1180px;
+    margin: 10px auto;
     padding: 20px 0;
 }
 
@@ -12,7 +14,7 @@
     background-position: 0% 0% !important;
     background-repeat: repeat-x !important;
     position: relative;
-    margin: 0 auto 20px;
+    /* margin: 0 auto 20px; */
 }
 
 .cat-headerWrap .bkRGBA {
@@ -48,8 +50,8 @@
     border-left: 3px solid #7F0019;
     border-bottom: 1px solid #57585A;
     color: #FFFFFF;
-    font-size: 18px;
-    padding: 5px 5px 5px 10px;
+    font-size: 18px !important;
+    padding: 8px 5px 8px 10px;
 }
 
 #cat_header .taxonomy-description {
@@ -57,9 +59,21 @@
     padding: 20px;
 }
 
+#cat_header .taxonomy-description p {
+    margin: 0;
+}
+
 .taxonomy-description p {
-    color: #666;
-    font-size: 1.4rem;
+    color: #252525;
+    font-size: 1.5rem;
+}
+
+.gh-main-content > h2 {
+    font-size: 2.0rem;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: .375em;
+    line-height: 1.56;
 }
 
 /* Card type layout */
@@ -95,11 +109,14 @@
 }
 
 .cardtype__article {
+    position: relative;
+    width: 100%;
+    margin: 0 0 25px;
+    border-radius: 2px;
     background: #fff;
-    border-radius: 0;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, .12), 0 2px 3px 0 rgba(0, 0, 0, .22);
+    cursor: pointer;
+    transition: .2s ease-in-out;
 }
 
 .cardtype__article:hover {
@@ -107,43 +124,41 @@
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
+.cardtype__link:hover {
+    opacity: 1;
+}
+
 .cardtype__link {
-    display: block;
+    display: flex;
+    flex-direction: column;
     text-decoration: none;
     color: inherit;
     position: static !important;
-    height: auto !important;
     padding-bottom: 0 !important;
+    flex: 1;
+    min-height: 0;
 }
 
 .cardtype__image {
-    width: 100%;
-    padding-bottom: 100%;
+    display: flex;
     position: relative;
+    height: 60%;
+    max-height: 60%;
     overflow: hidden;
+    align-items: center;
+    justify-content: center;
 }
 
 .cardtype__image img {
-    position: absolute !important;
-    top: 0;
-    left: 0;
-    width: 100% !important;
-    height: 100% !important;
-    max-width: 100% !important;
-    object-fit: cover;
-    vertical-align: top;
-}
-
-.cardtype__image > div {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    object-fit: contain;
 }
 
 .cardtype__article-info {
     padding: 16px;
+    height: 80px;
+    overflow: hidden;
+    position: relative;
+    margin: 1em 0 0 0;
 }
 
 .cardtype__article-info .entry-time {
@@ -158,6 +173,20 @@
     line-height: 1.5;
     margin: 0;
     color: #333;
+    overflow: visible;
+    padding-bottom: 30px;
+}
+
+.cardtype__article .cat-name {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    z-index: 10;
+    white-space: nowrap;
+}
+
+main h2 {
+    margin-top: 0;
 }
 
 @media (max-width: 768px) {
@@ -171,5 +200,42 @@
 
     #cat_header h1 {
         font-size: 2rem;
+    }
+}
+
+@media only screen and (max-width: 786px) {
+    .gh-main-content h1, .gh-main-content > h2, .gh-main-content h3 {
+        font-size: 14px;
+    }
+
+    .cardtype__link h2 {
+        background: none !important;
+        border: none !important;
+        color: #57585A !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        overflow: hidden;
+        font-size: inherit !important;
+    }
+
+    .cardtype__image {
+        height: 180px;
+    }
+}
+
+@media only screen and (max-width: 468px) {
+    .cardtype__link h2 {
+        font-size: 10px !important;
+        line-height: 12px !important;
+    }
+
+    .cardtype__image {
+        height: 120px;
+    }
+}
+
+@media only screen and (min-width: 1240px) {
+    .single .wrap, .page .wrap, .archive .wrap, .single #inner-content, .page #inner-content {
+        width: 1180px;
     }
 }

@@ -229,11 +229,6 @@ h1 {
     font-size: 2em;
 }
 
-a {
-    color: var(--color-darker-gray);
-    text-decoration: none;
-}
-
 a:hover {
     opacity: 0.8;
 }
