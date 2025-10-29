@@ -13,6 +13,8 @@ routes:
     template: beginner
   /company/:
     template: company
+  /review/author/:
+    template: author-list
 
   # 親カテゴリーページ（channel controller使用）
   # ブランドムック
@@ -707,7 +709,7 @@ routes:
 
 collections:
   /new/:
-    permalink: /post/{slug}/
+    permalink: /review/{slug}/
     template: index
     limit: 40
   /:
@@ -717,4 +719,4 @@ collections:
 
 taxonomies:
   tag: /tag/{slug}/
-  author: /author/{slug}/
+  author: /review/author/{slug}/

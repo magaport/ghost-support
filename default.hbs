@@ -120,6 +120,11 @@
 <script src="{{asset "js/amazonjs.js"}}"></script>
 {{/is}}
 
+{{!-- Blockquote br script --}}
+{{#is "post, page"}}
+<script src="{{asset "js/blockquote-br.js"}}"></script>
+{{/is}}
+
 {{!-- Ghost outputs required functional scripts with this tag, it should always be the last thing before the closing body tag --}}
 {{ghost_foot}}
 

@@ -1,0 +1,91 @@
+/* Author page styles */
+
+.author-template .author-info {
+    margin-top: 0;
+}
+
+.author-template .post-main {
+    background-color: white;
+    border-radius: 3px;
+    padding: 20px;
+    margin-bottom: 1.5em;
+}
+
+/* Author page post grid - 2 columns */
+.author-template .cardtype {
+    grid-template-columns: repeat(2, 1fr) !important;
+}
+
+@media (max-width: 768px) {
+    .author-template .cardtype {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* Author page header styles */
+@media only screen and (max-width: 1179px) and (min-width: 1030px) {
+    #archive_header {
+        margin: 0 2% 1.5em 0;
+        padding: 20px 40px 0 40px;
+    }
+}
+
+@media only screen and (min-width: 1030px) {
+    #archive_header {
+        margin: 0 6% 1.5em 0;
+        padding: 20px 20px;
+    }
+
+    .author-template .entry-content {
+        padding: 10px 40px 0;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .author-template .entry-content {
+        padding: 10px 25px 0;
+    }
+}
+
+@media only screen and (min-width: 481px) {
+    #archive_header {
+        margin: 0 2% 1.5em;
+    }
+
+    .author-template .single-title,
+    .author-template .page-title,
+    .author-template .entry-title,
+    .author-template .entry-meta,
+    .author-template .entry-content {
+        padding-right: 25px;
+        padding-left: 25px;
+    }
+}
+
+/* Author list page styles */
+body:has([data-page="author-list"]) .author-info {
+    margin-top: 0;
+}
+
+@media only screen and (min-width: 1030px) {
+    body:has([data-page="author-list"]) .entry-content {
+        padding: 10px 40px 0;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    body:has([data-page="author-list"]) .entry-content {
+        padding: 10px 25px 0;
+    }
+}
+
+@media only screen and (min-width: 481px) {
+    body:has([data-page="author-list"]) .single-title,
+    body:has([data-page="author-list"]) .page-title,
+    body:has([data-page="author-list"]) .entry-title,
+    body:has([data-page="author-list"]) .entry-meta,
+    body:has([data-page="author-list"]) .entry-content {
+        padding-right: 25px;
+        padding-left: 25px;
+    }
+}

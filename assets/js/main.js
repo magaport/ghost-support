@@ -96,3 +96,87 @@
         bgImageElement.style.backgroundImage = `url(${imageUrl})`;
     }
 })();
+
+/* Hide TAGS section if only category tags exist */
+(function () {
+    const metaTag = document.querySelector('.meta-tag');
+    if (!metaTag) return;
+
+    const tagLinks = metaTag.querySelectorAll('ul li a[rel="tag"]');
+    if (tagLinks.length === 0) {
+        metaTag.style.display = 'none';
+        return;
+    }
+
+    // Define all magazine category tags (from magazine-tag.js)
+    const magazineCategoryTags = [
+        // ブランドムック
+        'brandmook',
+        // 女性ファッション雑誌
+        '25ans-hearstfujingaho', 'androsy-takarajimasha', 'baila-shueisha', 'bestory-kobunsha',
+        'bijinhyakka-kadokawaharuki', 'biteki-shogakukan', 'cancam-shogakukan', 'domani-shogakukan',
+        'eclat-shueisha', 'elledecor-hearstfujingaho', 'ellejapon-hearstfujingaho', 'fudge-saneishobo',
+        'fujingaho-hearstfujingaho', 'gina-bunkasha', 'ginger-gentosha', 'glow-takarajimasha',
+        'harpersbazaar-hearstfujingaho', 'inred-takarajimasha', 'jelly-bunkasha', 'jj-kobunsha',
+        'jsgirl-saneishobo', 'kimonoanne-tacshuppan', 'kirapichi-gakken', 'kunel-magazinehouse',
+        'lafarfa-bunkasha', 'larme-tokumashoten', 'lee-shueisha', 'liniere-takarajimasha',
+        'loveggg-mediaboy', 'maquia-shueisha', 'marisol-shueisha', 'mini-takarajimasha',
+        'more-shueisha', 'nicola-shinchosha', 'nicopuchi-shinchosha', 'nonno-shueisha',
+        'numerotokyo-fusosha', 'oggi-shogakukan', 'osharetecho-takarajimasha', 'otonamuse-takarajimasha',
+        'popteen-kadokawaharuki', 'richesse-hearstfujingaho', 'seventeen-shueisha', 'spring-takarajimasha',
+        'spur-shueisha', 'steady-takarajimasha', 'sutekinaanohito-takarajimasha', 'sweet-takarajimasha',
+        'utsukushiikimono-hearstfujingaho', 'vivi-kodansha', 'voce-kodansha', 'waraku-shogakukan',
+        'with-kodansha', 'yogini-peacs',
+        // 少女・女性マンガの付録
+        'ciao-shogakukan', 'nakayosi-kodansha', 'ribon-shueisha', 'shocomi-shogakukan',
+        // 子供・児童学習 雑誌
+        'babybook-shogakukan', 'fukufuku-fukuinkan', 'genki-kodansha', 'inaiinai-kodansha',
+        'mebae-shogakukan', 'nene-shufu', 'okaitsu-kodansha', 'otomodachi-kodansha',
+        'pucchigumi-shogakukan', 'sho1-shogakukan', 'sho8-shogakukan', 'tanoyo-kodansha',
+        'telemaga-kodansha', 'televikun-shogakukan', 'youchien-shogakukan',
+        // ママ・主婦雑誌
+        '39mag-benesse', 'akahoshi-shufunotomo', 'babymo-shufunotomo', 'cookpadplus-7andi',
+        'croissant-magazinehouse', 'ellegourmet-hearstfujingaho', 'esse-fusosha', 'hiyokoclub-benesse',
+        'hugmug-sekaibunkasha', 'kodomoe-hakusensha', 'lettuceclub-kadokawa', 'moe-hakusensha',
+        'orangepage', 'premo-shufunotomo', 'sutekinaokusan-shufutoseikatsusha',
+        // 結婚情報誌
+        'ellemariage-hearstfujingaho', 'zexy-recruit',
+        // メンズファッション雑誌
+        'dime-shogakukan', 'getnavi-gakkenplus', 'lightning-eipublishing', 'mensclub-hearstfujingaho',
+        'mensnonno-shueisha', 'monomaster-takarajimasha', 'monomax-takarajimasha', 'smart-takarajimasha',
+        'uomo-shueisha',
+        // アウトドア雑誌
+        'bepal-shogakukan', 'bicycleclub-eipublishing', 'camplife-yamakei', 'cyclesports-yaesu',
+        'fielder-kasakura', 'peaks-eipublishing', 'randonnee-eipublishing', 'wandervogel-yamakei',
+        // その他雑誌
+        'modernliving-hearstfujingaho', 'nikkeiwoman-nikkeibp', 'serai-shogakukan',
+        'tabinotecho-kotsushinbun', 'tokyowalker-kadokawa',
+        // エンタメ
+        'campaign', 'furoku-favorite', 'furoku-ranking', 'furoku-sufficiency', 'other',
+        'recommended', 'subscription-tokuten',
+        // 親カテゴリー
+        'women-magazine', 'women-manga', 'child-magazine', 'mother-magazine', 'wedding-magazine',
+        'men-magazine', 'outdoor-magazine', 'other-magazine', 'entertainment', 'uncategorized'
+    ];
+
+    // Check if any non-category tag exists
+    let hasNonCategoryTag = false;
+    tagLinks.forEach(function (link) {
+        const href = link.getAttribute('href');
+        const slug = href.split('/tag/')[1]?.replace('/', '') || '';
+
+        const isCategoryTag = magazineCategoryTags.indexOf(slug) !== -1;
+
+        if (!isCategoryTag) {
+            hasNonCategoryTag = true;
+        } else {
+            // Hide category tags
+            link.parentElement.style.display = 'none';
+        }
+    });
+
+    // Hide TAGS section if no non-category tags exist
+    if (!hasNonCategoryTag) {
+        metaTag.style.display = 'none';
+    }
+})();

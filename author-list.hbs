@@ -2,19 +2,16 @@
 
 {{!-- ページタイトルを設定 --}}
 <script>
-    {{#author}}
-    document.title = '{{name}}の書いた記事 | {{@site.title}}';
-    {{/author}}
+    document.title = 'ライター一覧 | {{@site.title}}';
 </script>
 
 {{> "components/search-form"}}
 
-<div class="gh-content-wrapper">
+<div class="gh-content-wrapper" data-page="author-list">
 <main id="main" class="m-all t-2of3 d-5of7 cf" role="main">
     <div id="entry">
         <header id="archive_header">
             {{!-- パンくずナビゲーション --}}
-            {{#author}}
             <nav id="breadcrumb">
                 <ul itemscope itemtype="http://schema.org/BreadcrumbList">
                     <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
@@ -24,30 +21,20 @@
                         <meta itemprop="position" content="1">
                     </li>
                     <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                        <a href="{{@site.url}}/review/author/" itemprop="item">
-                            <span itemprop="name">ライター一覧</span>
-                        </a>
+                        <span itemprop="name">ライター一覧</span>
                         <meta itemprop="position" content="2">
-                    </li>
-                    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                        <span itemprop="name">{{name}}</span>
-                        <meta itemprop="position" content="3">
                     </li>
                 </ul>
             </nav>
-            {{/author}}
         </header>
 
         <section class="entry-content cf">
-            {{#author}}
-                {{!-- 著者情報セクション --}}
+            {{#get "authors" filter="slug:question" limit="1"}}
+                {{#foreach authors}}
                 <div class="author-info pastel-bc">
                     <div class="author-info__inner">
                         <div class="tb">
                             <div class="tb-left">
-                                <div class="author_label">
-                                    <span>私が書いたレビュー</span>
-                                </div>
                                 <div class="author_img">
                                     {{#if profile_image}}
                                     <img alt="{{name}}" src="{{img_url profile_image size="s"}}" srcset="{{img_url profile_image size="m"}} 2x" class="avatar avatar-100 photo" height="100" width="100" loading="lazy" decoding="async">
@@ -82,18 +69,10 @@
                         </div>
                     </div>
                 </div>
-            {{/author}}
+                {{/foreach}}
+            {{/get}}
         </section>
     </div>
-
-    {{!-- 記事一覧 --}}
-    <div class="cardtype cf">
-        {{#foreach posts}}
-            {{> "post-card"}}
-        {{/foreach}}
-    </div>
-
-    {{> "pagination"}}
 </main>
 
 {{!-- サイドバー --}}
