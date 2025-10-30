@@ -252,9 +252,8 @@ def extract_posts_from_xml(xml_file):
         title_match = re.search(r'<title><!\[CDATA\[(.*?)\]\]></title>', item)
         post['title'] = title_match.group(1) if title_match else f'投稿 {wp_post_id}'
 
-        # Slug
-        slug_match = re.search(r'<wp:post_name><!\[CDATA\[(.*?)\]\]></wp:post_name>', item)
-        post['slug'] = slug_match.group(1) if slug_match else f'post-{wp_post_id}'
+        # Slug - use post_id
+        post['slug'] = wp_post_id
 
         # Content
         content_match = re.search(r'<content:encoded><!\[CDATA\[(.*?)\]\]></content:encoded>', item, re.DOTALL)
