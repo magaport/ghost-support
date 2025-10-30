@@ -524,7 +524,7 @@ def text_to_lexical_json(text: str) -> str:
                     "format": 0,
                     "mode": "normal",
                     "style": "",
-                    "text": text,
+                    "text": text if text else "",
                     "type": "extended-text",
                     "version": 1
                 }],
@@ -620,9 +620,14 @@ def create_tag_pages(tags: list) -> list:
         description = tag.get('description', '')
 
         # Convert description to HTML (simple paragraph wrap)
-        html = f"<p>{description}</p>" if description else ""
+        # Convert newlines in text content to <br> tags
+        description_html = description if description else ""
+        if description_html:
+            description_html = convert_text_newlines_to_br(description_html)
+        html = f"<p>{description_html}</p>" if description_html else ""
         plaintext = description
-        lexical = text_to_lexical_json(description)
+        # Set lexical to None so Ghost uses HTML instead
+        lexical = None
 
         page = {
             'id': page_id,
@@ -678,9 +683,14 @@ def create_category_pages(categories: list) -> list:
         page_slug = create_category_page_slug(cat['slug'], cat['parent'])
 
         # Convert description to HTML (simple paragraph wrap)
-        html = f"<p>{cat['description']}</p>" if cat['description'] else ""
+        # Convert newlines in text content to <br> tags
+        description_html = cat['description'] if cat['description'] else ""
+        if description_html:
+            description_html = convert_text_newlines_to_br(description_html)
+        html = f"<p>{description_html}</p>" if description_html else ""
         plaintext = cat['description']
-        lexical = text_to_lexical_json(cat['description'])
+        # Set lexical to None so Ghost uses HTML instead
+        lexical = None
 
         # Set custom_excerpt with product_id if available
         custom_excerpt = None
@@ -923,9 +933,14 @@ def create_ghost_json_from_sample_xml(xml_file):
         page_slug = f"tag-{slug}"
 
         description = tag_info.get('description', '')
-        html = f"<p>{description}</p>" if description else ""
+        # Convert newlines in text content to <br> tags
+        description_html = description if description else ""
+        if description_html:
+            description_html = convert_text_newlines_to_br(description_html)
+        html = f"<p>{description_html}</p>" if description_html else ""
         plaintext = description
-        lexical = text_to_lexical_json(description)
+        # Set lexical to None so Ghost uses HTML instead
+        lexical = None
 
         page = {
             'id': page_id,
@@ -1069,6 +1084,21 @@ def create_ghost_json_from_sample_xml(xml_file):
     }
 
 def main():
+    import sys
+    import argparse
+
+    parser = argparse.ArgumentParser(description='Convert WordPress XML to Ghost JSON')
+    parser.add_argument('--json-dir', default='data/json',
+                        help='Output directory for JSON files (default: data/json)')
+    parser.add_argument('--sql-dir', default='sql',
+                        help='Output directory for SQL files (default: sql)')
+    parser.add_argument('--prefix', default='ghost_import_test100_sample',
+                        help='Output file prefix (default: ghost_import_test100_sample)')
+    parser.add_argument('xml_file', nargs='?', default='raw_split/WordPress-test-100.xml',
+                        help='WordPress XML file to convert')
+
+    args = parser.parse_args()
+
     print("="*80)
     print("Convert WordPress-sample-5posts.xml to Ghost JSON")
     print("="*80)
