@@ -49,6 +49,46 @@ def generate_slug_from_title(title: str, post_id: str, max_length: int = 150) ->
 
     return slug.lower().strip('-')
 
+def convert_text_newlines_to_br(html: str) -> str:
+    """Convert newlines in text content to <br> tags, but wrap blockquote content lines in <p> tags"""
+    if not html:
+        return html
+
+    # Step 1: Process blockquote content - wrap each line in <p> tags
+    def process_blockquote(match):
+        blockquote_content = match.group(1)
+        # Split by newline and wrap each line in <p> tags
+        lines = blockquote_content.split('\n')
+        p_wrapped_lines = [f'<p>{line}</p>' for line in lines]
+        return f'<blockquote>{"".join(p_wrapped_lines)}</blockquote>'
+
+    html = re.sub(r'<blockquote>(.*?)</blockquote>', process_blockquote, html, flags=re.DOTALL)
+
+    # Step 2: Placeholder for tag-to-tag newlines
+    placeholder = "___NEWLINE_BETWEEN_TAGS___"
+
+    # Protect newlines between tags (e.g., >\n<)
+    html = re.sub(r'>\s*\n\s*<', f'>{placeholder}<', html)
+
+    # Step 3: Normalize consecutive newlines (empty lines) to single newline
+    # This prevents <br><br> from appearing
+    html = re.sub(r'\n\s*\n+', '\n', html)
+
+    # Step 4: Convert remaining newlines (in text content) to <br> without keeping \n
+    html = html.replace('\n', '<br>')
+
+    # Step 5: Restore protected newlines (but remove them completely)
+    html = html.replace(placeholder, '')
+
+    return html
+
+def fix_image_url(url: str) -> str:
+    """Remove 'edit.' from edit.furoku.life URLs"""
+    if not url:
+        return url
+    # Replace edit.furoku.life with furoku.life
+    return url.replace('https://edit.furoku.life/', 'https://furoku.life/')
+
 def fix_xml_item(item: str) -> str:
     """Fix a single XML item (same as fix_and_merge_xml.py)"""
 
