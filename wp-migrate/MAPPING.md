@@ -6,7 +6,9 @@
 
 - **入力**: WordPress XML Export ファイル
 - **出力**: Ghost JSON Import ファイル
-- **スクリプト**: `convert_sample_xml_to_json.py`
+- **スクリプト**:
+  - `convert_sample_xml_to_json.py` - 投稿の変換
+  - `convert_wp_pages_to_json.py` - 固定ページの変換
 
 ## カテゴリーのマッピング
 
@@ -237,8 +239,130 @@ ghost_import_sample_5posts_YYYYMMDD_HHMMSS.json
 - タグ分布
 - ユーザー別投稿数
 
+## 固定ページ（Pages）のマッピング
+
+WordPress の固定ページは、Ghost のページ（`type: 'page'`）にマッピングされます。
+
+### XML構造
+
+```xml
+<item>
+  <wp:post_id>10</wp:post_id>
+  <title><![CDATA[お問い合わせ]]></title>
+  <wp:post_name><![CDATA[contact]]></wp:post_name>
+  <wp:post_type><![CDATA[page]]></wp:post_type>
+  <wp:status><![CDATA[publish]]></wp:status>
+  <wp:post_date><![CDATA[2024-01-15 10:30:00]]></wp:post_date>
+  <content:encoded><![CDATA[<p>お問い合わせ内容...</p>]]></content:encoded>
+  <dc:creator><![CDATA[admin]]></dc:creator>
+</item>
+```
+
+### マッピング詳細
+
+| WordPress フィールド | Ghost フィールド | 処理内容 |
+|-------------------|----------------|---------|
+| `<wp:post_id>` | `custom_excerpt` | JSON形式: `{"wp_page_id": "10"}` |
+| `<title>` | `title` | そのまま使用 |
+| `<wp:post_name>` | `slug` | そのまま使用（空なら `page-{id}`） |
+| `<content:encoded>` | `html` | そのまま使用 |
+| `<content:encoded>` | `plaintext` | HTMLタグを除去 |
+| `<content:encoded>` | `lexical` | Lexical JSON形式に変換 |
+| `<wp:status>` | `status` | `publish`→`published`, `draft`→`draft`, `private`→`draft` |
+| `<wp:post_date>` | `created_at`, `updated_at` | ISO 8601形式 |
+| `<wp:post_date>` | `published_at` | ステータスが `published` の場合のみ |
+| `<dc:creator>` | `posts_authors.author_id` | 著者slugから著者IDにマッピング |
+
+### 固定ページの特徴
+
+1. **タグなし**: 固定ページにはタグが設定されません
+2. **カテゴリーなし**: 固定ページにはカテゴリーが設定されません
+3. **シンプルな構造**: タイトル、本文、著者のみ
+4. **ステータス変換**: `private` は `draft` に変換（Ghost に private ステータスがないため）
+
+### 例
+
+#### 入力 (WordPress XML)
+
+```xml
+<item>
+  <wp:post_id>12</wp:post_id>
+  <title><![CDATA[プライバシーポリシー]]></title>
+  <wp:post_name><![CDATA[privacy-policy]]></wp:post_name>
+  <wp:post_type><![CDATA[page]]></wp:post_type>
+  <wp:status><![CDATA[publish]]></wp:status>
+  <wp:post_date><![CDATA[2024-01-20 14:00:00]]></wp:post_date>
+  <content:encoded><![CDATA[<p>当サイトは個人情報を...</p>]]></content:encoded>
+  <dc:creator><![CDATA[admin]]></dc:creator>
+</item>
+```
+
+#### 出力 (Ghost JSON)
+
+```json
+{
+  "id": "abc123def456...",
+  "uuid": "550e8400-e29b-41d4-a716-446655440000",
+  "title": "プライバシーポリシー",
+  "slug": "privacy-policy",
+  "type": "page",
+  "status": "published",
+  "html": "<p>当サイトは個人情報を...</p>",
+  "plaintext": "当サイトは個人情報を...",
+  "lexical": "{\"root\": {...}}",
+  "custom_excerpt": "{\"wp_page_id\": \"12\"}",
+  "created_at": "2024-01-20T14:00:00.000Z",
+  "updated_at": "2024-01-20T14:00:00.000Z",
+  "published_at": "2024-01-20T14:00:00.000Z",
+  "visibility": "public",
+  "feature_image": null,
+  "featured": 0
+}
+```
+
+---
+
+## スクリプト別の処理対象
+
+### convert_sample_xml_to_json.py（投稿用）
+
+**処理対象**:
+- 投稿（`<wp:post_type>post</wp:post_type>`）
+- カテゴリー（タグとページに変換）
+- タグ（タグとページに変換）
+- 著者
+
+**出力**:
+- 投稿
+- タグ
+- カテゴリーページ
+- タグページ
+- 著者
+- 投稿-タグ関連
+- 投稿-著者関連
+
+### convert_wp_pages_to_json.py（固定ページ用）
+
+**処理対象**:
+- 固定ページ（`<wp:post_type>page</wp:post_type>`）
+- 著者
+
+**出力**:
+- 固定ページ
+- 著者
+- ページ-著者関連
+
+**処理しないもの**:
+- 投稿
+- カテゴリー
+- タグ
+
+---
+
 ## 関連ファイル
 
-- スクリプト: `convert_sample_xml_to_json.py`
-- サンプル入力: `sampleData/WordPress-sample-5posts.xml`
-- 出力ディレクトリ: `output/`
+- **投稿変換**: `scripts/convert/convert_sample_xml_to_json.py`
+- **固定ページ変換**: `scripts/convert/convert_wp_pages_to_json.py`
+- **バッチ生成**: `scripts/create_batch_xmls.py`
+- **サンプル入力**: `sampleData/WordPress-sample-5posts.xml`
+- **出力ディレクトリ**: `output/`

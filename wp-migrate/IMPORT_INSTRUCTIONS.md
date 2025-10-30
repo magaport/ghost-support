@@ -10,6 +10,11 @@ WordPress XMLからGhostへのマイグレーションは以下の3ステップ�
 2. **インポート**: Ghost管理画面からJSONをインポート
 3. **修正**: SQLスクリプトを実行して`posts_authors`テーブルを修正
 
+## 対象コンテンツ
+
+- **投稿（Posts）**: バッチ変換スクリプトで処理
+- **固定ページ（Pages）**: 専用スクリプトで処理（別セクション参照）
+
 ## 前提条件
 
 - Python 3.x がインストールされていること
@@ -277,13 +282,80 @@ WHERE JSON_EXTRACT(custom_excerpt, '$.wp_post_id') IS NOT NULL;
 2. **ステップ1から再実行**: 変換スクリプトを実行（新しいタイムスタンプでファイルが生成されます）
 3. **ステップ2-3を実行**: JSONインポート → SQL実行
 
+## 固定ページのインポート（別途実行）
+
+WordPress の固定ページ（Pages）は投稿とは別にインポートします。
+
+### 前提条件
+
+- 投稿のインポートが完了していること
+- WordPress から「ページ」をエクスポート済み
+
+### ステップ1: WordPress からページをエクスポート
+
+```
+WordPress管理画面 → ツール → エクスポート
+→ 「ページ」を選択
+→ エクスポートファイルをダウンロード
+```
+
+### ステップ2: XMLファイルを配置
+
+```
+scripts/convert/xml/WordPress-FixedPage.2025-10-21.xml
+```
+
+### ステップ3: Ghost JSON に変換
+
+```bash
+cd scripts/convert
+python3 convert_wp_pages_to_json.py
+```
+
+**出力**:
+- `output/ghost_import_pages_YYYYMMDD_HHMMSS.json`
+- `output/fix_page_authors_YYYYMMDD_HHMMSS.sql`
+
+### ステップ4: Ghost にインポート
+
+```
+Ghost 管理画面 → Settings → Labs → Import content
+→ ghost_import_pages_*.json を選択
+→ Import をクリック
+```
+
+### ステップ5: 著者情報をSQL修正
+
+```bash
+mysql -u root ghost_development < scripts/convert/output/fix_page_authors_*.sql
+```
+
+### ステップ6: 確認
+
+```
+Ghost 管理画面 → Pages
+```
+
+すべての固定ページが表示され、著者が正しく設定されていることを確認します。
+
+---
+
 ## まとめ
 
 このワークフローにより、どんなWordPress XMLでも：
 
 1. ✅ 投稿と著者の正しいマッピングを維持
-2. ✅ 再現可能な自動化プロセス
-3. ✅ デバッグしやすい（custom_excerptで追跡可能）
-4. ✅ タイトル重複の心配なし
+2. ✅ 固定ページも同様にインポート可能
+3. ✅ 再現可能な自動化プロセス
+4. ✅ デバッグしやすい（custom_excerptで追跡可能）
+5. ✅ タイトル重複の心配なし
 
 問題が発生した場合は、トラブルシューティングセクションを参照してください。
+
+---
+
+## 参考ドキュメント
+
+- [wordpress-to-ghost-workflow.md](docs/wordpress-to-ghost-workflow.md) - 完全なワークフロー
+- [create_batch_xmls.md](docs/create_batch_xmls.md) - バッチXML生成スクリプト
+- [convert_wp_pages_to_json.md](docs/convert_wp_pages_to_json.md) - 固定ページ変換スクリプト
