@@ -289,6 +289,7 @@ def extract_posts_from_xml(xml_file):
             post['status'] = 'draft'
 
         # Dates
+        # Published date (from post_date)
         pub_date_match = re.search(r'<wp:post_date><!\[CDATA\[(.*?)\]\]></wp:post_date>', item)
         if pub_date_match:
             date_str = pub_date_match.group(1)
@@ -299,6 +300,18 @@ def extract_posts_from_xml(xml_file):
                 post['created_at'] = iso_date
                 if post['status'] == 'published':
                     post['published_at'] = iso_date
+            except:
+                pass
+
+        # Updated date (from post_modified)
+        mod_date_match = re.search(r'<wp:post_modified><!\[CDATA\[(.*?)\]\]></wp:post_modified>', item)
+        if mod_date_match:
+            mod_date_str = mod_date_match.group(1)
+            # Convert to ISO format
+            try:
+                mod_dt = datetime.strptime(mod_date_str, '%Y-%m-%d %H:%M:%S')
+                mod_iso_date = mod_dt.strftime('%Y-%m-%dT%H:%M:%S.000Z')
+                post['updated_at'] = mod_iso_date
             except:
                 pass
 
