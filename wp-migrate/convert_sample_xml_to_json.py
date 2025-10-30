@@ -257,7 +257,13 @@ def extract_posts_from_xml(xml_file):
 
         # Content
         content_match = re.search(r'<content:encoded><!\[CDATA\[(.*?)\]\]></content:encoded>', item, re.DOTALL)
-        post['html'] = content_match.group(1) if content_match else ''
+        html_content = content_match.group(1) if content_match else ''
+        # Fix image URLs in HTML content (remove edit. subdomain)
+        html_content = html_content.replace('https://edit.furoku.life/', 'https://furoku.life/')
+        # Convert newlines in text content to <br> tags (but preserve tag-to-tag newlines)
+        # For blockquotes, wrap each line in <p> tags
+        html_content = convert_text_newlines_to_br(html_content)
+        post['html'] = html_content
 
         # Feature image from _thumbnail_id
         thumbnail_match = re.search(
@@ -267,13 +273,13 @@ def extract_posts_from_xml(xml_file):
         if thumbnail_match:
             thumbnail_id = thumbnail_match.group(1)
             if thumbnail_id in attachment_map:
-                post['feature_image'] = attachment_map[thumbnail_id]
+                post['feature_image'] = fix_image_url(attachment_map[thumbnail_id])
 
         # If no thumbnail, extract first image from content
         if 'feature_image' not in post and post['html']:
             img_match = re.search(r'<img[^>]+src="([^"]+)"', post['html'])
             if img_match:
-                post['feature_image'] = img_match.group(1)
+                post['feature_image'] = fix_image_url(img_match.group(1))
 
         # Status
         status_match = re.search(r'<wp:status><!\[CDATA\[(.*?)\]\]></wp:status>', item)
