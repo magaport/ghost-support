@@ -1100,11 +1100,11 @@ def main():
     args = parser.parse_args()
 
     print("="*80)
-    print("Convert WordPress-sample-5posts.xml to Ghost JSON")
+    print("Convert WordPress XML to Ghost JSON")
     print("="*80)
     print()
 
-    xml_file = Path(__file__).parent / 'sampleData' / 'WordPress-sample-5posts.xml'
+    xml_file = Path(args.xml_file)
 
     if not xml_file.exists():
         print(f"ERROR: {xml_file} not found")
@@ -1116,17 +1116,19 @@ def main():
     authors_dict = result['authors_dict']
 
     # Save JSON file
-    output_dir = Path(__file__).parent / 'output'
-    output_dir.mkdir(exist_ok=True)
+    output_dir = Path(args.json_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    output_file = output_dir / f'ghost_import_sample_5posts_{timestamp}.json'
+    output_file = output_dir / f'{args.prefix}_{timestamp}.json'
     print()
     print(f"Writing to {output_file}...")
     with open(output_file, 'w', encoding='utf-8') as f:
         json.dump(ghost_json, f, ensure_ascii=False, indent=2)
 
     # Generate SQL fix script
-    sql_output_file = output_dir / f'fix_authors_{timestamp}.sql'
+    sql_output_dir = Path(args.sql_dir)
+    sql_output_dir.mkdir(exist_ok=True)
+    sql_output_file = sql_output_dir / f'fix_authors_{args.prefix.replace("ghost_import_", "")}_{timestamp}.sql'
     generate_fix_authors_sql(post_author_mapping, authors_dict, sql_output_file)
 
     # Print stats
