@@ -139,9 +139,8 @@
         }
 
         // 記事の取得と表示
-        const [newPostsResult, featuredPostsResult, rankingPostsResult] = await Promise.allSettled([
+        const [newPostsResult, rankingPostsResult] = await Promise.allSettled([
             fetchPosts(contentApiKey, `group_id:${group.id}`, 'published_at DESC'),
-            fetchPosts(contentApiKey, `group_id:${group.id}+tag:pickup`, 'updated_at DESC'),
             fetchPosts(contentApiKey, `group_id:${group.id}`, 'page_view_count DESC', 15)
         ]);
 
@@ -155,26 +154,8 @@
             }
         }
 
-        // 特集投稿の表示
-        if (featuredPostsResult.status === 'fulfilled') {
-            if (featuredPostsResult.value.length === 0) {
-                const featuredSection = document.querySelector('.articles-section[data-section-type="featured"]');
-                if (featuredSection) {
-                    featuredSection.style.display = 'none';
-                }
-                return;
-            }
-
-            displayArticleCards(featuredPostsResult.value, '#magazine-featured');
-
-            const linkElement = document.querySelector('#magazine-featured+div a');
-            if (linkElement) {
-                linkElement.href = `/search-results?groups=${group.id}&tags=pickup`;
-            }
-        }
-
         // ランキング投稿の表示
-        if (featuredPostsResult.status === 'fulfilled') {
+        if (rankingPostsResult.status === 'fulfilled') {
             displayArticleCards(rankingPostsResult.value, '#magazine-ranking');
 
             const linkElement = document.querySelector('#magazine-ranking+div a');
