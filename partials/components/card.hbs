@@ -14,7 +14,7 @@
     <a href="{{post.url}}" class="card-content" data-card-color="{{card_color}}">
         {{#if post.tags}}
         <div class="card-tags">
-            {{#foreach post.tags limit="2"}}
+            {{#foreach post.tags}}
                 <span>#{{name}}{{#unless @last}} {{/unless}}</span>
             {{/foreach}}
         </div>
@@ -37,4 +37,3 @@
         </span>
     </a>
 </article>
-
