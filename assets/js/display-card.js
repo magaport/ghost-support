@@ -34,10 +34,11 @@ function createPostCard(post, options = {}) {
     // datetime属性用のフォーマット (YYYY-MM-DD)
     const datetimeFormat = publishedDate.toISOString().split('T')[0];
 
-    // タグのHTMLを個別のspan要素として生成
-    const tagHtml = tags.map((tag, index) =>
-        `<span>#${tag.name}${index < tags.length - 1 ? ' ' : ''}</span>`
-    ).join('');
+    // タグのHTMLをタグページリンク付きで生成
+    const tagHtml = tags.map((tag) => {
+        const tagUrl = tag.url || (tag.slug ? `/tag/${tag.slug}/` : '#');
+        return `<a href="${tagUrl}" class="card-tags__link">#${tag.name}</a>`;
+    }).join('');
 
     // 画像URLの生成（サイズ付き）
     const featureImageUrl = featureImage || '/assets/images/default-post-image.png?';
@@ -75,7 +76,7 @@ function createPostCard(post, options = {}) {
                 ${likeButtonHtml}
             </div>
 
-            <a href="${post.url}" class="card-content"${section_type ? ` data-card-color="${section_type}"` : ''}>
+            <div class="card-content"${section_type ? ` data-card-color="${section_type}"` : ''}>
                 ${
                     tags.length > 0
                         ? `
@@ -103,7 +104,8 @@ function createPostCard(post, options = {}) {
                         <path d="M9 6l6 6-6 6" stroke="#0c060c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </span>
-            </a>
+                <a href="${post.url}" class="card-content__overlay" aria-label="${post.title}"></a>
+            </div>
         </article>
     `;
 }
@@ -165,4 +167,3 @@ function displayNoResultsMessage(selector) {
         </div>
    `;
 }
-

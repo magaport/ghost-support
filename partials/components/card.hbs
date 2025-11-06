@@ -11,11 +11,11 @@
         {{/if}}
     </div>
 
-    <a href="{{post.url}}" class="card-content" data-card-color="{{card_color}}">
+    <div class="card-content" data-card-color="{{card_color}}">
         {{#if post.tags}}
         <div class="card-tags">
             {{#foreach post.tags}}
-                <span>#{{name}}{{#unless @last}} {{/unless}}</span>
+                <a href="{{url}}" class="card-tags__link">#{{name}}</a>
             {{/foreach}}
         </div>
         {{/if}}
@@ -35,5 +35,6 @@
                 <path d="M9 6l6 6-6 6" stroke="#0c060c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
         </span>
-    </a>
+        <a href="{{post.url}}" class="card-content__overlay" aria-label="{{post.title}}"></a>
+    </div>
 </article>
