@@ -80,6 +80,9 @@
         flex-wrap: wrap;
         column-gap: 0.5rem;
         font: var(--text-regular-bold);
+        line-height: 1.4;
+        max-height: calc(1.4 * 1em);
+        overflow: hidden;
     }
 
     .card-title {
