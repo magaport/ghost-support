@@ -17,7 +17,7 @@
 function createPostCard(post, options = {}) {
     const featureImage = post.feature_image;
     const groupLogoImage = post.group?.logo_image;
-    const tags = post.tags ? post.tags.slice(0, 2) : [];
+    const tags = post.tags ? post.tags : [];
     const {section_type = '', isShowLikeButton = false, isLiked = false} = options;
     const is_transparent = section_type === 'new';
 
