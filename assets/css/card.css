@@ -11,9 +11,9 @@
     grid-template-columns: repeat(3, auto);
     grid-template-rows: repeat(3, 1fr);
     grid-template-areas:
-        ". . like-button"
-        ". . ."
-        "magazine-logo . .";
+        '. . like-button'
+        '. . .'
+        'magazine-logo . .';
     height: 234px;
 
     .post-feature-image {
@@ -48,30 +48,30 @@
     }
 }
 
-    .card-content {
-        display: grid;
-        grid-template:
-            "tag tag"
-            ". ." 8px
-            "title title"
-            ". ." 16px
-            "excerpt excerpt"
-            ". ." 24px
-            "date readmore";
-        padding: var(--space-2xl);
-        border-radius: 0 0 var(--radius-md) var(--radius-md);
-        background-color: var(--color-white);
-        position: relative;
+.card-content {
+    display: grid;
+    grid-template:
+        'title title'
+        '. .' 16px
+        'excerpt excerpt'
+        '. .' 24px
+        'tag tag'
+        '. .' 8px
+        'date readmore';
+    padding: var(--space-2xl);
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+    background-color: var(--color-white);
+    position: relative;
 
-        &[data-card-color="new"] {
-            background-color: var(--color-bg-new-card);
-        }
+    &[data-card-color='new'] {
+        background-color: var(--color-bg-new-card);
+    }
 
-    &[data-card-color="popular"] {
+    &[data-card-color='popular'] {
         background-color: var(--color-bg-popular-card);
     }
 
-    &[data-card-color="featured"] {
+    &[data-card-color='featured'] {
         background-color: var(--color-bg-featured-card);
     }
 
@@ -150,7 +150,7 @@
     }
 }
 
-.card[data-transparent="true"] {
+.card[data-transparent='true'] {
     .card-image .post-feature-image {
         border-radius: var(--radius-md);
     }
@@ -161,13 +161,13 @@
 
     .card-content {
         grid-template:
-            "tag tag"
-            ". ." 16px
-            "title title"
-            ". ." 8px
-            "excerpt excerpt"
-            ". ." 24px
-            "date readmore";
+            'tag tag'
+            '. .' 16px
+            'title title'
+            '. .' 8px
+            'excerpt excerpt'
+            '. .' 24px
+            'date readmore';
         padding: var(--space-2xl) 0 0 0;
     }
 }

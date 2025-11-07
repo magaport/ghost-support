@@ -12,18 +12,19 @@
     </div>
 
     <div class="card-content" data-card-color="{{card_color}}">
+        <h2 class="card-title">
+            {{post.title}}
+        </h2>
+        {{#if post.excerpt}}
+            <p class="card-excerpt">{{post.excerpt}}</p>
+        {{/if}}
+
         {{#if post.tags}}
         <div class="card-tags">
             {{#foreach post.tags}}
                 <a href="{{url}}" class="card-tags__link">#{{name}}</a>
             {{/foreach}}
         </div>
-        {{/if}}
-        <h2 class="card-title">
-            {{post.title}}
-        </h2>
-        {{#if post.excerpt}}
-            <p class="card-excerpt">{{post.excerpt}}</p>
         {{/if}}
 
         <time class="card-date" datetime="{{date post.date format="YYYY-MM-DD"}}">

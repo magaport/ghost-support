@@ -77,6 +77,14 @@ function createPostCard(post, options = {}) {
             </div>
 
             <div class="card-content"${section_type ? ` data-card-color="${section_type}"` : ''}>
+                <h2 class="card-title">
+                    ${post.title}
+                </h2>
+                ${
+                    post.excerpt
+                        ? `<p class="card-excerpt">${post.excerpt}</p>`
+                        : ''
+                }
                 ${
                     tags.length > 0
                         ? `
@@ -84,14 +92,6 @@ function createPostCard(post, options = {}) {
                     ${tagHtml}
                 </div>
                 `
-                        : ''
-                }
-                <h2 class="card-title">
-                    ${post.title}
-                </h2>
-                ${
-                    post.excerpt
-                        ? `<p class="card-excerpt">${post.excerpt}</p>`
                         : ''
                 }
 
