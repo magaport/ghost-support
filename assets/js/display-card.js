@@ -129,6 +129,8 @@ function displayArticleCards(posts, selector, options = {}) {
       const cardHtml = createPostCard(post, options);
       container.insertAdjacentHTML('beforeend', cardHtml);
   });
+
+  window.Source?.cardTags?.update();
 }
 
 function clearElements(selector) {

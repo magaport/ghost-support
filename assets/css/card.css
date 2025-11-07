@@ -93,6 +93,10 @@
             white-space: nowrap;
         }
 
+        .card-tags__link--hidden {
+            display: none;
+        }
+
         .card-tags__link:focus-visible,
         .card-tags__link:hover {
             text-decoration: underline;
