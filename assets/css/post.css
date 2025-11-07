@@ -18,14 +18,14 @@
     background-color: var(--color-bg-primary);
     display: grid;
     grid-template:
-        "." 64px
-        "tags"
-        "." 32px
-        "title"
-        "." 32px
-        "date"
-        "." 98px
-        "magazine-label";
+        '.' 64px
+        'tags'
+        '.' 32px
+        'title'
+        '.' 32px
+        'date'
+        '.' 98px
+        'magazine-label';
 }
 
 .post-hero-tags {
@@ -90,23 +90,18 @@
 .post-content {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    gap: var(--space-3xl);
+    align-items: stretch;
     padding-block: var(--space-5xl);
-    padding-inline: var(--space-lg);
+    padding-inline: 0;
     width: 100%;
-    max-width: 375px;
-    margin: 0 auto;
 }
 
 .post-content-inner {
-    display: grid;
-    grid-template:
-        "header"
-        "." 32px
-        "content"
-        "." 64px
-        "logo";
     width: 100%;
+    max-width: 770px;
+    margin: 0 auto;
+    padding-inline: var(--space-lg);
 }
 
 /* Breadcrumbs and favorite section */
@@ -139,16 +134,18 @@
 
 /* Rich Text Content */
 .post-rich-text {
-    grid-area: content;
-    display: flex;
-    flex-direction: column;
     width: 100%;
     color: var(--color-rich-text);
 }
 
+.post-content-canvas {
+    width: 100%;
+}
+
 .post-magazine-logo {
-    grid-area: logo;
     margin-inline: auto;
+    margin-block: 0 var(--space-5xl);
+    padding-inline: var(--space-lg);
 }
 
 .post-magazine-logo > img {
@@ -160,31 +157,24 @@
 @media (width >= 768px) {
     .post-hero {
         grid-template:
-            "." 112px
-            "tags"
-            "." 40px
-            "title"
-            "." 30px
-            "date"
-            "." 40px
-            "magazine-label";
+            '.' 112px
+            'tags'
+            '.' 40px
+            'title'
+            '.' 30px
+            'date'
+            '.' 40px
+            'magazine-label';
     }
     .post-hero-title {
         font: var(--heading-xxl);
     }
 
     .post-content {
-        max-width: 770px;
         padding-block: 143px;
     }
 
     .post-content-inner {
-        min-width: 770px;
-        grid-template:
-            "header"
-            "." 40px
-            "content"
-            "." 64px
-            "logo";
+        max-width: 770px;
     }
 }
