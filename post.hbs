@@ -7,7 +7,7 @@
     <section class="post-hero" {{#if feature_image}}style="background-image: url('{{img_url feature_image size="xl"}}')"{{/if}}>
         <div class="post-hero-tags">
             {{#if tags}}
-                {{#foreach tags limit="5"}}
+                {{#foreach tags}}
                     <a class="post-hero-tag" href="{{url}}">#{{name}}</a>
                 {{/foreach}}
             {{/if}}
