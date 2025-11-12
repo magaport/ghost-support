@@ -144,7 +144,6 @@
 
 .post-magazine-logo {
     margin-inline: auto;
-    margin-block: 0 var(--space-5xl);
     padding-inline: var(--space-lg);
 }
 
