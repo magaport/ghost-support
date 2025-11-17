@@ -121,7 +121,9 @@ function getSearchFilter(params) {
     }
 
     if (q) {
-        filters.push(`title:~'${q}'`);
+        const keywords = q.trim().split(/\s+/);
+        const keywordFilters = keywords.map(keyword => `title:~'${keyword}'`);
+        filters.push(...keywordFilters);
     }
 
     return filters.join('+');
