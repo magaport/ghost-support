@@ -7,7 +7,7 @@
     <section class="post-hero" {{#if feature_image}}style="background-image: url('{{img_url feature_image size="xl"}}')"{{/if}}>
         <div class="post-hero-tags">
             {{#if tags}}
-                {{#foreach tags limit="5"}}
+                {{#foreach tags}}
                     <a class="post-hero-tag" href="{{url}}">#{{name}}</a>
                 {{/foreach}}
             {{/if}}
@@ -39,15 +39,17 @@
                         {{/has}}
                     {{/if}}
                 </div>
+            </div>
 
-                {{!-- Rich Text Content --}}
-                <div class="post-rich-text">
+            {{!-- Rich Text Content --}}
+            <div class="post-rich-text">
+                <div class="post-content-canvas gh-content gh-canvas">
                     {{content}}
                 </div>
+            </div>
 
-                <div class="post-magazine-logo">
-                    <img src="" alt="" style="display: none;" width="237" height="86">
-                </div>
+            <div class="post-magazine-logo">
+                <img src="" alt="" style="display: none;" width="237" height="86">
             </div>
         </div>
     </section>

@@ -11,19 +11,20 @@
         {{/if}}
     </div>
 
-    <a href="{{post.url}}" class="card-content" data-card-color="{{card_color}}">
-        {{#if post.tags}}
-        <div class="card-tags">
-            {{#foreach post.tags limit="2"}}
-                <span>#{{name}}{{#unless @last}} {{/unless}}</span>
-            {{/foreach}}
-        </div>
-        {{/if}}
+    <div class="card-content" data-card-color="{{card_color}}">
         <h2 class="card-title">
             {{post.title}}
         </h2>
         {{#if post.excerpt}}
             <p class="card-excerpt">{{post.excerpt}}</p>
+        {{/if}}
+
+        {{#if post.tags}}
+        <div class="card-tags">
+            {{#foreach post.tags}}
+                <a href="{{url}}" class="card-tags__link">#{{name}}</a>
+            {{/foreach}}
+        </div>
         {{/if}}
 
         <time class="card-date" datetime="{{date post.date format="YYYY-MM-DD"}}">
@@ -35,6 +36,6 @@
                 <path d="M9 6l6 6-6 6" stroke="#0c060c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
         </span>
-    </a>
+        <a href="{{post.url}}" class="card-content__overlay" aria-label="{{post.title}}"></a>
+    </div>
 </article>
-

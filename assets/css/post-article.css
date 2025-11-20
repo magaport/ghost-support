@@ -45,11 +45,11 @@
 
     figure {
         display: grid;
+        place-content: center;
         row-gap: var(--space-md);
         margin-block: var(--space-3xl);
 
         img {
-            border-radius: var(--radius-lg);
             object-fit: cover;
         }
 
