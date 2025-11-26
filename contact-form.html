@@ -33,7 +33,12 @@
       </div>
         <div class="fs-field">
             <label class="fs-label" for="attachment">ファイル添付（任意）</label>
-            <input type="file" name="attachment">
+            <!-- ブラウザ選択時のフィルタを追加（拡張子と MIME を併記） -->
+            <input type="file" name="attachment" accept=".png,.jpg,.jpeg,.heic,.webp,image/png,image/jpeg,image/webp,image/heic">
+            <input type="file" name="attachment" accept=".png,.jpg,.jpeg,.heic,.webp,image/png,image/jpeg,image/webp,image/heic">
+            <input type="file" name="attachment" accept=".png,.jpg,.jpeg,.heic,.webp,image/png,image/jpeg,image/webp,image/heic">
+            <input type="file" name="attachment" accept=".png,.jpg,.jpeg,.heic,.webp,image/png,image/jpeg,image/webp,image/heic">
+            <input type="file" name="attachment" accept=".png,.jpg,.jpeg,.heic,.webp,image/png,image/jpeg,image/webp,image/heic">
         </div>
         <input type="hidden" name="user_id" value="" />
         <input type="hidden" name="user_status" value="" />
@@ -57,14 +62,31 @@
             console.log("member",memberData)
             const userIdInput = document.querySelector('input[name="user_id"]');
             const userStatusInput = document.querySelector('input[name="user_status"]');
+            const nameInput = document.querySelector('input[name="name"]');
+            const emailInput = document.querySelector('input[name="email"]');
+            const isLoggedIn = !!(memberData && (memberData.uuid || memberData.email || memberData.name));
 
             if (userIdInput && memberData.uuid) {
                 userIdInput.value = memberData.uuid;
             }
 
             if (userStatusInput) {
-                userStatusInput.value = memberData.paid ? 'paid' : 'free';
+                userStatusInput.value = memberData.paid ? 'paid' : (isLoggedIn ? 'free' : 'guest');
             }
-        }
+
+            if (isLoggedIn) {
+                if (nameInput) {
+                    if (memberData.name) nameInput.value = memberData.name;
+                    nameInput.readOnly = true;
+                }
+                if (emailInput) {
+                    if (memberData.email) emailInput.value = memberData.email;
+                    emailInput.readOnly = true;
+                }
+            } else {
+                if (nameInput) nameInput.readOnly = false;
+                if (emailInput) emailInput.readOnly = false;
+            }
+         }
     })();
 </script>
