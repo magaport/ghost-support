@@ -118,6 +118,34 @@
     color: var(--color-text-muted);
 }
 
-.fs-textarea::placeholder {
-    color: var(--color-text-muted);
+/* Thanks Page */
+.contact-form-thanks {
+    display: grid;
+    align-content: start;
+    padding-block-start: 8vh;
+    padding-inline-start: 8vh;
+}
+
+.contact-form-thanks__container {
+    display: grid;
+    row-gap: var(--space-md);
+}
+
+.contact-form-thanks__title {
+    font: var(--heading-s);
+    color: var(--color-text-primary);
+}
+
+.contact-form-thanks__message {
+    font: var(--text-medium-regular);
+    color: var(--color-text-primary);
+}
+
+.contact-form-thanks__link {
+    font: var(--text-medium-regular);
+    color: #007aff;
+}
+
+.contact-form-thanks__link:hover {
+    text-decoration: underline;
 }
