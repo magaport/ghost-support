@@ -146,21 +146,35 @@
 
         // 新着投稿の表示
         if (newPostsResult.status === 'fulfilled') {
-            displayArticleCards(newPostsResult.value, '#magazine-new', { section_type: 'new' });
+            if (Array.isArray(newPostsResult.value) && newPostsResult.value.length > 0) {
+                displayArticleCards(newPostsResult.value, '#magazine-new', { section_type: 'new' });
 
-            const linkElement = document.querySelector('#magazine-new+div a');
-            if (linkElement) {
-                linkElement.href = `/search-results?groups=${group.id}`;
+                const linkElement = document.querySelector('#magazine-new+div a');
+                if (linkElement) {
+                    linkElement.href = `/search-results?groups=${group.id}`;
+                }
+            } else {
+                const newSection = document.querySelector('.articles-section[data-section-type="new"]'); 
+                if (newSection) {
+                    newSection.style.display = 'none';
+                }
             }
         }
 
         // ランキング投稿の表示
         if (rankingPostsResult.status === 'fulfilled') {
-            displayArticleCards(rankingPostsResult.value, '#magazine-ranking');
+            if (Array.isArray(rankingPostsResult.value) && rankingPostsResult.value.length > 0) {
+                displayArticleCards(rankingPostsResult.value, '#magazine-ranking');
 
-            const linkElement = document.querySelector('#magazine-ranking+div a');
-            if (linkElement) {
-                linkElement.href = `/search-results?groups=${group.id}&order=popular`;
+                const linkElement = document.querySelector('#magazine-ranking+div a');
+                if (linkElement) {
+                    linkElement.href = `/search-results?groups=${group.id}&order=popular`;
+                }
+            } else {
+                const rankingSection = document.querySelector('.articles-section[data-section-type="featured"]');
+                if (rankingSection) {
+                    rankingSection.style.display = 'none';
+                }
             }
         }
     }
