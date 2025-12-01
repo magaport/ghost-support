@@ -1,91 +1,109 @@
 <!-- このファイルは、ページ内にHTML埋め込み経由で利用してください -->
 <!-- actionのURLは環境によって異なります。 -->
 <main class="form-main gh-main">
-    <form
-      action="https://formspree.io/f/xvgqwkkj"
-      class="fs-form"
-      target="_top"
-      enctype="multipart/form-data"
-      method="POST"
-    >
-      <div class="fs-field">
-        <label class="fs-label" for="name">氏名（ニックネーム）</label>
-        <input class="fs-input" id="name" name="name" required />
-      </div>
-      <div class="fs-field">
-        <label class="fs-label" for="email">メールアドレス</label>
-        <input class="fs-input" id="email" name="email" type="email" required />
-      </div>
-      <div class="fs-field">
-        <label class="fs-label" for="message">問い合わせ件名</label>
-        <input class="fs-input" id="subject" name="subject" required maxlength="48" />
-      </div>
-      <div class="fs-field">
-        <label class="fs-label" for="message">問い合わせ内容</label>
-        <textarea
-          class="fs-textarea"
-          id="message"
-          name="message"
-          maxlength="400"
-          rows="3"
-          required
-        ></textarea>
-      </div>
-        <div class="fs-field">
-            <label class="fs-label" for="attachment">ファイル添付（任意）</label>
+  <form
+    action="https://formspree.io/f/xvgqwkkj"
+    class="fs-form"
+    target="_top"
+    enctype="multipart/form-data"
+    method="POST"
+  >
+    <div class="fs-field">
+      <label class="fs-label" for="name">氏名（ニックネーム）</label>
+      <input class="fs-input" id="name" name="name" required />
+    </div>
+    <div class="fs-field">
+      <label class="fs-label" for="email">メールアドレス</label>
+      <input class="fs-input" id="email" name="email" type="email" required />
+    </div>
+    <div class="fs-field">
+      <label class="fs-label" for="message">問い合わせ件名</label>
+      <input
+        class="fs-input"
+        id="subject"
+        name="subject"
+        required
+        maxlength="48"
+      />
+    </div>
+    <div class="fs-field">
+      <label class="fs-label" for="message">問い合わせ内容</label>
+      <textarea
+        class="fs-textarea"
+        id="message"
+        name="message"
+        maxlength="400"
+        rows="3"
+        required
+      ></textarea>
+    </div>
+    <div class="fs-field">
+      <label class="fs-label" for="attachment">
+        <p>ファイル添付（任意）</p>
+        <p>※画像ファイルのみ( png / jpg / jpeg / heic / webp )・上限5個</p>
+      </label>
 
-            <input type="file" name="attachment0" accept="image/*">
-            <input type="file" name="attachment1" accept="image/*">
-            <input type="file" name="attachment2" accept="image/*">
-            <input type="file" name="attachment3" accept="image/*">
-            <input type="file" name="attachment4" accept="image/*">
-        </div>
-        <input type="hidden" name="user_id" value="" />
-        <input type="hidden" name="user_status" value="" />
-      <div class="fs-button-wrapper">
-        <button class="fs-button" type="submit">送信</button>
-      </div>
-    </form>
+      <input type="file" name="attachment0" accept="image/*" />
+      <input type="file" name="attachment1" accept="image/*" />
+      <input type="file" name="attachment2" accept="image/*" />
+      <input type="file" name="attachment3" accept="image/*" />
+      <input type="file" name="attachment4" accept="image/*" />
+    </div>
+    <input type="hidden" name="user_id" value="" />
+    <input type="hidden" name="user_status" value="" />
+    <div class="fs-button-wrapper">
+      <button class="fs-button" type="submit">送信</button>
+    </div>
+  </form>
 </main>
 
 <script>
-    // Dynamically set user_id and user_status
-    (function() {
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initialize);
-        } else {
-            initialize();
-        }
+  // Dynamically set user_id and user_status
+  (function () {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initialize);
+    } else {
+      initialize();
+    }
 
-        function initialize() {
-            const memberData = window.currentMember || {};
-            const userIdInput = document.querySelector('input[name="user_id"]');
-            const userStatusInput = document.querySelector('input[name="user_status"]');
-            const nameInput = document.querySelector('input[name="name"]');
-            const emailInput = document.querySelector('input[name="email"]');
-            const isLoggedIn = !!(memberData && (memberData.uuid || memberData.email || memberData.name));
+    function initialize() {
+      const memberData = window.currentMember || {};
+      const userIdInput = document.querySelector('input[name="user_id"]');
+      const userStatusInput = document.querySelector(
+        'input[name="user_status"]'
+      );
+      const nameInput = document.querySelector('input[name="name"]');
+      const emailInput = document.querySelector('input[name="email"]');
+      const isLoggedIn = !!(
+        memberData &&
+        (memberData.uuid || memberData.email || memberData.name)
+      );
 
-            if (userIdInput && memberData.uuid) {
-                userIdInput.value = memberData.uuid;
-            }
+      if (userIdInput && memberData.uuid) {
+        userIdInput.value = memberData.uuid;
+      }
 
-            if (userStatusInput) {
-                userStatusInput.value = memberData.paid ? 'paid' : (isLoggedIn ? 'free' : 'guest');
-            }
+      if (userStatusInput) {
+        userStatusInput.value = memberData.paid
+          ? "paid"
+          : isLoggedIn
+          ? "free"
+          : "guest";
+      }
 
-            if (!isLoggedIn) {
-              return;
-            }
+      if (!isLoggedIn) {
+        return;
+      }
 
-            if(nameInput){
-              nameInput.value = memberData.name;
-              nameInput.readOnly = memberData.name;
-            }
+      if (nameInput) {
+        nameInput.value = memberData.name;
+        nameInput.readOnly = memberData.name;
+      }
 
-            if(emailInput){
-              emailInput.value = memberData.email;
-              emailInput.readOnly = memberData.email;
-            }
-         }
-    })();
+      if (emailInput) {
+        emailInput.value = memberData.email;
+        emailInput.readOnly = memberData.email;
+      }
+    }
+  })();
 </script>
