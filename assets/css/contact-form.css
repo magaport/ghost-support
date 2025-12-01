@@ -4,7 +4,7 @@
     width: 100%;
     max-width: 600px;
     margin-inline: auto;
-    padding: 32px;
+    padding-block: 32px;
 }
 
 :root {
