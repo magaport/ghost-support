@@ -1,4 +1,4 @@
-async function recordPageView(e){if(e)try{await fetch(`/members/api/posts/${e}/page-views`,{method:"POST",credentials:"include"})}catch{}}function createPostCard(e,t={}){var n=e.feature_image,o=e.group?.logo_image,i=e.tags||[],{section_type:t="",isShowLikeButton:r=!1,isLiked:a=!1}=t,s="new"===t,l=new Date(e.published_at),c=l.toLocaleDateString("ja-JP",{year:"numeric",month:"2-digit",day:"2-digit"}).replace(/\//g,"."),l=l.toISOString().split("T")[0],u=i.map(e=>{return`<a href="${e.url||(e.slug?`/tag/${e.slug}/`:"#")}" class="card-tags__link">#${e.name}</a>`}).join(""),r=r?`
+async function recordPageView(e){if(e)try{await fetch(`/members/api/posts/${e}/page-views`,{method:"POST",credentials:"include"})}catch{}}function escapeHtml(e){return"string"!=typeof e?"":e.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;")}function createPostCard(e,t={}){var n=e.feature_image,o=e.group?.logo_image,i=e.tags||[],{section_type:t="",isShowLikeButton:r=!1,isLiked:a=!1}=t,s="new"===t,l=new Date(e.published_at),c=l.toLocaleDateString("ja-JP",{year:"numeric",month:"2-digit",day:"2-digit"}).replace(/\//g,"."),l=l.toISOString().split("T")[0],u=i.map(e=>{return`<a href="${e.url||(e.slug?`/tag/${e.slug}/`:"#")}" class="card-tags__link">#${escapeHtml(e.name)}</a>`}).join(""),r=r?`
         <div class="card-like-button gh-post-like-wrapper">
             <button
                 class="gh-post-like-button favorite"
@@ -25,9 +25,9 @@ async function recordPageView(e){if(e)try{await fetch(`/members/api/posts/${e}/p
 
             <div class="card-content"${t?` data-card-color="${t}"`:""}>
                 <h2 class="card-title">
-                    ${e.title}
+                    ${escapeHtml(e.title)}
                 </h2>
-                ${e.excerpt?`<p class="card-excerpt">${e.excerpt}</p>`:""}
+                ${e.excerpt?`<p class="card-excerpt">${escapeHtml(e.excerpt)}</p>`:""}
                 ${0<i.length?`
                 <div class="card-tags">
                     ${u}
@@ -43,7 +43,7 @@ async function recordPageView(e){if(e)try{await fetch(`/members/api/posts/${e}/p
                         <path d="M9 6l6 6-6 6" stroke="#0c060c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </span>
-                <a href="${e.url}" class="card-content__overlay" aria-label="${e.title}"></a>
+                <a href="${e.url}" class="card-content__overlay" aria-label="${escapeHtml(e.title)}"></a>
             </div>
         </article>
     `}function displayArticleCards(e,t,n={}){const o=document.querySelector(t);o&&(e.forEach(e=>{e=createPostCard(e,n);o.insertAdjacentHTML("beforeend",e)}),window.Source?.cardTags?.update())}function clearElements(e){e=document.querySelector(e);e&&(e.innerHTML="")}function displaySearchResultsSummary(e,t){e=document.querySelector(e);e&&(e.innerHTML=`

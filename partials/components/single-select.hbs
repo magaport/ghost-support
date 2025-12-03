@@ -6,6 +6,7 @@ Parameters:
 - name: Name attribute for the checkbox input (required)
 - value: Value attribute for the checkbox input (required)
 - text: Label text content (required)
+- prefix: Optional prefix for the label text (optional)
 - checked: Boolean to set checked state (optional)
 - disabled: Boolean to disable the input (optional)
 - attributes: Additional HTML attributes as a string (optional)
@@ -21,5 +22,5 @@ Parameters:
         {{#if disabled}}disabled{{/if}}
         {{{attributes}}}
     />
-    <span class="single-select__label">{{text}}</span>
+    <span class="single-select__label">{{#if prefix}}{{prefix}}{{/if}}{{text}}</span>
 </label>
