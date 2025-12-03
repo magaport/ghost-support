@@ -39,9 +39,14 @@
      * ページを初期化
      */
     async function initialize() {
+        if (window.location.pathname !== '/magazine/') {
+            return;
+        }
+
         // URLからgroup slugを取得
         const groupSlug = getQueryParam('group');
         if (!groupSlug) {
+            window.location.replace('/')
             return;
         }
 
@@ -49,7 +54,9 @@
 
         // グループ情報を取得
         const group = await fetchGroupBySlug(groupSlug, contentApiKey);
+
         if (!group) {
+            window.location.replace('/')
             return;
         }
 
@@ -154,7 +161,7 @@
                     linkElement.href = `/search-results?groups=${group.id}`;
                 }
             } else {
-                const newSection = document.querySelector('.articles-section[data-section-type="new"]'); 
+                const newSection = document.querySelector('.articles-section[data-section-type="new"]');
                 if (newSection) {
                     newSection.style.display = 'none';
                 }
