@@ -59,6 +59,11 @@
             text-align: left;
             margin-inline-start: var(--space-xs);
         }
+
+        &.kg-embed-card {
+            place-content: unset;
+            width: 100%;
+        }
     }
 
     .kg-toggle-card {
