@@ -31,7 +31,8 @@
                             {{#get "tags" filter="visibility:public" order="count.posts desc" limit="10"}}
                                 {{#foreach tags}}
                                     {{> "components/single-select"
-                                        text=(concat "#" name)
+                                        prefix="#"
+                                        text=name
                                         name="tag"
                                         value=slug
                                     }}

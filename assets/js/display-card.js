@@ -1,4 +1,22 @@
 /**
+ * HTMLエスケープを行う
+ * @param {string} str - エスケープする文字列
+ * @returns {string} エスケープされた文字列
+ */
+function escapeHtml(str) {
+  if (typeof str !== 'string') {
+    return "";
+  }
+
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+/**
  * 投稿データからcard.hbsパーシャルと同様のHTMLカードを生成
  * @param {Object} post - 投稿オブジェクト
  * @param {string} post.url - 投稿のURL
@@ -37,7 +55,7 @@ function createPostCard(post, options = {}) {
     // タグのHTMLをタグページリンク付きで生成
     const tagHtml = tags.map((tag) => {
         const tagUrl = tag.url || (tag.slug ? `/tag/${tag.slug}/` : '#');
-        return `<a href="${tagUrl}" class="card-tags__link">#${tag.name}</a>`;
+        return `<a href="${tagUrl}" class="card-tags__link">#${escapeHtml(tag.name)}</a>`;
     }).join('');
 
     // 画像URLの生成（サイズ付き）
@@ -78,11 +96,11 @@ function createPostCard(post, options = {}) {
 
             <div class="card-content"${section_type ? ` data-card-color="${section_type}"` : ''}>
                 <h2 class="card-title">
-                    ${post.title}
+                    ${escapeHtml(post.title)}
                 </h2>
                 ${
                     post.excerpt
-                        ? `<p class="card-excerpt">${post.excerpt}</p>`
+                        ? `<p class="card-excerpt">${escapeHtml(post.excerpt)}</p>`
                         : ''
                 }
                 ${
@@ -104,7 +122,7 @@ function createPostCard(post, options = {}) {
                         <path d="M9 6l6 6-6 6" stroke="#0c060c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </span>
-                <a href="${post.url}" class="card-content__overlay" aria-label="${post.title}"></a>
+                <a href="${post.url}" class="card-content__overlay" aria-label="${escapeHtml(post.title)}"></a>
             </div>
         </article>
     `;
