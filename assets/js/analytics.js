@@ -1,4 +1,9 @@
-async function recordPageView(postId) {
+/**
+ * 分配金用の集計レコードの追加
+ *
+ * @param {string | null} postId
+ */
+async function recordPostByPaidMemberView(postId) {
     if (!postId) {
         return;
     }
