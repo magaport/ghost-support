@@ -23,6 +23,7 @@
 
         fetchRecommendArticles(currentPostId, tag);
 
+        await recordPostView(currentPostId);
         // 有料会員のみページビューを記録
         if (window.currentMember?.paid) {
             await recordPageView(currentPostId);
