@@ -9,7 +9,7 @@ async function recordPostByPaidMemberView(postId) {
     }
 
     try {
-        await fetch(`/members/api/posts/${postId}/page-views`, {
+        await fetch(`/members/api/posts/${postId}/distribution-views`, {
             method: 'POST',
             credentials: 'include',
         });
