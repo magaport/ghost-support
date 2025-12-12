@@ -80,6 +80,13 @@
             const searchQuery = searchInput ? searchInput.value.trim() : '';
             await submitForm(searchQuery);
         });
+
+        const orderSelect = document.querySelector('.search_results__sort-dropdown');
+        orderSelect?.addEventListener('change', async () => {
+            const searchInput = document.getElementById('header-search-input') || document.getElementById('search-results-input');
+            const searchQuery = searchInput ? searchInput.value.trim() : '';
+            await submitForm(searchQuery);
+        });
     }
 
     async function submitForm(searchQuery) {
