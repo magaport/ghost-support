@@ -63,18 +63,6 @@
     background-color: var(--color-white);
     position: relative;
 
-    &[data-card-color='new'] {
-        background-color: var(--color-bg-new-card);
-    }
-
-    &[data-card-color='popular'] {
-        background-color: var(--color-bg-popular-card);
-    }
-
-    &[data-card-color='featured'] {
-        background-color: var(--color-bg-featured-card);
-    }
-
     .card-tags {
         grid-area: tag;
         display: flex;
@@ -151,27 +139,5 @@
 @media screen and (width >= 1440px) {
     .card {
         width: 416px;
-    }
-}
-
-.card[data-transparent='true'] {
-    .card-image .post-feature-image {
-        border-radius: var(--radius-md);
-    }
-
-    .post-magazine-logo {
-        margin-inline-start: 40px;
-    }
-
-    .card-content {
-        grid-template:
-            'tag tag'
-            '. .' 16px
-            'title title'
-            '. .' 8px
-            'excerpt excerpt'
-            '. .' 24px
-            'date readmore';
-        padding: var(--space-2xl) 0 0 0;
     }
 }

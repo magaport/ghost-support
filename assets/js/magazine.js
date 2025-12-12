@@ -154,7 +154,7 @@
         // 新着投稿の表示
         if (newPostsResult.status === 'fulfilled') {
             if (Array.isArray(newPostsResult.value) && newPostsResult.value.length > 0) {
-                displayArticleCards(newPostsResult.value, '#magazine-new', { section_type: 'new' });
+                displayArticleCards(newPostsResult.value, '#magazine-new');
 
                 const linkElement = document.querySelector('#magazine-new+div a');
                 if (linkElement) {
