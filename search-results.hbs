@@ -28,7 +28,7 @@
                     <div class="search_results__tags">
                         <div class="search_results__tags-title">タグを選択</div>
                         <div class="search_results__tags-grid" id="tag-list">
-                            {{#get "tags" filter="visibility:public" order="count.posts desc" limit="10"}}
+                            {{#get "tags" filter="visibility:public" order="count.posts desc" limit="10" include="count.posts"}}
                                 {{#foreach tags}}
                                     {{> "components/single-select"
                                         prefix="#"
