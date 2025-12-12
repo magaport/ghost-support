@@ -5,7 +5,6 @@
 - 再利用可能なものはなるべく、 `partials/components` に切り出すこと
     - `partials/components` に切り出したコンポーネントのスタイルは `assets/css/` に同名のファイルとして配置すること
     - `screen.css` に追記はしないこと
-- 開発サーバーは常に起動しているため、確認する際は、 `playwright mcp` を利用すること
 
 ## CSS
 

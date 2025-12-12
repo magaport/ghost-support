@@ -35,7 +35,7 @@
         const filter = getSearchFilter(params);
         const searchParams = new URLSearchParams({
             filter,
-            order: params.order === 'newest' ? 'published_at DESC' : 'page_view_count DESC',
+            order: params.order === 'newest' ? 'published_at DESC' : 'popularity.7 DESC',
         });
         await displaySearchResults(searchParams);
     }
@@ -77,6 +77,13 @@
             e.preventDefault();
 
             const searchInput = document.getElementById('search-results-input');
+            const searchQuery = searchInput ? searchInput.value.trim() : '';
+            await submitForm(searchQuery);
+        });
+
+        const orderSelect = document.querySelector('.search_results__sort-dropdown');
+        orderSelect?.addEventListener('change', async () => {
+            const searchInput = document.getElementById('header-search-input') || document.getElementById('search-results-input');
             const searchQuery = searchInput ? searchInput.value.trim() : '';
             await submitForm(searchQuery);
         });

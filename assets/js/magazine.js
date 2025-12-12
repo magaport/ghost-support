@@ -148,7 +148,7 @@
         // 記事の取得と表示
         const [newPostsResult, rankingPostsResult] = await Promise.allSettled([
             fetchPosts(contentApiKey, `group_id:${group.id}`, 'published_at DESC'),
-            fetchPosts(contentApiKey, `group_id:${group.id}`, 'page_view_count DESC', 15)
+            fetchPosts(contentApiKey, `group_id:${group.id}`, 'popularity.7 DESC', 15)
         ]);
 
         // 新着投稿の表示

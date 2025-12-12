@@ -23,9 +23,10 @@
 
         fetchRecommendArticles(currentPostId, tag);
 
-        // 有料会員のみページビューを記録
+        await recordPostView(currentPostId);
+        // 有料会員のみ分配金用のレコードを追加
         if (window.currentMember?.paid) {
-            await recordPageView(currentPostId);
+            await recordPostByPaidMemberView(currentPostId);
         }
     }
 
