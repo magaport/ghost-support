@@ -35,7 +35,7 @@
         const filter = getSearchFilter(params);
         const searchParams = new URLSearchParams({
             filter,
-            order: params.order === 'newest' ? 'published_at DESC' : 'popularity DESC',
+            order: params.order === 'newest' ? 'published_at DESC' : 'popularity.7 DESC',
         });
         await displaySearchResults(searchParams);
     }

@@ -134,7 +134,7 @@ function getSearchOrder(orderSelectValue) {
         return 'published_at DESC';
     }
 
-    return orderSelectValue === 'newest' ? 'published_at DESC' : 'popularity DESC';
+    return orderSelectValue === 'newest' ? 'published_at DESC' : 'popularity.7 DESC';
 }
 
 /**
