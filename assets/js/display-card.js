@@ -27,7 +27,6 @@ function escapeHtml(str) {
  * @param {Array} [post.tags] - タグの配列
  * @param {Object} [post.group] - グループオブジェクト
  * @param {Object} [options] - オプション設定
- * @param {string} [options.section_type] - セクションの種類
  * @param {boolean} [options.isShowLikeButton] - いいねボタンを表示するかどうか
  * @param {boolean} [options.isLiked] - いいね状態かどうか
  * @returns {string} HTMLカードの文字列
@@ -36,8 +35,7 @@ function createPostCard(post, options = {}) {
     const featureImage = post.feature_image;
     const groupLogoImage = post.group?.logo_image;
     const tags = post.tags ? post.tags : [];
-    const {section_type = '', isShowLikeButton = false, isLiked = false} = options;
-    const is_transparent = section_type === 'new';
+    const {isShowLikeButton = false, isLiked = false} = options;
 
     // 日付をフォーマット
     const publishedDate = new Date(post.published_at);
@@ -83,7 +81,7 @@ function createPostCard(post, options = {}) {
     ` : '';
 
     return `
-        <article class="card" data-transparent="${is_transparent}">
+        <article class="card">
             <div class="card-image">
                 <a class="post-feature-image" href="${post.url}" style="${backgroundStyle}"></a>
                 ${
@@ -94,7 +92,7 @@ function createPostCard(post, options = {}) {
                 ${likeButtonHtml}
             </div>
 
-            <div class="card-content"${section_type ? ` data-card-color="${section_type}"` : ''}>
+            <div class="card-content"}>
                 <h2 class="card-title">
                     ${escapeHtml(post.title)}
                 </h2>
@@ -133,7 +131,6 @@ function createPostCard(post, options = {}) {
  * @param {Array} posts - 投稿一覧
  * @param {string} selector - セクションのセレクタ
  * @param {Object} [options] - オプション設定
- * @param {string} [options.section_type] - セクションの種類
  * @param {boolean} [options.isShowLikeButton] - いいねボタンを表示するかどうか
  * @param {boolean} [options.isLiked] - いいね状態かどうか
  */

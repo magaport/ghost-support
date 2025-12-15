@@ -4,7 +4,7 @@
         <h2 class="partners-title">{{@site.title}}は下記の雑誌サービスと提携しています。</h2>
         <p class="partners-description">スコアやランキングでは見つからない「物語」を味わう体験を。食のプロが描く料理人の情熱や店の背景が、あなたの食の世界をより深く豊かにします。</p>
         <div class="partners-logos">
-         {{#get "groups"}}
+         {{#get "groups" filter="slug:-coverd-news"}}
             {{#foreach groups}}
             {{#if logo_image}}
               <div class="partners-logo">
