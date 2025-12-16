@@ -56,7 +56,7 @@
         const group = await fetchGroupBySlug(groupSlug, contentApiKey);
 
         if (!group) {
-            window.location.replace('/')
+            window.location.replace('/404/')
             return;
         }
 
