@@ -16,7 +16,7 @@
     }
 
     const cardContainerSelector = '#search-results-container';
-    const {fetchPosts,displayPosts,handleLoadMoreButton,toggleLoadMoreButton} = useFetchPosts(cardContainerSelector, {
+    const {fetchPosts, searchPosts, setSearchContext, displayPosts, handleLoadMoreButton, toggleLoadMoreButton} = useFetchPosts(cardContainerSelector, {
         include: 'tags,group',
         page: 1,
         limit: POSTS_PER_PAGE,
@@ -33,18 +33,47 @@
         initializeForm(params);
 
         const filter = getSearchFilter(params);
-        const searchParams = new URLSearchParams({
+        const filterParams = new URLSearchParams({
             filter,
             order: params.order === 'newest' ? 'published_at DESC' : 'popularity.7 DESC',
         });
-        await displaySearchResults(searchParams);
+        const sort = params.order === 'newest' ? 'published_at' : 'page_view_count';
+        await displaySearchResults({
+            query: params.q,
+            filterParams,
+            sort,
+            tags: params.tags,
+            groups: params.groups
+        });
     }
 
-    async function displaySearchResults(searchParams) {
+    /**
+     * 検索結果を表示
+     *
+     * @param {Object} options - 検索オプション
+     * @param {string} options.query - 検索クエリ（空の場合はフィルタのみで検索）
+     * @param {URLSearchParams} options.filterParams - フィルタ用パラメータ（クエリがない場合に使用）
+     * @param {string} options.sort - ソート順（published_at | page_view_count）
+     * @param {string[]} options.tags - タグ slug の配列
+     * @param {string[]} options.groups - グループ ID の配列
+     */
+    async function displaySearchResults({query, filterParams, sort, tags, groups}) {
         clearElements(cardContainerSelector);
         clearElements('.search_results__header');
 
-        const {posts, hasNext,count} = await fetchPosts(searchParams);
+        // ページネーション用に検索コンテキストを設定
+        setSearchContext({query, sort});
+
+        let result;
+        if (query) {
+            // 検索クエリがある場合はAlgolia全文検索を使用
+            result = await searchPosts(query, {page: 1, sort, tags, groups});
+        } else {
+            // 検索クエリがない場合は従来のフィルタ検索を使用
+            result = await fetchPosts(filterParams);
+        }
+
+        const {posts, hasNext, count} = result;
         if (posts.length > 0) {
             displaySearchResultsSummary('.search_results__header', count);
             await displayPosts(posts, hasNext);
@@ -90,9 +119,6 @@
     }
 
     async function submitForm(searchQuery) {
-        const tagButtons = document.querySelectorAll(
-            '#tag-list > button[aria-pressed="true"]'
-        );
         const tagCheckboxes = document.querySelectorAll('input[name="tag"]:checked');
         const selectedTags = Array.from(tagCheckboxes).map(checkbox => checkbox.value).filter(Boolean);
 
@@ -102,14 +128,21 @@
         const orderSelect = document.querySelector('.search_results__sort-dropdown');
         const order = getSearchOrder(orderSelect?.value);
 
-        setUrlParams({q: searchQuery, tags: selectedTags, groups:selectedGroups, order: orderSelect.value});
+        setUrlParams({q: searchQuery, tags: selectedTags, groups: selectedGroups, order: orderSelect.value});
 
-        const filter = getSearchFilter({q: searchQuery, tags: selectedTags, groups:selectedGroups});
-        const params = new URLSearchParams({
+        const filter = getSearchFilter({q: searchQuery, tags: selectedTags, groups: selectedGroups});
+        const filterParams = new URLSearchParams({
             filter,
             page: 1,
             order
         });
-        await displaySearchResults(params)
-    };
+        const sort = orderSelect?.value === 'newest' ? 'published_at' : 'page_view_count';
+        await displaySearchResults({
+            query: searchQuery,
+            filterParams,
+            sort,
+            tags: selectedTags,
+            groups: selectedGroups
+        });
+    }
 })();
