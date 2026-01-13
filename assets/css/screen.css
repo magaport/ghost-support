@@ -2280,7 +2280,7 @@ headings, text, images and lists. We deal with cards lower down. */
 }
 
 .post-content-canvas .kg-image{
-    margin: 0 auto;
+    margin-inline: auto;
 }
 
 /* Toggle */
