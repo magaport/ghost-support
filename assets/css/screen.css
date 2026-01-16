@@ -2279,6 +2279,10 @@ headings, text, images and lists. We deal with cards lower down. */
     opacity: 1 !important;
 }
 
+.post-content-canvas .kg-image{
+    margin-inline: auto;
+}
+
 /* Toggle */
 
 .has-mono-title .kg-toggle-card .kg-toggle-heading-text {
