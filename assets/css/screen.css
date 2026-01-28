@@ -2512,6 +2512,8 @@ figcaption a {
 
 .gh-comments {
     margin-top: 48px;
+    margin-left: 20px;
+    margin-right: 20px;
     display: block;
 }
 
