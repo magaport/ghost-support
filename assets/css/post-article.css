@@ -45,7 +45,6 @@
 
     figure {
         display: grid;
-        place-content: center;
         row-gap: var(--space-md);
         margin-block: var(--space-3xl);
 
@@ -60,9 +59,8 @@
             margin-inline-start: var(--space-xs);
         }
 
-        &.kg-embed-card {
-            place-content: unset;
-            width: 100%;
+        &.kg-image-card {
+            place-content: center;
         }
     }
 
