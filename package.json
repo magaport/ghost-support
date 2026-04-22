@@ -177,6 +177,36 @@
 				"type": "boolean",
 				"default": true,
 				"group": "post"
+			},
+			"fms_js_base_url": {
+				"type": "text",
+				"default": "",
+				"description": "[FMS] jsBaseUrl"
+			},
+			"fms_tkm_base_url": {
+				"type": "text",
+				"default": "",
+				"description": "[FMS] tkmBaseUrl"
+			},
+			"fms_base_api_url": {
+				"type": "text",
+				"default": "",
+				"description": "[FMS] baseApi URL"
+			},
+			"fms_base_api_service_path": {
+				"type": "text",
+				"default": "",
+				"description": "[FMS] baseApi servicePath"
+			},
+			"fms_cart_key": {
+				"type": "text",
+				"default": "",
+				"description": "[FMS] cart key (cartモジュール初期化用)"
+			},
+			"fms_cart_api_base_url": {
+				"type": "text",
+				"default": "",
+				"description": "[FMS] cart API base URL (例: https://api-unleash-dev.magacommerce.jp)"
 			}
 		}
 	},
