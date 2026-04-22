@@ -42,11 +42,11 @@
 
                 {{#if @member}}
                     <div class="gh-navigation-siginin-button">
-                        <a href="#/portal/account" data-portal="subscribe">{{t "アカウント"}}</a>
+                        <a href="javascript:" onclick="window.FMS?.unleash?.logout()">{{t "ログアウト"}}</a>
                     </div>
                 {{else}}
                     <div class="gh-navigation-siginin-button">
-                        <a href="#/portal/signin" data-portal="signin">{{t "ログイン"}}</a>
+                        <a href="javascript:" data-login-button onclick="window.FMS?.unleash?.login()">{{t "ログイン"}}</a>
                     </div>
                 {{/if}}
             </div>
@@ -58,7 +58,7 @@
                 {{#if @member}}
                     <div class="gh-navigation-signout-button">
                         <div>-</div>
-                        <a href="javascript:" data-members-signout>Log Out</a>
+                        <a href="javascript:" onclick="window.FMS?.unleash?.logout()">{{t "ログアウト"}}</a>
                     </div>
                 {{/if}}
             </div>
