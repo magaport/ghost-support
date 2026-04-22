@@ -7,6 +7,9 @@
 			<a class="gh-post-upgrade-signup-link" href="#/portal/signup" data-portal="signup">
 				{{t "🏀入部する⛹️"}}
 			</a>
+			{{^if @member}}
+				<p class="fms-login-button"><small>{{t "すでに会員ですか?"}} <a href="#" onclick="return window.FMS?.unleash?.login();">{{t "ログイン"}}</a></small></p>
+			{{/if}}
 		</div>
 	</aside>
 {{/if}}
