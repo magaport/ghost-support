@@ -21,6 +21,41 @@
         }
     </style>
 
+    {{!-- FMS / MagaCommerce loader --}}
+    {{#if @custom.fms_js_base_url}}
+    <script type="module">
+        import "{{@custom.fms_js_base_url}}/loader/index.js";
+
+        FMS.load(["base/user", "membershipCard", "mylibrary", "pdfviewer", "unleash", "cart"], {
+            baseUrl: "{{@custom.fms_js_base_url}}",
+            tkmDomain: "{{@custom.fms_tkm_base_url}}",
+            servicePath: "{{@custom.fms_base_api_service_path}}",
+            apiBaseUrl: "{{@custom.fms_base_api_url}}",
+            mylibrary: {
+                search_endpoint: "https://www.fujisan.co.jp/library/showcase",
+                list_endpoint: ''
+            },
+            cart: {
+                "k": "{{@custom.fms_cart_key}}",
+                "h": "{{@custom.fms_cart_api_base_url}}"
+            }
+        }, async (base, card, myl, pdf, unleash, cart) => {
+            base.init();
+            myl.init();
+            unleash.init();
+            await cart.init();
+
+            await customElements.whenDefined('fms-cart');
+            const cartEl = document.getElementById('fms-cart');
+            await new Promise(resolve => {
+                const check = () => typeof cartEl?.restoreState === 'function' ? resolve() : requestAnimationFrame(check);
+                check();
+            });
+            cartEl.restoreState();
+        });
+    </script>
+    {{/if}}
+
     <script>
         /* The script for calculating the color contrast has been taken from
         https://gomakethings.com/dynamically-changing-the-text-color-based-on-background-color-contrast-with-vanilla-js/ */
@@ -77,6 +112,10 @@
 
 {{!-- Ghost outputs required functional scripts with this tag, it should always be the last thing before the closing body tag --}}
 {{ghost_foot}}
+
+{{!-- FMS Web Components (cart / order history) --}}
+<fms-cart id="fms-cart" restrict-multiple-products="false"></fms-cart>
+<order-history></order-history>
 
 </body>
 </html>
