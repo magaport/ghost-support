@@ -8,10 +8,38 @@
  * GhostのContent APIエンドポイント (例: /ghost/api/content/posts/:postId/like?key=YOUR_API_KEY) を想定
  */
 
+let _memberToken = null;
+
+const getMemberToken = async () => {
+    if (_memberToken) {
+        return _memberToken;
+    }
+    try {
+        const res = await fetch('/members/api/session', {
+            method: 'GET',
+            credentials: 'include'
+        });
+        if (!res.ok) {
+            return null;
+        }
+        const token = await res.text();
+        _memberToken = token || null;
+        return _memberToken;
+    } catch {
+        return null;
+    }
+};
+
 const getPostLike = async (postId, contentApiKey) => {
+    const token = await getMemberToken();
+    const headers = {'Content-Type': 'application/json'};
+    if (token) {
+        headers['Authorization'] = `GhostMembers ${token}`;
+    }
     const res = await fetch(`/ghost/api/content/posts/${postId}/like?key=${contentApiKey}`, {
         method: 'GET',
-        headers: { 'Content-Type': 'application/json' }
+        credentials: 'include',
+        headers
     });
     if (!res.ok) {
         // eslint-disable-next-line ghost/ghost-custom/no-native-error
@@ -23,9 +51,15 @@ const getPostLike = async (postId, contentApiKey) => {
 };
 
 const addPostLike = async (postId, memberId, contentApiKey) => {
+    const token = await getMemberToken();
+    const headers = {'Content-Type': 'application/json'};
+    if (token) {
+        headers['Authorization'] = `GhostMembers ${token}`;
+    }
     const res = await fetch(`/ghost/api/content/posts/${postId}/like?key=${contentApiKey}`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        headers,
         body: JSON.stringify({
             post_likes: [{
                 member: { id: memberId }
@@ -41,9 +75,15 @@ const addPostLike = async (postId, memberId, contentApiKey) => {
 };
 
 const removePostLike = async (postId, memberId, contentApiKey) => {
+    const token = await getMemberToken();
+    const headers = {'Content-Type': 'application/json'};
+    if (token) {
+        headers['Authorization'] = `GhostMembers ${token}`;
+    }
     const res = await fetch(`/ghost/api/content/posts/${postId}/like?key=${contentApiKey}`, {
         method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        headers,
         body: JSON.stringify({
             post_likes: [{ member: { id: memberId } }]
         })
@@ -87,14 +127,9 @@ async function initializeLikeButtonUI(button) {
     try {
         // いいね情報を取得
         const responsePostLikes = await getPostLike(postId, contentApiKey);
-        const postLikes = responsePostLikes.post_likes?.[0] || [];
-        const likeCount = postLikes.length;
-
-        // ログイン中のmemberIdが含まれているかを確認
-        let isLiked = false;
-        if (memberId) {
-            isLiked = postLikes.some(likeObj => likeObj.member_id === memberId);
-        }
+        const postLikeData = responsePostLikes.post_likes?.[0]?.[0] ?? {count: 0, liked_by_me: false};
+        const likeCount = postLikeData.count;
+        const isLiked = postLikeData.liked_by_me;
 
         // data-liked属性を更新
         button.setAttribute('data-liked', String(isLiked));
@@ -155,7 +190,7 @@ async function handleLikeButtonClick(event) {
     // 成功したのでUIを更新
     const newIsLiked = !currentIsLiked;
     button.setAttribute('data-liked', String(newIsLiked));
-        button.setAttribute('aria-label', newIsLiked ? 'お気に入り解除' : 'お気に入り');
+    button.setAttribute('aria-label', newIsLiked ? 'お気に入り解除' : 'お気に入り');
 
     const icon = button.querySelector('.gh-post-like-icon');
     if (icon) {
