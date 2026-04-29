@@ -8,6 +8,28 @@
  * GhostのContent APIエンドポイント (例: /ghost/api/content/posts/:postId/like?key=YOUR_API_KEY) を想定
  */
 
+// Cookie セッションから GhostMembers JWT を取得してキャッシュする
+// Content API の認証には Authorization: GhostMembers <token> が必要
+let memberTokenCache;
+const getMemberToken = async () => {
+    if (memberTokenCache !== undefined) {
+        return memberTokenCache;
+    }
+    try {
+        const res = await fetch('/members/api/session', {credentials: 'include'});
+        if (!res.ok) {
+            memberTokenCache = null;
+            return null;
+        }
+        const token = await res.text();
+        memberTokenCache = token || null;
+        return memberTokenCache;
+    } catch {
+        memberTokenCache = null;
+        return null;
+    }
+};
+
 const getMemberByEmail = async (email, contentApiKey) => {
     if (!email) {
         return null;
@@ -46,9 +68,14 @@ const getPostLike = async (postId, contentApiKey) => {
 };
 
 const addPostLike = async (postId, memberId, contentApiKey) => {
+    const token = await getMemberToken();
     const res = await fetch(`/ghost/api/content/posts/${postId}/like?key=${contentApiKey}`, {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+            ...(token ? {Authorization: `GhostMembers ${token}`} : {})
+        },
         body: JSON.stringify({
             post_likes: [{
                 member: {id: memberId}
@@ -64,9 +91,14 @@ const addPostLike = async (postId, memberId, contentApiKey) => {
 };
 
 const removePostLike = async (postId, memberId, contentApiKey) => {
+    const token = await getMemberToken();
     const res = await fetch(`/ghost/api/content/posts/${postId}/like?key=${contentApiKey}`, {
         method: 'DELETE',
-        headers: {'Content-Type': 'application/json'},
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+            ...(token ? {Authorization: `GhostMembers ${token}`} : {})
+        },
         body: JSON.stringify({
             post_likes: [{member: {id: memberId}}]
         })
