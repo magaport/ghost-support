@@ -8,6 +8,28 @@
  * GhostのContent APIエンドポイント (例: /ghost/api/content/posts/:postId/like?key=YOUR_API_KEY) を想定
  */
 
+// Cookie セッションから GhostMembers JWT を取得してキャッシュする
+// Content API の認証には Authorization: GhostMembers <token> が必要
+let memberTokenCache;
+const getMemberToken = async () => {
+    if (memberTokenCache !== undefined) {
+        return memberTokenCache;
+    }
+    try {
+        const res = await fetch('/members/api/session', {credentials: 'include'});
+        if (!res.ok) {
+            memberTokenCache = null;
+            return null;
+        }
+        const token = await res.text();
+        memberTokenCache = token || null;
+        return memberTokenCache;
+    } catch {
+        memberTokenCache = null;
+        return null;
+    }
+};
+
 const getMemberByEmail = async (email, contentApiKey) => {
     if (!email) {
         return null;
@@ -32,9 +54,13 @@ const getMemberByEmail = async (email, contentApiKey) => {
 };
 
 const getPostLike = async (postId, contentApiKey) => {
+    const token = await getMemberToken();
     const res = await fetch(`/ghost/api/content/posts/${postId}/like?key=${contentApiKey}`, {
         method: 'GET',
-        headers: {'Content-Type': 'application/json'}
+        credentials: 'include',
+        headers: {
+            ...(token ? {Authorization: `GhostMembers ${token}`} : {})
+        }
     });
     if (!res.ok) {
         // eslint-disable-next-line ghost/ghost-custom/no-native-error
@@ -46,9 +72,14 @@ const getPostLike = async (postId, contentApiKey) => {
 };
 
 const addPostLike = async (postId, memberId, contentApiKey) => {
+    const token = await getMemberToken();
     const res = await fetch(`/ghost/api/content/posts/${postId}/like?key=${contentApiKey}`, {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+            ...(token ? {Authorization: `GhostMembers ${token}`} : {})
+        },
         body: JSON.stringify({
             post_likes: [{
                 member: {id: memberId}
@@ -64,9 +95,14 @@ const addPostLike = async (postId, memberId, contentApiKey) => {
 };
 
 const removePostLike = async (postId, memberId, contentApiKey) => {
+    const token = await getMemberToken();
     const res = await fetch(`/ghost/api/content/posts/${postId}/like?key=${contentApiKey}`, {
         method: 'DELETE',
-        headers: {'Content-Type': 'application/json'},
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+            ...(token ? {Authorization: `GhostMembers ${token}`} : {})
+        },
         body: JSON.stringify({
             post_likes: [{member: {id: memberId}}]
         })
@@ -109,15 +145,13 @@ async function initializeLikeButtonUI(button) {
 
     try {
         // いいね情報を取得
+        // レスポンス形式: {"post_likes": [[{"count": N, "liked_by_me": bool}]]}
         const responsePostLikes = await getPostLike(postId, contentApiKey);
-        const postLikes = responsePostLikes.post_likes?.[0] || [];
-        const likeCount = postLikes.length;
+        const postLikesData = responsePostLikes.post_likes?.[0]?.[0] ?? {count: 0, liked_by_me: false};
+        const likeCount = postLikesData.count;
 
-        // ログイン中のmemberIdが含まれているかを確認
-        let isLiked = false;
-        if (memberId) {
-            isLiked = postLikes.some(likeObj => likeObj.member_id === memberId);
-        }
+        // liked_by_me はサーバーが GhostMembers トークンで判定した結果を使う
+        const isLiked = postLikesData.liked_by_me;
 
         // data-liked属性を更新
         button.setAttribute('data-liked', String(isLiked));
