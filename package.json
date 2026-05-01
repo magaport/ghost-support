@@ -177,6 +177,11 @@
 				"type": "boolean",
 				"default": true,
 				"group": "post"
+			},
+			"cove_id": {
+				"type": "text",
+				"default": "",
+				"description": "CoveコメントウィジェットのID（Cove管理画面で確認できるdata-cove-id）。空の場合はCoveスクリプトが読み込まれません。"
 			}
 		}
 	},
