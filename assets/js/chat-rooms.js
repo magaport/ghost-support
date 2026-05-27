@@ -11,7 +11,7 @@
  * source.js に結合され全ページで読み込まれるため、コンテナが無ければ何もしない。
  */
 
-const CHAT_ROOMS_PATH = '/api/v1/unleash/chat/rooms';
+const CHAT_ROOMS_PATH = '/api/v1/unleash/chat/rooms?limit=5';
 
 // ドメイン設定から末尾スラッシュを除いた文字列を返す。空なら空文字列（同一オリジン）。
 function normalizeDomain(domain) {
