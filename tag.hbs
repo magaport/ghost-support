@@ -7,7 +7,7 @@
             {{/if}}
                 {{#if @member.paid}}
 				<div class="gh-tag-post-feed">
-                    {{#get "posts" filter="tags:{{slug}}" include="tags" limit="all"}}
+                    {{#get "posts" filter="tags:{{slug}}" include="tags"}}
                         {{#foreach posts}}
                             <article class="gh-tag-post-card">
                                 <a href="{{url}}">
