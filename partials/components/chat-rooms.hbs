@@ -1,0 +1,77 @@
+{{!--
+    チャットルーム一覧。
+    home.hbs から {{> "components/chat-rooms"}} で呼び出すことを想定。
+
+    - data-community-api-domain に @custom.community_api_domain を埋め込み、APIフェッチに使う
+    - data-community-web-domain に @custom.community_web_domain を埋め込み、リンク遷移先に使う
+    - 各ドメインが空の場合は同一ドメインの相対パスを使う
+    - 初期状態は hidden。chat-rooms.js が available を取得できたら表示する
+--}}
+<section
+    class="gh-home-contents gh-chat-rooms"
+    data-chat-rooms
+    data-community-api-domain="{{@custom.community_api_domain}}"
+    data-community-web-domain="{{@custom.community_web_domain}}"
+    hidden
+>
+    <div class="gh-home-contents-inner">
+        <div class="gh-home-contents-head">
+            <h2 class="gh-home-contents-head-title">Community</h2>
+        </div>
+        <div class="gh-chat-rooms-feed" data-chat-rooms-feed></div>
+        <template data-chat-rooms-more-tpl>
+            <a data-chat-rooms-more href="#" class="gh-home-contents-head-more gh-chat-room-more-inline">
+                <span>もっとみる</span>
+                {{> "icons/more-read"}}
+            </a>
+        </template>
+    </div>
+</section>
+<style>
+    .gh-chat-room-more-inline {
+        flex: 0 0 auto;
+        align-self: center;
+        white-space: nowrap;
+    }
+
+    .gh-chat-rooms-feed {
+        display: flex;
+        gap: 16px;
+        overflow-x: auto;
+    }
+    .gh-chat-room-card {
+        flex: 0 0 auto;
+        width: 120px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        text-decoration: none;
+        color: inherit;
+        cursor: pointer;
+    }
+    .gh-chat-room-icon {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+        background-color: rgba(0, 0, 0, 0.08);
+    }
+    .gh-chat-room-icon--placeholder {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        font-weight: 700;
+        color: rgba(0, 0, 0, 0.45);
+    }
+    .gh-chat-room-name {
+        margin: 8px 0 0;
+        font-size: 14px;
+        font-weight: 600;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+</style>

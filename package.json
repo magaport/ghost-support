@@ -182,6 +182,16 @@
 				"type": "text",
 				"default": "",
 				"description": "CoveコメントウィジェットのID（Cove管理画面で確認できるdata-cove-id）。空の場合はCoveスクリプトが読み込まれません。"
+			},
+			"community_api_domain": {
+				"type": "text",
+				"default": "",
+				"description": "コミュニティ機能のAPIドメイン（例: https://api.example.com）。空の場合は同一ドメインの相対パスを使います。"
+			},
+			"community_web_domain": {
+				"type": "text",
+				"default": "",
+				"description": "コミュニティ機能のWebドメイン（例: https://community.example.com）。ルーム詳細・一覧へのリンク先に使います。空の場合は同一ドメインの相対パスを使います。"
 			}
 		}
 	},
