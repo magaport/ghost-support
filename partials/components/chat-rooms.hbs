@@ -16,12 +16,24 @@
 >
     <div class="gh-home-contents-inner">
         <div class="gh-home-contents-head">
-            <h2 class="gh-home-contents-head-title">チャットルーム</h2>
+            <h2 class="gh-home-contents-head-title">Community</h2>
         </div>
         <div class="gh-chat-rooms-feed" data-chat-rooms-feed></div>
+        <template data-chat-rooms-more-tpl>
+            <a data-chat-rooms-more href="#" class="gh-home-contents-head-more gh-chat-room-more-inline">
+                <span>もっとみる</span>
+                {{> "icons/more-read"}}
+            </a>
+        </template>
     </div>
 </section>
 <style>
+    .gh-chat-room-more-inline {
+        flex: 0 0 auto;
+        align-self: center;
+        white-space: nowrap;
+    }
+
     .gh-chat-rooms-feed {
         display: flex;
         gap: 16px;
@@ -57,27 +69,9 @@
         margin: 8px 0 0;
         font-size: 14px;
         font-weight: 600;
+        width: 100%;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-    }
-    .gh-chat-room-more {
-        flex: 0 0 auto;
-        width: 56px;
-        height: 56px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        align-self: center;
-        border-radius: 50%;
-        border: 2px solid currentColor;
-        font-size: 22px;
-        text-decoration: none;
-        color: inherit;
-        opacity: 0.6;
-        transition: opacity 0.15s;
-    }
-    .gh-chat-room-more:hover {
-        opacity: 1;
     }
 </style>

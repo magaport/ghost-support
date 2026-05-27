@@ -115,12 +115,15 @@ async function initializeChatRooms(section) {
 
         renderRooms(feed, rooms, webDomain);
 
-        const more = document.createElement('a');
-        more.className = 'gh-chat-room-more';
-        more.href = buildRoomsIndexUrl(webDomain);
-        more.textContent = '→';
-        more.setAttribute('aria-label', 'チャットルーム一覧へ');
-        feed.appendChild(more);
+        const tpl = section.querySelector('[data-chat-rooms-more-tpl]');
+        if (tpl) {
+            const moreNode = tpl.content.cloneNode(true);
+            const moreLink = moreNode.querySelector('[data-chat-rooms-more]');
+            if (moreLink) {
+                moreLink.href = buildRoomsIndexUrl(webDomain);
+            }
+            feed.appendChild(moreNode);
+        }
 
         section.hidden = false;
     } catch (error) {
