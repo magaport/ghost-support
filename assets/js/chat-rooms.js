@@ -108,21 +108,17 @@ async function initializeChatRooms(section) {
         const data = await fetchRooms(apiDomain);
         // joined (参加中) はログイン連携が未対応のため通常は空。
         // 連携時に joined を専用セクションへ出し分ける拡張余地を残しつつ、今は available と合わせて描画する。
-        const rooms = [...(data.joined || []), ...(data.available || [])];
+        // トップでは横スクロールを発生させないよう先頭3件のみ表示し、残りは「もっとみる」から辿る。
+        const rooms = [...(data.joined || []), ...(data.available || [])].slice(0, 3);
         if (rooms.length === 0) {
             return;
         }
 
         renderRooms(feed, rooms, webDomain);
 
-        const tpl = section.querySelector('[data-chat-rooms-more-tpl]');
-        if (tpl) {
-            const moreNode = tpl.content.cloneNode(true);
-            const moreLink = moreNode.querySelector('[data-chat-rooms-more]');
-            if (moreLink) {
-                moreLink.href = buildRoomsIndexUrl(webDomain);
-            }
-            feed.appendChild(moreNode);
+        const moreLink = section.querySelector('[data-chat-rooms-more]');
+        if (moreLink) {
+            moreLink.href = buildRoomsIndexUrl(webDomain);
         }
 
         section.hidden = false;
