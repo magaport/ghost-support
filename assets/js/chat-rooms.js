@@ -11,7 +11,7 @@
  * source.js に結合され全ページで読み込まれるため、コンテナが無ければ何もしない。
  */
 
-const CHAT_ROOMS_PATH = '/api/v1/unleash/chat/rooms?limit=5';
+const CHAT_ROOMS_PATH = '/api/v1/unleash/chat/rooms?limit=3';
 
 // ドメイン設定から末尾スラッシュを除いた文字列を返す。空なら空文字列（同一オリジン）。
 function normalizeDomain(domain) {
@@ -108,6 +108,7 @@ async function initializeChatRooms(section) {
         const data = await fetchRooms(apiDomain);
         // joined (参加中) はログイン連携が未対応のため通常は空。
         // 連携時に joined を専用セクションへ出し分ける拡張余地を残しつつ、今は available と合わせて描画する。
+        // 取得自体を limit=3 に絞っているため、ここでの件数制限は不要。
         const rooms = [...(data.joined || []), ...(data.available || [])];
         if (rooms.length === 0) {
             return;
@@ -115,14 +116,9 @@ async function initializeChatRooms(section) {
 
         renderRooms(feed, rooms, webDomain);
 
-        const tpl = section.querySelector('[data-chat-rooms-more-tpl]');
-        if (tpl) {
-            const moreNode = tpl.content.cloneNode(true);
-            const moreLink = moreNode.querySelector('[data-chat-rooms-more]');
-            if (moreLink) {
-                moreLink.href = buildRoomsIndexUrl(webDomain);
-            }
-            feed.appendChild(moreNode);
+        const moreLink = section.querySelector('[data-chat-rooms-more]');
+        if (moreLink) {
+            moreLink.href = buildRoomsIndexUrl(webDomain);
         }
 
         section.hidden = false;
