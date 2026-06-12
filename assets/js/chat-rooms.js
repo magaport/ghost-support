@@ -25,7 +25,7 @@ function buildRoomsUrl(domain) {
 
 function buildRoomUrl(webDomain, uuid) {
     const base = normalizeDomain(webDomain);
-    return base ? `${base}/rooms/${uuid}` : `/rooms/${uuid}`;
+    return base ? `${base}/rooms/${uuid}/messages` : `/rooms/${uuid}/messages`;
 }
 
 function buildRoomsIndexUrl(webDomain) {
