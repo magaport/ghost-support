@@ -3589,23 +3589,7 @@ figcaption a {
     letter-spacing: 0.1rem;
 }
 
-/* 26. Gallery Page
-/* ---------------------------------------------------------- */
-
-.gh-gallery-page-article {
-    margin-top: 40px;
-    margin-bottom: 40px;
-}
-
-.gh-gallery-page-section {
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
-    font-family: "Noto Sans";
-    color: #fff;
-}
-
-/* 27. About Page
+/* 26. About Page
 /* ---------------------------------------------------------- */
 
 .gh-about-page-article {
@@ -3896,9 +3880,6 @@ figcaption a {
     padding: 0px 20px;
 }
 
-.gh-gallery-page-article > section > :not(.gh-post-upgrade-cta) {
-    padding: 0px 20px;
-}
 .gh-about-page-section > :not(.gh-post-upgrade-cta) {
     padding: 0px 20px;
 }
