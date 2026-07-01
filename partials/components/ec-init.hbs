@@ -21,7 +21,8 @@
     servicePath: '{{@custom.fms_service_path}}',
     apiBaseUrl: FMS_API_BASE_URL,
     tkmDomain: FMS_TKM_DOMAIN
-  }, async () => {
+  }, async (baseUser) => {
+    await baseUser.init();
     await window.FMS.initialize({
       k: '{{@custom.fms_api_key}}',
       h: FMS_HOST
