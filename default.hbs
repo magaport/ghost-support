@@ -76,42 +76,7 @@
 <script src="https://cdn.cove.chat/comments.js" data-cove-id="{{@custom.cove_id}}" async></script>
 {{/if}}
 
-{{!-- mp-fms-js (ローダー) + mp-fms-cart (Web Components) --}}
-<script type="module">
-  const FMS_BASE_URL = 'http://localhost:18081';
-  const FMS_CART_BASE_URL = 'http://localhost:18083';
-  const FMS_API_BASE_URL = 'http://localhost:18082';
-  const FMS_TKM_DOMAIN = 'http://localhost:18080';
-  const FMS_HOST = 'http://localhost:9000';
-
-  await import(`${FMS_BASE_URL}/src/loader/index.js`);
-  await import(`${FMS_CART_BASE_URL}/src/main.ts`);
-
-  window.FMS.setManifest({
-    'oidc': { file: 'src/tkm/oidc.js', deps: [] },
-    'base/user': { file: 'src/base/user/user-api.js', deps: ['oidc'] },
-    'unleash': { file: 'src/unleash/unleash.js', deps: ['oidc', 'base/user'] },
-    'cart': { file: `${FMS_CART_BASE_URL}/src/main.ts`, deps: ['oidc', 'base/user'] }
-  });
-
-  FMS.load(['oidc', 'base/user', 'unleash'], {
-    baseUrl: FMS_BASE_URL,
-    servicePath: '{{@custom.fms_service_path}}',
-    apiBaseUrl: FMS_API_BASE_URL,
-    tkmDomain: FMS_TKM_DOMAIN
-  }, async () => {
-    await window.FMS.initialize({
-      k: '{{@custom.fms_api_key}}',
-      h: FMS_HOST
-    });
-  });
-</script>
-
-{{!-- カートモーダル（全ページ共通） --}}
-<fms-cart></fms-cart>
-
-{{!-- 注文履歴モーダル（全ページ共通） --}}
-<order-history></order-history>
+{{> "components/ec-init"}}
 
 {{!-- Ghost outputs required functional scripts with this tag, it should always be the last thing before the closing body tag --}}
 {{ghost_foot}}

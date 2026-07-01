@@ -17,10 +17,13 @@
                     </div>
                     {{/if}}
                 </div>
-                <button class="gh-burger gh-icon-button" aria-label="Menu">
-                    {{> "icons/burger"}}
-                    {{> "icons/close"}}
-                </button>
+                <div class="gh-navigation-brand-actions">
+                    {{> "components/ec-cart-trigger"}}
+                    <button class="gh-burger gh-icon-button" aria-label="Menu">
+                        {{> "icons/burger"}}
+                        {{> "icons/close"}}
+                    </button>
+                </div>
             </div>
             <div class="gh-navigation-title-wrapper">
                 <div class="gh-page-title">
@@ -40,9 +43,6 @@
                     {{/if}}
                 </div>
 
-                <div class="gh-navigation-siginin-button">
-                    <a href="javascript:" onclick="if(window.FMS&&window.FMS.orderHistory&&window.FMS.orderHistory.showModal){window.FMS.orderHistory.showModal();}return false;">{{t "注文履歴"}}</a>
-                </div>
                 {{#if @member}}
                     <div class="gh-navigation-siginin-button">
                         <a href="#/portal/account" data-portal="subscribe">{{t "アカウント"}}</a>
@@ -58,6 +58,7 @@
         <nav class="gh-navigation-menu">
             <div class="gh-navigation-menu-primary">
                 {{navigation}}
+                {{> "components/ec-order-history-link"}}
                 {{#if @member}}
                     <div class="gh-navigation-signout-button">
                         <div>-</div>
