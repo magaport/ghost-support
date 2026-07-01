@@ -203,6 +203,31 @@
 				"type": "text",
 				"default": "",
 				"description": "FMSサービスパス（APIベースURLの第2セグメント）"
+			},
+			"fms_loader_url": {
+				"type": "text",
+				"default": "",
+				"description": "FMSローダー(mp-fms-js)のベースURL。例: https://melty.unleashcms.dev/fms-js 。空はローカル開発(http://localhost:18081)。"
+			},
+			"fms_cart_url": {
+				"type": "text",
+				"default": "",
+				"description": "FMSカート(mp-fms-cart)のベースURL。例: https://melty.unleashcms.dev/fms-cart 。空はローカル開発。"
+			},
+			"fms_api_base_url": {
+				"type": "text",
+				"default": "",
+				"description": "FMS API(base-api)のベースURL。servicePathが第2セグメントとして付与される。例: https://melty.unleashcms.dev 。空はローカル開発。"
+			},
+			"fms_tkm_domain": {
+				"type": "text",
+				"default": "",
+				"description": "FMS TKM(認証)ドメイン。例: https://melty.unleashcms.dev/tkm 。空はローカル開発。"
+			},
+			"fms_host": {
+				"type": "text",
+				"default": "",
+				"description": "FMSホスト(medusa)のURL。initializeのhパラメータ。例: https://melty.unleashcms.dev 。空はローカル開発。"
 			}
 		}
 	},
