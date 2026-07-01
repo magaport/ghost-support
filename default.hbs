@@ -104,20 +104,6 @@
       k: '{{@custom.fms_api_key}}',
       h: FMS_HOST
     });
-
-    // Ghost ログイン済みだが FMS OIDC 未ログインの場合、silent ログインを 1 セッション 1 回試行
-    if (!window.FMS.oidc.isLogin() && !sessionStorage.getItem('fms_silent_login_attempted')) {
-      try {
-        sessionStorage.setItem('fms_silent_login_attempted', '1');
-      } catch (e) {
-        return;
-      }
-      if (sessionStorage.getItem('fms_silent_login_attempted') !== '1') {
-          return;
-      }
-      const returnUrl = window.location.href;
-      window.location.href = FMS_TKM_DOMAIN + '/login?silent=1&redirectUrl=' + encodeURIComponent(returnUrl);
-    }
   });
 </script>
 
