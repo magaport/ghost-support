@@ -631,15 +631,6 @@ button.gh-form-input {
 	text-align: center;
 }
 
-order-history {
-	position: fixed;
-	width: 0;
-	height: 0;
-	overflow: visible;
-	pointer-events: none;
-	opacity: 0;
-}
-
 .gh-navigation-menu-order-history {
 	color: #1b1b1b;
 	font-feature-settings: "liga" off, "clig" off;
