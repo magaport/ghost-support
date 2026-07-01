@@ -40,6 +40,9 @@
                     {{/if}}
                 </div>
 
+                <div class="gh-navigation-siginin-button">
+                    <a href="javascript:" onclick="if(window.FMS&&window.FMS.orderHistory&&window.FMS.orderHistory.showModal){window.FMS.orderHistory.showModal();}return false;">{{t "注文履歴"}}</a>
+                </div>
                 {{#if @member}}
                     <div class="gh-navigation-siginin-button">
                         <a href="#/portal/account" data-portal="subscribe">{{t "アカウント"}}</a>
