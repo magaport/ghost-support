@@ -34,8 +34,9 @@
     servicePath: '{{@custom.fms_service_path}}',
     apiBaseUrl: MP_BASE_API_URL,
     tkmDomain: MP_TKM_URL
-  }, async (baseUser) => {
+  }, async (baseUser, unleash) => {
     await baseUser.init();
+    unleash.init();
     await window.FMS.initialize({
       k: '{{@custom.fms_api_key}}',
       h: MP_MEDUSA_URL
