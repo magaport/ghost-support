@@ -1,47 +1,34 @@
 {{!-- mp-fms-js (ローダー) + mp-fms-cart (Web Components) --}}
-{{!-- FMS の各 URL はテーマ設定(@custom)から供給する。fms_loader_url が設定されていれば
-      本番(静的ビルド)モード、空ならローカル開発(Vite dev / localhost)の既定で動作する。 --}}
+<script src="{{asset "js/ec-config.js"}}"></script>
 <script type="module">
-{{#if @custom.fms_loader_url}}
-  // 本番（テーマ設定で URL を指定）
-  const FMS_BASE_URL = '{{@custom.fms_loader_url}}';
-  const FMS_CART_BASE_URL = '{{@custom.fms_cart_url}}';
-  const FMS_API_BASE_URL = '{{@custom.fms_api_base_url}}';
-  const FMS_TKM_DOMAIN = '{{@custom.fms_tkm_domain}}';
-  const FMS_HOST = '{{@custom.fms_host}}';
+  const config = window.EC_CONFIG || {};
+  const MP_FMS_JS_URL = config.MP_FMS_JS_URL || '';
+  const MP_FMS_CART_URL = config.MP_FMS_CART_URL || '';
+  const MP_BASE_API_URL = config.MP_BASE_API_URL || '';
+  const MP_TKM_URL = config.MP_TKM_URL || '';
+  const MP_MEDUSA_URL = config.MP_MEDUSA_URL || '';
 
-  // 本番の静的ビルド: ローダーは /loader/index.js（/loader/manifest.json で解決）、カートは /js/main.js
-  await import(`${FMS_BASE_URL}/loader/index.js`);
-  await import(`${FMS_CART_BASE_URL}/js/main.js`);
-{{else}}
-  // ローカル開発（Vite dev / localhost）の既定
-  const FMS_BASE_URL = 'http://localhost:18081';
-  const FMS_CART_BASE_URL = 'http://localhost:18083';
-  const FMS_API_BASE_URL = 'http://localhost:18082';
-  const FMS_TKM_DOMAIN = 'http://localhost:18080';
-  const FMS_HOST = 'http://localhost:9000';
-
-  await import(`${FMS_BASE_URL}/src/loader/index.js`);
-  await import(`${FMS_CART_BASE_URL}/src/main.ts`);
+  await import(`${MP_FMS_JS_URL}/src/loader/index.js`);
+  await import(`${MP_FMS_CART_URL}/src/main.ts`);
 
   window.FMS.setManifest({
     'oidc': { file: 'src/tkm/oidc.js', deps: [] },
     'base/user': { file: 'src/base/user/user-api.js', deps: ['oidc'] },
     'unleash': { file: 'src/unleash/unleash.js', deps: ['oidc', 'base/user'] },
-    'cart': { file: `${FMS_CART_BASE_URL}/src/main.ts`, deps: ['oidc', 'base/user'] }
+    'cart': { file: `${MP_FMS_CART_URL}/src/main.ts`, deps: ['oidc', 'base/user'] }
   });
 {{/if}}
 
   FMS.load(['oidc', 'base/user', 'unleash'], {
-    baseUrl: FMS_BASE_URL,
+    baseUrl: MP_FMS_JS_URL,
     servicePath: '{{@custom.fms_service_path}}',
-    apiBaseUrl: FMS_API_BASE_URL,
-    tkmDomain: FMS_TKM_DOMAIN
+    apiBaseUrl: MP_BASE_API_URL,
+    tkmDomain: MP_TKM_URL
   }, async (baseUser) => {
     await baseUser.init();
     await window.FMS.initialize({
       k: '{{@custom.fms_api_key}}',
-      h: FMS_HOST
+      h: MP_MEDUSA_URL
     });
 
     if (window.FMS.cart && window.FMS.cart.addEventListener) {

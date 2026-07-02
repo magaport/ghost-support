@@ -27,4 +27,6 @@ config.json
 changelog.md
 changelog.md.bk
 
+assets/js/ec-config.js
+
 
