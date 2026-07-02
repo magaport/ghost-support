@@ -1,22 +1,33 @@
 {{!-- mp-fms-js (ローダー) + mp-fms-cart (Web Components) --}}
+{{!-- サービス URL は assets/js/ec-config.js の window.EC_CONFIG から供給する（package.json custom の上限回避）。
+      ec-config.js は各環境で ec-config.example.js からコピーして設定する（.gitignore 対象）。
+      URL が localhost の場合は Vite dev（/src/*）、それ以外は本番の静的ビルド（/loader/index.js・/js/main.js）で動作する。 --}}
 <script src="{{asset "js/ec-config.js"}}"></script>
 <script type="module">
   const config = window.EC_CONFIG || {};
-  const MP_FMS_JS_URL = config.MP_FMS_JS_URL || '';
-  const MP_FMS_CART_URL = config.MP_FMS_CART_URL || '';
-  const MP_BASE_API_URL = config.MP_BASE_API_URL || '';
-  const MP_TKM_URL = config.MP_TKM_URL || '';
-  const MP_MEDUSA_URL = config.MP_MEDUSA_URL || '';
+  const MP_FMS_JS_URL = config.MP_FMS_JS_URL || 'http://localhost:18081';
+  const MP_FMS_CART_URL = config.MP_FMS_CART_URL || 'http://localhost:18083';
+  const MP_BASE_API_URL = config.MP_BASE_API_URL || 'http://localhost:18082';
+  const MP_TKM_URL = config.MP_TKM_URL || 'http://localhost:18080';
+  const MP_MEDUSA_URL = config.MP_MEDUSA_URL || 'http://localhost:9000';
 
-  await import(`${MP_FMS_JS_URL}/src/loader/index.js`);
-  await import(`${MP_FMS_CART_URL}/src/main.ts`);
+  const isDev = /localhost|127\.0\.0\.1/.test(MP_FMS_JS_URL);
 
-  window.FMS.setManifest({
-    'oidc': { file: 'src/tkm/oidc.js', deps: [] },
-    'base/user': { file: 'src/base/user/user-api.js', deps: ['oidc'] },
-    'unleash': { file: 'src/unleash/unleash.js', deps: ['oidc', 'base/user'] },
-    'cart': { file: `${MP_FMS_CART_URL}/src/main.ts`, deps: ['oidc', 'base/user'] }
-  });
+  if (isDev) {
+    // ローカル開発（Vite dev）: ソースを直接 import
+    await import(`${MP_FMS_JS_URL}/src/loader/index.js`);
+    await import(`${MP_FMS_CART_URL}/src/main.ts`);
+    window.FMS.setManifest({
+      'oidc': { file: 'src/tkm/oidc.js', deps: [] },
+      'base/user': { file: 'src/base/user/user-api.js', deps: ['oidc'] },
+      'unleash': { file: 'src/unleash/unleash.js', deps: ['oidc', 'base/user'] },
+      'cart': { file: `${MP_FMS_CART_URL}/src/main.ts`, deps: ['oidc', 'base/user'] }
+    });
+  } else {
+    // 本番の静的ビルド: ローダーは /loader/index.js（/loader/manifest.json で解決）、カートは /js/main.js
+    await import(`${MP_FMS_JS_URL}/loader/index.js`);
+    await import(`${MP_FMS_CART_URL}/js/main.js`);
+  }
 
   FMS.load(['oidc', 'base/user', 'unleash'], {
     baseUrl: MP_FMS_JS_URL,
