@@ -17,7 +17,6 @@
     'unleash': { file: 'src/unleash/unleash.js', deps: ['oidc', 'base/user'] },
     'cart': { file: `${MP_FMS_CART_URL}/src/main.ts`, deps: ['oidc', 'base/user'] }
   });
-{{/if}}
 
   FMS.load(['oidc', 'base/user', 'unleash'], {
     baseUrl: MP_FMS_JS_URL,
