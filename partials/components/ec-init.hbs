@@ -35,8 +35,12 @@
     apiBaseUrl: MP_BASE_API_URL,
     tkmDomain: MP_TKM_URL
   }, async (baseUser, unleash) => {
-    await baseUser.init();
-    unleash.init();
+    try {
+      await baseUser.init();
+      unleash.init();
+    } catch (_) {
+      // 未ログインでも商品リストは取得可能にする
+    }
     await window.FMS.initialize({
       k: '{{@custom.fms_api_key}}',
       h: MP_MEDUSA_URL
