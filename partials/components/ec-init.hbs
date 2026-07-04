@@ -13,10 +13,9 @@
 
   const isDev = /localhost|127\.0\.0\.1/.test(MP_FMS_JS_URL);
 
+  // ローダーだけ先に読み込む（カートは OIDC 認証状態の確定後に読み込む）
   if (isDev) {
-    // ローカル開発（Vite dev）: ソースを直接 import
     await import(`${MP_FMS_JS_URL}/src/loader/index.js`);
-    await import(`${MP_FMS_CART_URL}/src/main.ts`);
     window.FMS.setManifest({
       'oidc': { file: 'src/tkm/oidc.js', deps: [] },
       'base/user': { file: 'src/base/user/user-api.js', deps: ['oidc'] },
@@ -24,28 +23,14 @@
       'cart': { file: `${MP_FMS_CART_URL}/src/main.ts`, deps: ['oidc', 'base/user'] }
     });
   } else {
-    // 本番の静的ビルド: ローダーは /loader/index.js（/loader/manifest.json で解決）、カートは /js/main.js
     await import(`${MP_FMS_JS_URL}/loader/index.js`);
-    await import(`${MP_FMS_CART_URL}/js/main.js`);
   }
 
-  FMS.load(['oidc', 'base/user', 'unleash'], {
-    baseUrl: MP_FMS_JS_URL,
-    servicePath: '{{@custom.fms_service_path}}',
-    apiBaseUrl: MP_BASE_API_URL,
-    tkmDomain: MP_TKM_URL
-  }, async (baseUser, unleash) => {
-    try {
-      await baseUser.init();
-      unleash.init();
-    } catch (_) {
-      // 未ログインでも商品リストは取得可能にする
-    }
-    await window.FMS.initialize({
-      k: '{{@custom.fms_api_key}}',
-      h: MP_MEDUSA_URL
-    });
+  // Ghost のログイン状態を Handlebars で判定（サーバーサイド）
+  const isGhostMember = {{#if @member}}true{{else}}false{{/if}};
 
+  // カート変更バッジの更新を購読する共通処理
+  function subscribeCartBadge() {
     if (window.FMS.cart && window.FMS.cart.addEventListener) {
       window.FMS.cart.addEventListener('cartChange', function(count) {
         var badge = document.getElementById('gh-cart-badge');
@@ -55,6 +40,41 @@
         }
       });
     }
+  }
+
+  FMS.load(['oidc', 'base/user', 'unleash'], {
+    baseUrl: MP_FMS_JS_URL,
+    servicePath: '{{@custom.fms_service_path}}',
+    apiBaseUrl: MP_BASE_API_URL,
+    tkmDomain: MP_TKM_URL,
+    silentLogin: isGhostMember
+  }, async (baseUser, unleash) => {
+    if (isGhostMember) {
+      // Ghost にログイン中: OIDC 認証を初期化
+      try {
+        await baseUser.init();
+        unleash.init();
+      } catch (_) {
+        // 認証初期化に失敗しても商品リストは表示する
+      }
+    } else if (window.FMS.oidc.isLogin()) {
+      // Ghost は未ログインだが OIDC セッションが残っている場合: 強制クリア
+      await window.FMS.oidc.logout();
+    }
+
+    // OIDC 認証状態が確定してからカート UI を読み込む
+    // （Cart コンポーネントは isLogin() をマウント時に評価するため、先に確定させる必要がある）
+    if (isDev) {
+      await import(`${MP_FMS_CART_URL}/src/main.ts`);
+    } else {
+      await import(`${MP_FMS_CART_URL}/js/main.js`);
+    }
+
+    await window.FMS.initialize({
+      k: '{{@custom.fms_api_key}}',
+      h: MP_MEDUSA_URL
+    });
+    subscribeCartBadge();
   });
 </script>
 
