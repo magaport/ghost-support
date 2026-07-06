@@ -592,6 +592,61 @@ button.gh-form-input {
 	letter-spacing: 1px;
 }
 
+.gh-navigation-brand-actions {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.gh-cart-trigger {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: none;
+	border: none;
+	padding: 4px;
+	cursor: pointer;
+	color: inherit;
+}
+
+.gh-cart-trigger svg {
+	width: 24px;
+	height: 24px;
+}
+
+.gh-cart-badge {
+	position: absolute;
+	top: -4px;
+	right: -6px;
+	min-width: 18px;
+	height: 18px;
+	padding: 0 4px;
+	border-radius: 9px;
+	background: #e53e3e;
+	color: #fff;
+	font-size: 11px;
+	font-weight: 700;
+	line-height: 18px;
+	text-align: center;
+}
+
+.gh-navigation-menu-order-history {
+	color: #1b1b1b;
+	font-feature-settings: "liga" off, "clig" off;
+	font-family: "Noto Sans";
+	font-size: 2.4rem;
+	font-style: normal;
+	font-weight: 700;
+	line-height: 43px;
+	letter-spacing: 1px;
+}
+
+.gh-navigation-menu-order-history a {
+	color: inherit;
+	text-decoration: none;
+}
+
 .gh-navigation-signout-button {
 	color: #1b1b1b;
 	font-feature-settings: "liga" off, "clig" off;

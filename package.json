@@ -193,6 +193,16 @@
 				"type": "text",
 				"default": "",
 				"description": "コミュニティ機能のWebドメイン（例: https://community.example.com）。ルーム詳細・一覧へのリンク先に使います。空の場合は同一ドメインの相対パスを使います。"
+			},
+			"fms_api_key": {
+				"type": "text",
+				"default": "",
+				"description": "FMS APIキー（initializeのkパラメータ）"
+			},
+			"fms_service_path": {
+				"type": "text",
+				"default": "",
+				"description": "FMSサービスパス（APIベースURLの第2セグメント）"
 			}
 		}
 	},

@@ -1,0 +1,18 @@
+{{!-- EC 初期化: サーバーサイドでしか取得できない値を渡して JS に委譲する --}}
+{{!-- URL 設定は assets/js/ec-config.js（.gitignore 対象）で環境ごとに管理。
+      ロジック本体は assets/js/ec-init.js を参照。 --}}
+<script src="{{asset "js/ec-config.js"}}"></script>
+<script type="module">
+  import { initEC } from '{{asset "js/ec-init.js"}}';
+  initEC({
+    isGhostMember: {{#if @member}}true{{else}}false{{/if}},
+    servicePath: '{{@custom.fms_service_path}}',
+    apiKey: '{{@custom.fms_api_key}}'
+  });
+</script>
+
+{{!-- カートモーダル（トリガーボタンはナビゲーション側に配置） --}}
+<fms-cart hide-button="true"></fms-cart>
+
+{{!-- 注文履歴モーダル --}}
+<order-history hide-button="true"></order-history>
