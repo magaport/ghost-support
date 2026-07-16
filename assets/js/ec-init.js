@@ -7,7 +7,7 @@
  * @param {string}  opts.servicePath   - FMS サービスパス
  * @param {string}  opts.apiKey        - FMS API キー
  */
-export async function initEC({ isGhostMember, servicePath, apiKey }) {
+async function initEC({ isGhostMember, servicePath, apiKey }) {
   const config = window.EC_CONFIG || {};
   const MP_FMS_JS_URL  = config.MP_FMS_JS_URL  || 'http://localhost:18081';
   const MP_FMS_CART_URL = config.MP_FMS_CART_URL || 'http://localhost:18083';
