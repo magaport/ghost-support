@@ -1,0 +1,13 @@
+{{!< default }}
+
+<main class="gh-main">
+  <fms-cart inline="true" hide-button="true" start-view="checkout"></fms-cart>
+  <script>
+    document.addEventListener("fms:event", function(e) {
+      var type = e.detail && e.detail.eventType;
+      if (type === "checkout_request") location.href = "/checkout/";
+      if (type === "order_complete_redirect") location.href = "/order-complete/";
+      if (type === "modal_close") history.back();
+    });
+  </script>
+</main>
