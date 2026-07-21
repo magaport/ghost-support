@@ -1,7 +1,7 @@
 {{!< default }}
 
 <main class="gh-main">
-  <fms-cart inline="true" hide-button="true" start-view="checkout"></fms-cart>
+  <fms-cart inline="true" hide-button="true" start-view="checkout" cart-url="/shopping-cart/"></fms-cart>
   <script>
     document.addEventListener("fms:event", function(e) {
       var type = e.detail && e.detail.eventType;
