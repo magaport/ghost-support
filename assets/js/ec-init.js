@@ -42,13 +42,19 @@ async function initEC({ isGhostMember, servicePath, apiKey }) {
     if (isGhostMember) {
       try {
         await baseUser.init();
-        unleash.init();
-      } catch (_) {
+      } catch (error) {
         // 認証初期化に失敗しても商品リストは表示する
+        console.error('FMS base/user の初期化に失敗しました', error);
       }
+      // baseUser.init() の成否に依存させない。ここに到達しないと
+      // ナビゲーションの Log Out が使えなくなる
+      unleash.init();
     } else if (window.FMS.oidc.isLogin()) {
       // Ghost は未ログインだが OIDC セッションが残っている場合: 強制クリア
-      await window.FMS.oidc.logout();
+      const result = await window.FMS.oidc.logout();
+      if (result && !result.ok) {
+        console.error(`残存 OIDC セッションのクリアに失敗しました: ${result.reason}`);
+      }
     }
 
     // OIDC 認証状態が確定してからカート UI を読み込む
