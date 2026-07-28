@@ -36,4 +36,31 @@
         flex: 0 0 140px;
         scroll-snap-align: start;
     }
+
+    /* マウスにはスワイプがなく、ホイールも縦方向しか出さないため、
+       スクロールバーを操作手段として残す */
+    @media (hover: hover) and (pointer: fine) {
+        /* 高さを明示すると常時表示・4px固定になる。display の復活だけだと
+           OS既定のバー（15px・配色変更不可）に戻り、macOSの設定次第では非表示になる。
+           scrollbar-width を併記するとChromeがこの指定を無視するため書かない */
+        .gh-home-contents .gh-product-top-feed .product-grid::-webkit-scrollbar {
+            display: block;
+            height: 4px;
+        }
+
+        /* スクロールコンテナの padding はスクロールバーより内側に入るため、
+           カードとバーの間の余白になる */
+        .gh-home-contents .gh-product-top-feed .product-grid {
+            padding-bottom: 8px;
+        }
+
+        .gh-home-contents .gh-product-top-feed .product-grid::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .gh-home-contents .gh-product-top-feed .product-grid::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 2px;
+        }
+    }
 </style>
