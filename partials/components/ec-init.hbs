@@ -5,6 +5,7 @@
 <script>
   initEC({
     isGhostMember: {{#if @member}}true{{else}}false{{/if}},
+    memberUuid: '{{@member.uuid}}',
     servicePath: '{{@custom.fms_service_path}}',
     apiKey: '{{@custom.fms_api_key}}'
   });
