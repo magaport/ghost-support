@@ -17,10 +17,13 @@
                     </div>
                     {{/if}}
                 </div>
-                <button class="gh-burger gh-icon-button" aria-label="Menu">
-                    {{> "icons/burger"}}
-                    {{> "icons/close"}}
-                </button>
+                <div class="gh-navigation-brand-actions">
+                    {{> "components/ec-cart-trigger"}}
+                    <button class="gh-burger gh-icon-button" aria-label="Menu">
+                        {{> "icons/burger"}}
+                        {{> "icons/close"}}
+                    </button>
+                </div>
             </div>
             <div class="gh-navigation-title-wrapper">
                 <div class="gh-page-title">
@@ -55,10 +58,11 @@
         <nav class="gh-navigation-menu">
             <div class="gh-navigation-menu-primary">
                 {{navigation}}
+                {{> "components/ec-order-history-link"}}
                 {{#if @member}}
                     <div class="gh-navigation-signout-button">
                         <div>-</div>
-                        <a href="javascript:" data-members-signout>Log Out</a>
+                        <a href="#" onclick="window.FMS.unleash.logout(); return false;">Log Out</a>
                     </div>
                 {{/if}}
             </div>
