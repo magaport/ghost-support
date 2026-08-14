@@ -48,6 +48,9 @@
 
         <section class="gh-content gh-canvas is-body{{#if @custom.enable_drop_caps_on_posts}} drop-cap{{/if}}">
             {{content}}
+            {{#if @member}}
+                {{> "post-like" post_id=id}}
+            {{/if}}
         </section>
 
     </article>

@@ -1,5 +1,5 @@
 {
-    "name": "source",
+    "name": "unleash-source",
     "description": "A default theme for the Ghost publishing platform",
     "demo": "https://source.ghost.io",
     "version": "1.5.0",
@@ -122,14 +122,6 @@
                 ],
                 "default": "Modern sans-serif"
             },
-            "signup_heading": {
-                "type": "text",
-                "description": "Used in your footer across your theme, defaults to site title when empty"
-            },
-            "signup_subheading": {
-                "type": "text",
-                "description": "Defaults to site description when empty"
-            },
             "header_style": {
                 "type": "select",
                 "options": [
@@ -142,12 +134,6 @@
                 "description": "Landing is recommended for all sites, Highlight & Magazine for those with more content",
                 "default": "Landing",
                 "group": "homepage"
-            },
-            "header_text": {
-                "type": "text",
-                "group": "homepage",
-                "description": "Defaults to site description when empty",
-                "visibility": "header_style:[Landing, Search]"
             },
             "background_image": {
                 "type": "boolean",
@@ -206,6 +192,26 @@
                 "type": "boolean",
                 "default": true,
                 "group": "post"
+            },
+            "community_api_domain": {
+                "type": "text",
+                "default": "",
+                "description": "コミュニティ機能のAPIドメイン（例: https://api.example.com）。空の場合は同一ドメインの相対パスを使います。"
+            },
+            "community_web_domain": {
+                "type": "text",
+                "default": "",
+                "description": "コミュニティ機能のWebドメイン（例: https://community.example.com）。ルーム詳細・一覧へのリンク先に使います。空の場合は同一ドメインの相対パスを使います。"
+            },
+            "fms_api_key": {
+                "type": "text",
+                "default": "",
+                "description": "FMS APIキー（initializeのkパラメータ）"
+            },
+            "fms_service_path": {
+                "type": "text",
+                "default": "",
+                "description": "FMSサービスパス（APIベースURLの第2セグメント）"
             }
         }
     },

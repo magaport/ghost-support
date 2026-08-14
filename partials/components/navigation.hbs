@@ -10,6 +10,7 @@
                 {{/if}}
             </a>
             {{> "search-toggle"}}
+            {{> "components/ec-cart-trigger"}}
             <button class="gh-burger gh-icon-button" aria-label="Menu">
                 {{> "icons/burger"}}
                 {{> "icons/close"}}
@@ -18,6 +19,7 @@
 
         <nav class="gh-navigation-menu">
             {{navigation}}
+            {{> "components/ec-order-history-link"}}
             {{#unless @site.members_enabled}}
                 {{#match navigationLayout "Stacked"}}
                     {{> "search-toggle"}}
@@ -26,6 +28,7 @@
         </nav>
 
         <div class="gh-navigation-actions">
+            {{> "components/ec-cart-trigger"}}
             {{#unless @site.members_enabled}}
                 {{^match navigationLayout "Stacked"}}
                     {{> "search-toggle"}}

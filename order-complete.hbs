@@ -1,0 +1,11 @@
+{{!< default }}
+
+<main class="gh-main gh-main-ec">
+  <fms-cart inline="true" hide-button="true" start-view="complete" continue-shopping-url="/product/list/" contact-url="/ec-contact/"></fms-cart>
+  <script>
+    document.addEventListener("fms:event", function(e) {
+      var type = e.detail && e.detail.eventType;
+      if (type === "modal_close") history.back();
+    });
+  </script>
+</main>

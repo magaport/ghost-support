@@ -387,6 +387,34 @@ body[class*=" gh-font-heading"]:not(.gh-font-heading-fira-sans):not(.gh-font-hea
     flex-grow: 1;
 }
 
+/* EC ページ(routes.yaml のカスタムテンプレート)は縦 flex にして
+   カート・注文履歴・商品詳細のコンポーネントに残り高さを与える */
+.gh-main-ec {
+    display: flex;
+    flex-direction: column;
+}
+
+.gh-main > fms-cart,
+.gh-main > order-history,
+.gh-main > product-detail {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+
+.gh-main > :has(> product-list) {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+product-list {
+    flex: 1;
+    min-height: 0;
+}
+
 .gh-canvas,
 .kg-width-full.kg-content-wide {
     --main: min(var(--content-width, 720px), 100% - var(--container-gap) * 2);
@@ -512,6 +540,50 @@ body[class*=" gh-font-heading"]:not(.gh-font-heading-fira-sans):not(.gh-font-hea
     margin-left: -2px;
 }
 
+/* EC: カートトリガーとバッジ */
+.gh-cart-trigger {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    color: inherit;
+}
+
+.gh-cart-trigger svg {
+    width: 24px;
+    height: 24px;
+}
+
+.gh-cart-badge {
+    position: absolute;
+    top: -4px;
+    right: -6px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    border-radius: 9px;
+    background: var(--ghost-accent-color, #7c3aed);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 18px;
+    text-align: center;
+}
+
+/* EC: ナビゲーションの購入履歴リンク */
+.gh-navigation-menu-order-history {
+    white-space: nowrap;
+}
+
+.gh-navigation-menu-order-history a {
+    color: inherit;
+    text-decoration: none;
+}
+
 @media (max-width: 767px) {
     .gh-navigation-logo {
         white-space: normal;
@@ -526,10 +598,18 @@ body[class*=" gh-font-heading"]:not(.gh-font-heading-fira-sans):not(.gh-font-hea
     .gh-navigation-actions .gh-search {
         display: none;
     }
+
+    .gh-navigation-actions .gh-cart-trigger {
+        display: none;
+    }
 }
 
 @media (min-width: 768px) {
     .gh-navigation-brand .gh-search {
+        display: none;
+    }
+
+    .gh-navigation-brand .gh-cart-trigger {
         display: none;
     }
 

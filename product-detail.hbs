@@ -1,0 +1,19 @@
+{{!< default }}
+
+<main class="gh-main gh-main-ec">
+  <product-detail id="pd">
+    <product-thumbnails></product-thumbnails>
+    <product-name></product-name>
+    <product-price></product-price>
+    <product-description></product-description>
+    <cart-button></cart-button>
+  </product-detail>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const itemId = params.get('id');
+    if (itemId) {
+      document.getElementById('pd').setAttribute('item-id', itemId);
+    }
+  </script>
+</main>
