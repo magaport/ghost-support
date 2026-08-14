@@ -6,41 +6,29 @@
     - data-community-web-domain に @custom.community_web_domain を埋め込み、リンク遷移先に使う
     - 各ドメインが空の場合は同一ドメインの相対パスを使う
     - 初期状態は hidden。chat-rooms.js が available を取得できたら表示する
+
+    レイアウトは記事一覧（components/post-list）と揃える。`.gh-container` は付けない
+    （`.gh-container:not(:has(.gh-card)) .gh-container-title` の display:none に巻き込まれるため）。
+    見出しの体裁だけ `.gh-container-title` から借り、配置は .gh-section-inner 側で与える。
 --}}
 <section
-    class="gh-chat-rooms gh-outer"
+    class="gh-section gh-outer"
     data-chat-rooms
     data-community-api-domain="{{@custom.community_api_domain}}"
     data-community-web-domain="{{@custom.community_web_domain}}"
     hidden
 >
-    <div class="gh-chat-rooms-inner gh-inner">
-        <div class="gh-chat-rooms-head">
-            <h2 class="gh-chat-rooms-title">Community</h2>
-            <a class="gh-chat-rooms-more" data-chat-rooms-more href="/rooms">もっとみる</a>
+    <div class="gh-section-inner gh-inner">
+        <div class="gh-section-head">
+            <h2 class="gh-container-title">Community</h2>
+            <a class="gh-section-more" data-chat-rooms-more href="/rooms">もっとみる</a>
         </div>
-        <div class="gh-chat-rooms-feed" data-chat-rooms-feed></div>
+        <div class="gh-section-body">
+            <div class="gh-chat-rooms-feed" data-chat-rooms-feed></div>
+        </div>
     </div>
 </section>
 <style>
-    .gh-chat-rooms {
-        margin-top: 48px;
-    }
-    .gh-chat-rooms-head {
-        display: flex;
-        align-items: baseline;
-        justify-content: space-between;
-        margin-bottom: 24px;
-    }
-    .gh-chat-rooms-title {
-        margin: 0;
-        font-size: 2.4rem;
-    }
-    .gh-chat-rooms-more {
-        white-space: nowrap;
-        text-decoration: none;
-        color: inherit;
-    }
     .gh-chat-rooms-feed {
         display: grid;
         grid-template-columns: repeat(3, 1fr);

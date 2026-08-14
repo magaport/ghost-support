@@ -1,5 +1,12 @@
 {{!< default }}
+{{!-- 体裁は page.hbs（About 等の固定ページ）に合わせる。
+      見出しは各コンポーネントが自前で描画するため、テーマ側では h1 を出さない
+      （出すとページ内に見出しが二重に並ぶ）。 --}}
 
-<main class="gh-main gh-main-ec">
-  <order-history inline="true" hide-button="true" continue-shopping-url="/product/list/"></order-history>
+<main class="gh-main">
+    <article class="gh-article gh-article-ec">
+        <section class="gh-content gh-canvas is-body">
+            <order-history inline="true" hide-button="true" continue-shopping-url="/product/list/"></order-history>
+        </section>
+    </article>
 </main>

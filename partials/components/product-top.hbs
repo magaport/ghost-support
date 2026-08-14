@@ -2,43 +2,27 @@
     トップページの商品一覧(Goods Store)。
     home.hbs から {{> "components/product-top"}} で呼び出すことを想定。
     <product-list> は mp-fms-cart が提供するカスタム要素(ec-init が初期化)。
+
+    レイアウトは記事一覧（components/post-list）と揃える。見出しの体裁は
+    `.gh-container-title` から借り、配置は .gh-section-inner 側で与える
+    （詳細は components/chat-rooms のコメント）。
 --}}
 {{#if @custom.fms_api_key}}
-<section class="gh-product-top gh-outer">
-    <div class="gh-product-top-inner gh-inner">
-        <div class="gh-product-top-head">
-            <h2 class="gh-product-top-title">Goods Store</h2>
-            <a class="gh-product-top-more" href="/product/list/">もっとみる</a>
+<section class="gh-section gh-outer">
+    <div class="gh-section-inner gh-inner">
+        <div class="gh-section-head">
+            <h2 class="gh-container-title">Goods Store</h2>
+            <a class="gh-section-more" href="/product/list/">もっとみる</a>
         </div>
-        <div class="gh-product-top-feed">
-            <product-list href-tpl="/product/detail/?id={id}" limit="3" cart-url="/shopping-cart/" checkout-url="/checkout/"></product-list>
+        <div class="gh-section-body">
+            <div class="gh-product-top-feed">
+                <product-list href-tpl="/product/detail/?id={id}" limit="3" cart-url="/shopping-cart/" checkout-url="/checkout/"></product-list>
+            </div>
         </div>
     </div>
 </section>
 
 <style>
-    .gh-product-top {
-        margin-top: 48px;
-    }
-
-    .gh-product-top-head {
-        display: flex;
-        align-items: baseline;
-        justify-content: space-between;
-        margin-bottom: 24px;
-    }
-
-    .gh-product-top-title {
-        margin: 0;
-        font-size: 2.4rem;
-    }
-
-    .gh-product-top-more {
-        white-space: nowrap;
-        text-decoration: none;
-        color: inherit;
-    }
-
     .gh-product-top-feed .product-grid {
         display: flex;
         overflow-x: auto;

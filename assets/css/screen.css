@@ -387,32 +387,12 @@ body[class*=" gh-font-heading"]:not(.gh-font-heading-fira-sans):not(.gh-font-hea
     flex-grow: 1;
 }
 
-/* EC ページ(routes.yaml のカスタムテンプレート)は縦 flex にして
-   カート・注文履歴・商品詳細のコンポーネントに残り高さを与える */
-.gh-main-ec {
-    display: flex;
-    flex-direction: column;
-}
-
-.gh-main > fms-cart,
-.gh-main > order-history,
-.gh-main > product-detail {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    min-height: 0;
-}
-
-.gh-main > :has(> product-list) {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-}
-
-product-list {
-    flex: 1;
-    min-height: 0;
+/* EC ページ(routes.yaml のカスタムテンプレート)。体裁は固定ページ(page.hbs)と同じで、
+   中身は .gh-content.gh-canvas の中央カラムに入る。FMS のカスタム要素は既定で
+   display:inline なので、カラム幅いっぱいに広がるよう block 化する。 */
+.gh-article-ec .gh-content > :is(fms-cart, order-history, product-detail, product-list, ec-contact) {
+    display: block;
+    width: 100%;
 }
 
 .gh-canvas,
@@ -538,6 +518,64 @@ product-list {
 .gh-search {
     margin-right: -2px;
     margin-left: -2px;
+}
+
+/* トップページの独自セクション（Community / Goods Store）。
+   記事一覧（.gh-container）と同じ 16 カラムグリッドの同じ位置（3列目から12列分）に置いて
+   見出し・コンテンツの左右位置を揃える。`.gh-container` を流用しないのは
+   `.gh-container:not(:has(.gh-card)) .gh-container-title` の display:none に巻き込まれるため。 */
+.gh-section {
+    flex-grow: 1;
+    margin-top: 64px;
+}
+
+.gh-section-inner {
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+    column-gap: var(--grid-gap);
+}
+
+.gh-section-inner > * {
+    grid-column: 3 / span 12;
+}
+
+/* 見出し行。線と余白は .gh-container-title と同じ値にし、h2 側の線は消して
+   「もっとみる」まで含めた行全体に引く。 */
+.gh-section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: calc(var(--grid-gap) / 2);
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.gh-section-head .gh-container-title {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: 0;
+}
+
+.gh-section-more {
+    flex: none;
+    font-size: 1.2rem;
+    font-weight: 550;
+    letter-spacing: 0.025em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--color-secondary-text);
+    white-space: nowrap;
+}
+
+.gh-section-more:hover {
+    color: var(--color-darker-gray);
+}
+
+@media (max-width: 1199px) {
+    .gh-section-inner {
+        display: block;
+    }
 }
 
 /* EC: カートトリガーとバッジ */
