@@ -1,0 +1,18 @@
+{{!< default }}
+{{!-- 体裁は page.hbs（About 等の固定ページ）に合わせる。
+      見出しは各コンポーネントが自前で描画するため、テーマ側では h1 を出さない
+      （出すとページ内に見出しが二重に並ぶ）。 --}}
+
+<main class="gh-main">
+    <article class="gh-article gh-article-ec">
+        <section class="gh-content gh-canvas is-body">
+            <fms-cart inline="true" hide-button="true" checkout-url="/checkout/" continue-shopping-url="/product/list/"></fms-cart>
+        </section>
+        <script>
+            document.addEventListener("fms:event", function (e) {
+                var type = e.detail && e.detail.eventType;
+                if (type === "modal_close") history.back();
+            });
+        </script>
+    </article>
+</main>

@@ -4,13 +4,21 @@
     const burger = navigation.querySelector('.gh-burger');
     if (!burger) return;
 
+    const viewport = document.querySelector('.gh-viewport');
+
     burger.addEventListener('click', function () {
         if (!navigation.classList.contains('is-open')) {
+            // メニューを開くとヘッダーが position: fixed になって文書からヘッダー分の高さが抜ける。
+            // 開いたまま別ページへ遷移すると、戻ったときのスクロール復元位置がその分だけ下にずれるため、
+            // 抜ける高さを埋めて文書高さを保つ
+            const headerHeight = navigation.offsetHeight;
             navigation.classList.add('is-open');
             document.documentElement.style.overflowY = 'hidden';
+            if (viewport) viewport.style.paddingTop = headerHeight + 'px';
         } else {
             navigation.classList.remove('is-open');
             document.documentElement.style.overflowY = null;
+            if (viewport) viewport.style.paddingTop = null;
         }
     });
 })();

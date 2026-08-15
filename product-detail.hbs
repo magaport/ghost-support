@@ -1,0 +1,24 @@
+{{!< default }}
+{{!-- 体裁は page.hbs（About 等の固定ページ）に合わせる。
+      商品名は <product-name> が描画するため、テーマ側では h1 を出さない。 --}}
+
+<main class="gh-main">
+    <article class="gh-article gh-article-ec">
+        <section class="gh-content gh-canvas is-body">
+            <product-detail id="pd">
+                <product-thumbnails></product-thumbnails>
+                <product-name></product-name>
+                <product-price></product-price>
+                <product-description></product-description>
+                <cart-button></cart-button>
+            </product-detail>
+        </section>
+        <script>
+            var params = new URLSearchParams(window.location.search);
+            var itemId = params.get('id');
+            if (itemId) {
+                document.getElementById('pd').setAttribute('item-id', itemId);
+            }
+        </script>
+    </article>
+</main>

@@ -1,0 +1,15 @@
+{{!< default }}
+{{!-- 体裁は page.hbs（About 等の固定ページ）に合わせる。
+      ページタイトルは .gh-article-title、中身は .gh-content.gh-canvas の中央カラムに入る。 --}}
+
+<main class="gh-main">
+    <article class="gh-article gh-article-ec">
+        <header class="gh-article-header gh-canvas">
+            <h1 class="gh-article-title is-title">Goods Store</h1>
+        </header>
+
+        <section class="gh-content gh-canvas is-body">
+            <product-list href-tpl="/product/detail/?id={id}" cart-url="/shopping-cart/" checkout-url="/checkout/"></product-list>
+        </section>
+    </article>
+</main>
