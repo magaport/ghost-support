@@ -35,7 +35,7 @@ function jsonResponse(status, body) {
     });
 }
 
-test('creates a JWT with the Admin API header and payload shape', () => {
+test('Admin API が求めるヘッダとペイロードの形で JWT を作る', () => {
     // Arrange
     const key = '507f1f77bcf86cd799439011:abcdef0123456789';
 
@@ -51,7 +51,7 @@ test('creates a JWT with the Admin API header and payload shape', () => {
     assert.ok(payload.exp - payload.iat <= 300);
 });
 
-test('signs the JWT with HMAC-SHA256 using the hex-decoded secret', () => {
+test('hex デコードした secret を鍵に HMAC-SHA256 で JWT に署名する', () => {
     // Arrange
     const key = '507f1f77bcf86cd799439011:abcdef0123456789';
 
@@ -66,12 +66,12 @@ test('signs the JWT with HMAC-SHA256 using the hex-decoded secret', () => {
     assert.equal(signatureSegment, expectedSignature);
 });
 
-test('rejects an Admin API key without a colon separator', () => {
+test('コロン区切りのない Admin API キーを拒む', () => {
     // Act & Assert
     assert.throws(() => createAdminToken('507f1f77bcf86cd799439011abcdef0123456789'));
 });
 
-test('rejects an Admin API key with an empty id or empty secret', () => {
+test('id または secret が空の Admin API キーを拒む', () => {
     // Arrange
     const keys = [':abcdef0123456789', '507f1f77bcf86cd799439011:'];
 
@@ -81,7 +81,7 @@ test('rejects an Admin API key with an empty id or empty secret', () => {
     }
 });
 
-test('rejects an Admin API key whose secret is not valid hex', () => {
+test('secret が hex 形式でない Admin API キーを拒む', () => {
     // Arrange
     const keys = ['507f1f77bcf86cd799439011:not-hex!!', '507f1f77bcf86cd799439011:abc', '507f1f77bcf86cd799439011:zzzzzzzz'];
 
@@ -91,7 +91,7 @@ test('rejects an Admin API key whose secret is not valid hex', () => {
     }
 });
 
-test('uploads the zip then activates the theme returned by the upload response', async () => {
+test('zip をアップロードし、その応答が返したテーマ名で有効化する', async () => {
     // Arrange
     const zipPath = writeFixtureZip();
     const calls = [];
@@ -127,7 +127,7 @@ test('uploads the zip then activates the theme returned by the upload response',
     assert.match(activateCall.options.headers.Authorization, /^Ghost /);
 });
 
-test('fails with the status and body when the upload request is rejected', async () => {
+test('アップロードが拒否されたらステータスと本文を含めて失敗する', async () => {
     // Arrange
     const zipPath = writeFixtureZip();
     const fakeFetch = async () => new Response('theme validation failed', {status: 422});
@@ -144,7 +144,7 @@ test('fails with the status and body when the upload request is rejected', async
     );
 });
 
-test('fails with the status and body when the activate request is rejected', async () => {
+test('有効化が拒否されたらステータスと本文を含めて失敗する', async () => {
     // Arrange
     const zipPath = writeFixtureZip();
     let callCount = 0;
@@ -168,7 +168,7 @@ test('fails with the status and body when the activate request is rejected', asy
     );
 });
 
-test('CLI exits with a usage message on stderr when required env vars are missing', () => {
+test('CLI は必要な環境変数がなければ stderr へ使用法を出して異常終了する', () => {
     // Act
     const result = runCli();
 
@@ -178,7 +178,7 @@ test('CLI exits with a usage message on stderr when required env vars are missin
     assert.match(result.stderr, /PREVIEW_ADMIN_API_KEY/);
 });
 
-test('refuses to upload a theme name that Ghost reserves', () => {
+test('Ghost が予約しているテーマ名はアップロードしない', () => {
     // Arrange
     const name = 'source';
 
@@ -186,7 +186,7 @@ test('refuses to upload a theme name that Ghost reserves', () => {
     assert.throws(() => resolvePreviewZipPath(name), /source/);
 });
 
-test('resolves the preview zip path keeping the name casing', () => {
+test('プレビュー用 zip のパスは name の大文字小文字をそのまま使う', () => {
     // Arrange
     const name = 'Coverd';
 
@@ -197,7 +197,7 @@ test('resolves the preview zip path keeping the name casing', () => {
     assert.equal(zipPath, 'dist/Coverd.zip');
 });
 
-test('tolerates a trailing slash in the preview base URL', async () => {
+test('プレビューのベース URL の末尾スラッシュを許容する', async () => {
     // Arrange
     const zipPath = writeFixtureZip();
     const requestedUrls = [];
