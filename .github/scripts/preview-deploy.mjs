@@ -2,6 +2,7 @@ import {createHmac} from 'node:crypto';
 import {readFileSync} from 'node:fs';
 import path from 'node:path';
 import {pathToFileURL} from 'node:url';
+import {assertUploadableThemeName} from './theme-tag.mjs';
 
 const JWT_MAX_AGE_SECONDS = 300;
 const JWT_AUDIENCE = '/admin/';
@@ -41,6 +42,13 @@ export function createAdminToken(key, {now = Math.floor(Date.now() / 1000)} = {}
     return `${signingInput}.${signature}`;
 }
 
+export function resolvePreviewZipPath(name) {
+    assertUploadableThemeName(name);
+
+    // gulpfile.js の zipper は require('./package.json').name をそのまま zip 名に使うため、大文字小文字を保持する
+    return `dist/${name}.zip`;
+}
+
 export async function deployTheme({baseUrl, key, zipPath, fetch = globalThis.fetch}) {
     const token = createAdminToken(key);
     const authHeaders = {Authorization: `Ghost ${token}`};
@@ -76,11 +84,9 @@ async function main() {
         throw new Error('使用法: PREVIEW_URL と PREVIEW_ADMIN_API_KEY を環境変数に設定して node preview-deploy.mjs を実行してください');
     }
 
-    // gulpfile.js の zipper は require('./package.json').name をそのまま zip 名に使うため、大文字小文字を保持する
     const {name} = JSON.parse(readFileSync(path.resolve('./package.json'), 'utf8'));
-    const zipPath = `dist/${name}.zip`;
 
-    const activatedName = await deployTheme({baseUrl: PREVIEW_URL, key: PREVIEW_ADMIN_API_KEY, zipPath});
+    const activatedName = await deployTheme({baseUrl: PREVIEW_URL, key: PREVIEW_ADMIN_API_KEY, zipPath: resolvePreviewZipPath(name)});
     console.log(`テーマ "${activatedName}" をプレビューサイトへ反映しました`);
 }
 

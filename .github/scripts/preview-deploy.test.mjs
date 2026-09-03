@@ -6,7 +6,7 @@ import {mkdtempSync, writeFileSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {createAdminToken, deployTheme} from './preview-deploy.mjs';
+import {createAdminToken, deployTheme, resolvePreviewZipPath} from './preview-deploy.mjs';
 
 const CLI_PATH = fileURLToPath(new URL('./preview-deploy.mjs', import.meta.url));
 
@@ -176,4 +176,23 @@ test('CLI exits with a usage message on stderr when required env vars are missin
     assert.equal(result.status, 1);
     assert.match(result.stderr, /PREVIEW_URL/);
     assert.match(result.stderr, /PREVIEW_ADMIN_API_KEY/);
+});
+
+test('refuses to upload a theme name that Ghost reserves', () => {
+    // Arrange
+    const name = 'source';
+
+    // Act & Assert
+    assert.throws(() => resolvePreviewZipPath(name), /source/);
+});
+
+test('resolves the preview zip path keeping the name casing', () => {
+    // Arrange
+    const name = 'Coverd';
+
+    // Act
+    const zipPath = resolvePreviewZipPath(name);
+
+    // Assert
+    assert.equal(zipPath, 'dist/Coverd.zip');
 });

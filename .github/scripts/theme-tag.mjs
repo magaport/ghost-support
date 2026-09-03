@@ -6,6 +6,12 @@ const TAG_PATTERN = /^(.+)-v(\d+\.\d+\.\d+)$/;
 // Ghost はテーマアップロード時に source.zip / casper.zip を予約名として拒否する
 const RESERVED_NAMES = new Set(['source', 'casper']);
 
+export function assertUploadableThemeName(name) {
+    if (RESERVED_NAMES.has(name.toLowerCase())) {
+        throw new Error(`"${name}" は予約されたテーマ名のため使用できません`);
+    }
+}
+
 export function resolveThemeRelease({tag, name}) {
     if (!name) {
         throw new Error('package.json の name が未設定です');
@@ -21,9 +27,7 @@ export function resolveThemeRelease({tag, name}) {
         throw new Error(`タグの接頭辞 "${prefix}" は package.json の name "${name}" の小文字 "${name.toLowerCase()}" である必要があります`);
     }
 
-    if (RESERVED_NAMES.has(name.toLowerCase())) {
-        throw new Error(`"${name}" は予約されたテーマ名のため使用できません`);
-    }
+    assertUploadableThemeName(name);
 
     return {
         name,
