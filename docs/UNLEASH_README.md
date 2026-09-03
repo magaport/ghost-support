@@ -102,15 +102,16 @@ yarn test:workflow
 
 ### テーマ名とタグの規則
 
-ブランチ名 = `package.json` の `name` の小文字 = Release タグの接頭辞、という規則で統一している。
+ブランチ名 = `package.json` の `name` = Release タグの接頭辞、という規則で統一している。
+`name` はそのまま zip 名になる（`gulpfile.js` が `package.json` の `name` を zip 名にするため）。
 
-zip 名は `name` の大文字小文字をそのまま使う（`gulpfile.js` が `package.json` の `name` を zip 名にするため）。タグの接頭辞だけが小文字。
+`name` は小文字だけで書く。gscan が大文字を Error として報告するため、ワークフローも大文字を含む `name` では Release を作らない。
 
-`source` / `casper` は Ghost がアップロードを拒否する予約名のため、その名前では Release を作れない。
+`source` / `casper` は Ghost がアップロードを拒否する予約名のため、その名前でも Release を作れない。
 
 ### Release を作る
 
-`package.json` の `name` を小文字にしたものを接頭辞にして、タグを打って push する。
+`package.json` の `name` を接頭辞にして、タグを打って push する。
 
 ```bash
 git tag <name>-v1.0.0
@@ -120,25 +121,20 @@ git push origin <name>-v1.0.0
 タグが指すコミットをビルドし、`dist/<name>.zip` を1個だけ付けた Release ができる。
 接頭辞と `name` が一致しない場合はワークフローが失敗し、Release は作られない。
 
-ワークフローファイルはタグが指すコミットに含まれるものが使われるため、
-テーマを開発する各ブランチに同一内容で置いている。
+ワークフローファイルはタグが指すコミットに含まれるものが使われるため、テーマを開発する各ブランチに同一内容で置いている。
 
 ### 既存サイトへ反映する
 
-Release の zip を管理画面からアップロードする。有効化中のテーマと同名の zip は
-その場で差し替わり、カスタムテーマ設定も保持されるため activate の切り替えは要らない。
+Release の zip を管理画面からアップロードする。
+有効化中のテーマと同名の zip はその場で差し替わり、カスタムテーマ設定も保持されるため activate の切り替えは要らない。
 
 ### プレビューサイトへ反映する
 
 Actions 画面で **Theme Release** を選び、ブランチを指定して手動実行する。
 そのブランチをビルドしてプレビューサイトへ upload → activate する。Release は作らない。
 
-Environment `preview` に Secrets `PREVIEW_URL` と `PREVIEW_ADMIN_API_KEY`（プレビューサイトの
-カスタム統合の Admin API キー）を登録する。任意のブランチを手動実行できる以上、
-このジョブは Admin API キーを持つため、必要なら Environment の protection rules で
-承認や実行可能ブランチを制限する。
-
-`PREVIEW_URL` は `https://melty.unleashcms.dev` の形式（末尾スラッシュはあってもよい）。
+Environment `preview` に Secrets `PREVIEW_URL` と `PREVIEW_ADMIN_API_KEY`（プレビューサイトのカスタム統合の Admin API キー）を登録する。
+任意のブランチを手動実行できる以上、このジョブは Admin API キーを持つため、必要なら Environment の protection rules で承認や実行可能ブランチを制限する。
 
 ---
 
