@@ -49,9 +49,9 @@ jobs:
         run: yarn zip
 
       # UI で作った Release にタグ push で追いつく形になるため、既存の Release には
-      # 作り直さずに asset を足す action を使う。Unleash 本体の release-unleash.yml と同じ
+      # 作り直さずに asset を足す action を使う。Unleash 本体の release-unleash.yml も同じ action
       - name: Release に zip を添付する
-        uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b # v2.5.0
+        uses: softprops/action-gh-release@efb35369e0ad2afab669f228072c1b0d510eae64 # v3.0.3
         with:
           tag_name: ${{ github.ref_name }}
           files: ${{ steps.theme.outputs.zip }}
