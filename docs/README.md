@@ -45,6 +45,8 @@
 
 [リリース作業](RELEASE.md)
 
+[テーマの Release とプレビュー反映](UNLEASH_README.md)
+
 ## Copyright & License
 
 Copyright (c) 2013-2023 Ghost Foundation - Released under the [MIT license](LICENSE).
