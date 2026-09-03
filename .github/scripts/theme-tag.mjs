@@ -17,8 +17,8 @@ export function resolveThemeRelease({tag, name}) {
     }
     const [, prefix, version] = match;
 
-    if (prefix.toLowerCase() !== name.toLowerCase()) {
-        throw new Error(`タグの接頭辞 "${prefix}" が package.json の name "${name}" と一致しません`);
+    if (prefix !== name.toLowerCase()) {
+        throw new Error(`タグの接頭辞 "${prefix}" は package.json の name "${name}" の小文字 "${name.toLowerCase()}" である必要があります`);
     }
 
     if (RESERVED_NAMES.has(name.toLowerCase())) {

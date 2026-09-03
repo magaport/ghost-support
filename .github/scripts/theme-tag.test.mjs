@@ -145,3 +145,12 @@ test('CLI exits with an error and a stderr message for an invalid tag', () => {
     assert.equal(result.status, 1);
     assert.equal(result.stderr.trim(), 'タグ "v1.0.0" が <prefix>-v<X.Y.Z> 形式ではありません');
 });
+
+test('rejects a tag whose prefix is not the lowercased name', () => {
+    // Arrange
+    const tag = 'Coverd-v1.0.0';
+    const name = 'Coverd';
+
+    // Act & Assert
+    assert.throws(() => resolveThemeRelease({tag, name}), /coverd/);
+});
