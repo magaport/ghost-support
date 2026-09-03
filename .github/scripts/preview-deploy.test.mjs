@@ -83,15 +83,23 @@ test('Ghost が予約しているテーマ名はアップロードしない', ()
     assert.throws(() => resolvePreviewZipPath(name), /source/);
 });
 
-test('プレビュー用 zip のパスは name の大文字小文字をそのまま使う', () => {
+test('name に大文字が含まれていればアップロードしない', () => {
     // Arrange
     const name = 'Coverd';
+
+    // Act & Assert
+    assert.throws(() => resolvePreviewZipPath(name), /大文字/);
+});
+
+test('プレビュー用 zip のパスを name から組み立てる', () => {
+    // Arrange
+    const name = 'coverd';
 
     // Act
     const zipPath = resolvePreviewZipPath(name);
 
     // Assert
-    assert.equal(zipPath, 'dist/Coverd.zip');
+    assert.equal(zipPath, 'dist/coverd.zip');
 });
 
 test('ベース URL の末尾スラッシュを落として API を作る', () => {
