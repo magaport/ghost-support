@@ -92,6 +92,14 @@ yarn zip  # dist/<theme-name>.zip に出力（プロジェクトの script 前�
 
 `.github/workflows/theme-release.yml` が Release の作成とプレビューサイトへの反映を担う。
 
+ワークフローから呼ぶスクリプト（`.github/scripts/`）のテストは次で実行する。
+
+```bash
+yarn test:workflow
+```
+
+`.node-version` の Node が必要（`node --test` のグロブ指定は Node 21 以降でのみ動く）。
+
 ### テーマ名とタグの規則
 
 ブランチ名 = `package.json` の `name` の小文字 = Release タグの接頭辞、という規則で統一している。
