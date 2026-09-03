@@ -48,11 +48,28 @@ jobs:
       - name: テーマ zip をビルド
         run: yarn zip
 
-      - name: Release を作成
+      - name: Release の有無を調べる
+        id: release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ZIP_PATH: ${{ steps.theme.outputs.zip }}
-        run: gh release create "${GITHUB_REF_NAME}" "${ZIP_PATH}" --title "${GITHUB_REF_NAME}" --notes ''
+        run: |
+          # 既存の Release に generate_release_notes を渡すと、GitHub が渡された本文の
+          # 後ろに生成した本文を足すため「What's Changed」が二重になる
+          if gh release view "${GITHUB_REF_NAME}" --repo "${GITHUB_REPOSITORY}" >/dev/null 2>&1; then
+            echo 'generate_notes=false' >> "${GITHUB_OUTPUT}"
+          else
+            echo 'generate_notes=true' >> "${GITHUB_OUTPUT}"
+          fi
+
+      # UI で作った Release にタグ push で追いつく形になるため、既存の Release には
+      # 作り直さずに asset を足す action を使う。Unleash 本体の release-unleash.yml も同じ action
+      - name: Release に zip を添付する
+        uses: softprops/action-gh-release@efb35369e0ad2afab669f228072c1b0d510eae64 # v3.0.3
+        with:
+          tag_name: ${{ github.ref_name }}
+          files: ${{ steps.theme.outputs.zip }}
+          generate_release_notes: ${{ steps.release.outputs.generate_notes }}
+          draft: false
 
   preview:
     name: Preview
