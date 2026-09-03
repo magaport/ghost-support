@@ -48,11 +48,15 @@ jobs:
       - name: テーマ zip をビルド
         run: yarn zip
 
-      - name: Release を作成
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ZIP_PATH: ${{ steps.theme.outputs.zip }}
-        run: gh release create "${GITHUB_REF_NAME}" "${ZIP_PATH}" --title "${GITHUB_REF_NAME}" --notes ''
+      # UI で作った Release にタグ push で追いつく形になるため、既存の Release には
+      # 作り直さずに asset を足す action を使う。Unleash 本体の release-unleash.yml も同じ action
+      - name: Release に zip を添付する
+        uses: softprops/action-gh-release@efb35369e0ad2afab669f228072c1b0d510eae64 # v3.0.3
+        with:
+          tag_name: ${{ github.ref_name }}
+          files: ${{ steps.theme.outputs.zip }}
+          generate_release_notes: true
+          draft: false
 
   preview:
     name: Preview
