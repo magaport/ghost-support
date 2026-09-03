@@ -1,0 +1,93 @@
+name: Theme Release
+
+run-name: ${{ github.event_name == 'push' && format('Release {0}', github.ref_name) || format('Preview {0}', github.ref_name) }}
+
+on:
+  push:
+    tags:
+      - '*-v[0-9]*.[0-9]*.[0-9]*'
+  workflow_dispatch:
+
+defaults:
+  run:
+    shell: bash
+
+permissions: {}
+
+jobs:
+  release:
+    name: Release
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    concurrency:
+      group: ${{ github.workflow }}-release-${{ github.ref }}
+      cancel-in-progress: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: '.node-version'
+          # zizmor の cache-poisoning ポリシーに合わせ、依存キャッシュを使わない
+          package-manager-cache: false
+
+      - name: タグと package.json の name を突き合わせる
+        id: theme
+        run: node .github/scripts/theme-tag.mjs "${GITHUB_REF_NAME}"
+
+      - name: 依存をインストール
+        run: yarn install --frozen-lockfile
+
+      - name: テーマ zip をビルド
+        run: yarn zip
+
+      - name: Release を作成
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ZIP_PATH: ${{ steps.theme.outputs.zip }}
+        run: gh release create "${GITHUB_REF_NAME}" "${ZIP_PATH}" --title "${GITHUB_REF_NAME}" --notes ''
+
+  preview:
+    name: Preview
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions: {}
+    # 任意のブランチを手動実行できるため、Admin API キーは Environment に置いて
+    # 承認や実行可能ブランチの制限を Settings 側で掛けられるようにする
+    environment: preview
+    # 反映先の Ghost サイトはブランチによらず1つで、同時に走ると互いのテーマを上書きするため
+    concurrency:
+      group: ${{ github.workflow }}-preview
+      cancel-in-progress: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: '.node-version'
+          # zizmor の cache-poisoning ポリシーに合わせ、依存キャッシュを使わない
+          package-manager-cache: false
+
+      - name: 依存をインストール
+        run: yarn install --frozen-lockfile
+
+      - name: テーマ zip をビルド
+        run: yarn zip
+
+      - name: プレビューサイトへ反映
+        env:
+          PREVIEW_URL: ${{ secrets.PREVIEW_URL }}
+          PREVIEW_ADMIN_API_KEY: ${{ secrets.PREVIEW_ADMIN_API_KEY }}
+        run: node .github/scripts/preview-deploy.mjs
