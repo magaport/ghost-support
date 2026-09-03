@@ -105,27 +105,63 @@ yarn test:workflow
 ブランチ名 = `package.json` の `name` = Release タグの接頭辞、という規則で統一している。
 `name` はそのまま zip 名になる（`gulpfile.js` が `package.json` の `name` を zip 名にするため）。
 
-`name` は小文字だけで書く。gscan が大文字を Error として報告するため、ワークフローも大文字を含む `name` では Release を作らない。
-
-`source` / `casper` は Ghost がアップロードを拒否する予約名のため、その名前でも Release を作れない。
+このブランチの `name` は `unleash-source` なので、タグは `unleash-source-v<X.Y.Z>`、zip は `dist/unleash-source.zip` になる。
 
 ### Release を作る
 
-`package.json` の `name` を接頭辞にして、タグを打って push する。
+タグを打ったコミットがビルドされ、`dist/unleash-source.zip` を添付した Release ができる。
+添付は zip 1ファイルだけで、Unleash 側の構築ワークフローはこれを `*.zip` で取得する。
+コミットを指定しなければ、そのブランチの先頭（HEAD）にタグが打たれる。
 
 ```bash
-git tag <name>-v1.0.0
-git push origin <name>-v1.0.0
+git switch unleash-source
+git pull
+git tag unleash-source-v1.0.0
+git push origin unleash-source-v1.0.0
 ```
 
-タグが指すコミットをビルドし、`dist/<name>.zip` を1個だけ付けた Release ができる。
+先頭以外のコミットをリリースするときは、コミットを指定して打つ。
+
+```bash
+git tag unleash-source-v1.0.0 <commit>
+git push origin unleash-source-v1.0.0
+```
+
 接頭辞と `name` が一致しない場合はワークフローが失敗し、Release は作られない。
 
 ワークフローファイルはタグが指すコミットに含まれるものが使われるため、テーマを開発する各ブランチに同一内容で置いている。
 
+Release を作る操作はタグの push だけで、GitHub の Release 画面（Draft a new release）からは作らない。
+Release 画面は publish した時点でタグを作るため、ワークフローが起動するときには Release が先に存在し、`gh release create` が衝突して失敗する。
+
+### ワークフローが失敗したとき
+
+失敗したステップのログに出るメッセージで原因が分かる。
+
+| メッセージ | 原因 |
+| --- | --- |
+| `タグの接頭辞 "<prefix>" は package.json の name "<name>" と同じである必要があります` | 別ブランチのコミットにタグを打った |
+| `a release with the same tag name already exists: <tag>` | Release がタグより先に存在する（Release 画面から作った場合など） |
+
+タグを打つコミットを間違えた場合は、ローカルとリモートの両方からタグを消してから打ち直す。
+
+```bash
+git tag -d <tag>
+git push origin :refs/tags/<tag>
+```
+
+Release が先に存在して失敗した場合は、その Release を削除してから失敗した run を再実行する。
+Release を削除してもタグは残るため、タグの打ち直しは要らない。
+
+```bash
+gh release delete <tag> --repo magaport/ghost-support --yes
+gh run list --repo magaport/ghost-support
+gh run rerun <run-id> --repo magaport/ghost-support
+```
+
 ### 既存サイトへ反映する
 
-Release の zip を管理画面からアップロードする。
+Release の `unleash-source.zip` を管理画面からアップロードする。
 有効化中のテーマと同名の zip はその場で差し替わり、カスタムテーマ設定も保持されるため activate の切り替えは要らない。
 
 ### プレビューサイトへ反映する
