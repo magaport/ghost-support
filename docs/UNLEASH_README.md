@@ -96,17 +96,16 @@ yarn zip  # dist/<theme-name>.zip に出力（プロジェクトの script 前�
 
 ブランチ名 = `package.json` の `name` の小文字 = Release タグの接頭辞、という規則で統一している。
 
-| ブランチ | `package.json` の `name` | タグ | Release の asset |
-|---|---|---|---|
-| `ywlr` | `ywlr` | `ywlr-v1.0.0` | `ywlr.zip` |
-| `coverd` | `Coverd` | `coverd-v1.0.0` | `Coverd.zip` |
-| `unleash-source` | `unleash-source` | `unleash-source-v1.0.0` | `unleash-source.zip` |
+| ブランチ         | `package.json` の `name` | タグ                    | Release の asset     |
+|------------------|--------------------------|-------------------------|----------------------|
+| `ywlr`           | `ywlr`                   | `ywlr-v1.0.0`           | `ywlr.zip`           |
+| `coverd`         | `Coverd`                 | `coverd-v1.0.0`         | `Coverd.zip`         |
+| `unleash-source` | `unleash-source`         | `unleash-source-v1.0.0` | `unleash-source.zip` |
 
-zip 名は `name` の大文字小文字をそのまま使う（`gulpfile.js` が `package.json` の `name` を
-zip 名にするため）。タグの接頭辞だけが小文字。
+zip 名は `name` の大文字小文字をそのまま使う（`gulpfile.js` が `package.json` の `name` をzip 名にするため）。タグの接頭辞だけが小文字。
 
-`main`（`name` は `source`）から Release は作れない。Ghost が `source.zip` / `casper.zip` の
-アップロードを拒否するため、ワークフローが予約名として弾く。
+`main`（`name` は `source`）から Release は作れない。
+Ghost が `source.zip` / `casper.zip` のアップロードを拒否するため、ワークフローが予約名として弾く。
 
 ### Release を作る
 
@@ -139,20 +138,6 @@ Environment `preview` に Secrets `PREVIEW_URL` と `PREVIEW_ADMIN_API_KEY`（�
 承認や実行可能ブランチを制限する。
 
 `PREVIEW_URL` は `https://melty.unleashcms.dev` の形式（末尾スラッシュはあってもよい）。
-
----
-
-## ブランチ rename 後のローカル clone の追従
-
-`yw-japanese` → `ywlr`、`magaco-foods` → `coverd` の rename に追従する。
-
-```bash
-git fetch origin --prune
-git branch -m yw-japanese ywlr          # ローカルブランチ名を変える
-git branch -u origin/ywlr ywlr          # 追跡先を貼り直す
-```
-
-`git branch -vv` で追跡先が `origin/ywlr` になっていることを確認する。
 
 ---
 
