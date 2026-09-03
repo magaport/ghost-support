@@ -88,6 +88,70 @@ yarn zip  # dist/<theme-name>.zip に出力（プロジェクトの script 前�
 
 ---
 
+## Release とプレビュー反映（GitHub Actions）
+
+`.github/workflows/theme-release.yml` が Release の作成とプレビューサイトへの反映を担う。
+
+### ブランチ・テーマ名・タグの対応
+
+ブランチ名 = `package.json` の `name` の小文字 = Release タグの接頭辞、という規則で統一している。
+
+| ブランチ | `package.json` の `name` | タグ | Release の asset |
+|---|---|---|---|
+| `ywlr` | `ywlr` | `ywlr-v1.0.0` | `ywlr.zip` |
+| `coverd` | `Coverd` | `coverd-v1.0.0` | `Coverd.zip` |
+| `unleash-source` | `unleash-source` | `unleash-source-v1.0.0` | `unleash-source.zip` |
+
+zip 名は `name` の大文字小文字をそのまま使う（`gulpfile.js` が `package.json` の `name` を
+zip 名にするため）。タグの接頭辞だけが小文字。
+
+`main`（`name` は `source`）から Release は作れない。Ghost が `source.zip` / `casper.zip` の
+アップロードを拒否するため、ワークフローが予約名として弾く。
+
+### Release を作る
+
+対象ブランチのコミットにタグを打って push する。
+
+```bash
+git tag ywlr-v1.0.0
+git push origin ywlr-v1.0.0
+```
+
+タグが指すコミットをビルドし、`dist/<name>.zip` を1個だけ付けた Release ができる。
+接頭辞と `name` が一致しない場合はワークフローが失敗し、Release は作られない。
+
+ワークフローファイルはタグが指すコミットに含まれるものが使われるため、
+`main` / `ywlr` / `coverd` / `unleash-source` の各ブランチに同一内容で置いている。
+
+### 既存サイトへ反映する
+
+Release の zip を管理画面からアップロードする。有効化中のテーマと同名の zip は
+その場で差し替わり、カスタムテーマ設定も保持されるため activate の切り替えは要らない。
+
+### プレビューサイトへ反映する
+
+Actions 画面で **Theme Release** を選び、ブランチを指定して手動実行する。
+そのブランチをビルドしてプレビューサイトへ upload → activate する。Release は作らない。
+
+リポジトリの Secrets に `PREVIEW_URL` と `PREVIEW_ADMIN_API_KEY`（プレビューサイトの
+カスタム統合の Admin API キー）が必要。
+
+---
+
+## ブランチ rename 後のローカル clone の追従
+
+`yw-japanese` → `ywlr`、`magaco-foods` → `coverd` の rename に追従する。
+
+```bash
+git fetch origin --prune
+git branch -m yw-japanese ywlr          # ローカルブランチ名を変える
+git branch -u origin/ywlr ywlr          # 追跡先を貼り直す
+```
+
+`git branch -vv` で追跡先が `origin/ywlr` になっていることを確認する。
+
+---
+
 ## カスタム設定（Theme Custom Settings）
 
 `package.json` の `config` セクションで、テーマ独自の設定 UI を管理画面に表示できます。
