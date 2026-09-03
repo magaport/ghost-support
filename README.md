@@ -33,3 +33,7 @@ taxonomies:
   tag: /tag/{slug}/
   author: /author/{slug}/
 ```
+
+## Release
+
+[テーマの Release とプレビュー反映](docs/UNLEASH_README.md)
