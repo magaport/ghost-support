@@ -40,22 +40,19 @@ test('タグと name が一致すれば zip のパスを返す', () => {
     });
 });
 
-test('zip のパスは package.json の name の大文字小文字をそのまま使う', () => {
+test('name に大文字が含まれていれば拒む', () => {
     // Arrange
     const tag = 'coverd-v1.0.0';
     const name = 'Coverd';
 
-    // Act
-    const result = resolveThemeRelease({tag, name});
-
-    // Assert
-    assert.equal(result.zipPath, 'dist/Coverd.zip');
+    // Act & Assert
+    assert.throws(() => resolveThemeRelease({tag, name}), /大文字/);
 });
 
 test('接頭辞が package.json の name と一致しないタグを拒む', () => {
     // Arrange
     const tag = 'ywlr-v1.0.1';
-    const name = 'Coverd';
+    const name = 'coverd';
 
     // Act & Assert
     assert.throws(() => resolveThemeRelease({tag, name}));
@@ -146,10 +143,10 @@ test('CLI は不正なタグに対して stderr へメッセージを出して�
     assert.equal(result.stderr.trim(), 'タグ "v1.0.0" が <prefix>-v<X.Y.Z> 形式ではありません');
 });
 
-test('接頭辞が name の小文字でないタグを拒む', () => {
+test('接頭辞に大文字が含まれていれば拒む', () => {
     // Arrange
     const tag = 'Coverd-v1.0.0';
-    const name = 'Coverd';
+    const name = 'coverd';
 
     // Act & Assert
     assert.throws(() => resolveThemeRelease({tag, name}), /coverd/);

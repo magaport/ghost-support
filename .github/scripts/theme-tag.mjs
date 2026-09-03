@@ -1,5 +1,5 @@
 // Release ワークフローが、タグの指すコミットをビルドしてよいかを決めるために使う。
-// 別ブランチへの誤ったタグと、Ghost が拒む予約名での Release をここで止める。
+// 別ブランチへの誤ったタグと、Ghost や gscan が受け付けない名前での Release をここで止める。
 
 import {readFileSync, appendFileSync} from 'node:fs';
 import path from 'node:path';
@@ -10,7 +10,12 @@ const TAG_PATTERN = /^(.+)-v(\d+\.\d+\.\d+)$/;
 const RESERVED_NAMES = new Set(['source', 'casper']);
 
 export function assertUploadableThemeName(name) {
-    if (RESERVED_NAMES.has(name.toLowerCase())) {
+    // gscan は name の大文字を Error として報告する
+    if (name !== name.toLowerCase()) {
+        throw new Error(`テーマ名 "${name}" に大文字が含まれています。小文字だけで書いてください`);
+    }
+
+    if (RESERVED_NAMES.has(name)) {
         throw new Error(`"${name}" は予約されたテーマ名のため使用できません`);
     }
 }
@@ -20,17 +25,17 @@ export function resolveThemeRelease({tag, name}) {
         throw new Error('package.json の name が未設定です');
     }
 
+    assertUploadableThemeName(name);
+
     const match = tag.match(TAG_PATTERN);
     if (!match) {
         throw new Error(`タグ "${tag}" が <prefix>-v<X.Y.Z> 形式ではありません`);
     }
     const [, prefix, version] = match;
 
-    if (prefix !== name.toLowerCase()) {
-        throw new Error(`タグの接頭辞 "${prefix}" は package.json の name "${name}" の小文字 "${name.toLowerCase()}" である必要があります`);
+    if (prefix !== name) {
+        throw new Error(`タグの接頭辞 "${prefix}" は package.json の name "${name}" と同じである必要があります`);
     }
-
-    assertUploadableThemeName(name);
 
     return {
         name,
