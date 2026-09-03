@@ -19,9 +19,15 @@ yarn test:workflow
 
 ## Release を作る
 
-タグを打ったコミットがビルドされ、`dist/coverd.zip` を添付した Release ができる。
+GitHub の Releases で `Draft a new release` を開き、`Choose a tag` で `coverd-v1.0.0` を新規作成し、`Generate release notes` を押して `Publish release` する。
+`Target` は既定でデフォルトブランチ（`main`）になっているため、`coverd` に変える。
+publish した時点でタグが作られ、ワークフローがそのタグの指すコミットをビルドして `coverd.zip` を同じ Release に添付する。
+Release の名前と本文は UI で作ったものがそのまま残る。
+
 添付は zip 1ファイルだけで、Unleash 側の構築ワークフローはこれを `*.zip` で取得する。
-コミットを指定しなければ、そのブランチの先頭（HEAD）にタグが打たれる。
+publish から添付が終わるまでは asset がない状態になるため、Release の zip を使うのは Actions の完了後にする。
+
+タグを直接 push しても Release はできる。この場合はワークフローが Release を作り、本文は自動生成される。
 
 ```bash
 git switch coverd
@@ -37,36 +43,25 @@ git tag coverd-v1.0.0 <commit>
 git push origin coverd-v1.0.0
 ```
 
-接頭辞と `name` が一致しない場合はワークフローが失敗し、Release は作られない。
+接頭辞と `name` が一致しない場合はワークフローが失敗し、zip は添付されない。
 
 ワークフローファイルはタグが指すコミットに含まれるものが使われるため、テーマを開発する各ブランチに同一内容で置いている。
 
-Release を作る操作はタグの push だけで、GitHub の Release 画面（Draft a new release）からは作らない。
-Release 画面は publish した時点でタグを作るため、ワークフローが起動するときには Release が先に存在し、`gh release create` が衝突して失敗する。
-
 ## ワークフローが失敗したとき
 
-失敗したステップのログに出るメッセージで原因が分かる。
+`タグの接頭辞 "<prefix>" は package.json の name "<name>" と同じである必要があります` が出た場合は、別ブランチのコミットにタグを打っている。
 
-| メッセージ | 原因 |
-| --- | --- |
-| `タグの接頭辞 "<prefix>" は package.json の name "<name>" と同じである必要があります` | 別ブランチのコミットにタグを打った |
-| `a release with the same tag name already exists: <tag>` | Release がタグより先に存在する（Release 画面から作った場合など） |
-
-タグを打つコミットを間違えた場合は、ローカルとリモートの両方からタグを消してから打ち直す。
+ビルドや添付で失敗したときは、原因を直してから run を再実行する。Release とタグはそのまま残る。
 
 ```bash
-git tag -d <tag>
-git push origin :refs/tags/<tag>
-```
-
-Release が先に存在して失敗した場合は、その Release を削除してから失敗した run を再実行する。
-Release を削除してもタグは残るため、タグの打ち直しは要らない。
-
-```bash
-gh release delete <tag> --repo magaport/ghost-support --yes
 gh run list --repo magaport/ghost-support
 gh run rerun <run-id> --repo magaport/ghost-support
+```
+
+タグを打つコミットを間違えたときは、Release とタグを消してから作り直す。
+
+```bash
+gh release delete <tag> --repo magaport/ghost-support --cleanup-tag --yes
 ```
 
 ## 既存サイトへ反映する
