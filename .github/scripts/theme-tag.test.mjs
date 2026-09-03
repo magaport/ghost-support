@@ -23,7 +23,7 @@ function runCli(args, env = {}) {
     });
 }
 
-test('resolves a matching tag and name into a zip path', () => {
+test('タグと name が一致すれば zip のパスを返す', () => {
     // Arrange
     const tag = 'ywlr-v1.0.0';
     const name = 'ywlr';
@@ -40,7 +40,7 @@ test('resolves a matching tag and name into a zip path', () => {
     });
 });
 
-test('keeps the zip path in the exact casing of package.json name', () => {
+test('zip のパスは package.json の name の大文字小文字をそのまま使う', () => {
     // Arrange
     const tag = 'coverd-v1.0.0';
     const name = 'Coverd';
@@ -52,7 +52,7 @@ test('keeps the zip path in the exact casing of package.json name', () => {
     assert.equal(result.zipPath, 'dist/Coverd.zip');
 });
 
-test('rejects a tag whose prefix does not match package.json name', () => {
+test('接頭辞が package.json の name と一致しないタグを拒む', () => {
     // Arrange
     const tag = 'ywlr-v1.0.1';
     const name = 'Coverd';
@@ -61,7 +61,7 @@ test('rejects a tag whose prefix does not match package.json name', () => {
     assert.throws(() => resolveThemeRelease({tag, name}));
 });
 
-test('rejects reserved theme names that Ghost refuses to upload', () => {
+test('Ghost がアップロードを拒む予約テーマ名を拒む', () => {
     // Arrange
     const cases = [
         {tag: 'source-v1.0.0', name: 'source'},
@@ -74,7 +74,7 @@ test('rejects reserved theme names that Ghost refuses to upload', () => {
     }
 });
 
-test('rejects a tag that is not in <prefix>-v<X.Y.Z> form', () => {
+test('<prefix>-v<X.Y.Z> 形式でないタグを拒む', () => {
     // Arrange
     const name = 'ywlr';
     const malformedTags = ['v1.0.0', 'ywlr-1.0.0', 'ywlr-v1.0'];
@@ -85,7 +85,7 @@ test('rejects a tag that is not in <prefix>-v<X.Y.Z> form', () => {
     }
 });
 
-test('rejects a missing or empty package.json name', () => {
+test('package.json の name が空または未設定なら拒む', () => {
     // Arrange
     const tag = 'ywlr-v1.0.0';
     const emptyNames = ['', undefined];
@@ -96,7 +96,7 @@ test('rejects a missing or empty package.json name', () => {
     }
 });
 
-test('CLI prints name and zip path for a valid tag', () => {
+test('CLI は正しいタグに対して name と zip のパスを出力する', () => {
     // Arrange
     const packageJsonPath = writeFixturePackageJson('ywlr');
 
@@ -109,7 +109,7 @@ test('CLI prints name and zip path for a valid tag', () => {
     assert.match(result.stdout, /zip=dist\/ywlr\.zip/);
 });
 
-test('CLI appends name and zip path to GITHUB_OUTPUT when set', () => {
+test('CLI は GITHUB_OUTPUT が設定されていれば name と zip のパスを追記する', () => {
     // Arrange
     const packageJsonPath = writeFixturePackageJson('ywlr');
     const githubOutputPath = path.join(path.dirname(packageJsonPath), 'github_output');
@@ -125,7 +125,7 @@ test('CLI appends name and zip path to GITHUB_OUTPUT when set', () => {
     assert.match(output, /zip=dist\/ywlr\.zip/);
 });
 
-test('CLI exits with an error and a usage message when the tag argument is missing', () => {
+test('CLI はタグ引数がなければ使用法を出して異常終了する', () => {
     // Act
     const result = runCli([]);
 
@@ -134,7 +134,7 @@ test('CLI exits with an error and a usage message when the tag argument is missi
     assert.match(result.stderr, /使用法/);
 });
 
-test('CLI exits with an error and a stderr message for an invalid tag', () => {
+test('CLI は不正なタグに対して stderr へメッセージを出して異常終了する', () => {
     // Arrange
     const packageJsonPath = writeFixturePackageJson('ywlr');
 
@@ -146,7 +146,7 @@ test('CLI exits with an error and a stderr message for an invalid tag', () => {
     assert.equal(result.stderr.trim(), 'タグ "v1.0.0" が <prefix>-v<X.Y.Z> 形式ではありません');
 });
 
-test('rejects a tag whose prefix is not the lowercased name', () => {
+test('接頭辞が name の小文字でないタグを拒む', () => {
     // Arrange
     const tag = 'Coverd-v1.0.0';
     const name = 'Coverd';
