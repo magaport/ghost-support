@@ -1,3 +1,6 @@
+// Release ワークフローが、タグの指すコミットをビルドしてよいかを決めるために使う。
+// 別ブランチへの誤ったタグと、Ghost が拒む予約名での Release をここで止める。
+
 import {readFileSync, appendFileSync} from 'node:fs';
 import path from 'node:path';
 import {pathToFileURL} from 'node:url';

@@ -92,35 +92,28 @@ yarn zip  # dist/<theme-name>.zip に出力（プロジェクトの script 前�
 
 `.github/workflows/theme-release.yml` が Release の作成とプレビューサイトへの反映を担う。
 
-### ブランチ・テーマ名・タグの対応
+### テーマ名とタグの規則
 
 ブランチ名 = `package.json` の `name` の小文字 = Release タグの接頭辞、という規則で統一している。
 
-| ブランチ         | `package.json` の `name` | タグ                    | Release の asset     |
-|------------------|--------------------------|-------------------------|----------------------|
-| `ywlr`           | `ywlr`                   | `ywlr-v1.0.0`           | `ywlr.zip`           |
-| `coverd`         | `Coverd`                 | `coverd-v1.0.0`         | `Coverd.zip`         |
-| `unleash-source` | `unleash-source`         | `unleash-source-v1.0.0` | `unleash-source.zip` |
+zip 名は `name` の大文字小文字をそのまま使う（`gulpfile.js` が `package.json` の `name` を zip 名にするため）。タグの接頭辞だけが小文字。
 
-zip 名は `name` の大文字小文字をそのまま使う（`gulpfile.js` が `package.json` の `name` をzip 名にするため）。タグの接頭辞だけが小文字。
-
-`main`（`name` は `source`）から Release は作れない。
-Ghost が `source.zip` / `casper.zip` のアップロードを拒否するため、ワークフローが予約名として弾く。
+`source` / `casper` は Ghost がアップロードを拒否する予約名のため、その名前では Release を作れない。
 
 ### Release を作る
 
-対象ブランチのコミットにタグを打って push する。
+`package.json` の `name` を小文字にしたものを接頭辞にして、タグを打って push する。
 
 ```bash
-git tag ywlr-v1.0.0
-git push origin ywlr-v1.0.0
+git tag <name>-v1.0.0
+git push origin <name>-v1.0.0
 ```
 
 タグが指すコミットをビルドし、`dist/<name>.zip` を1個だけ付けた Release ができる。
 接頭辞と `name` が一致しない場合はワークフローが失敗し、Release は作られない。
 
 ワークフローファイルはタグが指すコミットに含まれるものが使われるため、
-`main` / `ywlr` / `coverd` / `unleash-source` の各ブランチに同一内容で置いている。
+テーマを開発する各ブランチに同一内容で置いている。
 
 ### 既存サイトへ反映する
 
