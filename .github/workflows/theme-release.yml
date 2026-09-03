@@ -63,7 +63,7 @@ jobs:
     # 任意のブランチを手動実行できるため、Admin API キーは Environment に置いて
     # 承認や実行可能ブランチの制限を Settings 側で掛けられるようにする
     environment: preview
-    # プレビューサイトは1台を全ブランチで共有するため、後から始めた実行を優先する
+    # 反映先の Ghost サイトはブランチによらず1つで、同時に走ると互いのテーマを上書きするため
     concurrency:
       group: ${{ github.workflow }}-preview
       cancel-in-progress: true
