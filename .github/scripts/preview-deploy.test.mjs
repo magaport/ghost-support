@@ -196,3 +196,27 @@ test('resolves the preview zip path keeping the name casing', () => {
     // Assert
     assert.equal(zipPath, 'dist/Coverd.zip');
 });
+
+test('tolerates a trailing slash in the preview base URL', async () => {
+    // Arrange
+    const zipPath = writeFixtureZip();
+    const requestedUrls = [];
+    const fakeFetch = async (url) => {
+        requestedUrls.push(url);
+        return jsonResponse(200, {themes: [{name: 'my-theme'}]});
+    };
+
+    // Act
+    await deployTheme({
+        baseUrl: 'https://preview.example.com/',
+        key: '507f1f77bcf86cd799439011:abcdef0123456789',
+        zipPath,
+        fetch: fakeFetch
+    });
+
+    // Assert
+    assert.deepEqual(requestedUrls, [
+        'https://preview.example.com/ghost/api/admin/themes/upload/',
+        'https://preview.example.com/ghost/api/admin/themes/my-theme/activate/'
+    ]);
+});

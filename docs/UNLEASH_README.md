@@ -133,8 +133,12 @@ Release の zip を管理画面からアップロードする。有効化中の�
 Actions 画面で **Theme Release** を選び、ブランチを指定して手動実行する。
 そのブランチをビルドしてプレビューサイトへ upload → activate する。Release は作らない。
 
-リポジトリの Secrets に `PREVIEW_URL` と `PREVIEW_ADMIN_API_KEY`（プレビューサイトの
-カスタム統合の Admin API キー）が必要。
+Environment `preview` に Secrets `PREVIEW_URL` と `PREVIEW_ADMIN_API_KEY`（プレビューサイトの
+カスタム統合の Admin API キー）を登録する。任意のブランチを手動実行できる以上、
+このジョブは Admin API キーを持つため、必要なら Environment の protection rules で
+承認や実行可能ブランチを制限する。
+
+`PREVIEW_URL` は `https://melty.unleashcms.dev` の形式（末尾スラッシュはあってもよい）。
 
 ---
 

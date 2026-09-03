@@ -52,11 +52,12 @@ export function resolvePreviewZipPath(name) {
 export async function deployTheme({baseUrl, key, zipPath, fetch = globalThis.fetch}) {
     const token = createAdminToken(key);
     const authHeaders = {Authorization: `Ghost ${token}`};
+    const origin = baseUrl.replace(/\/+$/, '');
 
     const form = new FormData();
     form.append('file', new Blob([readFileSync(zipPath)]), path.basename(zipPath));
 
-    const uploadResponse = await fetch(`${baseUrl}/ghost/api/admin/themes/upload/`, {
+    const uploadResponse = await fetch(`${origin}/ghost/api/admin/themes/upload/`, {
         method: 'POST',
         headers: authHeaders,
         body: form
@@ -66,7 +67,7 @@ export async function deployTheme({baseUrl, key, zipPath, fetch = globalThis.fet
     }
     const {themes: [{name}]} = await uploadResponse.json();
 
-    const activateResponse = await fetch(`${baseUrl}/ghost/api/admin/themes/${name}/activate/`, {
+    const activateResponse = await fetch(`${origin}/ghost/api/admin/themes/${name}/activate/`, {
         method: 'PUT',
         headers: authHeaders
     });
