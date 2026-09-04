@@ -212,6 +212,28 @@ Environment `preview` に Secrets `PREVIEW_URL` と `PREVIEW_ADMIN_API_KEY`（�
 
 ---
 
+## EC連携のURL設定
+
+EC の各サービス（mp-fms-js / mp-fms-cart / mp-base-api / mp-tkm / mp-medusa）の URL は、テーマが実行時のオリジンから決めます。
+サイトごとの設定ファイルはなく、zip はどのサイトでもそのまま使えます。
+
+| 値 | サービス | デプロイ先 | ローカル開発 |
+| --- | --- | --- | --- |
+| `MP_FMS_JS_URL` | mp-fms-js | `<origin>/fms-js` | `http://localhost:18081` |
+| `MP_FMS_CART_URL` | mp-fms-cart | `<origin>/cart` | `http://localhost:18083` |
+| `MP_BASE_API_URL` | mp-base-api | `<origin>`（`servicePath` 配下） | `http://localhost:18082` |
+| `MP_TKM_URL` | mp-tkm | `<origin>/tkm` | `http://localhost:18080` |
+| `MP_MEDUSA_URL` | mp-medusa | `<origin>`（`/store/` `/admin/` `/fms/` `/uploads/`） | `http://localhost:9000` |
+
+デプロイ先では nginx が全サービスをサイトと同一オリジンの固定パスへ集約します（Unleash の `unleash/docker/nginx.snippets/ec-sns.locations.conf`）。
+
+オリジンが `localhost` / `127.0.0.1` のときだけ、個別ポートの Vite dev サーバーへ直接つなぎます。
+ポートは Unleash の `unleash/docker/compose.ec.dev.yml` の既定値と対応しているため、ポートを変えて起動した場合はテーマ側（`assets/js/ec-init.js`）も直す必要があります。
+
+EC を使わないサイトでは `@custom.fms_api_key` が空のため、`partials/components/ec-init.hbs` は何も出力しません。
+
+---
+
 ## ルーティング（routes.yaml）
 
 - トップページ差替え／コレクション／チャンネルの定義を `routes.yaml` で管理

@@ -63,14 +63,23 @@ async function initEC({ isGhostMember, memberUuid, servicePath, apiKey }) {
     return;
   }
 
-  const config = window.EC_CONFIG || {};
-  const MP_FMS_JS_URL  = config.MP_FMS_JS_URL  || 'http://localhost:18081';
-  const MP_FMS_CART_URL = config.MP_FMS_CART_URL || 'http://localhost:18083';
-  const MP_BASE_API_URL = config.MP_BASE_API_URL || 'http://localhost:18082';
-  const MP_TKM_URL      = config.MP_TKM_URL      || 'http://localhost:18080';
-  const MP_MEDUSA_URL   = config.MP_MEDUSA_URL   || 'http://localhost:9000';
+  // Ghost がサブディレクトリ配下にあっても nginx の location はルートなので @site.url は使わない
+  const origin = window.location.origin;
 
-  const isDev = /localhost|127\.0\.0\.1/.test(MP_FMS_JS_URL);
+  // ローカル開発は各サービスを個別ポートの Vite dev サーバーで動かす（Unleash の
+  // unleash/docker/compose.ec.dev.yml）。Vite dev は base 未設定ではパス prefix 配下に置けないため、
+  // nginx の集約経路ではなくポートへ直接つなぐ
+  const isDev = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin);
+
+  // デプロイ先では nginx がサイトと同一オリジンの固定パスへ集約する（Unleash の
+  // nginx.snippets/ec-sns.locations.conf との契約）。/fms-js/・/cart/・/tkm/ は prefix を剥がして
+  // 転送されるので base に prefix を含め、mp-medusa（/store/・/fms/・/uploads/）と
+  // mp-base-api（servicePath 配下）は剥がさず転送されるためオリジンそのままになる
+  const MP_FMS_JS_URL   = isDev ? 'http://localhost:18081' : `${origin}/fms-js`;
+  const MP_FMS_CART_URL = isDev ? 'http://localhost:18083' : `${origin}/cart`;
+  const MP_BASE_API_URL = isDev ? 'http://localhost:18082' : origin;
+  const MP_TKM_URL      = isDev ? 'http://localhost:18080' : `${origin}/tkm`;
+  const MP_MEDUSA_URL   = isDev ? 'http://localhost:9000'  : origin;
 
   // ローダーだけ先に読み込む（カートは OIDC 認証状態の確定後に読み込む）
   if (isDev) {
