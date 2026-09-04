@@ -1,7 +1,6 @@
 {{!-- EC 初期化: サーバーサイドでしか取得できない値を渡して JS に委譲する --}}
-{{!-- URL 設定は assets/js/ec-config.js（.gitignore 対象）で環境ごとに管理。
+{{!-- 各サービスの URL は実行時のオリジンから決める。
       ロジック本体は assets/js/ec-init.js を参照（built/source.js に concat 済み）。 --}}
-<script src="{{asset "js/ec-config.js"}}"></script>
 <script>
   initEC({
     isGhostMember: {{#if @member}}true{{else}}false{{/if}},
