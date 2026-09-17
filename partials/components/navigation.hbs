@@ -1,53 +1,40 @@
-<header id="gh-navigation" class="gh-navigation is-{{#match navigationLayout "Logo on the left"}}left-logo{{else match navigationLayout "Stacked"}}stacked{{else}}middle-logo{{/match}}{{#match @custom.header_and_footer_color "Accent color"}} has-accent-color{{/match}} gh-outer">
-    <div class="gh-navigation-inner gh-inner">
+<header class="raiden-header">
+    <a class="raiden-header-logo" href="{{@site.url}}">
+        <img src="{{asset "images/raiden_logo_header.png"}}" alt="{{@site.title}}" width="128" height="49">
+    </a>
 
-        <div class="gh-navigation-brand">
-            <a class="gh-navigation-logo is-title" href="{{@site.url}}">
-                {{#if @site.logo}}
-                    <img src="{{@site.logo}}" alt="{{@site.title}}">
-                {{else}}
-                    {{@site.title}}
-                {{/if}}
-            </a>
-            {{> "search-toggle"}}
-            <button class="gh-burger gh-icon-button" aria-label="Menu">
-                {{> "icons/burger"}}
-                {{> "icons/close"}}
-            </button>
-        </div>
-
-        <nav class="gh-navigation-menu">
-            {{navigation}}
-            {{#unless @site.members_enabled}}
-                {{#match navigationLayout "Stacked"}}
-                    {{> "search-toggle"}}
-                {{/match}}
-            {{/unless}}
-        </nav>
-
-        <div class="gh-navigation-actions">
-            {{#unless @site.members_enabled}}
-                {{^match navigationLayout "Stacked"}}
-                    {{> "search-toggle"}}
-                {{/match}}
+    <div class="raiden-header-actions">
+        {{#if @site.members_enabled}}
+            {{#unless @member}}
+                <a class="raiden-header-login" href="#/portal/signin" data-portal="signin">LOG IN</a>
             {{else}}
-                {{> "search-toggle"}}
-                <div class="gh-navigation-members">
-                    {{#unless @member}}
-                        {{#unless @site.members_invite_only}}
-                            <a href="#/portal/signin" data-portal="signin">{{t "Sign in"}}</a>
-                            {{#unless hideSubscribeButton}}
-                                <a class="gh-button" href="#/portal/signup" data-portal="signup">{{t "Subscribe"}}</a>
-                            {{/unless}}
-                        {{else}}
-                            <a class="gh-button" href="#/portal/signin" data-portal="signin">{{t "Sign in"}}</a>
-                        {{/unless}}
-                    {{else}}
-                        <a class="gh-button" href="#/portal/account" data-portal="account">{{t "Account"}}</a>
-                    {{/unless}}
-                </div>
+                <a class="raiden-header-login" href="#/portal/account" data-portal="account">ACCOUNT</a>
             {{/unless}}
-        </div>
+        {{/if}}
 
+        <button class="raiden-burger" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="raiden-menu">
+            <span class="raiden-burger-line"></span>
+            <span class="raiden-burger-line"></span>
+            <span class="raiden-burger-line"></span>
+        </button>
     </div>
 </header>
+
+<nav id="raiden-menu" class="raiden-menu" aria-hidden="true">
+    <button class="raiden-menu-close" type="button" aria-label="メニューを閉じる">&times;</button>
+    <ul class="raiden-menu-list">
+        {{#foreach navigation}}
+            <li><a href="{{url absolute="true"}}">{{label}}</a></li>
+        {{/foreach}}
+    </ul>
+</nav>
+
+{{#if @custom.announcement_text}}
+    <div class="raiden-announcement">
+        {{#if @custom.announcement_url}}
+            <a class="raiden-announcement-inner" href="{{@custom.announcement_url}}">{{@custom.announcement_text}}</a>
+        {{else}}
+            <div class="raiden-announcement-inner">{{@custom.announcement_text}}</div>
+        {{/if}}
+    </div>
+{{/if}}

@@ -1,0 +1,9 @@
+<a class="raiden-card" href="{{url}}">
+    {{#if feature_image}}
+        <img class="raiden-card-image" src="{{img_url feature_image size="m"}}" alt="{{title}}" loading="lazy">
+    {{else}}
+        <span class="raiden-card-image"></span>
+    {{/if}}
+    <h3 class="raiden-card-title">{{title}}</h3>
+    <time class="raiden-card-date" datetime="{{date format="YYYY-MM-DD"}}">date {{date format="YYYY.MM.DD"}}</time>
+</a>

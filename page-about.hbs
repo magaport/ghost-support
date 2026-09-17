@@ -1,0 +1,24 @@
+{{!< default}}
+{{!-- The tag above means: insert everything in this file into the body of the default.hbs template --}}
+
+{{#post}}
+<main class="raiden-about">
+
+    <div class="raiden-section raiden-page-title">
+        <h1 class="raiden-heading"><span class="raiden-heading-text">About</span></h1>
+    </div>
+
+    {{#if feature_image}}
+        <img class="raiden-page-visual" src="{{img_url feature_image size="xl"}}" alt="{{title}}">
+    {{else}}
+        <img class="raiden-page-visual" src="{{asset "images/raiden_about.png"}}" alt="TEAM RAIDEN" width="480" height="330">
+    {{/if}}
+
+    <div class="gh-content raiden-page-body">
+        {{content}}
+    </div>
+
+</main>
+{{/post}}
+
+{{> "components/member-gate" compact=true}}

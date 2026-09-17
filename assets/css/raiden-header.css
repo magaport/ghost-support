@@ -1,0 +1,133 @@
+/* Header
+/* ---------------------------------------------------------- */
+
+.raiden-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 105px;
+    padding-left: 26px;
+    padding-right: 22px;
+    background: var(--raiden-header-gradient);
+}
+
+.raiden-header-logo {
+    display: block;
+    width: 128px;
+}
+
+.raiden-header-actions {
+    display: flex;
+    gap: 28px;
+    align-items: center;
+    margin-left: auto;
+}
+
+.raiden-header-login {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 92px;
+    height: 35px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--raiden-black);
+    background: var(--raiden-white);
+    border-radius: 999px;
+}
+
+.raiden-header-login:hover {
+    opacity: 0.85;
+}
+
+.raiden-burger {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    justify-content: center;
+    width: 33px;
+    height: 33px;
+    padding: 0;
+    cursor: pointer;
+    background: none;
+    border: 0;
+}
+
+.raiden-burger-line {
+    display: block;
+    width: 33px;
+    height: 3px;
+    background-color: var(--raiden-black);
+}
+
+/* Announcement bar */
+.raiden-announcement {
+    padding: 13px 10px 0;
+    background-color: var(--raiden-black);
+}
+
+.raiden-announcement-inner {
+    display: flex;
+    align-items: center;
+    height: 28px;
+    padding-inline: 16px;
+    overflow: hidden;
+    font-size: 12px;
+    color: var(--raiden-black);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    background: var(--raiden-white);
+    border-radius: 999px;
+}
+
+/* Menu panel — the expanded design has not been delivered yet, so this is a
+   plain black overlay that lists the site navigation. */
+.raiden-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: none;
+    width: 100%;
+    max-width: var(--raiden-page-width);
+    padding: 40px var(--raiden-gutter);
+    margin-inline: auto;
+    overflow-y: auto;
+    background-color: var(--raiden-black);
+}
+
+.raiden-menu.is-open {
+    display: block;
+}
+
+.raiden-menu-close {
+    display: block;
+    width: 33px;
+    height: 33px;
+    padding: 0;
+    margin-left: auto;
+    font-size: 28px;
+    line-height: 1;
+    color: var(--raiden-white);
+    cursor: pointer;
+    background: none;
+    border: 0;
+}
+
+.raiden-menu-list {
+    padding: 0;
+    margin: 32px 0 0;
+    list-style: none;
+}
+
+.raiden-menu-list li {
+    border-bottom: 1px solid rgb(255 255 255 / 0.2);
+}
+
+.raiden-menu-list a {
+    display: block;
+    padding: 18px 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--raiden-white);
+}

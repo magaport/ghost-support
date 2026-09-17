@@ -1,0 +1,12 @@
+{{#if @site.members_enabled}}
+    {{#unless @member}}
+        <section class="raiden-gate{{#if compact}} is-compact{{/if}}">
+            {{#unless compact}}
+                <h2 class="raiden-gate-title">この先は会員限定</h2>
+            {{/unless}}
+            <a class="raiden-button-white" href="#/portal/signup" data-portal="signup">
+                入会する<span class="raiden-gate-bolt" aria-hidden="true">⚡</span>
+            </a>
+        </section>
+    {{/unless}}
+{{/if}}

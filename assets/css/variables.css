@@ -1,0 +1,22 @@
+/* Design tokens taken from the ROOM RAIDEN Figma artboard.
+/* The artboard is drawn at 3x, so every length here is the Figma value / 3. */
+
+:root {
+    /* Colors */
+    --raiden-black: #040000;
+    --raiden-yellow: #fbc600;
+    --raiden-white: #fff;
+    --raiden-copyright-bg: #f5f5f5;
+
+    /* Gradients */
+    --raiden-header-gradient: linear-gradient(180deg, #f4bf0e 0%, #f3e727 100%);
+    --raiden-button-gradient: linear-gradient(180deg, #f5b005 0%, #f2e424 100%);
+
+    /* Layout — the Figma artboard maps to a 480px wide page */
+    --raiden-page-width: 480px;
+    --raiden-gutter: 30px;
+    --raiden-gutter-right: 26px;
+
+    /* Typography */
+    --raiden-font: "Zen Kaku Gothic New", "Helvetica Neue", Arial, "Hiragino Sans", "Noto Sans JP", sans-serif;
+}

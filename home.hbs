@@ -1,12 +1,39 @@
 {{!< default}}
 {{!-- The tag above means: insert everything in this file into the body of the default.hbs template --}}
 
-{{> "components/header" headerStyle=@custom.header_style}}
+<main class="raiden-home">
 
-{{#match @custom.header_style "!=" "Highlight"}}
-    {{> "components/featured" showFeatured=@custom.show_featured_posts limit=4}}
-{{/match}}
+    <section class="raiden-hero">
+        <div class="raiden-hero-brand">
+            {{!-- ロゴ画像に "TEAM RAIDEN OFFICAL FAN COMMUNITY" の行まで入っている --}}
+            <img class="raiden-hero-logo" src="{{asset "images/raiden_logo.png"}}" alt="ROOM RAIDEN — TEAM RAIDEN OFFICAL FAN COMMUNITY" width="349" height="111">
+        </div>
 
-{{> "components/cta"}}
+        <div class="raiden-hero-visual">
+            <img class="raiden-hero-image" src="{{asset "images/raiden_top.png"}}" alt="TEAM RAIDEN" width="480" height="431">
+            <a class="raiden-button raiden-hero-cta" href="{{@site.url}}/about/">ROOM RAIDEN とは</a>
+        </div>
+    </section>
 
-{{> "components/post-list" feed="home" postFeedStyle=@custom.post_feed_style showTitle=true showSidebar=@custom.show_publication_info_sidebar}}
+    {{!-- News は `news` スラッグの固定ページから引く。先方が本文を差し替えられるようにするため --}}
+    {{#get "pages" filter="slug:news" limit="1" as |newsPage|}}
+        {{#foreach newsPage}}
+            <section class="raiden-section raiden-news">
+                <h2 class="raiden-heading"><span class="raiden-heading-text">News</span></h2>
+                <div class="raiden-news-body">{{content}}</div>
+            </section>
+        {{/foreach}}
+    {{/get}}
+
+    <section class="raiden-section raiden-articles">
+        <h2 class="raiden-heading"><span class="raiden-heading-text">Article</span></h2>
+        <div class="raiden-card-grid">
+            {{#foreach posts limit="4"}}
+                {{> "components/card"}}
+            {{/foreach}}
+        </div>
+    </section>
+
+</main>
+
+{{> "components/member-gate"}}

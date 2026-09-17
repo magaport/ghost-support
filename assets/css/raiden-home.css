@@ -1,0 +1,68 @@
+/* Hero
+/* ---------------------------------------------------------- */
+
+.raiden-hero {
+    background-color: var(--raiden-black);
+}
+
+.raiden-hero-brand {
+    padding: 74px var(--raiden-gutter) 50px;
+    text-align: center;
+}
+
+.raiden-hero-logo {
+    width: 349px;
+    margin-inline: auto;
+}
+
+.raiden-hero-visual {
+    position: relative;
+}
+
+.raiden-hero-image {
+    width: 100%;
+}
+
+.raiden-hero-cta {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* News
+/* ---------------------------------------------------------- */
+
+.raiden-news {
+    padding-block: 30px 0;
+}
+
+.raiden-news-body {
+    margin: 22px 0 0;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.85;
+    color: var(--raiden-white);
+}
+
+.raiden-news-body p {
+    margin: 0 0 1em;
+}
+
+.raiden-news-body p:last-child {
+    margin-bottom: 0;
+}
+
+/* Article
+/* ---------------------------------------------------------- */
+
+.raiden-articles {
+    padding-block: 40px 46px;
+}
+
+.raiden-card-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 26px;
+    margin-top: 60px;
+}

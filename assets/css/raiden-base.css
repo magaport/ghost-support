@@ -1,0 +1,92 @@
+/* Page shell
+/* ---------------------------------------------------------- */
+
+/* The Figma artboard is a single 480px column, so PC uses the same width
+   and centres it against the site background. */
+html {
+    background-color: var(--raiden-black);
+}
+
+/* 地の黒は html だけに持たせる。body にも敷くと、見出しの稲妻(z-index: -1)が
+/* body の背景の下に回り込んで見えなくなる */
+body {
+    font-family: var(--raiden-font);
+    color: var(--raiden-white);
+}
+
+/* 背景は html 側に持たせる。見出しの稲妻を z-index: -1 で敷くため、
+/* ここに background があると稲妻がその下に隠れる */
+.gh-viewport {
+    width: 100%;
+    max-width: var(--raiden-page-width);
+    min-height: 100vh;
+    margin-inline: auto;
+}
+
+.raiden-section {
+    padding-left: var(--raiden-gutter);
+    padding-right: var(--raiden-gutter-right);
+}
+
+/* Section heading — yellow display type with the lightning streak behind it */
+.raiden-heading {
+    position: relative;
+    margin: 0;
+    padding-left: 16px;
+    font-size: 33px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--raiden-yellow);
+}
+
+/* The lightning streak starts outside the section padding and runs past the
+/* heading, so it is drawn behind the text rather than reserving space. */
+.raiden-heading::before {
+    position: absolute;
+    top: 0;
+    left: -12px;
+    z-index: -1;
+    width: 27px;
+    height: 132px;
+    content: "";
+    background: url("../images/raiden_thunder1.png") no-repeat center / contain;
+    pointer-events: none;
+}
+
+.raiden-heading-text {
+    position: relative;
+}
+
+/* Yellow pill button (ROOM RAIDEN とは) */
+.raiden-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 213px;
+    height: 31px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--raiden-black);
+    background: var(--raiden-button-gradient);
+    border-radius: 999px;
+}
+
+/* White pill button (入会する) */
+.raiden-button-white {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+    justify-content: center;
+    width: 239px;
+    height: 58px;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--raiden-black);
+    background: var(--raiden-white);
+    border-radius: 999px;
+}
+
+.raiden-button:hover,
+.raiden-button-white:hover {
+    opacity: 0.85;
+}

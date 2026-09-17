@@ -1,0 +1,83 @@
+/* Member gate
+/* ---------------------------------------------------------- */
+
+.raiden-gate {
+    padding: 48px var(--raiden-gutter) 42px;
+    text-align: center;
+    background: var(--raiden-header-gradient);
+}
+
+.raiden-gate.is-compact {
+    padding-block: 30px;
+}
+
+.raiden-gate-title {
+    margin: 0 0 21px;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--raiden-black);
+}
+
+.raiden-gate-bolt {
+    font-size: 22px;
+    line-height: 1;
+}
+
+/* Footer
+/* ---------------------------------------------------------- */
+
+.raiden-footer {
+    padding: 46px var(--raiden-gutter) 36px;
+    background-color: var(--raiden-black);
+}
+
+.raiden-footer-menu {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.raiden-footer-menu li + li {
+    margin-top: 20px;
+}
+
+.raiden-footer-menu a {
+    font-size: 15px;
+    color: var(--raiden-white);
+}
+
+.raiden-footer-brand {
+    margin-top: 58px;
+    text-align: center;
+}
+
+.raiden-footer-logo {
+    width: 178px;
+    margin-inline: auto;
+}
+
+.raiden-footer-social {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.raiden-footer-social img {
+    height: 42px;
+    width: auto;
+}
+
+.raiden-footer-social a:hover {
+    opacity: 0.8;
+}
+
+.raiden-copyright {
+    padding: 28px var(--raiden-gutter);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--raiden-black);
+    text-align: center;
+    background-color: var(--raiden-copyright-bg);
+}

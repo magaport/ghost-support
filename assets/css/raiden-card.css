@@ -1,0 +1,36 @@
+/* Post card
+/* ---------------------------------------------------------- */
+
+.raiden-card-image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    background-color: #989898;
+    border-radius: 16px;
+}
+
+.raiden-card-title {
+    display: -webkit-box;
+    margin: 12px 0 0;
+    overflow: hidden;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: var(--raiden-white);
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+.raiden-card-date {
+    display: block;
+    margin-top: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--raiden-white);
+}
+
+.raiden-card:hover {
+    opacity: 0.85;
+}
