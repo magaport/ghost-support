@@ -1,0 +1,7 @@
+{{!-- {{navigation}} ヘルパーが差し込む partial。ヘルパーを通さないと項目に
+      slug と current が付かず、{{url}} が nav として扱われない --}}
+<ul class="raiden-menu-list">
+    {{#foreach navigation}}
+        <li><a href="{{url absolute="true"}}">{{label}}</a></li>
+    {{/foreach}}
+</ul>
