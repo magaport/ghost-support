@@ -2,7 +2,6 @@
 {{!-- The tag above means: insert everything in this file into the body of the default.hbs template --}}
 
 <main class="raiden-tag">
-    {{#tag}}
-        {{> "components/post-grid" listTitle=name}}
-    {{/tag}}
+    {{!-- {{#tag}} の中に入れると文脈が tag になり posts と pagination を見失う --}}
+    {{> "components/post-grid" listTitle=tag.name}}
 </main>

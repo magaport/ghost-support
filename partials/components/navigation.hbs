@@ -23,7 +23,7 @@
 <nav id="raiden-menu" class="raiden-menu" aria-hidden="true">
     <button class="raiden-menu-close" type="button" aria-label="メニューを閉じる">&times;</button>
     <ul class="raiden-menu-list">
-        {{#foreach navigation}}
+        {{#foreach @site.navigation}}
             <li><a href="{{url absolute="true"}}">{{label}}</a></li>
         {{/foreach}}
     </ul>

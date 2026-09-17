@@ -25,13 +25,24 @@
         {{/foreach}}
     {{/get}}
 
+    {{!-- posts を絞ると index の 2 ページ目が 13 件目から始まり、5〜12 件目が
+          どこからも辿れなくなるため、1 ページ分を丸ごと出してページャを付ける --}}
     <section class="raiden-section raiden-articles">
         <h2 class="raiden-heading"><span class="raiden-heading-text">Article</span></h2>
+
         <div class="raiden-card-grid">
-            {{#foreach posts limit="4"}}
+            {{#foreach posts}}
                 {{> "components/card"}}
             {{/foreach}}
         </div>
+
+        {{#if pagination}}
+            <nav class="raiden-pagination">
+                {{#if pagination.prev}}<a href="{{page_url pagination.prev}}">前へ</a>{{/if}}
+                <span>{{pagination.page}} / {{pagination.pages}}</span>
+                {{#if pagination.next}}<a href="{{page_url pagination.next}}">次へ</a>{{/if}}
+            </nav>
+        {{/if}}
     </section>
 
 </main>
