@@ -88,18 +88,6 @@
             "announcement_url": {
                 "type": "text",
                 "description": "お知らせバーのリンク先。空のときはリンクにしない"
-            },
-            "youtube_url": {
-                "type": "text",
-                "description": "フッターの YouTube アイコンのリンク先"
-            },
-            "instagram_url": {
-                "type": "text",
-                "description": "フッターの Instagram アイコンのリンク先"
-            },
-            "x_url": {
-                "type": "text",
-                "description": "フッターの X アイコンのリンク先"
             }
         }
     },
