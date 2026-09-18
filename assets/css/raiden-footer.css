@@ -8,12 +8,12 @@
 }
 
 .raiden-gate.is-compact {
-    padding-block: 30px;
+    padding-block: 26px 27px;
 }
 
 .raiden-gate-title {
-    margin: 0 0 21px;
-    font-size: 24px;
+    margin: 0 0 17px;
+    font-size: 27px;
     font-weight: 700;
     color: var(--raiden-black);
 }
@@ -27,7 +27,7 @@
 /* ---------------------------------------------------------- */
 
 .raiden-footer {
-    padding: 46px var(--raiden-gutter) 36px;
+    padding: 42px var(--raiden-gutter) 37px;
     background-color: var(--raiden-black);
 }
 
@@ -37,17 +37,22 @@
     list-style: none;
 }
 
+.raiden-footer-menu li {
+    line-height: 24px;
+}
+
 .raiden-footer-menu li + li {
-    margin-top: 20px;
+    margin-top: 14px;
 }
 
 .raiden-footer-menu a {
-    font-size: 15px;
+    font-size: 17px;
+    font-weight: 500;
     color: var(--raiden-white);
 }
 
 .raiden-footer-brand {
-    margin-top: 58px;
+    margin-top: 67px;
     text-align: center;
 }
 
@@ -61,21 +66,22 @@
     gap: 30px;
     align-items: center;
     justify-content: center;
-    margin-top: 30px;
+    margin-top: 23px;
 }
 
-.raiden-footer-social img {
-    height: 42px;
-    width: auto;
-}
+/* 書き出し画像は 3x なので、3 で割った実装寸法を CSS 側で指定する。
+/* 3つとも縦横比が違うため height を揃えてはいけない */
+.raiden-footer-social .is-youtube { width: 54px; height: 38px; }
+.raiden-footer-social .is-instagram { width: 48px; height: 48px; }
+.raiden-footer-social .is-x { width: 43px; height: 44px; }
 
 .raiden-footer-social a:hover {
     opacity: 0.8;
 }
 
 .raiden-copyright {
-    padding: 28px var(--raiden-gutter);
-    font-size: 15px;
+    padding: 24px var(--raiden-gutter) 25px;
+    font-size: 17px;
     font-weight: 700;
     color: var(--raiden-black);
     text-align: center;

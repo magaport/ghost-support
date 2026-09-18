@@ -15,7 +15,7 @@
     /* Layout — the Figma artboard maps to a 480px wide page */
     --raiden-page-width: 480px;
     --raiden-gutter: 30px;
-    --raiden-gutter-right: 26px;
+    --raiden-gutter-right: 28px;
 
     /* Typography */
     --raiden-font: "Zen Kaku Gothic New", "Helvetica Neue", Arial, "Hiragino Sans", "Noto Sans JP", sans-serif;

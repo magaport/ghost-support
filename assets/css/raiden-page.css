@@ -2,7 +2,7 @@
 /* ---------------------------------------------------------- */
 
 .raiden-page-title {
-    padding: 36px var(--raiden-gutter) 42px;
+    padding: 68px var(--raiden-gutter) 24px;
 }
 
 .raiden-page-visual {
@@ -10,14 +10,15 @@
 }
 
 .raiden-page-body {
-    padding: 44px var(--raiden-gutter) 60px;
+    padding: 29px var(--raiden-gutter-right) 60px var(--raiden-gutter);
     font-size: 15px;
-    line-height: 1.9;
+    font-weight: 500;
+    line-height: 1.733;
     color: var(--raiden-white);
 }
 
 .raiden-page-body > * {
-    margin-block: 0 1.6em;
+    margin-block: 0 25px;
 }
 
 .raiden-page-body > :last-child {
@@ -27,7 +28,7 @@
 .raiden-page-body h1,
 .raiden-page-body h2,
 .raiden-page-body h3 {
-    margin-block: 1.6em 0.8em;
+    margin-block: 72px 8px;
     font-weight: 700;
     line-height: 1.3;
     color: var(--raiden-yellow);
@@ -37,9 +38,9 @@
     margin-top: 0;
 }
 
-.raiden-page-body h1 { font-size: 28px; }
-.raiden-page-body h2 { font-size: 26px; }
-.raiden-page-body h3 { font-size: 20px; }
+.raiden-page-body h1 { font-size: 32px; }
+.raiden-page-body h2 { font-size: 30px; }
+.raiden-page-body h3 { font-size: 22px; }
 
 .raiden-page-body a {
     color: var(--raiden-yellow);

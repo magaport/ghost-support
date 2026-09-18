@@ -13,17 +13,17 @@
         <div class="raiden-footer-social">
             {{#if @site.youtube}}
                 <a href="{{social_url type="youtube"}}" target="_blank" rel="noopener" aria-label="YouTube">
-                    <img src="{{asset "images/youtube_logo.png"}}" alt="YouTube" width="54" height="38">
+                    <img class="is-youtube" src="{{asset "images/youtube_logo.png"}}" alt="YouTube" width="54" height="38">
                 </a>
             {{/if}}
             {{#if @site.instagram}}
                 <a href="{{social_url type="instagram"}}" target="_blank" rel="noopener" aria-label="Instagram">
-                    <img src="{{asset "images/instagram_logo.png"}}" alt="Instagram" width="48" height="48">
+                    <img class="is-instagram" src="{{asset "images/instagram_logo.png"}}" alt="Instagram" width="48" height="48">
                 </a>
             {{/if}}
             {{#if @site.twitter}}
                 <a href="{{social_url type="twitter"}}" target="_blank" rel="noopener" aria-label="X">
-                    <img src="{{asset "images/x_logo.png"}}" alt="X" width="43" height="44">
+                    <img class="is-x" src="{{asset "images/x_logo.png"}}" alt="X" width="43" height="44">
                 </a>
             {{/if}}
         </div>

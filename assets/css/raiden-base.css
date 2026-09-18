@@ -33,7 +33,7 @@ body {
     position: relative;
     margin: 0;
     padding-left: 16px;
-    font-size: 33px;
+    font-size: 30px;
     font-weight: 700;
     line-height: 1.2;
     color: var(--raiden-yellow);
@@ -43,11 +43,11 @@ body {
 /* heading, so it is drawn behind the text rather than reserving space. */
 .raiden-heading::before {
     position: absolute;
-    top: 0;
-    left: -12px;
+    top: -13px;
+    left: -11px;
     z-index: -1;
-    width: 27px;
-    height: 132px;
+    width: 28px;
+    height: 140px;
     content: "";
     background: url("../images/raiden_thunder1.png") no-repeat center / contain;
     pointer-events: none;
@@ -63,8 +63,8 @@ body {
     align-items: center;
     justify-content: center;
     width: 213px;
-    height: 31px;
-    font-size: 15px;
+    height: 32px;
+    font-size: 17px;
     font-weight: 700;
     color: var(--raiden-black);
     background: var(--raiden-button-gradient);
@@ -77,9 +77,9 @@ body {
     gap: 6px;
     align-items: center;
     justify-content: center;
-    width: 239px;
-    height: 58px;
-    font-size: 22px;
+    width: 282px;
+    height: 63px;
+    font-size: 27px;
     font-weight: 700;
     color: var(--raiden-black);
     background: var(--raiden-white);

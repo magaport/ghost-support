@@ -6,6 +6,8 @@
     display: flex;
     align-items: center;
     height: 105px;
+    /* Figma ではロゴ類が帯の中心より 3px ほど下にある */
+    padding-top: 6px;
     padding-left: 26px;
     padding-right: 22px;
     background: var(--raiden-header-gradient);
@@ -47,7 +49,7 @@
     gap: 9px;
     justify-content: center;
     width: 33px;
-    height: 33px;
+    height: 27px;
     padding: 0;
     cursor: pointer;
     background: none;
@@ -73,7 +75,7 @@
     height: 28px;
     padding-inline: 16px;
     overflow: hidden;
-    font-size: 12px;
+    font-size: 14px;
     color: var(--raiden-black);
     white-space: nowrap;
     text-overflow: ellipsis;
