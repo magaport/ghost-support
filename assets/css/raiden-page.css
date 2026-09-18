@@ -10,10 +10,10 @@
 }
 
 .raiden-page-body {
-    padding: 29px var(--raiden-gutter-right) 60px var(--raiden-gutter);
+    padding: 29px var(--raiden-gutter-right) 100px var(--raiden-gutter);
     font-size: 15px;
     font-weight: 500;
-    line-height: 1.733;
+    line-height: 1.6;
     color: var(--raiden-white);
 }
 
@@ -23,6 +23,11 @@
 
 .raiden-page-body > :last-child {
     margin-bottom: 0;
+}
+
+/* 冒頭の段落だけ Figma の行送りが広い */
+.raiden-page-body .is-lead {
+    line-height: 1.733;
 }
 
 .raiden-page-body h1,
@@ -55,6 +60,15 @@
 .raiden-page-body img,
 .raiden-page-body figure {
     width: 100%;
+}
+
+/* Figma では注記が直前の段落から続けて置かれ、一段だけ下がっている */
+.raiden-page-body .is-tight {
+    margin-bottom: 0;
+}
+
+.raiden-page-note {
+    padding-left: 14px;
 }
 
 .raiden-page-body blockquote {

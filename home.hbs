@@ -17,15 +17,13 @@
         </div>
     </section>
 
-    {{!-- News は `news` スラッグの固定ページから引く。先方が本文を差し替えられるようにするため --}}
-    {{#get "pages" filter="slug:news" limit="1" as |newsPage|}}
-        {{#foreach newsPage}}
-            <section class="raiden-section raiden-news">
-                <h2 class="raiden-heading"><span class="raiden-heading-text">News</span></h2>
-                <div class="raiden-news-body">{{content}}</div>
-            </section>
-        {{/foreach}}
-    {{/get}}
+    {{!-- 文面は Figma のダミーのまま。本番の文面が来たら差し替える --}}
+    <section class="raiden-section raiden-news">
+        <h2 class="raiden-heading"><span class="raiden-heading-text">News</span></h2>
+        <div class="raiden-news-body">
+            <p>この文章はダミーですこの文章はダミーですこの文章はダミーですこの文章はダミーですこの文章はダミーですこの文章はダミーですこの文章はダミーですこの文章はダミーですこの文章はダミーですこの文章はダミーです</p>
+        </div>
+    </section>
 
     {{!-- デザインにページャが無いのでトップには出さない。posts を絞ると 2 ページ目
           以降が辿れなくなるため、1 ページ分は丸ごと出す --}}
