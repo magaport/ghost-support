@@ -63,26 +63,6 @@
     background-color: var(--raiden-black);
 }
 
-/* Announcement bar */
-.raiden-announcement {
-    padding: 13px 10px 0;
-    background-color: var(--raiden-black);
-}
-
-.raiden-announcement-inner {
-    display: flex;
-    align-items: center;
-    height: 28px;
-    padding-inline: 16px;
-    overflow: hidden;
-    font-size: 14px;
-    color: var(--raiden-black);
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    background: var(--raiden-white);
-    border-radius: 999px;
-}
-
 /* Menu panel — the expanded design has not been delivered yet, so this is a
    plain black overlay that lists the site navigation. */
 .raiden-menu {

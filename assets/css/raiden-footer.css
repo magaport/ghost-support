@@ -1,28 +1,3 @@
-/* Member gate
-/* ---------------------------------------------------------- */
-
-.raiden-gate {
-    padding: 48px var(--raiden-gutter) 42px;
-    text-align: center;
-    background: var(--raiden-header-gradient);
-}
-
-.raiden-gate.is-compact {
-    padding-block: 26px 27px;
-}
-
-.raiden-gate-title {
-    margin: 0 0 17px;
-    font-size: 27px;
-    font-weight: 700;
-    color: var(--raiden-black);
-}
-
-.raiden-gate-bolt {
-    font-size: 22px;
-    line-height: 1;
-}
-
 /* Footer
 /* ---------------------------------------------------------- */
 

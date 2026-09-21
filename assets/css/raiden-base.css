@@ -71,22 +71,6 @@ body {
     border-radius: 999px;
 }
 
-/* White pill button (入会する) */
-.raiden-button-white {
-    display: inline-flex;
-    gap: 6px;
-    align-items: center;
-    justify-content: center;
-    width: 282px;
-    height: 63px;
-    font-size: 27px;
-    font-weight: 700;
-    color: var(--raiden-black);
-    background: var(--raiden-white);
-    border-radius: 999px;
-}
-
-.raiden-button:hover,
-.raiden-button-white:hover {
+.raiden-button:hover {
     opacity: 0.85;
 }

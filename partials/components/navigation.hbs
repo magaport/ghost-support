@@ -25,12 +25,3 @@
     {{navigation}}
 </nav>
 
-{{#if @custom.announcement_text}}
-    <div class="raiden-announcement">
-        {{#if @custom.announcement_url}}
-            <a class="raiden-announcement-inner" href="{{@custom.announcement_url}}">{{@custom.announcement_text}}</a>
-        {{else}}
-            <div class="raiden-announcement-inner">{{@custom.announcement_text}}</div>
-        {{/if}}
-    </div>
-{{/if}}

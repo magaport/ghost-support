@@ -1,7 +1,7 @@
 {
     "name": "raiden",
     "description": "ROOM RAIDEN — TEAM RAIDEN official fan community theme",
-    "demo": "https://roomraiden.com",
+    "demo": "https://raiden.unleashcms.dev",
     "version": "1.0.0",
     "engines": {
         "ghost": ">=5.0.0"
@@ -16,9 +16,9 @@
         "pretest": "gulp build"
     },
     "author": {
-        "name": "magaport",
-        "email": "support@magaport.co.jp",
-        "url": "https://github.com/magaport"
+        "name": "Ghost Foundation",
+        "email": "hello@ghost.org",
+        "url": "https://ghost.org/"
     },
     "gpm": {
         "type": "theme",
@@ -79,17 +79,7 @@
                 "width": 2000
             }
         },
-        "card_assets": true,
-        "custom": {
-            "announcement_text": {
-                "type": "text",
-                "description": "ヘッダー下のお知らせバーに出す文言。空のときはバーを出さない"
-            },
-            "announcement_url": {
-                "type": "text",
-                "description": "お知らせバーのリンク先。空のときはリンクにしない"
-            }
-        }
+        "card_assets": true
     },
     "renovate": {
         "extends": [
