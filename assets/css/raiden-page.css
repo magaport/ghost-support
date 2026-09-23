@@ -2,7 +2,7 @@
 /* ---------------------------------------------------------- */
 
 .raiden-page-title {
-    padding: 68px var(--raiden-gutter) 24px;
+    padding: 55px var(--raiden-gutter) 20px;
 }
 
 .raiden-page-visual {
@@ -10,15 +10,15 @@
 }
 
 .raiden-page-body {
-    padding: 29px var(--raiden-gutter-right) 100px var(--raiden-gutter);
-    font-size: 15px;
+    padding: 24px var(--raiden-gutter-right) 81px var(--raiden-gutter);
+    font-size: 12px;
     font-weight: 500;
     line-height: 1.6;
     color: var(--raiden-white);
 }
 
 .raiden-page-body > * {
-    margin-block: 0 25px;
+    margin-block: 0 20px;
 }
 
 .raiden-page-body > :last-child {
@@ -33,7 +33,7 @@
 .raiden-page-body h1,
 .raiden-page-body h2,
 .raiden-page-body h3 {
-    margin-block: 72px 8px;
+    margin-block: 59px 7px;
     font-weight: 700;
     line-height: 1.3;
     color: var(--raiden-yellow);
@@ -43,9 +43,9 @@
     margin-top: 0;
 }
 
-.raiden-page-body h1 { font-size: 32px; }
-.raiden-page-body h2 { font-size: 30px; }
-.raiden-page-body h3 { font-size: 22px; }
+.raiden-page-body h1 { font-size: 26px; }
+.raiden-page-body h2 { font-size: 24px; }
+.raiden-page-body h3 { font-size: 18px; }
 
 .raiden-page-body a {
     color: var(--raiden-yellow);
@@ -68,24 +68,24 @@
 }
 
 .raiden-page-note {
-    padding-left: 14px;
+    padding-left: 11px;
 }
 
 .raiden-page-body blockquote {
     padding-left: 1em;
-    border-left: 3px solid var(--raiden-yellow);
+    border-left: 2px solid var(--raiden-yellow);
 }
 
 /* Post detail & lists
 /* ---------------------------------------------------------- */
 
 .raiden-article-header {
-    padding: 36px var(--raiden-gutter) 0;
+    padding: 29px var(--raiden-gutter) 0;
 }
 
 .raiden-article-title {
     margin: 0;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 700;
     line-height: 1.5;
     color: var(--raiden-white);
@@ -93,8 +93,8 @@
 
 .raiden-article-date {
     display: block;
-    margin-top: 12px;
-    font-size: 12px;
+    margin-top: 10px;
+    font-size: 10px;
     font-weight: 700;
     letter-spacing: 0.04em;
     color: var(--raiden-white);
@@ -103,13 +103,13 @@
 .raiden-article-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 16px;
+    gap: 7px;
+    margin-top: 13px;
 }
 
 .raiden-article-tags a {
-    padding: 4px 12px;
-    font-size: 12px;
+    padding: 3px 10px;
+    font-size: 10px;
     color: var(--raiden-black);
     background: var(--raiden-button-gradient);
     border-radius: 999px;
@@ -117,24 +117,24 @@
 
 .raiden-article-image {
     width: 100%;
-    margin-top: 24px;
+    margin-top: 20px;
 }
 
 .raiden-list {
-    padding: 42px var(--raiden-gutter) 56px;
+    padding: 34px var(--raiden-gutter) 46px;
 }
 
 .raiden-list-title {
-    margin-bottom: 28px;
+    margin-bottom: 23px;
 }
 
 .raiden-pagination {
     display: flex;
-    gap: 20px;
+    gap: 16px;
     align-items: center;
     justify-content: center;
-    margin-top: 40px;
-    font-size: 14px;
+    margin-top: 33px;
+    font-size: 11px;
     font-weight: 700;
     color: var(--raiden-white);
 }

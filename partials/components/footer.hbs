@@ -6,24 +6,24 @@
     </ul>
 
     <div class="raiden-footer-brand">
-        <img class="raiden-footer-logo" src="{{asset "images/raiden_logo_footer.png"}}" alt="TEAM RAIDEN" width="178" height="61">
+        <img class="raiden-footer-logo" src="{{asset "images/raiden_logo_footer.png"}}" alt="TEAM RAIDEN" width="145" height="50">
 
         {{!-- リンク先は Ghost 標準の Settings > Social accounts から引く。
               テーマ設定に持たせると既定値が空でアイコンが出ないため --}}
         <div class="raiden-footer-social">
             {{#if @site.youtube}}
                 <a href="{{social_url type="youtube"}}" target="_blank" rel="noopener" aria-label="YouTube">
-                    <img class="is-youtube" src="{{asset "images/youtube_logo.png"}}" alt="YouTube" width="54" height="38">
+                    <img class="is-youtube" src="{{asset "images/youtube_logo.png"}}" alt="YouTube" width="44" height="31">
                 </a>
             {{/if}}
             {{#if @site.instagram}}
                 <a href="{{social_url type="instagram"}}" target="_blank" rel="noopener" aria-label="Instagram">
-                    <img class="is-instagram" src="{{asset "images/instagram_logo.png"}}" alt="Instagram" width="48" height="48">
+                    <img class="is-instagram" src="{{asset "images/instagram_logo.png"}}" alt="Instagram" width="39" height="39">
                 </a>
             {{/if}}
             {{#if @site.twitter}}
                 <a href="{{social_url type="twitter"}}" target="_blank" rel="noopener" aria-label="X">
-                    <img class="is-x" src="{{asset "images/x_logo.png"}}" alt="X" width="43" height="44">
+                    <img class="is-x" src="{{asset "images/x_logo.png"}}" alt="X" width="35" height="36">
                 </a>
             {{/if}}
         </div>

@@ -7,14 +7,14 @@
     aspect-ratio: 1;
     object-fit: cover;
     background-color: #989898;
-    border-radius: 12px;
+    border-radius: 10px;
 }
 
 .raiden-card-title {
     display: -webkit-box;
-    margin: 8px 0 0;
+    margin: 7px 0 0;
     overflow: hidden;
-    font-size: 16px;
+    font-size: 13px;
     font-weight: 700;
     line-height: 1.5;
     color: var(--raiden-white);
@@ -24,8 +24,8 @@
 
 .raiden-card-date {
     display: block;
-    margin-top: 8px;
-    font-size: 12px;
+    margin-top: 7px;
+    font-size: 10px;
     font-weight: 700;
     letter-spacing: 0.04em;
     color: var(--raiden-white);

@@ -1,7 +1,7 @@
 /* Page shell
 /* ---------------------------------------------------------- */
 
-/* The Figma artboard is a single 480px column, so PC uses the same width
+/* The Figma artboard is a single column (480px, scaled to 390px), so PC uses the same width
    and centres it against the site background. */
 html {
     background-color: var(--raiden-black);
@@ -32,8 +32,8 @@ body {
 .raiden-heading {
     position: relative;
     margin: 0;
-    padding-left: 16px;
-    font-size: 30px;
+    padding-left: 13px;
+    font-size: 24px;
     font-weight: 700;
     line-height: 1.2;
     color: var(--raiden-yellow);
@@ -43,11 +43,11 @@ body {
 /* heading, so it is drawn behind the text rather than reserving space. */
 .raiden-heading::before {
     position: absolute;
-    top: -13px;
-    left: -11px;
+    top: -11px;
+    left: -9px;
     z-index: -1;
-    width: 28px;
-    height: 140px;
+    width: 23px;
+    height: 114px;
     content: "";
     background: url("../images/raiden_thunder1.png") no-repeat center / contain;
     pointer-events: none;
@@ -62,9 +62,9 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 213px;
-    height: 32px;
-    font-size: 17px;
+    width: 173px;
+    height: 26px;
+    font-size: 14px;
     font-weight: 700;
     color: var(--raiden-black);
     background: var(--raiden-button-gradient);

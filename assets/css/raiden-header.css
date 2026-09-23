@@ -5,22 +5,22 @@
     position: relative;
     display: flex;
     align-items: center;
-    height: 105px;
-    /* Figma ではロゴ類が帯の中心より 3px ほど下にある */
-    padding-top: 6px;
-    padding-left: 26px;
-    padding-right: 22px;
+    height: 85px;
+    /* Figma ではロゴ類が帯の中心より 2px ほど下にある */
+    padding-top: 5px;
+    padding-left: 21px;
+    padding-right: 18px;
     background: var(--raiden-header-gradient);
 }
 
 .raiden-header-logo {
     display: block;
-    width: 128px;
+    width: 104px;
 }
 
 .raiden-header-actions {
     display: flex;
-    gap: 28px;
+    gap: 23px;
     align-items: center;
     margin-left: auto;
 }
@@ -29,9 +29,9 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 92px;
-    height: 35px;
-    font-size: 14px;
+    width: 75px;
+    height: 28px;
+    font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.04em;
     color: var(--raiden-black);
@@ -46,10 +46,10 @@
 .raiden-burger {
     display: flex;
     flex-direction: column;
-    gap: 9px;
+    gap: 7px;
     justify-content: center;
-    width: 33px;
-    height: 27px;
+    width: 27px;
+    height: 22px;
     padding: 0;
     cursor: pointer;
     background: none;
@@ -58,8 +58,8 @@
 
 .raiden-burger-line {
     display: block;
-    width: 33px;
-    height: 3px;
+    width: 27px;
+    height: 2px;
     background-color: var(--raiden-black);
 }
 
@@ -72,7 +72,7 @@
     display: none;
     width: 100%;
     max-width: var(--raiden-page-width);
-    padding: 40px var(--raiden-gutter);
+    padding: 33px var(--raiden-gutter);
     margin-inline: auto;
     overflow-y: auto;
     background-color: var(--raiden-black);
@@ -84,11 +84,11 @@
 
 .raiden-menu-close {
     display: block;
-    width: 33px;
-    height: 33px;
+    width: 27px;
+    height: 27px;
     padding: 0;
     margin-left: auto;
-    font-size: 28px;
+    font-size: 23px;
     line-height: 1;
     color: var(--raiden-white);
     cursor: pointer;
@@ -98,7 +98,7 @@
 
 .raiden-menu-list {
     padding: 0;
-    margin: 32px 0 0;
+    margin: 26px 0 0;
     list-style: none;
 }
 
@@ -108,8 +108,8 @@
 
 .raiden-menu-list a {
     display: block;
-    padding: 18px 0;
-    font-size: 18px;
+    padding: 15px 0;
+    font-size: 15px;
     font-weight: 700;
     color: var(--raiden-white);
 }
