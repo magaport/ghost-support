@@ -1,0 +1,93 @@
+/* Page shell
+/* ---------------------------------------------------------- */
+
+/* The Figma artboard is a single column (480px, scaled to 390px), so PC uses the same width
+   and centres it against the site background. */
+html {
+    background-color: var(--raiden-black);
+}
+
+/* 地の黒は html だけに持たせる。body にも敷くと、見出しの稲妻(z-index: -1)が
+/* body の背景の下に回り込んで見えなくなる */
+body {
+    font-family: var(--raiden-font);
+    color: var(--raiden-white);
+}
+
+/* 背景は html 側に持たせる。見出しの稲妻を z-index: -1 で敷くため、
+/* ここに background があると稲妻がその下に隠れる */
+.gh-viewport {
+    width: 100%;
+    max-width: var(--raiden-page-width);
+    min-height: 100vh;
+    margin-inline: auto;
+}
+
+/* 本文が短いページでもフッターを画面下端に置く。.gh-viewport は Source 由来で縦並びの flex */
+.gh-viewport > main {
+    flex-grow: 1;
+}
+
+.raiden-section {
+    padding-left: var(--raiden-gutter);
+    padding-right: var(--raiden-gutter-right);
+}
+
+/* Section heading — yellow display type with the lightning streak behind it */
+.raiden-heading {
+    position: relative;
+    /* 稲妻を見出しの中だけで z-index: -1 にし、上に食い込む写真より手前に出す */
+    z-index: 0;
+    margin: 0;
+    padding-left: 13px;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.2;
+    /* Cabin は Gill Sans より字幅が狭いので、字間で Figma の見出しの幅に寄せる */
+    letter-spacing: 0.04em;
+    color: var(--raiden-yellow);
+}
+
+/* The lightning streak starts outside the section padding and runs past the
+/* heading, so it is drawn behind the text rather than reserving space. */
+.raiden-heading::before {
+    position: absolute;
+    top: -51px;
+    left: -11px;
+    z-index: -1;
+    width: 23px;
+    height: 114px;
+    content: "";
+    background: url("../images/raiden_thunder1.png") no-repeat center / contain;
+    pointer-events: none;
+}
+
+.raiden-heading-text {
+    position: relative;
+}
+
+/* Yellow pill button (ROOM RAIDEN とは) */
+.raiden-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 173px;
+    height: 28px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--raiden-black);
+    background: var(--raiden-button-gradient);
+    border-radius: 999px;
+}
+
+.raiden-button:hover {
+    opacity: 0.85;
+}
+
+.raiden-header-login,
+.raiden-button,
+.raiden-card-date,
+.raiden-article-date,
+.raiden-copyright {
+    font-family: var(--raiden-font-display);
+}

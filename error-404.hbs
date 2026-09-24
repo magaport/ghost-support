@@ -1,0 +1,20 @@
+{{!< default}}
+{{!-- The tag above means: insert everything in this file into the body of the default.hbs template --}}
+
+{{!-- デザイン未受領のため仮。既存の見出しと本文のスタイルだけで組む --}}
+<main class="raiden-error">
+
+    <div class="raiden-section raiden-page-title">
+        <h1 class="raiden-heading"><span class="raiden-heading-text">404</span></h1>
+    </div>
+
+    <div class="raiden-page-body">
+        <p>お探しのページは見つかりませんでした。<br>URL が間違っているか、ページが削除された可能性があります。</p>
+    </div>
+
+    {{!-- .raiden-page-body の中に置くと本文リンクの黄色・下線がボタンに乗る --}}
+    <div class="raiden-section raiden-error-actions">
+        <a class="raiden-button" href="{{@site.url}}">トップへ戻る</a>
+    </div>
+
+</main>

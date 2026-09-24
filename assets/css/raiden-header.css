@@ -1,0 +1,146 @@
+/* Header
+/* ---------------------------------------------------------- */
+
+.raiden-header {
+    position: relative;
+    /* ヒーローの稲妻はお知らせバーに重ねるため上にはみ出す。バーが無いときにヘッダーへ食い込まないよう手前に置く */
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    height: 85px;
+    /* Figma ではロゴ類が帯の中心より 2px ほど下にある */
+    padding-top: 5px;
+    padding-left: 21px;
+    padding-right: 18px;
+    background: var(--raiden-header-gradient);
+}
+
+.raiden-header-logo {
+    display: block;
+    width: 104px;
+}
+
+.raiden-header-actions {
+    display: flex;
+    gap: 23px;
+    align-items: center;
+    margin-left: auto;
+}
+
+.raiden-header-login {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 75px;
+    height: 28px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--raiden-black);
+    background: var(--raiden-white);
+    border-radius: 999px;
+}
+
+.raiden-header-login:hover {
+    opacity: 0.85;
+}
+
+.raiden-burger {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    justify-content: center;
+    width: 27px;
+    height: 22px;
+    padding: 0;
+    cursor: pointer;
+    background: none;
+    border: 0;
+}
+
+.raiden-burger-line {
+    display: block;
+    width: 27px;
+    height: 2px;
+    background-color: var(--raiden-black);
+}
+
+/* Menu panel — the expanded design has not been delivered yet, so this is a
+   plain black overlay that lists the site navigation. */
+.raiden-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: none;
+    width: 100%;
+    max-width: var(--raiden-page-width);
+    padding: 33px var(--raiden-gutter);
+    margin-inline: auto;
+    overflow-y: auto;
+    background-color: var(--raiden-black);
+}
+
+.raiden-menu.is-open {
+    display: block;
+}
+
+.raiden-menu-close {
+    display: block;
+    width: 27px;
+    height: 27px;
+    padding: 0;
+    margin-left: auto;
+    font-size: 23px;
+    line-height: 1;
+    color: var(--raiden-white);
+    cursor: pointer;
+    background: none;
+    border: 0;
+}
+
+.raiden-menu-list {
+    padding: 0;
+    margin: 26px 0 0;
+    list-style: none;
+}
+
+.raiden-menu-list li {
+    border-bottom: 1px solid rgb(255 255 255 / 0.2);
+}
+
+.raiden-menu-list a {
+    display: block;
+    padding: 15px 0;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--raiden-white);
+}
+
+/* Announcement bar — Ghost のお知らせバーを Figma の白い帯に寄せる */
+/* お知らせバーの CSS はスクリプトが後から読み込む。同じ詳細度だと負けるので id で上書きする */
+#announcement-bar-root .gh-announcement-bar {
+    /* z-index を持たせると、上に重なるヒーローの稲妻がこの帯の下に潜る */
+    z-index: auto;
+    justify-content: flex-start;
+    min-height: 0;
+    height: 22px;
+    margin: 11px 8px 0;
+    padding: 0 11px;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
+    text-align: left;
+    color: var(--raiden-black);
+    background-color: var(--raiden-white);
+    border-radius: 999px;
+}
+
+/* Figma ではお知らせバーはトップにしか無い */
+body:not(.home-template) #announcement-bar-root {
+    display: none;
+}
+
+/* Figma の帯に閉じるボタンは無い */
+#announcement-bar-root .gh-announcement-bar button {
+    display: none;
+}

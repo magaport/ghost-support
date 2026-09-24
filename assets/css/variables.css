@@ -1,0 +1,29 @@
+/* Design tokens taken from the ROOM RAIDEN Figma artboard.
+/* The artboard is drawn at 3x, so every length here is the Figma value / 3,
+/* then scaled by 390 / 480 to fit a 390px page. */
+
+:root {
+    /* Colors */
+    --raiden-black: #040000;
+    --raiden-yellow: #fbc600;
+    --raiden-white: #fff;
+    --raiden-copyright-bg: #fff;
+
+    /* Gradients */
+    --raiden-header-gradient: linear-gradient(180deg, #f4bf0e 0%, #f3e727 100%);
+    --raiden-button-gradient: linear-gradient(180deg, #f5b005 0%, #f2e424 100%);
+
+    /* Layout — the Figma artboard is 480px wide; the page renders it at 390px */
+    --raiden-page-width: 390px;
+    --raiden-gutter: 24px;
+    --raiden-gutter-right: 23px;
+
+    /* Typography */
+    /* テーマが直接持つ文字は Noto Sans、管理画面で書く記事の本文は Zen Kaku Gothic New */
+    --raiden-font: "Noto Sans JP", "Hiragino Sans", sans-serif;
+    --raiden-font-article: "Zen Kaku Gothic New", "Hiragino Sans", "Noto Sans JP", sans-serif;
+    /* 見出しや日付などの欧文。Figma の Gill Sans は Web で配れないので、形の近い Cabin で代える。和文は Noto Sans に落とす */
+    --raiden-font-display: "Cabin", var(--raiden-font);
+    /* Source の h1〜h6 はこの変数を見る */
+    --gh-font-heading: var(--raiden-font-display);
+}

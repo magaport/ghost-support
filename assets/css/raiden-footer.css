@@ -1,0 +1,67 @@
+/* Footer
+/* ---------------------------------------------------------- */
+
+.raiden-footer {
+    padding: 33px var(--raiden-gutter) 30px;
+    background-color: var(--raiden-black);
+}
+
+.raiden-footer-menu {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+/* a だけ小さくすると親の 16px の行ボックスが残り、li が 1px 高くなる */
+.raiden-footer-menu li {
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.raiden-footer-menu li + li {
+    margin-top: 11px;
+}
+
+.raiden-footer-menu a {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--raiden-white);
+}
+
+.raiden-footer-brand {
+    margin-top: 54px;
+    text-align: center;
+}
+
+.raiden-footer-logo {
+    width: 145px;
+    margin-inline: auto;
+}
+
+.raiden-footer-social {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 19px;
+}
+
+/* 書き出し画像は 3x なので、3 で割り、さらに 390/480 倍した実装寸法を CSS 側で指定する。
+/* 3つとも縦横比が違うため height を揃えてはいけない */
+.raiden-footer-social .is-youtube { width: 44px; height: 31px; }
+.raiden-footer-social .is-instagram { width: 39px; height: 39px; }
+.raiden-footer-social .is-x { width: 35px; height: 36px; }
+
+.raiden-footer-social a:hover {
+    opacity: 0.8;
+}
+
+.raiden-copyright {
+    padding: 20px var(--raiden-gutter) 20px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--raiden-black);
+    text-align: center;
+    background-color: var(--raiden-copyright-bg);
+}

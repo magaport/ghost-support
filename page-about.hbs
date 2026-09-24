@@ -1,0 +1,25 @@
+{{!< default}}
+{{!-- The tag above means: insert everything in this file into the body of the default.hbs template --}}
+
+{{#post}}
+<main class="raiden-about">
+
+    <div class="raiden-section raiden-page-title">
+        <h1 class="raiden-heading"><span class="raiden-heading-text">About</span></h1>
+    </div>
+
+    {{#if feature_image}}
+        <img class="raiden-page-visual" src="{{img_url feature_image size="xl"}}" alt="{{title}}">
+    {{else}}
+        <div class="raiden-page-visual"></div>
+    {{/if}}
+
+    {{!-- 文面は管理画面で書く。--}}
+    <div class="raiden-page-body">
+        {{content}}
+    </div>
+
+    {{> "components/cta" compact=true}}
+
+</main>
+{{/post}}

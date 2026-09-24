@@ -1,0 +1,44 @@
+/* CTA
+/* ---------------------------------------------------------- */
+
+.raiden-cta {
+    padding: 39px var(--raiden-gutter) 34px;
+    text-align: center;
+    background: var(--raiden-header-gradient);
+}
+
+.raiden-cta.is-compact {
+    padding-block: 21px;
+}
+
+.raiden-cta-title {
+    margin: 0 0 14px;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--raiden-black);
+}
+
+.raiden-cta-button {
+    display: inline-flex;
+    gap: 11px;
+    align-items: center;
+    justify-content: center;
+    width: 229px;
+    height: 51px;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--raiden-black);
+    background: var(--raiden-white);
+    border-radius: 999px;
+}
+
+.raiden-cta-button:hover {
+    opacity: 0.85;
+}
+
+.raiden-cta-bolt {
+    width: 9px;
+    height: 21px;
+    fill: var(--raiden-yellow);
+}

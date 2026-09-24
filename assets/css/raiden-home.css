@@ -1,0 +1,99 @@
+/* Hero
+/* ---------------------------------------------------------- */
+
+/* 稲妻の上端ははみ出したままにする。切るとお知らせバーに重ならない。ヘッダーの裏はヘッダーの z-index で隠す */
+.raiden-hero {
+    position: relative;
+}
+
+.raiden-hero-brand {
+    padding: 64px var(--raiden-gutter) 37px;
+    text-align: center;
+}
+
+/* 稲妻はロゴの後ろを通り、写真の上にまで伸びる。
+/* そのため写真より上・ロゴより下という重なりを z-index で作る */
+.raiden-hero-bolt {
+    position: absolute;
+    top: -21px;
+    left: 160px;
+    z-index: 1;
+    width: 52px;
+    height: 253px;
+}
+
+.raiden-hero-logo {
+    position: relative;
+    z-index: 2;
+}
+
+/* 管理画面の画像は縦横比が決まらないので、Figma の枠に収める */
+.raiden-hero-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 284px;
+    height: 90px;
+    margin-inline: auto;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--raiden-white);
+    object-fit: contain;
+}
+
+.raiden-hero-visual {
+    position: relative;
+}
+
+.raiden-hero-image {
+    width: 100%;
+    aspect-ratio: 390 / 350;
+    object-fit: cover;
+    background-color: #989898;
+}
+
+.raiden-hero-cta {
+    position: absolute;
+    bottom: 11px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* News
+/* ---------------------------------------------------------- */
+
+.raiden-news {
+    padding-block: 24px 0;
+}
+
+.raiden-news-body {
+    /* 見出しと同じ左位置に揃える。稲妻の幅ぶん本文も右へ寄る */
+    padding-left: 13px;
+    margin: 9px 0 0;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.625;
+    color: var(--raiden-white);
+}
+
+.raiden-news-body p {
+    margin: 0 0 1em;
+}
+
+.raiden-news-body p:last-child {
+    margin-bottom: 0;
+}
+
+/* Article
+/* ---------------------------------------------------------- */
+
+.raiden-articles {
+    padding-block: 61px 33px;
+}
+
+.raiden-card-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 21px;
+    margin-top: 25px;
+}

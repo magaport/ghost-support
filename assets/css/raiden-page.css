@@ -1,0 +1,196 @@
+/* Page (About, 利用規約, プライバシーポリシー, 特商法に基づく表示)
+/* ---------------------------------------------------------- */
+
+.raiden-page-title {
+    padding: 55px var(--raiden-gutter) 20px;
+}
+
+/* 見出しの稲妻は写真の下に潜らせる。位置指定がないと z-index: 0 の見出しに負ける */
+.raiden-page-visual {
+    position: relative;
+    width: 100%;
+}
+
+.raiden-page-body {
+    padding: 17px var(--raiden-gutter-right) 73px 21px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.65;
+    color: var(--raiden-white);
+}
+
+/* 404 も .raiden-page-body を使うが、文面はテーマが持つので記事の書体にしない */
+.raiden-post .raiden-page-body,
+.raiden-page .raiden-page-body,
+.raiden-about .raiden-page-body {
+    font-family: var(--raiden-font-article);
+}
+
+.raiden-page-body > * {
+    margin-block: 0 20px;
+}
+
+/* Figma の本文はかなの字送りが詰まっている */
+.raiden-page-body p,
+.raiden-page-body li {
+    letter-spacing: -0.03em;
+}
+
+.raiden-page-body > :last-child {
+    margin-bottom: 0;
+}
+
+.raiden-page-body h1,
+.raiden-page-body h2,
+.raiden-page-body h3 {
+    margin-block: 54px 16px;
+    /* Cabin は Gill Sans より字幅が狭いので、字間で Figma の見出しの幅に寄せる */
+    letter-spacing: 0.04em;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--raiden-yellow);
+}
+
+.raiden-page-body > :first-child {
+    margin-top: 0;
+}
+
+.raiden-page-body h1 { font-size: 26px; }
+.raiden-page-body h2 { font-size: 24px; }
+.raiden-page-body h3 { font-size: 18px; }
+
+.raiden-page-body a {
+    color: var(--raiden-yellow);
+    text-decoration: underline;
+}
+
+.raiden-page-body ul,
+.raiden-page-body ol {
+    padding-left: 1.4em;
+}
+
+.raiden-page-body img,
+.raiden-page-body figure {
+    width: 100%;
+}
+
+.raiden-page-body blockquote {
+    padding-left: 1em;
+    border-left: 2px solid var(--raiden-yellow);
+}
+
+/* Post detail & lists
+/* ---------------------------------------------------------- */
+
+.raiden-article-header {
+    padding: 29px var(--raiden-gutter) 0;
+}
+
+.raiden-article-title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: var(--raiden-white);
+}
+
+.raiden-article-date {
+    display: block;
+    margin-top: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--raiden-white);
+}
+
+.raiden-article-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 13px;
+}
+
+.raiden-article-tags a {
+    padding: 3px 10px;
+    font-size: 10px;
+    color: var(--raiden-black);
+    background: var(--raiden-button-gradient);
+    border-radius: 999px;
+}
+
+.raiden-article-image {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.raiden-list {
+    padding: 34px var(--raiden-gutter) 46px;
+}
+
+.raiden-list-title {
+    margin-bottom: 23px;
+}
+
+.raiden-pagination {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 33px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--raiden-white);
+}
+
+.raiden-pagination a {
+    color: var(--raiden-yellow);
+}
+
+/* About
+/* ---------------------------------------------------------- */
+
+/* 管理画面の画像は縦横比が決まらないので、Figma の枠に収める */
+.raiden-about .raiden-page-visual {
+    aspect-ratio: 390 / 268;
+    object-fit: cover;
+    background-color: #989898;
+}
+
+/* 文面は管理画面で書くのでクラスを付けられない。冒頭の見出しと段落、
+/* 注記を要素の種類で見分ける */
+
+/* 冒頭の見出しは h1 でも h2 でもよい。Figma では直後の段落との間が狭い */
+.raiden-about .raiden-page-body > :first-child {
+    margin-bottom: 7px;
+}
+
+.raiden-about .raiden-page-body h1 {
+    font-size: 27px;
+}
+
+/* 冒頭の段落は Figma で本文より一回り大きく、字間も詰めない */
+.raiden-about .raiden-page-body > :first-child + p {
+    font-size: 12.8px;
+    line-height: 1.67;
+    letter-spacing: 0;
+}
+
+/* 注記は直前の段落に続けて置き、一段下げて「*」を頭に付ける */
+.raiden-about .raiden-page-body ul {
+    padding-left: 11px;
+    margin-top: -20px;
+    list-style-type: "* ";
+    list-style-position: inside;
+}
+
+/* 404
+/* ---------------------------------------------------------- */
+
+.raiden-error .raiden-page-body {
+    padding-bottom: 32px;
+}
+
+.raiden-error-actions {
+    padding-bottom: 73px;
+    text-align: center;
+}
