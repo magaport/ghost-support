@@ -24,26 +24,13 @@
 }
 
 /* Figma の本文はかなの字送りが詰まっている */
-.raiden-page-body p {
+.raiden-page-body p,
+.raiden-page-body li {
     letter-spacing: -0.03em;
 }
 
 .raiden-page-body > :last-child {
     margin-bottom: 0;
-}
-
-/* 冒頭の見出しと段落だけ Figma の文字が大きい */
-.raiden-page-body .is-title {
-    margin-bottom: 7px;
-    font-size: 27px;
-}
-
-/* 冒頭の段落は Figma の改行位置で 3 行目が本文幅いっぱいになるため、
-/* 字間は詰めずに文字サイズで合わせる */
-.raiden-page-body .is-lead {
-    font-size: 12.3px;
-    line-height: 1.733;
-    letter-spacing: 0;
 }
 
 .raiden-page-body h1,
@@ -76,15 +63,6 @@
 .raiden-page-body img,
 .raiden-page-body figure {
     width: 100%;
-}
-
-/* Figma では注記が直前の段落から続けて置かれ、一段だけ下がっている */
-.raiden-page-body .is-tight {
-    margin-bottom: 0;
-}
-
-.raiden-page-note {
-    padding-left: 11px;
 }
 
 .raiden-page-body blockquote {
@@ -157,4 +135,32 @@
 
 .raiden-pagination a {
     color: var(--raiden-yellow);
+}
+
+/* About
+/* ---------------------------------------------------------- */
+
+/* 文面は管理画面で書くのでクラスを付けられない。冒頭の見出しと段落、
+/* 注記を要素の種類で見分ける */
+
+/* 冒頭の見出しと段落だけ Figma の文字が大きい */
+.raiden-about .raiden-page-body h1 {
+    margin-bottom: 7px;
+    font-size: 27px;
+}
+
+/* 冒頭の段落は Figma の改行位置で 3 行目が本文幅いっぱいになるため、
+/* 字間は詰めずに文字サイズで合わせる */
+.raiden-about .raiden-page-body h1 + p {
+    font-size: 12.3px;
+    line-height: 1.733;
+    letter-spacing: 0;
+}
+
+/* 注記は直前の段落に続けて置き、一段下げて「*」を頭に付ける */
+.raiden-about .raiden-page-body ul {
+    padding-left: 11px;
+    margin-top: -20px;
+    list-style-type: "* ";
+    list-style-position: inside;
 }
