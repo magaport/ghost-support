@@ -31,6 +31,8 @@ body {
 /* Section heading — yellow display type with the lightning streak behind it */
 .raiden-heading {
     position: relative;
+    /* 稲妻を見出しの中だけで z-index: -1 にし、上に食い込む写真より手前に出す */
+    z-index: 0;
     margin: 0;
     padding-left: 13px;
     font-size: 24px;
@@ -43,8 +45,8 @@ body {
 /* heading, so it is drawn behind the text rather than reserving space. */
 .raiden-heading::before {
     position: absolute;
-    top: -11px;
-    left: -9px;
+    top: -51px;
+    left: -11px;
     z-index: -1;
     width: 23px;
     height: 114px;
@@ -63,7 +65,7 @@ body {
     align-items: center;
     justify-content: center;
     width: 173px;
-    height: 26px;
+    height: 28px;
     font-size: 14px;
     font-weight: 700;
     color: var(--raiden-black);

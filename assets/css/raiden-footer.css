@@ -2,7 +2,7 @@
 /* ---------------------------------------------------------- */
 
 .raiden-footer {
-    padding: 34px var(--raiden-gutter) 30px;
+    padding: 33px var(--raiden-gutter) 30px;
     background-color: var(--raiden-black);
 }
 
@@ -12,7 +12,9 @@
     list-style: none;
 }
 
+/* a だけ小さくすると親の 16px の行ボックスが残り、li が 1px 高くなる */
 .raiden-footer-menu li {
+    font-size: 14px;
     line-height: 20px;
 }
 
