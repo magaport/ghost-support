@@ -19,5 +19,7 @@
     --raiden-gutter-right: 23px;
 
     /* Typography */
-    --raiden-font: "Zen Kaku Gothic New", "Helvetica Neue", Arial, "Hiragino Sans", "Noto Sans JP", sans-serif;
+    /* テーマが直接持つ文字は Noto Sans、管理画面で書く記事の本文は Zen Kaku Gothic New */
+    --raiden-font: "Noto Sans JP", "Hiragino Sans", sans-serif;
+    --raiden-font-article: "Zen Kaku Gothic New", "Hiragino Sans", "Noto Sans JP", sans-serif;
 }

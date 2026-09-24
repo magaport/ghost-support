@@ -71,7 +71,7 @@
     /* 見出しと同じ左位置に揃える。稲妻の幅ぶん本文も右へ寄る */
     padding-left: 13px;
     margin: 9px 0 0;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 700;
     line-height: 1.625;
     color: var(--raiden-white);

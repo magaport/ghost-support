@@ -13,10 +13,17 @@
 
 .raiden-page-body {
     padding: 17px var(--raiden-gutter-right) 73px 21px;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 700;
     line-height: 1.65;
     color: var(--raiden-white);
+}
+
+/* 404 も .raiden-page-body を使うが、文面はテーマが持つので記事の書体にしない */
+.raiden-post .raiden-page-body,
+.raiden-page .raiden-page-body,
+.raiden-about .raiden-page-body {
+    font-family: var(--raiden-font-article);
 }
 
 .raiden-page-body > * {
@@ -150,16 +157,14 @@
 /* 文面は管理画面で書くのでクラスを付けられない。冒頭の見出しと段落、
 /* 注記を要素の種類で見分ける */
 
-/* 冒頭の見出しと段落だけ Figma の文字が大きい */
+/* 冒頭の見出しだけ Figma の文字が大きい */
 .raiden-about .raiden-page-body h1 {
     margin-bottom: 7px;
     font-size: 27px;
 }
 
-/* 冒頭の段落は Figma の改行位置で 3 行目が本文幅いっぱいになるため、
-/* 字間は詰めずに文字サイズで合わせる */
+/* 冒頭の段落は Figma で行送りが広く、字間も詰めない */
 .raiden-about .raiden-page-body h1 + p {
-    font-size: 12.3px;
     line-height: 1.733;
     letter-spacing: 0;
 }
