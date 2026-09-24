@@ -171,3 +171,15 @@
     list-style-type: "* ";
     list-style-position: inside;
 }
+
+/* 404
+/* ---------------------------------------------------------- */
+
+.raiden-error .raiden-page-body {
+    padding-bottom: 32px;
+}
+
+.raiden-error-actions {
+    padding-bottom: 73px;
+    text-align: center;
+}
