@@ -23,6 +23,11 @@ body {
     margin-inline: auto;
 }
 
+/* 本文が短いページでもフッターを画面下端に置く。.gh-viewport は Source 由来で縦並びの flex */
+.gh-viewport > main {
+    flex-grow: 1;
+}
+
 .raiden-section {
     padding-left: var(--raiden-gutter);
     padding-right: var(--raiden-gutter-right);
