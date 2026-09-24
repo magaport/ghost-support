@@ -1,9 +1,5 @@
 <footer class="raiden-footer">
-    <ul class="raiden-footer-menu">
-        <li><a href="{{@site.url}}/terms-of-service/">利用規約</a></li>
-        <li><a href="{{@site.url}}/privacy-consent/">プライバシーポリシー</a></li>
-        <li><a href="{{@site.url}}/tokushoho/">特商法に基づく表示</a></li>
-    </ul>
+    {{navigation type="secondary"}}
 
     <div class="raiden-footer-brand">
         <img class="raiden-footer-logo" src="{{asset "images/raiden_logo_footer.png"}}" alt="TEAM RAIDEN" width="145" height="50">
@@ -30,4 +26,4 @@
     </div>
 </footer>
 
-<div class="raiden-copyright">&copy;{{date format="YYYY"}} TEAM RAIDEN</div>
+<div class="raiden-copyright">&copy;{{date format="YYYY"}} {{@site.title}}</div>

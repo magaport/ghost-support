@@ -7,12 +7,19 @@
         <img class="raiden-hero-bolt" src="{{asset "images/raiden_thunder1.png"}}" alt="" width="52" height="253">
 
         <div class="raiden-hero-brand">
-            {{!-- ロゴ画像に "TEAM RAIDEN OFFICAL FAN COMMUNITY" の行まで入っている --}}
-            <img class="raiden-hero-logo" src="{{asset "images/raiden_logo.png"}}" alt="ROOM RAIDEN — TEAM RAIDEN OFFICAL FAN COMMUNITY" width="284" height="90">
+            {{#if @site.logo}}
+                <img class="raiden-hero-logo" src="{{img_url @site.logo size="l"}}" alt="{{@site.title}}">
+            {{else}}
+                <span class="raiden-hero-logo">{{@site.title}}</span>
+            {{/if}}
         </div>
 
         <div class="raiden-hero-visual">
-            <img class="raiden-hero-image" src="{{asset "images/raiden_top.png"}}" alt="TEAM RAIDEN" width="390" height="350">
+            {{#if @site.cover_image}}
+                <img class="raiden-hero-image" src="{{img_url @site.cover_image size="xl"}}" alt="{{@site.title}}">
+            {{else}}
+                <div class="raiden-hero-image"></div>
+            {{/if}}
             <a class="raiden-button raiden-hero-cta" href="{{@site.url}}/about/">ROOM RAIDEN とは</a>
         </div>
     </section>
@@ -25,13 +32,10 @@
         </div>
     </section>
 
-    {{!-- デザインにページャが無いのでトップには出さない。posts を絞ると 2 ページ目
-          以降が辿れなくなるため、1 ページ分は丸ごと出す --}}
     <section class="raiden-section raiden-articles">
         <h2 class="raiden-heading"><span class="raiden-heading-text">Article</span></h2>
-
         <div class="raiden-card-grid">
-            {{#foreach posts}}
+            {{#foreach posts limit="2"}}
                 {{> "components/card"}}
             {{/foreach}}
         </div>

@@ -1,6 +1,7 @@
 {{!-- {{navigation}} ヘルパーが差し込む partial。ヘルパーを通さないと項目に
       slug と current が付かず、{{url}} が nav として扱われない --}}
-<ul class="raiden-menu-list">
+{{!-- ハンバーガーは Primary、フッターは Secondary のナビから引く --}}
+<ul class="{{#if isSecondary}}raiden-footer-menu{{else}}raiden-menu-list{{/if}}">
     {{#foreach navigation}}
         <li><a href="{{url absolute="true"}}">{{label}}</a></li>
     {{/foreach}}

@@ -28,9 +28,18 @@
     z-index: 2;
 }
 
+/* 管理画面の画像は縦横比が決まらないので、Figma の枠に収める */
 .raiden-hero-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 284px;
+    height: 90px;
     margin-inline: auto;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--raiden-white);
+    object-fit: contain;
 }
 
 .raiden-hero-visual {
@@ -39,6 +48,9 @@
 
 .raiden-hero-image {
     width: 100%;
+    aspect-ratio: 390 / 350;
+    object-fit: cover;
+    background-color: #989898;
 }
 
 .raiden-hero-cta {
