@@ -58,8 +58,9 @@
 
 .raiden-copyright {
     padding: 20px var(--raiden-gutter) 20px;
-    font-size: 14px;
-    font-weight: 700;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
     color: var(--raiden-black);
     text-align: center;
     background-color: var(--raiden-copyright-bg);

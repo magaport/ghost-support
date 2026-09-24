@@ -13,7 +13,7 @@
 
 .raiden-page-body {
     padding: 17px var(--raiden-gutter-right) 73px 21px;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 700;
     line-height: 1.65;
     color: var(--raiden-white);
@@ -44,6 +44,8 @@
 .raiden-page-body h2,
 .raiden-page-body h3 {
     margin-block: 54px 16px;
+    /* Cabin は Gill Sans より字幅が狭いので、字間で Figma の見出しの幅に寄せる */
+    letter-spacing: 0.04em;
     font-weight: 700;
     line-height: 1.3;
     color: var(--raiden-yellow);
@@ -157,15 +159,19 @@
 /* 文面は管理画面で書くのでクラスを付けられない。冒頭の見出しと段落、
 /* 注記を要素の種類で見分ける */
 
-/* 冒頭の見出しだけ Figma の文字が大きい */
-.raiden-about .raiden-page-body h1 {
+/* 冒頭の見出しは h1 でも h2 でもよい。Figma では直後の段落との間が狭い */
+.raiden-about .raiden-page-body > :first-child {
     margin-bottom: 7px;
+}
+
+.raiden-about .raiden-page-body h1 {
     font-size: 27px;
 }
 
-/* 冒頭の段落は Figma で行送りが広く、字間も詰めない */
-.raiden-about .raiden-page-body h1 + p {
-    line-height: 1.733;
+/* 冒頭の段落は Figma で本文より一回り大きく、字間も詰めない */
+.raiden-about .raiden-page-body > :first-child + p {
+    font-size: 12.8px;
+    line-height: 1.67;
     letter-spacing: 0;
 }
 

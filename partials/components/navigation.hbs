@@ -20,6 +20,9 @@
     </div>
 </header>
 
+{{!-- お知らせバーのスクリプトはこの id の要素があればそこに描く。無ければ body の先頭に足すので、ヘッダーの上に出てしまう --}}
+<div id="announcement-bar-root"></div>
+
 <nav id="raiden-menu" class="raiden-menu" aria-hidden="true">
     <button class="raiden-menu-close" type="button" aria-label="メニューを閉じる">&times;</button>
     {{navigation}}

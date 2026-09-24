@@ -1,10 +1,9 @@
 /* Hero
 /* ---------------------------------------------------------- */
 
-/* 稲妻の上端はヘッダーの裏に回るので、はみ出しを切る */
+/* 稲妻の上端ははみ出したままにする。切るとお知らせバーに重ならない。ヘッダーの裏はヘッダーの z-index で隠す */
 .raiden-hero {
     position: relative;
-    overflow: hidden;
 }
 
 .raiden-hero-brand {
@@ -71,7 +70,7 @@
     /* 見出しと同じ左位置に揃える。稲妻の幅ぶん本文も右へ寄る */
     padding-left: 13px;
     margin: 9px 0 0;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
     line-height: 1.625;
     color: var(--raiden-white);

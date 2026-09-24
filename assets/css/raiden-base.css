@@ -43,6 +43,8 @@ body {
     font-size: 24px;
     font-weight: 700;
     line-height: 1.2;
+    /* Cabin は Gill Sans より字幅が狭いので、字間で Figma の見出しの幅に寄せる */
+    letter-spacing: 0.04em;
     color: var(--raiden-yellow);
 }
 
@@ -72,7 +74,7 @@ body {
     width: 173px;
     height: 28px;
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 600;
     color: var(--raiden-black);
     background: var(--raiden-button-gradient);
     border-radius: 999px;
@@ -80,4 +82,12 @@ body {
 
 .raiden-button:hover {
     opacity: 0.85;
+}
+
+.raiden-header-login,
+.raiden-button,
+.raiden-card-date,
+.raiden-article-date,
+.raiden-copyright {
+    font-family: var(--raiden-font-display);
 }

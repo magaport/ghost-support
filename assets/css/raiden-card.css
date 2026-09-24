@@ -14,7 +14,7 @@
     display: -webkit-box;
     margin: 7px 0 0;
     overflow: hidden;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
     line-height: 1.5;
     color: var(--raiden-white);
@@ -26,7 +26,7 @@
     display: block;
     margin-top: 7px;
     font-size: 10px;
-    font-weight: 700;
+    font-weight: 500;
     letter-spacing: 0.04em;
     color: var(--raiden-white);
 }
