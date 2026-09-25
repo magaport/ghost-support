@@ -33,7 +33,7 @@
     justify-content: center;
     width: 75px;
     height: 28px;
-    font-size: 13px;
+    font-size: var(--raiden-font-size-header-login);
     font-weight: 700;
     letter-spacing: 0.08em;
     color: var(--raiden-black);
@@ -92,7 +92,7 @@ body:has(.raiden-menu:popover-open) {
     height: 27px;
     padding: 0;
     margin-left: auto;
-    font-size: 23px;
+    font-size: var(--raiden-font-size-menu-close);
     line-height: 1;
     color: var(--raiden-white);
     cursor: pointer;
@@ -113,7 +113,7 @@ body:has(.raiden-menu:popover-open) {
 .raiden-menu-list a {
     display: block;
     padding: 15px 0;
-    font-size: 15px;
+    font-size: var(--raiden-font-size-menu-link);
     font-weight: 700;
     color: var(--raiden-white);
 }
@@ -128,7 +128,7 @@ body:has(.raiden-menu:popover-open) {
     height: 22px;
     margin: 11px 8px 0;
     padding: 0 11px;
-    font-size: 11px;
+    font-size: var(--raiden-font-size-announcement-bar);
     font-weight: 700;
     line-height: 1;
     text-align: left;

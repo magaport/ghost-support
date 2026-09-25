@@ -26,4 +26,36 @@
     --raiden-font-display: "Cabin", var(--raiden-font);
     /* Source の h1〜h6 はこの変数を見る */
     --gh-font-heading: var(--raiden-font-display);
+
+    /* Font sizes */
+    /* 同じ値でも役割ごとに分ける。 */
+    /* 共通 */
+    --raiden-font-size-section-heading: 24px;
+    --raiden-font-size-button: 14px;
+    --raiden-font-size-cta-title: 22px;
+    --raiden-font-size-cta-button: 22px;
+    /* ヘッダーとメニュー */
+    --raiden-font-size-header-login: 13px;
+    --raiden-font-size-announcement-bar: 11px;
+    --raiden-font-size-menu-close: 23px;
+    --raiden-font-size-menu-link: 15px;
+    /* トップ */
+    --raiden-font-size-hero-logo: 32px;
+    --raiden-font-size-news-body: 13px;
+    --raiden-font-size-card-title: 13px;
+    --raiden-font-size-card-date: 10px;
+    /* 固定ページと記事 */
+    --raiden-font-size-page-body: 12px;
+    --raiden-font-size-page-h1: 26px;
+    --raiden-font-size-page-h2: 24px;
+    --raiden-font-size-page-h3: 18px;
+    --raiden-font-size-about-heading: 27px;
+    --raiden-font-size-about-lead: 12.8px;
+    --raiden-font-size-article-title: 20px;
+    --raiden-font-size-article-date: 10px;
+    --raiden-font-size-article-tag: 10px;
+    --raiden-font-size-pagination: 11px;
+    /* フッター */
+    --raiden-font-size-footer-menu: 14px;
+    --raiden-font-size-copyright: 12px;
 }

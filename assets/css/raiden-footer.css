@@ -14,7 +14,7 @@
 
 /* a だけ小さくすると親の 16px の行ボックスが残り、li が 1px 高くなる */
 .raiden-footer-menu li {
-    font-size: 14px;
+    font-size: var(--raiden-font-size-footer-menu);
     line-height: 20px;
 }
 
@@ -23,7 +23,7 @@
 }
 
 .raiden-footer-menu a {
-    font-size: 14px;
+    font-size: var(--raiden-font-size-footer-menu);
     font-weight: 500;
     color: var(--raiden-white);
 }
@@ -58,7 +58,7 @@
 
 .raiden-copyright {
     padding: 20px var(--raiden-gutter) 20px;
-    font-size: 12px;
+    font-size: var(--raiden-font-size-copyright);
     font-weight: 500;
     letter-spacing: 0.1em;
     color: var(--raiden-black);

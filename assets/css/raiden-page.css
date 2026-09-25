@@ -13,7 +13,7 @@
 
 .raiden-page-body {
     padding: 17px var(--raiden-gutter-right) 73px 21px;
-    font-size: 12px;
+    font-size: var(--raiden-font-size-page-body);
     font-weight: 700;
     line-height: 1.65;
     color: var(--raiden-white);
@@ -55,9 +55,9 @@
     margin-top: 0;
 }
 
-.raiden-page-body h1 { font-size: 26px; }
-.raiden-page-body h2 { font-size: 24px; }
-.raiden-page-body h3 { font-size: 18px; }
+.raiden-page-body h1 { font-size: var(--raiden-font-size-page-h1); }
+.raiden-page-body h2 { font-size: var(--raiden-font-size-page-h2); }
+.raiden-page-body h3 { font-size: var(--raiden-font-size-page-h3); }
 
 .raiden-page-body a {
     color: var(--raiden-yellow);
@@ -88,7 +88,7 @@
 
 .raiden-article-title {
     margin: 0;
-    font-size: 20px;
+    font-size: var(--raiden-font-size-article-title);
     font-weight: 700;
     line-height: 1.5;
     color: var(--raiden-white);
@@ -97,7 +97,7 @@
 .raiden-article-date {
     display: block;
     margin-top: 10px;
-    font-size: 10px;
+    font-size: var(--raiden-font-size-article-date);
     font-weight: 700;
     letter-spacing: 0.04em;
     color: var(--raiden-white);
@@ -112,7 +112,7 @@
 
 .raiden-article-tags a {
     padding: 3px 10px;
-    font-size: 10px;
+    font-size: var(--raiden-font-size-article-tag);
     color: var(--raiden-black);
     background: var(--raiden-button-gradient);
     border-radius: 999px;
@@ -137,7 +137,7 @@
     align-items: center;
     justify-content: center;
     margin-top: 33px;
-    font-size: 11px;
+    font-size: var(--raiden-font-size-pagination);
     font-weight: 700;
     color: var(--raiden-white);
 }
@@ -165,12 +165,12 @@
 }
 
 .raiden-about .raiden-page-body h1 {
-    font-size: 27px;
+    font-size: var(--raiden-font-size-about-heading);
 }
 
 /* 冒頭の段落は Figma で本文より一回り大きく、字間も詰めない */
 .raiden-about .raiden-page-body > :first-child + p {
-    font-size: 12.8px;
+    font-size: var(--raiden-font-size-about-lead);
     line-height: 1.67;
     letter-spacing: 0;
 }

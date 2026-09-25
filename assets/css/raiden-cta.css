@@ -13,7 +13,7 @@
 
 .raiden-cta-title {
     margin: 0 0 14px;
-    font-size: 22px;
+    font-size: var(--raiden-font-size-cta-title);
     font-weight: 700;
     line-height: 1.2;
     color: var(--raiden-black);
@@ -26,7 +26,7 @@
     justify-content: center;
     width: 229px;
     height: 51px;
-    font-size: 22px;
+    font-size: var(--raiden-font-size-cta-button);
     font-weight: 700;
     color: var(--raiden-black);
     background: var(--raiden-white);

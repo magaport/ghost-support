@@ -1,8 +1,6 @@
 /* Page shell
 /* ---------------------------------------------------------- */
 
-/* The Figma artboard is a single column (480px, scaled to 390px), so PC uses the same width
-   and centres it against the site background. */
 html {
     background-color: var(--raiden-black);
 }
@@ -40,7 +38,7 @@ body {
     z-index: 0;
     margin: 0;
     padding-left: 13px;
-    font-size: 24px;
+    font-size: var(--raiden-font-size-section-heading);
     font-weight: 700;
     line-height: 1.2;
     /* Cabin は Gill Sans より字幅が狭いので、字間で Figma の見出しの幅に寄せる */
@@ -73,7 +71,7 @@ body {
     justify-content: center;
     width: 173px;
     height: 28px;
-    font-size: 14px;
+    font-size: var(--raiden-font-size-button);
     font-weight: 600;
     color: var(--raiden-black);
     background: var(--raiden-button-gradient);
