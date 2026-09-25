@@ -12,7 +12,7 @@
             {{/unless}}
         {{/if}}
 
-        <button class="raiden-burger" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="raiden-menu">
+        <button class="raiden-burger" type="button" aria-label="メニューを開く" popovertarget="raiden-menu">
             <span class="raiden-burger-line"></span>
             <span class="raiden-burger-line"></span>
             <span class="raiden-burger-line"></span>
@@ -23,8 +23,9 @@
 {{!-- お知らせバーのスクリプトはこの id の要素があればそこに描く。無ければ body の先頭に足すので、ヘッダーの上に出てしまう --}}
 <div id="announcement-bar-root"></div>
 
-<nav id="raiden-menu" class="raiden-menu" aria-hidden="true">
-    <button class="raiden-menu-close" type="button" aria-label="メニューを閉じる">&times;</button>
+{{!-- チェックボックスで開閉する CSS だけの方法は、開閉状態が支援技術に伝わらず Esc でも閉じられないので使わない --}}
+<nav id="raiden-menu" class="raiden-menu" popover>
+    <button class="raiden-menu-close" type="button" aria-label="メニューを閉じる" popovertarget="raiden-menu" popovertargetaction="hide">&times;</button>
     {{navigation}}
 </nav>
 

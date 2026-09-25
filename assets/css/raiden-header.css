@@ -67,21 +67,23 @@
 
 /* Menu panel — the expanded design has not been delivered yet, so this is a
    plain black overlay that lists the site navigation. */
+/* popover の UA スタイルは内容の大きさに縮み、枠線と Canvas 色も付くので打ち消す */
 .raiden-menu {
     position: fixed;
     inset: 0;
-    z-index: 100;
-    display: none;
     width: 100%;
     max-width: var(--raiden-page-width);
+    height: auto;
     padding: 33px var(--raiden-gutter);
-    margin-inline: auto;
+    margin: 0 auto;
     overflow-y: auto;
+    color: inherit;
     background-color: var(--raiden-black);
+    border: 0;
 }
 
-.raiden-menu.is-open {
-    display: block;
+body:has(.raiden-menu:popover-open) {
+    overflow: hidden;
 }
 
 .raiden-menu-close {
