@@ -16,14 +16,8 @@
     font-size: var(--raiden-font-size-page-body);
     font-weight: 700;
     line-height: 1.65;
-    color: var(--raiden-white);
-}
-
-/* 404 も .raiden-page-body を使うが、文面はテーマが持つので記事の書体にしない */
-.raiden-post .raiden-page-body,
-.raiden-page .raiden-page-body,
-.raiden-about .raiden-page-body {
     font-family: var(--raiden-font-article);
+    color: var(--raiden-white);
 }
 
 .raiden-page-body > * {
@@ -186,11 +180,41 @@
 /* 404
 /* ---------------------------------------------------------- */
 
-.raiden-error .raiden-page-body {
-    padding-bottom: 32px;
+/* .gh-viewport は Source 由来の flex だが、画像を残りの高さの中央に置くため grid にする */
+.raiden-error {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+    padding: 24px 20px 27px;
 }
 
-.raiden-error-actions {
-    padding-bottom: 73px;
-    text-align: center;
+.raiden-error-message {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.raiden-error-code {
+    margin: 0;
+    font-family: var(--raiden-font-display);
+    font-size: var(--raiden-font-size-error-code);
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 1px;
+    color: var(--raiden-yellow);
+}
+
+.raiden-error-description {
+    margin: 0;
+    font-size: var(--raiden-font-size-error-description);
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 1px;
+    color: var(--raiden-white);
+}
+
+.raiden-error-image {
+    align-self: center;
+    justify-self: center;
+    width: 178px;
 }

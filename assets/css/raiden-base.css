@@ -82,6 +82,14 @@ body {
     opacity: 0.85;
 }
 
+/* 404 の下端に置く幅いっぱいのボタン。.raiden-button はトップと About でも使うので寸法は変えずに足す */
+.raiden-button-large {
+    width: 100%;
+    height: 54px;
+    font-size: var(--raiden-font-size-error-button);
+    border-radius: 30px;
+}
+
 .raiden-header-login,
 .raiden-button,
 .raiden-card-date,

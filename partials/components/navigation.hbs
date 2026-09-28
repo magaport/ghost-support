@@ -25,7 +25,23 @@
 
 {{!-- チェックボックスで開閉する CSS だけの方法は、開閉状態が支援技術に伝わらず Esc でも閉じられないので使わない --}}
 <nav id="raiden-menu" class="raiden-menu" popover>
-    <button class="raiden-menu-close" type="button" aria-label="メニューを閉じる" popovertarget="raiden-menu" popovertargetaction="hide">&times;</button>
-    {{navigation}}
-</nav>
+    {{!-- 開いてもヘッダーが残って見えるよう、ヘッダーと同じ帯を上に置く。ログインボタンは ywlr に倣って開いたときは出さない --}}
+    <div class="raiden-header raiden-menu-header">
+        <a class="raiden-header-logo" href="{{@site.url}}">
+            <img src="{{asset "images/raiden_logo_header.png"}}" alt="{{@site.title}}" width="104" height="40">
+        </a>
+        <button class="raiden-menu-close" type="button" aria-label="メニューを閉じる" popovertarget="raiden-menu" popovertargetaction="hide">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path></svg>
+        </button>
+    </div>
 
+    <div class="raiden-menu-body">
+        <p class="raiden-menu-title">MENU</p>
+        <div class="raiden-menu-primary">
+            {{navigation}}
+        </div>
+        <div class="raiden-menu-secondary">
+            {{navigation type="secondary"}}
+        </div>
+    </div>
+</nav>

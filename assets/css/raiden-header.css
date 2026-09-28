@@ -65,8 +65,9 @@
     background-color: var(--raiden-black);
 }
 
-/* Menu panel — the expanded design has not been delivered yet, so this is a
-   plain black overlay that lists the site navigation. */
+/* Menu panel
+/* ---------------------------------------------------------- */
+
 /* popover の UA スタイルは内容の大きさに縮み、枠線と Canvas 色も付くので打ち消す */
 .raiden-menu {
     position: fixed;
@@ -74,7 +75,7 @@
     width: 100%;
     max-width: var(--raiden-page-width);
     height: auto;
-    padding: 33px var(--raiden-gutter);
+    padding: 0;
     margin: 0 auto;
     overflow-y: auto;
     color: inherit;
@@ -82,40 +83,96 @@
     border: 0;
 }
 
+/* display を .raiden-menu に書くと UA の [popover]:not(:popover-open) { display: none } に勝ち、閉じていても出てしまう */
+.raiden-menu:popover-open {
+    display: flex;
+    flex-direction: column;
+}
+
 body:has(.raiden-menu:popover-open) {
     overflow: hidden;
 }
 
+/* 閉じるボタンはバーガーと同じ位置に来るよう、ヘッダーの帯の寸法をそのまま使う */
+.raiden-menu-header {
+    flex-shrink: 0;
+    justify-content: space-between;
+}
+
+/* 寸法は ywlr の閉じるボタン(32px 四方の中に 24px のアイコン)に合わせる */
 .raiden-menu-close {
-    display: block;
-    width: 27px;
-    height: 27px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
     padding: 0;
-    margin-left: auto;
-    font-size: var(--raiden-font-size-menu-close);
-    line-height: 1;
-    color: var(--raiden-white);
+    color: var(--raiden-black);
     cursor: pointer;
     background: none;
     border: 0;
 }
 
+.raiden-menu-close svg {
+    width: 24px;
+    height: 24px;
+}
+
+.raiden-menu-body {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    padding: 18px var(--raiden-gutter) 40px;
+}
+
+.raiden-menu-title {
+    margin: 0;
+    font-family: var(--raiden-font-display);
+    font-size: var(--raiden-font-size-menu-title);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--raiden-yellow);
+}
+
+.raiden-menu-primary {
+    margin-top: 48px;
+}
+
 .raiden-menu-list {
     padding: 0;
-    margin: 26px 0 0;
+    margin: 0;
     list-style: none;
 }
 
-.raiden-menu-list li {
-    border-bottom: 1px solid rgb(255 255 255 / 0.2);
-}
-
 .raiden-menu-list a {
-    display: block;
-    padding: 15px 0;
+    font-family: var(--raiden-font-display);
     font-size: var(--raiden-font-size-menu-link);
     font-weight: 700;
+    line-height: 43px;
+    letter-spacing: 1px;
     color: var(--raiden-white);
+}
+
+/* 間隔を margin-top に固定値で書くと下端に寄らず、auto だけだと Primary の項目が多いときに詰まる */
+.raiden-menu-secondary {
+    margin-top: auto;
+    padding-top: 48px;
+}
+
+/* Secondary ナビは {{navigation}} がフッターと同じ .raiden-footer-menu で出すので、メニューの中だけ上書きする */
+.raiden-menu-secondary .raiden-footer-menu li {
+    font-size: var(--raiden-font-size-menu-secondary-link);
+    line-height: 30px;
+}
+
+.raiden-menu-secondary .raiden-footer-menu li + li {
+    margin-top: 0;
+}
+
+.raiden-menu-secondary .raiden-footer-menu a {
+    font-size: var(--raiden-font-size-menu-secondary-link);
+    font-weight: 700;
+    letter-spacing: 1px;
 }
 
 /* Announcement bar — Ghost のお知らせバーを Figma の白い帯に寄せる */
