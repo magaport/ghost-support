@@ -1,7 +1,7 @@
 {
-    "name": "takagimiho",
+    "name": "voyage",
     "description": "Voyage+ — 公式ファンコミュニティのテーマ",
-    "demo": "https://takagimiho.unleashcms.dev",
+    "demo": "https://voyage.unleashcms.dev",
     "version": "1.0.0",
     "engines": {
         "ghost": ">=5.0.0"

@@ -123,7 +123,7 @@ yarn test:workflow
 
 `source` / `casper` は Ghost がアップロードを拒否する予約名のため、その名前でも Release を作れない。
 
-このブランチの `name` は `takagimiho` なので、タグは `takagimiho-v<X.Y.Z>`、zip は `dist/takagimiho.zip` になる。
+このブランチの `name` は `voyage` なので、タグは `voyage-v<X.Y.Z>`、zip は `dist/voyage.zip` になる。
 
 ### Release を作る
 
