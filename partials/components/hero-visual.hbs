@@ -1,0 +1,12 @@
+{{!-- 写真は Publication cover から引く。未設定でも崩れないよう枠は CSS で固定し、地の色で埋める --}}
+<div class="voyage-hero-visual">
+    {{#if @site.cover_image}}
+        <img class="voyage-hero-image"
+            srcset="{{img_url @site.cover_image size="l" format="webp"}} 960w,
+                    {{img_url @site.cover_image size="xl" format="webp"}} 1200w,
+                    {{img_url @site.cover_image size="xxl" format="webp"}} 2000w"
+            sizes="817px"
+            src="{{img_url @site.cover_image size="xl"}}"
+            alt="">
+    {{/if}}
+</div>

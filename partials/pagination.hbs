@@ -1,0 +1,10 @@
+{{!-- {{pagination}} ヘルパーが差し込む partial --}}
+{{#if pages}}
+    {{#match pages ">" 1}}
+        <nav class="voyage-pagination" aria-label="ページ送り">
+            {{#if prev}}<a href="{{page_url prev}}">前へ</a>{{/if}}
+            <span>{{page}} / {{pages}}</span>
+            {{#if next}}<a href="{{page_url next}}">次へ</a>{{/if}}
+        </nav>
+    {{/match}}
+{{/if}}

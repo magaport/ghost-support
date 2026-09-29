@@ -1,0 +1,15 @@
+{{!< default}}
+{{!-- The tag above means: insert everything in this file into the body of the default.hbs template --}}
+
+{{!-- 一覧のデザインは未着手なので仮。トップの NoteBook と同じ並びにする --}}
+<main class="voyage-list">
+    <section class="voyage-section voyage-notebook">
+        {{> "components/section-heading" script="NoteBook" label="学び"}}
+        <div class="voyage-notebook-list">
+            {{#foreach posts}}
+                {{> "components/notebook-card"}}
+            {{/foreach}}
+        </div>
+        {{pagination}}
+    </section>
+</main>

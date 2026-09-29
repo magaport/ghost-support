@@ -1,0 +1,81 @@
+/* Post & page — デザイン未着手の仮。トップの配色と書体に合わせる
+/* ---------------------------------------------------------- */
+
+.voyage-post,
+.voyage-page,
+.voyage-list {
+    padding-top: 24px;
+    padding-bottom: 74px;
+}
+
+.voyage-article-title {
+    margin: 0;
+    font-family: var(--voyage-font-serif);
+    font-size: var(--voyage-font-size-article-title);
+    font-weight: 700;
+    line-height: 1.5;
+    color: var(--voyage-blue);
+}
+
+.voyage-article-header .voyage-date {
+    margin-top: 8px;
+}
+
+.voyage-article-image {
+    width: 100%;
+    margin-top: 20px;
+    border-radius: var(--voyage-radius);
+}
+
+.voyage-article-body {
+    margin-top: 24px;
+    font-family: var(--voyage-font-sans);
+    font-size: var(--voyage-font-size-article-body);
+    line-height: 1.9;
+}
+
+.voyage-article-body h2,
+.voyage-article-body h3 {
+    font-family: var(--voyage-font-serif);
+    font-weight: 700;
+    color: var(--voyage-blue);
+}
+
+.voyage-article-body a {
+    color: var(--voyage-blue);
+    text-decoration: underline;
+}
+
+.voyage-article-like {
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+}
+
+.voyage-comments {
+    margin-top: 40px;
+}
+
+/* 404 — デザイン未着手の仮
+/* ---------------------------------------------------------- */
+
+.voyage-error {
+    padding-block: 64px 74px;
+    text-align: center;
+}
+
+.voyage-error-code {
+    margin: 0;
+    font-family: var(--voyage-font-script);
+    font-size: var(--voyage-font-size-error-code);
+    line-height: 1.2;
+    color: var(--voyage-blue);
+}
+
+.voyage-error-message {
+    margin: 8px 0 32px;
+    font-family: var(--voyage-font-serif);
+    font-size: var(--voyage-font-size-error-message);
+    font-weight: 700;
+    color: var(--voyage-blue);
+}

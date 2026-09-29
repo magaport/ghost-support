@@ -1,0 +1,184 @@
+/* Page shell
+/* ---------------------------------------------------------- */
+
+html {
+    background-color: var(--voyage-white);
+}
+
+body {
+    font-family: var(--voyage-font-sans);
+    color: var(--voyage-black);
+    background-color: var(--voyage-white);
+}
+
+/* レスポンシブの要否は未確定なので、Figma の幅を上限にして中央に置く */
+.gh-viewport {
+    width: 100%;
+    max-width: var(--voyage-page-width);
+    min-height: 100vh;
+    margin-inline: auto;
+    /* ヒーローの写真や線画は Figma でも枠の外まで伸びているので、横にはみ出た分を切る */
+    overflow-x: clip;
+}
+
+/* 本文が短いページでもフッターを画面下端に置く。.gh-viewport は Source 由来で縦並びの flex */
+.gh-viewport > main {
+    flex-grow: 1;
+}
+
+.voyage-section {
+    padding-inline: var(--voyage-gutter);
+}
+
+/* Section heading
+/* ---------------------------------------------------------- */
+
+.voyage-section-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding-inline: 2px 7px;
+}
+
+.voyage-section-title {
+    margin: 0;
+    font-family: var(--voyage-font-serif);
+    font-size: var(--voyage-font-size-section-title);
+    font-weight: 700;
+    line-height: normal;
+    color: var(--voyage-blue);
+}
+
+/* 英字は飾りなので aria-hidden にし、見出しの流れに乗せず和文だけを absolute で重ねる */
+.voyage-section-title.has-script {
+    position: relative;
+    height: 78px;
+}
+
+.voyage-section-script {
+    display: block;
+    font-family: var(--voyage-font-script);
+    font-size: var(--voyage-font-size-section-script);
+    font-weight: 400;
+    line-height: 78px;
+    color: var(--voyage-script-gray);
+    white-space: nowrap;
+}
+
+.voyage-section-label {
+    position: absolute;
+    top: 43px;
+    left: 24px;
+    white-space: nowrap;
+}
+
+.voyage-more-link {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+    margin-bottom: 6px;
+    font-family: var(--voyage-font-serif);
+    font-size: var(--voyage-font-size-more-link);
+    font-weight: 700;
+    line-height: normal;
+    color: var(--voyage-gold);
+}
+
+.voyage-section-title.has-script + .voyage-more-link {
+    margin-bottom: 11px;
+}
+
+/* Buttons
+/* ---------------------------------------------------------- */
+
+.voyage-button {
+    display: inline-flex;
+    gap: 19px;
+    align-items: center;
+    justify-content: center;
+    width: 289px;
+    max-width: 100%;
+    height: 48px;
+    font-family: var(--voyage-font-sans);
+    font-size: var(--voyage-font-size-button);
+    line-height: normal;
+    border-radius: 32px;
+}
+
+.voyage-button.is-primary {
+    color: var(--voyage-white);
+    background-color: var(--voyage-gold);
+}
+
+.voyage-button.is-sub {
+    gap: 11px;
+    color: var(--voyage-blue);
+    background-color: var(--voyage-blue-pale);
+}
+
+.voyage-button:hover,
+.voyage-text-link:hover,
+.voyage-more-link:hover {
+    opacity: 0.8;
+}
+
+.voyage-text-link {
+    display: inline-flex;
+    gap: 4px;
+    align-items: center;
+    font-family: var(--voyage-font-sans);
+    font-size: var(--voyage-font-size-text-link);
+    line-height: normal;
+    color: var(--voyage-blue);
+}
+
+.voyage-date {
+    display: block;
+    font-family: var(--voyage-font-latin);
+    font-size: var(--voyage-font-size-date);
+    line-height: normal;
+    color: var(--voyage-gold);
+}
+
+/* NEW badge — 表示するかは assets/js/new-badge.js が決める */
+.voyage-new {
+    display: inline-flex;
+    align-items: center;
+    width: 36px;
+    height: 16px;
+    padding-left: 5px;
+    font-family: var(--voyage-font-serif);
+    font-size: var(--voyage-font-size-badge);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--voyage-white);
+}
+
+/* display を指定すると hidden 属性の display: none に勝ってしまう */
+.voyage-new[hidden] {
+    display: none;
+}
+
+.voyage-new.is-gold {
+    background-color: var(--voyage-gold);
+}
+
+.voyage-new.is-blue {
+    background-color: var(--voyage-blue-badge);
+}
+
+.voyage-pagination {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 32px;
+    font-family: var(--voyage-font-serif);
+    font-size: var(--voyage-font-size-pagination);
+    font-weight: 700;
+    color: var(--voyage-blue);
+}
+
+.voyage-pagination a {
+    color: var(--voyage-gold);
+}

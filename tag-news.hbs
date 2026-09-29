@@ -1,0 +1,11 @@
+{{!< default}}
+{{!-- The tag above means: insert everything in this file into the body of the default.hbs template --}}
+
+{{!-- 一覧のデザインは未着手なので仮。トップの News と同じ並びにする --}}
+<main class="voyage-list">
+    <section class="voyage-section voyage-news">
+        {{> "components/section-heading" label="News"}}
+        {{> "components/news-list"}}
+        {{pagination}}
+    </section>
+</main>

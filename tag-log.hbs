@@ -1,10 +1,9 @@
 {{!< default}}
 {{!-- The tag above means: insert everything in this file into the body of the default.hbs template --}}
 
-{{!-- トップは home.hbs が持つので、ここに来るのは /page/2/ 以降だけ --}}
 <main class="voyage-list">
-    <section class="voyage-section">
-        {{> "components/section-heading" label="Article"}}
+    <section class="voyage-section voyage-log">
+        {{> "components/section-heading" script="Log" label="日常"}}
         {{> "components/card-grid"}}
         {{pagination}}
     </section>

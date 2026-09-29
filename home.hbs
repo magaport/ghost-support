@@ -1,12 +1,84 @@
 {{!< default}}
 {{!-- The tag above means: insert everything in this file into the body of the default.hbs template --}}
 
-{{> "components/header" headerStyle=@custom.header_style}}
+{{!-- 有料会員だけを会員として扱い、無料メンバーには非会員向けの画面を出す --}}
+{{#if @member.paid}}
 
-{{#match @custom.header_style "!=" "Highlight"}}
-    {{> "components/featured" showFeatured=@custom.show_featured_posts limit=4}}
-{{/match}}
+<main class="voyage-home is-member">
 
-{{> "components/cta"}}
+    <section class="voyage-hero">
+        {{> "components/hero-visual"}}
+        <div class="voyage-hero-brand">
+            <p class="voyage-hero-lead">高木美帆　公式コミュニティ</p>
+            {{> "components/hero-logo"}}
+            <p class="voyage-hero-catch">共に、次の景色へ。</p>
+        </div>
+    </section>
 
-{{> "components/post-list" feed="home" postFeedStyle=@custom.post_feed_style showTitle=true showSidebar=@custom.show_publication_info_sidebar}}
+    {{> "components/news-section"}}
+
+    {{> "components/log-section" filter="tag:log" limit="4" moreUrl=(concat @site.url "/tag/log/")}}
+
+    <img class="voyage-divider" src="{{asset "images/voyage_line_skate.svg"}}" alt="" width="391" height="68">
+
+    {{> "components/notebook-section" filter="tag:notebook" limit="4" moreUrl=(concat @site.url "/tag/notebook/")}}
+
+</main>
+
+{{else}}
+
+<main class="voyage-home is-guest">
+
+    <section class="voyage-hero">
+        {{> "components/hero-visual"}}
+        <div class="voyage-hero-brand">
+            <p class="voyage-hero-lead">高木美帆　公式コミュニティ</p>
+            {{> "components/hero-logo"}}
+        </div>
+    </section>
+
+    {{#if @site.members_enabled}}
+        <div class="voyage-join">
+            {{> "components/join-link" class="voyage-button is-primary" label="新規入会はこちら" chevron="white"}}
+            {{#unless @member}}
+                <a class="voyage-text-link" href="#/portal/signin" data-portal="signin">
+                    ログイン
+                    <img src="{{asset "images/voyage_chevron_blue_small.svg"}}" alt="" width="3" height="6">
+                </a>
+            {{/unless}}
+        </div>
+    {{/if}}
+
+    <div class="voyage-section">
+        {{> "components/message"}}
+    </div>
+
+    {{!-- 遷移先は先方に確認中。固定ページを /about/ に置く想定で仮置きする --}}
+    <div class="voyage-section voyage-about-link">
+        <a class="voyage-button is-sub" href="{{@site.url}}/about/">
+            Voyage+ とは
+            <img src="{{asset "images/voyage_chevron_blue.svg"}}" alt="" width="5" height="11">
+        </a>
+    </div>
+
+    {{> "components/benefits"}}
+
+    {{> "components/news-section"}}
+
+    {{> "components/preview"}}
+
+    {{!-- 非会員には free タグの付いた記事だけを出す。有料記事のカードを非会員に見せない --}}
+    {{> "components/log-section" filter="tag:log+tag:free" limit="2"}}
+
+    <img class="voyage-divider" src="{{asset "images/voyage_line_skate.svg"}}" alt="" width="391" height="68">
+
+    {{> "components/notebook-section" filter="tag:notebook+tag:free" limit="2"}}
+
+    <section class="voyage-closing">
+        <p class="voyage-closing-catch">共に、次の景色へ。</p>
+        <p class="voyage-closing-message">Voyage+で、特別な航海をはじめましょう。</p>
+    </section>
+
+</main>
+
+{{/if}}

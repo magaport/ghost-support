@@ -1,0 +1,18 @@
+{{!-- script を渡すと、Figma の Log / NoteBook の見出しのように手書き風の英字の上に和文の見出しを重ねる --}}
+<div class="voyage-section-head">
+    {{#if script}}
+        <h2 class="voyage-section-title has-script">
+            <span class="voyage-section-script" aria-hidden="true">{{script}}</span>
+            <span class="voyage-section-label">{{label}}</span>
+        </h2>
+    {{else}}
+        <h2 class="voyage-section-title">{{label}}</h2>
+    {{/if}}
+
+    {{#if moreUrl}}
+        <a class="voyage-more-link" href="{{moreUrl}}">
+            {{moreLabel}}
+            <img src="{{asset "images/voyage_chevron_gold.svg"}}" alt="" width="5" height="11">
+        </a>
+    {{/if}}
+</div>

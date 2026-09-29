@@ -1,0 +1,44 @@
+/* Like button — ywlr の post-like を Voyage の配色で描く
+/* ---------------------------------------------------------- */
+
+.gh-post-like-wrapper {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.gh-post-like-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    cursor: pointer;
+    background-color: transparent;
+    border: 1px solid var(--voyage-blue);
+    border-radius: 50%;
+}
+
+.gh-post-like-button:hover {
+    transform: scale(1.05);
+}
+
+.gh-post-like-icon .heart-fill {
+    fill: var(--voyage-gold);
+}
+
+.gh-post-like-icon .heart-outline {
+    stroke: var(--voyage-blue);
+}
+
+.gh-post-like-button[data-liked="true"] .heart-outline,
+.gh-post-like-button[data-liked="false"] .heart-fill {
+    display: none;
+}
+
+.gh-post-like-count {
+    font-family: var(--voyage-font-latin);
+    font-size: 14px;
+    color: var(--voyage-blue);
+}

@@ -1,0 +1,8 @@
+{{!-- 白抜きのロゴは Publication logo から引く。未設定ならサイト名で代える --}}
+<h1 class="voyage-hero-logo">
+    {{#if @site.logo}}
+        <img src="{{img_url @site.logo}}" alt="{{@site.title}}">
+    {{else}}
+        {{@site.title}}
+    {{/if}}
+</h1>

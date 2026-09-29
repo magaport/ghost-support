@@ -1,0 +1,2 @@
+{{!-- 表示するかは公開日から assets/js/new-badge.js が決める。Handlebars では日付の差を比べられないため --}}
+<span class="voyage-new{{#if variant}} is-{{variant}}{{/if}}" data-published-at="{{date format="YYYY-MM-DDTHH:mm:ssZ"}}" hidden>NEW</span>

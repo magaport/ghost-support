@@ -1,0 +1,76 @@
+/* Footer
+/* ---------------------------------------------------------- */
+
+.voyage-footer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 424px;
+    padding: 224px var(--voyage-gutter) 24px;
+    color: var(--voyage-white);
+    /* 上端の 156px で白から青へ溶かす。Figma では白へ溶かす帯を 180° 回して重ねている */
+    background:
+        linear-gradient(180deg, #fff 0, rgb(255 255 255 / 0.89) 22.923%, rgb(255 255 255 / 0.81) 39.823%, rgb(255 255 255 / 0) 100%) top / 100% 156px no-repeat,
+        var(--voyage-blue);
+}
+
+.voyage-footer-boat {
+    position: absolute;
+    top: 108px;
+    left: -26px;
+    width: 432px;
+    max-width: none;
+}
+
+.voyage-footer-menu {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+/* li の行の高さを決めないと、Source の本文の 1.6 倍の行送りが残って Figma より間延びする */
+.voyage-footer-menu li {
+    font-size: var(--voyage-font-size-footer-menu);
+    line-height: 17px;
+}
+
+.voyage-footer-menu a {
+    font-family: var(--voyage-font-serif);
+    font-size: var(--voyage-font-size-footer-menu);
+    font-weight: 700;
+    line-height: 17px;
+    color: var(--voyage-white);
+}
+
+.voyage-footer-social {
+    display: flex;
+    gap: 23px;
+    align-items: center;
+    margin-top: 17px;
+}
+
+.voyage-footer-social a:hover,
+.voyage-footer-menu a:hover {
+    opacity: 0.8;
+}
+
+.voyage-footer-social img[src*="voyage_x"] {
+    width: 42px;
+}
+
+.voyage-footer-social img[src*="voyage_instagram"] {
+    width: 53px;
+}
+
+.voyage-copyright {
+    margin: auto 0 0;
+    padding-top: 32px;
+    font-family: var(--voyage-font-latin);
+    font-size: var(--voyage-font-size-copyright);
+    line-height: normal;
+}

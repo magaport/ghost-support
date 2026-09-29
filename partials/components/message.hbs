@@ -1,0 +1,37 @@
+{{!-- 文面と写真を管理画面で差し替えられるよう、slug が message の固定ページから引く。
+      カスタム設定の text は 1 行の入力欄で、改行を含むメッセージを書けないため。
+      ページが無いときにカードごと消えないよう、Figma の文面と写真を出す。
+      {{#get}} は 0 件でも本体を描くので、{{else}} は {{#foreach}} 側に置く --}}
+{{#get "pages" filter="slug:message" limit="1"}}
+    {{#foreach pages}}
+        <section class="voyage-message">
+            {{#if feature_image}}
+                <img class="voyage-message-portrait" src="{{img_url feature_image size="s"}}" alt="" width="109" height="109">
+            {{else}}
+                <img class="voyage-message-portrait" src="{{asset "images/voyage_message_portrait.jpg"}}" alt="" width="109" height="109">
+            {{/if}}
+
+            <div class="voyage-message-body">
+                <h2 class="voyage-message-title">{{title}}</h2>
+                <div class="voyage-message-text">{{content}}</div>
+            </div>
+
+            {{> "components/message-signature"}}
+        </section>
+    {{else}}
+    <section class="voyage-message">
+        <img class="voyage-message-portrait" src="{{asset "images/voyage_message_portrait.jpg"}}" alt="" width="109" height="109">
+
+        <div class="voyage-message-body">
+            <h2 class="voyage-message-title">いつも応援してくださる皆さんへ。</h2>
+            <div class="voyage-message-text">
+                <p>挑戦の道のりは一人では進めませんでした。<br>支えてくれる皆さんの存在が、<br>私にとっての大きな力になっています。</p>
+                <p>この場所で、もっと近くに、もっと深く、<br>未来への航海を一緒に</p>
+                <p>楽しみましょう。</p>
+            </div>
+        </div>
+
+        {{> "components/message-signature"}}
+    </section>
+    {{/foreach}}
+{{/get}}
