@@ -1,0 +1,14 @@
+{{!-- ヘッダーとハンバーガーで共通のナビ。会員（有料）と非会員で項目が違い、Ghost の Primary nav は 1 つしか持てないので、
+      項目はテーマに固定する。どれもテーマが持つタグ一覧やトップの節へのリンクで、運用で変えるものではない --}}
+<ul class="voyage-menu-list">
+    {{#if @member.paid}}
+        <li><a href="{{@site.url}}/tag/news/">News</a></li>
+        <li><a href="{{@site.url}}/tag/log/">日常</a></li>
+        <li><a href="{{@site.url}}/tag/notebook/">学び</a></li>
+    {{else}}
+        {{!-- 遷移先の固定ページは先方に確認中。トップの「Voyage+ とは」と同じ /about/ で仮置きする --}}
+        <li><a href="{{@site.url}}/about/">Voyage+ とは</a></li>
+        <li><a href="{{@site.url}}/#benefits">会員特典</a></li>
+        <li><a href="{{@site.url}}/tag/news/">News</a></li>
+    {{/if}}
+</ul>

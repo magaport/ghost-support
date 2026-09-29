@@ -1,21 +1,37 @@
 /* Log card
 /* ---------------------------------------------------------- */
 
+/* 列数は画面幅で切り替えず、155px のカードが並ぶだけ並べる。
+/* auto-fill だと件数が少ないときに空の列が残り、非会員の 2 件が広い画面で伸びない。
+/* 155px が 2 枚入らない狭い画面でも 1 列に落とさず、縮めて 2 列を保つ */
 .voyage-log-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(min(155px, (100% - 26px) / 2), 1fr));
     gap: 19px 26px;
     margin-top: 19px;
 }
 
+/* 見出しに 140px 取れる幅があれば画像の右に、無ければ画像の下に回す */
 .voyage-log-card {
-    display: block;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 16px;
+    align-items: flex-start;
+    /* グリッドで隣のカードの高さまで伸ばされても、折り返した見出しを画像の下に詰めておく */
+    align-content: flex-start;
     min-width: 0;
 }
 
 .voyage-log-card-media {
     position: relative;
     display: block;
+    flex: 1 0 min(155px, 100%);
+}
+
+.voyage-log-card-body {
+    display: block;
+    flex: 1 1 140px;
+    min-width: 0;
 }
 
 .voyage-log-card-image {
@@ -64,10 +80,11 @@
 /* NoteBook card
 /* ---------------------------------------------------------- */
 
+/* 320px のカードが 2 枚並ぶ幅があれば 2 列にする */
 .voyage-notebook-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: 12px 26px;
     margin-top: 14px;
 }
 

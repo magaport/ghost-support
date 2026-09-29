@@ -78,6 +78,9 @@
             },
             "xxl": {
                 "width": 2000
+            },
+            "hero": {
+                "width": 2880
             }
         },
         "card_assets": true

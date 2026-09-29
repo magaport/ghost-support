@@ -11,12 +11,10 @@ body {
     background-color: var(--voyage-white);
 }
 
-/* レスポンシブの要否は未確定なので、Figma の幅を上限にして中央に置く */
 .gh-viewport {
+    container: voyage-page / inline-size;
     width: 100%;
-    max-width: var(--voyage-page-width);
     min-height: 100vh;
-    margin-inline: auto;
     /* ヒーローの写真や線画は Figma でも枠の外まで伸びているので、横にはみ出た分を切る */
     overflow-x: clip;
 }
@@ -27,7 +25,7 @@ body {
 }
 
 .voyage-section {
-    padding-inline: var(--voyage-gutter);
+    padding-inline: var(--voyage-inline);
 }
 
 /* Section heading
@@ -181,4 +179,25 @@ body {
 
 .voyage-pagination a {
     color: var(--voyage-gold);
+}
+
+/* Line art — partials/components/line-*.hbs
+/* ---------------------------------------------------------- */
+
+.voyage-line {
+    display: grid;
+    align-items: start;
+}
+
+.voyage-line > img {
+    max-width: none;
+}
+
+.voyage-line-tail {
+    width: 100%;
+}
+
+/* 左の線は絵とのつなぎ目から外へ向かって描くので、左右を反転して原点を右端に置く */
+.voyage-line-tail.is-left {
+    transform: scaleX(-1);
 }

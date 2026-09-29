@@ -35,6 +35,11 @@
 .voyage-hero-brand {
     position: relative;
     display: flex;
+    /* 文字とロゴの配置は Figma のアートボードの中で組んであるので、その幅の箱ごと動かす。
+    /* 中央に置くとデスクトップ案より右に寄る。案では文字の左端が画面の約 2 割にあるので、余った幅の一部だけ左に空ける */
+    width: calc(402 * var(--voyage-hero-unit));
+    max-width: 100%;
+    margin-left: max(0px, (100% - 402 * var(--voyage-hero-unit)) * var(--voyage-hero-brand-shift));
     flex-direction: column;
     align-items: flex-start;
     color: var(--voyage-white);
@@ -43,7 +48,7 @@
 .voyage-hero-lead {
     margin: 0;
     font-family: var(--voyage-font-serif);
-    line-height: 27px;
+    line-height: calc(27 * var(--voyage-hero-unit));
     text-align: center;
     white-space: nowrap;
 }
@@ -56,28 +61,33 @@
     line-height: 1;
 }
 
+.voyage-hero-logo picture,
 .voyage-hero-logo img {
+    display: block;
     width: 100%;
 }
 
 .voyage-hero-catch {
     margin: 0;
     font-family: var(--voyage-font-serif);
-    font-size: var(--voyage-font-size-hero-catch);
-    line-height: 33px;
+    font-size: calc(20 * var(--voyage-hero-unit));
+    line-height: calc(33 * var(--voyage-hero-unit));
     white-space: nowrap;
 }
 
 /* 会員と非会員で Figma の切り出しと文字の位置が違うので、共通化せず別々に持つ */
 .is-member .voyage-hero {
-    height: 417px;
+    /* 402px では Figma の 417px。広い画面では写真が横長になりすぎないよう少し伸ばす */
+    height: max(417px, 36vw);
 }
 
 .is-member .voyage-hero-image {
     top: -64px;
-    height: 494px;
-    /* Figma は 636px 幅の写真を左に 72px ずらしている。はみ出す 234px のうち 72px を左で切る */
-    object-position: 30.8% 0;
+    /* Figma の写真は枠の下端より 13px 下まである */
+    height: calc(100% + 77px);
+    /* Figma は 636px 幅の写真を左に 72px ずらしている。はみ出す 234px のうち 72px を左で切る。
+    /* 縦は Figma の幅では余らないので、広い画面で余る分だけ水平線が残る位置で切る */
+    object-position: 30.8% 60%;
 }
 
 .is-member .voyage-hero-visual::after {
@@ -85,33 +95,35 @@
 }
 
 .is-member .voyage-hero-brand {
-    padding-top: 84px;
+    /* 1280px で文字の左端が画面の 19% になる割合 */
+    --voyage-hero-brand-shift: 0.22;
+    padding-top: calc(84 * var(--voyage-hero-unit));
 }
 
 .is-member .voyage-hero-lead {
-    width: 237px;
-    margin-left: 63px;
-    font-size: var(--voyage-font-size-hero-lead);
+    width: calc(237 * var(--voyage-hero-unit));
+    margin-left: calc(63 * var(--voyage-hero-unit));
+    font-size: calc(16 * var(--voyage-hero-unit));
 }
 
 .is-member .voyage-hero-logo {
-    width: 174px;
-    margin: 9px 0 0 86px;
+    width: calc(174 * var(--voyage-hero-unit));
+    margin: calc(9 * var(--voyage-hero-unit)) 0 0 calc(86 * var(--voyage-hero-unit));
 }
 
 .is-member .voyage-hero-catch {
-    margin: 9px 0 0 79px;
+    margin: calc(9 * var(--voyage-hero-unit)) 0 0 calc(79 * var(--voyage-hero-unit));
 }
 
 .is-guest .voyage-hero {
-    height: 383px;
+    height: max(383px, 40vw);
 }
 
 .is-guest .voyage-hero-image {
     top: -128px;
-    height: 634px;
+    height: calc(100% + 251px);
     /* Figma は 817px 幅の写真を左に 143px ずらしている。はみ出す 415px のうち 143px を左で切る */
-    object-position: 34.5% 0;
+    object-position: 34.5% 60%;
 }
 
 .is-guest .voyage-hero-visual::after {
@@ -119,18 +131,20 @@
 }
 
 .is-guest .voyage-hero-brand {
+    /* 非会員は文字とロゴを中央揃えのまま、1280px で文字の左端が画面の 19% になる割合 */
+    --voyage-hero-brand-shift: 0.14;
     align-items: center;
-    padding-top: 57px;
-    padding-left: 18px;
+    padding-top: calc(57 * var(--voyage-hero-unit));
+    padding-left: calc(18 * var(--voyage-hero-unit));
 }
 
 .is-guest .voyage-hero-lead {
-    font-size: var(--voyage-font-size-hero-lead-guest);
+    font-size: calc(17 * var(--voyage-hero-unit));
 }
 
 .is-guest .voyage-hero-logo {
-    width: 203px;
-    margin-top: 12px;
+    width: calc(203 * var(--voyage-hero-unit));
+    margin-top: calc(12 * var(--voyage-hero-unit));
 }
 
 /* Join (非会員)
@@ -216,7 +230,8 @@
 
 .voyage-benefits {
     margin-top: 41px;
-    padding-inline: 21px;
+    /* 見出しの線は本文の列より 12px 外まで伸ばす */
+    padding-inline: max(21px, (100% - var(--voyage-content-width)) / 2 - 12px);
 }
 
 .voyage-benefits-title {
@@ -389,10 +404,10 @@
     margin-top: 12px;
 }
 
+/* 絵は 402px で左 19px になる位置に置き、その左右を線で埋める */
 .voyage-divider {
-    width: 391px;
-    max-width: none;
-    margin: 36px 0 0 19px;
+    grid-template-columns: max(0px, 50% - 182px) 391px 1fr;
+    margin: 36px 0 0 min(0px, 50% - 182px);
 }
 
 .voyage-notebook {

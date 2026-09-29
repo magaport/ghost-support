@@ -7,10 +7,10 @@
 <main class="voyage-home is-member">
 
     <section class="voyage-hero">
-        {{> "components/hero-visual"}}
+        {{> "components/hero-visual" sizes="max(100vw, (max(417px, 36vw) + 77px) * 1.289)"}}
         <div class="voyage-hero-brand">
             <p class="voyage-hero-lead">高木美帆　公式コミュニティ</p>
-            {{> "components/hero-logo"}}
+            {{> "components/hero-logo" sizes="max(174px, 19.34vw)"}}
             <p class="voyage-hero-catch">共に、次の景色へ。</p>
         </div>
     </section>
@@ -19,7 +19,7 @@
 
     {{> "components/log-section" filter="tag:log" limit="4" moreUrl=(concat @site.url "/tag/log/")}}
 
-    <img class="voyage-divider" src="{{asset "images/voyage_line_skate.svg"}}" alt="" width="391" height="68">
+    {{> "components/line-skate" class="voyage-divider"}}
 
     {{> "components/notebook-section" filter="tag:notebook" limit="4" moreUrl=(concat @site.url "/tag/notebook/")}}
 
@@ -30,10 +30,10 @@
 <main class="voyage-home is-guest">
 
     <section class="voyage-hero">
-        {{> "components/hero-visual"}}
+        {{> "components/hero-visual" sizes="max(100vw, (max(383px, 40vw) + 251px) * 1.289)"}}
         <div class="voyage-hero-brand">
             <p class="voyage-hero-lead">高木美帆　公式コミュニティ</p>
-            {{> "components/hero-logo"}}
+            {{> "components/hero-logo" sizes="max(203px, 22.56vw)"}}
         </div>
     </section>
 
@@ -70,7 +70,7 @@
     {{!-- 非会員には free タグの付いた記事だけを出す。有料記事のカードを非会員に見せない --}}
     {{> "components/log-section" filter="tag:log+tag:free" limit="2"}}
 
-    <img class="voyage-divider" src="{{asset "images/voyage_line_skate.svg"}}" alt="" width="391" height="68">
+    {{> "components/line-skate" class="voyage-divider"}}
 
     {{> "components/notebook-section" filter="tag:notebook+tag:free" limit="2"}}
 

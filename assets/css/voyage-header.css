@@ -9,8 +9,64 @@
     align-items: flex-start;
     justify-content: space-between;
     height: 111px;
-    padding: 52px 28px 0 35px;
+    /* 402px では Figma の左 35px・右 28px。デスクトップ案ではロゴとナビが本文の列より外、画面の端から約 1 割の位置にあるので、
+    /* 本文の列の端には揃えず、402px から広がった幅の 1 割強を余白に足す */
+    padding: 52px max(28px, 28px + (100% - 402px) * 0.11) 0 max(35px, 35px + (100% - 402px) * 0.106);
     background-color: var(--voyage-white);
+}
+
+/* ナビを並べるのは下の container query の幅から。それより狭いときは MENU から開く */
+.voyage-header-nav {
+    display: none;
+    gap: 32px;
+    align-items: center;
+    height: 31px;
+    margin-top: 14px;
+    white-space: nowrap;
+}
+
+.voyage-header-nav .voyage-menu-list {
+    display: flex;
+    gap: 32px;
+}
+
+.voyage-header-nav .voyage-menu-list li {
+    border-bottom: 0;
+}
+
+.voyage-header-nav .voyage-menu-list a,
+.voyage-header-link {
+    padding: 0;
+    font-family: var(--voyage-font-sans);
+    font-size: var(--voyage-font-size-header-nav);
+    font-weight: 400;
+    line-height: normal;
+    color: var(--voyage-blue);
+}
+
+.voyage-header-button {
+    display: inline-flex;
+    align-items: center;
+    height: 28px;
+    padding-inline: 20px;
+    font-family: var(--voyage-font-sans);
+    font-size: var(--voyage-font-size-header-nav);
+    line-height: 1;
+    border-radius: 32px;
+}
+
+.voyage-header-button.is-gold {
+    color: var(--voyage-white);
+    background-color: var(--voyage-gold);
+}
+
+.voyage-header-button.is-outline {
+    color: var(--voyage-blue);
+    border: 1px solid var(--voyage-blue);
+}
+
+.voyage-header-nav a:hover {
+    opacity: 0.8;
 }
 
 .voyage-header-logo {
@@ -73,6 +129,31 @@
 
 body:has(.voyage-menu:not([hidden])) {
     overflow: hidden;
+}
+
+/* ナビを並べ始める幅は、デスクトップ案のナビ（非会員 4 項目とボタン 2 つ、会員 3 項目とボタン 1 つ）が収まる幅。
+/* ナビの幅そのものは CSS から参照できないので値で持つ。管理画面でナビの項目を増やしたり文言を長くしたら、ここを見直す。
+/* 画面ではなく .gh-viewport の幅で判定するのは、Portal がダイアログを開くと body に余白を足して幅が変わるため */
+@container voyage-page (min-width: 480px) {
+    [data-voyage-nav="member"] .voyage-header-nav {
+        display: flex;
+    }
+
+    [data-voyage-nav="member"] .voyage-header .voyage-burger,
+    [data-voyage-nav="member"] .voyage-menu:not([hidden]) {
+        display: none;
+    }
+}
+
+@container voyage-page (min-width: 660px) {
+    [data-voyage-nav="guest"] .voyage-header-nav {
+        display: flex;
+    }
+
+    [data-voyage-nav="guest"] .voyage-header .voyage-burger,
+    [data-voyage-nav="guest"] .voyage-menu:not([hidden]) {
+        display: none;
+    }
 }
 
 .voyage-menu-header {

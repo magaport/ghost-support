@@ -25,8 +25,16 @@
     --voyage-hairline-05: 0.5;
 
     /* Layout */
+    /* Figma のアートボード幅 */
     --voyage-page-width: 402px;
+    /* hero の文字とロゴは Figma の px 値にこの単位を掛けて描く。402px 前後では 1px のまま、
+    /* 画面が広いほど大きくする。境目の幅で切り替えると、その前後で急に大きさが変わるため */
+    --voyage-hero-unit: max(1px, 100vw / 900);
     --voyage-gutter: 33px;
+    /* 本文の列の上限は画面幅から決めず、Log のカードが 4 枚並ぶ幅から決める */
+    --voyage-content-width: calc(155px * 4 + 26px * 3);
+    /* 狭い画面では Figma の 33px、広い画面では本文の列を中央に置く左右の余白 */
+    --voyage-inline: max(var(--voyage-gutter), (100% - var(--voyage-content-width)) / 2);
     --voyage-radius: 8px;
     --voyage-card-shadow: 0 4px 4px rgb(0 0 0 / 0.25);
 
@@ -44,12 +52,10 @@
     /* 同じ値でも役割ごとに分ける */
     /* ヘッダーとメニュー */
     --voyage-font-size-menu-label: 10px;
+    --voyage-font-size-header-nav: 12px;
     --voyage-font-size-menu-link: 18px;
     --voyage-font-size-menu-secondary-link: 12px;
     /* トップ */
-    --voyage-font-size-hero-lead: 16px;
-    --voyage-font-size-hero-lead-guest: 17px;
-    --voyage-font-size-hero-catch: 20px;
     --voyage-font-size-button: 13px;
     --voyage-font-size-text-link: 10px;
     --voyage-font-size-message-title: 12px;

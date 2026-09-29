@@ -1,6 +1,6 @@
 {{!-- {{navigation}} ヘルパーが差し込む partial。ヘルパーを通さないと項目に
       slug と current が付かず、{{url}} が nav として扱われない --}}
-{{!-- ハンバーガーは Primary、フッターの利用規約などは Secondary のナビから引く --}}
+{{!-- フッターとハンバーガーの下段の利用規約などは Secondary のナビから引く。上段の項目は components/site-nav に固定している --}}
 <ul class="{{#if isSecondary}}voyage-footer-menu{{else}}voyage-menu-list{{/if}}">
     {{#foreach navigation}}
         <li><a href="{{url absolute="true"}}">{{label}}</a></li>

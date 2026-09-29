@@ -15,12 +15,13 @@
         var(--voyage-blue);
 }
 
+/* 絵は 402px で左 -26px になる位置に置き、その左右を線で埋める */
 .voyage-footer-boat {
     position: absolute;
     top: 108px;
-    left: -26px;
-    width: 432px;
-    max-width: none;
+    right: 0;
+    left: min(0px, 50% - 227px);
+    grid-template-columns: max(0px, 50% - 227px) 432px 1fr;
 }
 
 .voyage-footer-menu {
@@ -31,6 +32,22 @@
     padding: 0;
     margin: 0;
     list-style: none;
+}
+
+/* ヘッダーにナビを並べる幅（assets/css/voyage-header.css）から、フッターのリンクも横に並べる。
+/* 折り返しに任せると 402px でも 3 つが横に収まり、Figma の縦並びにならない */
+@container voyage-page (min-width: 480px) {
+    [data-voyage-nav="member"] .voyage-footer > .voyage-footer-menu {
+        flex-direction: row;
+        gap: 32px;
+    }
+}
+
+@container voyage-page (min-width: 660px) {
+    [data-voyage-nav="guest"] .voyage-footer > .voyage-footer-menu {
+        flex-direction: row;
+        gap: 32px;
+    }
 }
 
 /* li の行の高さを決めないと、Source の本文の 1.6 倍の行送りが残って Figma より間延びする */

@@ -4,6 +4,19 @@
         <img src="{{asset "images/voyage_logo_header.svg"}}" alt="{{@site.title}}" width="81" height="49">
     </a>
 
+    {{!-- ハンバーガーと同じナビを、ヘッダーに収まる広さのときだけ並べる。広さの判定は assets/css/voyage-header.css --}}
+    <nav class="voyage-header-nav" aria-label="メインメニュー">
+        {{> "components/site-nav"}}
+        {{#if @site.members_enabled}}
+            {{#if @member}}
+                <a class="voyage-header-button is-outline" href="#/portal/account" data-portal="account">マイページ</a>
+            {{else}}
+                <a class="voyage-header-link" href="#/portal/signin" data-portal="signin">ログイン</a>
+                <a class="voyage-header-button is-gold" href="#/portal/signup" data-portal="signup">新規入会</a>
+            {{/if}}
+        {{/if}}
+    </nav>
+
     <button class="voyage-burger" type="button" aria-label="メニューを開く" aria-controls="voyage-menu" aria-expanded="false" data-menu-open>
         <img src="{{asset "images/voyage_menu.svg"}}" alt="" width="43" height="31">
     </button>
@@ -28,7 +41,7 @@
 
     <div class="voyage-menu-body">
         <div class="voyage-menu-primary">
-            {{navigation}}
+            {{> "components/site-nav"}}
         </div>
 
         {{#if @site.members_enabled}}
