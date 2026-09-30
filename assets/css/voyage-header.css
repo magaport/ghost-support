@@ -103,17 +103,19 @@
 /* Menu panel — デザイン未着手の仮
 /* ---------------------------------------------------------- */
 
-/* Portal のダイアログ（z-index: 3999999）より下に置き、メニューを開いたままでもダイアログを前に出す */
-/* 幅はページと同じ 402px にしない。Portal はダイアログを開くと body にスクロールバー分の margin-right を足すので、
-/* ページだけが左にずれ、同じ幅のメニューの脇から裏のフッターが覗く。画面幅で覆い、中身だけを 402px に収める */
+/* popover の UA スタイルは内容の大きさに縮み、枠線と Canvas 色も付くので打ち消す */
 .voyage-menu {
     position: fixed;
     inset: 0;
-    z-index: 1000;
-    display: flex;
     flex-direction: column;
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin: 0;
     overflow-y: auto;
+    color: inherit;
     background-color: var(--voyage-white);
+    border: 0;
 }
 
 .voyage-menu > * {
@@ -122,12 +124,18 @@
     margin-inline: auto;
 }
 
-/* display を指定すると hidden 属性の display: none に勝ってしまう */
-.voyage-menu[hidden] {
+/* display を常に指定すると、閉じた popover を隠す UA の display: none に勝ってしまう */
+.voyage-menu:popover-open {
+    display: flex;
+}
+
+/* popover は top layer に出て z-index では Portal のダイアログの下に回せないので、ダイアログを開いている間は描かない。
+/* Portal はダイアログを開いている間、data-portal の要素に gh-portal-open を付ける */
+.voyage-menu:popover-open:has(.gh-portal-open) {
     display: none;
 }
 
-body:has(.voyage-menu:not([hidden])) {
+body:has(.voyage-menu:popover-open) {
     overflow: hidden;
 }
 
@@ -140,7 +148,7 @@ body:has(.voyage-menu:not([hidden])) {
     }
 
     [data-voyage-nav="member"] .voyage-header .voyage-burger,
-    [data-voyage-nav="member"] .voyage-menu:not([hidden]) {
+    [data-voyage-nav="member"] .voyage-menu:popover-open {
         display: none;
     }
 }
@@ -151,7 +159,7 @@ body:has(.voyage-menu:not([hidden])) {
     }
 
     [data-voyage-nav="guest"] .voyage-header .voyage-burger,
-    [data-voyage-nav="guest"] .voyage-menu:not([hidden]) {
+    [data-voyage-nav="guest"] .voyage-menu:popover-open {
         display: none;
     }
 }

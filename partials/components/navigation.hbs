@@ -17,7 +17,7 @@
         {{/if}}
     </nav>
 
-    <button class="voyage-burger" type="button" aria-label="メニューを開く" aria-controls="voyage-menu" aria-expanded="false" data-menu-open>
+    <button class="voyage-burger" type="button" aria-label="メニューを開く" popovertarget="voyage-menu">
         <img src="{{asset "images/voyage_menu.svg"}}" alt="" width="43" height="31">
     </button>
 </header>
@@ -26,14 +26,13 @@
 <div id="announcement-bar-root"></div>
 
 {{!-- メニューを開いたときのデザインは未着手なので仮。
-      raiden の Popover API は top layer に出るため、メニューを開いたまま Portal のダイアログを前に出せない。
-      z-index が効く通常の固定配置にし、開閉と Esc は assets/js/menu.js で持つ --}}
-<nav id="voyage-menu" class="voyage-menu" aria-label="メニュー" hidden>
+      チェックボックスで開閉する CSS だけの方法は、開閉状態が支援技術に伝わらず Esc でも閉じられないので使わない --}}
+<nav id="voyage-menu" class="voyage-menu" aria-label="メニュー" popover>
     <div class="voyage-header voyage-menu-header">
         <a class="voyage-header-logo" href="{{@site.url}}">
             <img src="{{asset "images/voyage_logo_header.svg"}}" alt="{{@site.title}}" width="81" height="49">
         </a>
-        <button class="voyage-burger voyage-menu-close" type="button" aria-label="メニューを閉じる" data-menu-close>
+        <button class="voyage-burger voyage-menu-close" type="button" aria-label="メニューを閉じる" popovertarget="voyage-menu" popovertargetaction="hide" autofocus>
             <span class="voyage-menu-close-icon" aria-hidden="true"></span>
             <span class="voyage-burger-label">CLOSE</span>
         </button>
