@@ -138,7 +138,7 @@ body {
     color: var(--voyage-gold);
 }
 
-/* NEW badge — 表示するかは assets/js/new-badge.js が決める */
+/* NEW badge — 表示するかは partials/components/new-badge.hbs が決める */
 .voyage-new {
     display: inline-flex;
     align-items: center;
@@ -150,11 +150,6 @@ body {
     font-weight: 700;
     line-height: 1;
     color: var(--voyage-white);
-}
-
-/* display を指定すると hidden 属性の display: none に勝ってしまう */
-.voyage-new[hidden] {
-    display: none;
 }
 
 .voyage-new.is-gold {

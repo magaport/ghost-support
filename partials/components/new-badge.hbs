@@ -1,2 +1,6 @@
-{{!-- 表示するかは公開日から assets/js/new-badge.js が決める。Handlebars では日付の差を比べられないため --}}
-<span class="voyage-new{{#if variant}} is-{{variant}}{{/if}}" data-published-at="{{date format="YYYY-MM-DDTHH:mm:ssZ"}}" hidden>NEW</span>
+{{!-- 7 日は先方に確認中の仮の値。Handlebars では日付の差を計算できないので、NQL の now-7d で公開から 7 日以内かを API に問い合わせる --}}
+{{#get "posts" filter="id:'{{id}}'+published_at:>now-7d" limit="1" fields="id"}}
+    {{#if posts}}
+        <span class="voyage-new{{#if ../variant}} is-{{../variant}}{{/if}}">NEW</span>
+    {{/if}}
+{{/get}}
