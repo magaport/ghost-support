@@ -348,7 +348,7 @@
 .voyage-preview {
     position: relative;
     height: 138px;
-    margin-top: 28px;
+    margin-top: 39px;
     overflow: hidden;
     border-radius: var(--voyage-radius);
 }

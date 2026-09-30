@@ -14,6 +14,7 @@
 /* 見出しに 140px 取れる幅があれば画像の右に、無ければ画像の下に回す */
 .voyage-log-card {
     display: flex;
+    gap: 6px;
     flex-wrap: wrap;
     column-gap: 16px;
     align-items: flex-start;
