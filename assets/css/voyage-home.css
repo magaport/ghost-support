@@ -156,7 +156,8 @@
     flex-direction: column;
     gap: 11px;
     align-items: center;
-    margin-top: -11px;
+    /* ボタンの中心をヒーローの下端に置き、上半分を背景に被せる */
+    margin-top: -24px;
 }
 
 /* Message
@@ -306,6 +307,10 @@
 
 .voyage-news-list li {
     border-bottom: var(--voyage-hairline) solid rgb(var(--voyage-blue-rgb) / var(--voyage-hairline-03));
+}
+
+.is-guest .voyage-news-list li:last-child {
+    border-bottom: 0;
 }
 
 /* Figma の線の間隔 43px に線の太さを含めるため、行の高さから線の分を引く */
