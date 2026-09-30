@@ -199,7 +199,6 @@
     color: var(--voyage-blue);
 }
 
-/* 本文は管理画面で書くのでクラスを付けられない。段落の間を空けず、改行は Shift+Enter で入れてもらう */
 .voyage-message-text {
     margin-top: 4px;
     font-family: var(--voyage-font-serif);
