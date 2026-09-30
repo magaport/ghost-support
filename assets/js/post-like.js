@@ -30,29 +30,6 @@ const getMemberToken = async () => {
     }
 };
 
-const getMemberByEmail = async (email, contentApiKey) => {
-    if (!email) {
-        return null;
-    }
-
-    const url = `/ghost/api/content/members/${encodeURIComponent(email)}?key=${contentApiKey}`;
-
-    const res = await fetch(url, {
-        method: 'GET',
-        headers: {'Content-Type': 'application/json'}
-    });
-
-    if (!res.ok) {
-        // メール未登録などで404の場合はnull扱いにする
-        return null;
-    }
-
-    const data = await res.json();
-
-    const member = data.members[0];
-    return member || null;
-};
-
 const getPostLike = async (postId, contentApiKey) => {
     const token = await getMemberToken();
     const res = await fetch(`/ghost/api/content/posts/${postId}/like?key=${contentApiKey}`, {
@@ -71,7 +48,9 @@ const getPostLike = async (postId, contentApiKey) => {
     return data;
 };
 
-const addPostLike = async (postId, memberId, contentApiKey) => {
+// いいねする会員はサーバーが GhostMembers トークンから決めるので、会員 ID は送らない。
+// Ghost の API フレームワークは POST の本文に空でない post_likes を求めるので、本文を空にはできない
+const addPostLike = async (postId, contentApiKey) => {
     const token = await getMemberToken();
     const res = await fetch(`/ghost/api/content/posts/${postId}/like?key=${contentApiKey}`, {
         method: 'POST',
@@ -81,9 +60,7 @@ const addPostLike = async (postId, memberId, contentApiKey) => {
             ...(token ? {Authorization: `GhostMembers ${token}`} : {})
         },
         body: JSON.stringify({
-            post_likes: [{
-                member: {id: memberId}
-            }]
+            post_likes: [{post_id: postId}]
         })
     });
 
@@ -94,18 +71,14 @@ const addPostLike = async (postId, memberId, contentApiKey) => {
     return;
 };
 
-const removePostLike = async (postId, memberId, contentApiKey) => {
+const removePostLike = async (postId, contentApiKey) => {
     const token = await getMemberToken();
     const res = await fetch(`/ghost/api/content/posts/${postId}/like?key=${contentApiKey}`, {
         method: 'DELETE',
         credentials: 'include',
         headers: {
-            'Content-Type': 'application/json',
             ...(token ? {Authorization: `GhostMembers ${token}`} : {})
-        },
-        body: JSON.stringify({
-            post_likes: [{member: {id: memberId}}]
-        })
+        }
     });
 
     if (!res.ok) {
@@ -123,20 +96,7 @@ const removePostLike = async (postId, memberId, contentApiKey) => {
  */
 async function initializeLikeButtonUI(button) {
     const postId = button.getAttribute('data-post-id');
-    const memberEmail = button.getAttribute('data-member-email');
     const contentApiKey = button.getAttribute('data-content-api-key');
-    let memberId = ''; // 未ログイン or 存在しない場合は空
-    if (memberEmail) {
-        const memberInfo = await getMemberByEmail(memberEmail, contentApiKey);
-        if (memberInfo && memberInfo.id) {
-            memberId = memberInfo.id;
-        } else {
-            console.warn('[post-like] No member found for email:', memberEmail);
-        }
-    }
-
-    // ボタンにmemberIdをセット
-    button.setAttribute('data-member-id', memberId);
 
     if (!postId) {
         console.warn('[post-like] No postId, cannot proceed');
@@ -186,10 +146,9 @@ async function initializeLikeButtonUI(button) {
 async function handleLikeButtonClick(event) {
     const button = event.currentTarget;
     const postId = button.getAttribute('data-post-id');
-    const memberId = button.getAttribute('data-member-id');
     const contentApiKey = button.getAttribute('data-content-api-key');
     // 未ログイン？
-    if (!memberId) {
+    if (button.getAttribute('data-signed-in') !== 'true') {
         alert('ログインが必要です');
         return;
     }
@@ -198,9 +157,9 @@ async function handleLikeButtonClick(event) {
 
     try {
         if (currentIsLiked) {
-            await removePostLike(postId, memberId, contentApiKey);
+            await removePostLike(postId, contentApiKey);
         } else {
-            await addPostLike(postId, memberId, contentApiKey);
+            await addPostLike(postId, contentApiKey);
         }
     } catch (error) {
         console.error('[post-like] いいね操作に失敗しました:', error);

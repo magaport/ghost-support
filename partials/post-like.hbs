@@ -4,8 +4,7 @@
         type="button"
         aria-label="いいね"
         data-post-id="{{post_id}}"
-        data-member-email="{{@member.email}}"
-        data-member-id=""
+        data-signed-in="{{#if @member}}true{{else}}false{{/if}}"
         data-content-api-key="{{content_api_key}}"
         data-liked="false"
     >
