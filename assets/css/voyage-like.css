@@ -1,6 +1,3 @@
-/* Like button — ywlr の post-like を Voyage の配色で描く
-/* ---------------------------------------------------------- */
-
 .gh-post-like-wrapper {
     display: inline-flex;
     gap: 8px;
