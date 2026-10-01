@@ -1,0 +1,93 @@
+/* Design tokens taken from the Voyage+ Figma artboard (402px wide).
+/* Lengths are the Figma values as they are. */
+
+:root {
+    /* Colors */
+    --voyage-blue: #2986b2;
+    --voyage-blue-rgb: 41 134 178;
+    --voyage-gold-rgb: 200 152 74;
+    --voyage-blue-badge: rgb(41 134 178 / 0.8);
+    --voyage-blue-pale: rgb(41 134 178 / 0.1);
+    --voyage-gold: #c8984a;
+    --voyage-script-gray: #d9d9d9;
+    --voyage-preview-fade: 234 239 247;
+    --voyage-black: #000;
+    --voyage-white: #fff;
+
+    /* ヒーローとフッターで写真や青地を白へ溶かすグラデーション */
+    --voyage-fade-to-white: linear-gradient(180deg, rgb(255 255 255 / 0) 0%, rgb(255 255 255 / 0.81) 60.177%, rgb(255 255 255 / 0.89) 77.077%, #fff 100%);
+
+    /* Hairlines */
+    /* Figma の 0.3px / 0.5px の線は、ブラウザでは 1 デバイスピクセル未満に描けず濃く太く出る。
+    /* Figma が線を塗る割合を不透明度に置き換え、1 デバイスピクセルの線で描く */
+    --voyage-hairline: 1px;
+    --voyage-hairline-03: 0.3;
+    --voyage-hairline-05: 0.5;
+
+    /* Layout */
+    /* Figma のアートボード幅 */
+    --voyage-page-width: 402px;
+    /* hero の文字とロゴは Figma の px 値にこの単位を掛けて描く。402px 前後では 1px のまま、
+    /* 画面が広いほど大きくする。境目の幅で切り替えると、その前後で急に大きさが変わるため */
+    --voyage-hero-unit: max(1px, 100vw / 900);
+    --voyage-gutter: 33px;
+    /* 本文の列の上限は画面幅から決めず、Log のカードが 4 枚並ぶ幅から決める */
+    --voyage-content-width: calc(155px * 4 + 26px * 3);
+    /* 狭い画面では Figma の 33px、広い画面では本文の列を中央に置く左右の余白 */
+    --voyage-inline: max(var(--voyage-gutter), (100% - var(--voyage-content-width)) / 2);
+    --voyage-radius: 8px;
+    --voyage-card-shadow: 0 4px 4px rgb(0 0 0 / 0.25);
+
+    /* Typography */
+    --voyage-font-serif: "Noto Serif JP", "Hiragino Mincho ProN", serif;
+    --voyage-font-sans: "Noto Sans JP", "Hiragino Sans", sans-serif;
+    /* date 20XX.XX.XX は欧文の Noto Sans。和文は含まないので Noto Sans JP に落とす */
+    --voyage-font-latin: "Noto Sans", var(--voyage-font-sans);
+    --voyage-font-script: "Grape Nuts", cursive;
+    /* Source の h1〜h6 と本文はこの変数を見る */
+    --gh-font-heading: var(--voyage-font-serif);
+    --gh-font-body: var(--voyage-font-sans);
+
+    /* Font sizes */
+    /* 同じ値でも役割ごとに分ける */
+    /* ヘッダーとメニュー */
+    --voyage-font-size-menu-label: 10px;
+    --voyage-font-size-header-nav: 12px;
+    --voyage-font-size-menu-link: 18px;
+    --voyage-font-size-menu-secondary-link: 12px;
+    /* トップ */
+    --voyage-font-size-button: 13px;
+    --voyage-font-size-text-link: 10px;
+    --voyage-font-size-message-title: 12px;
+    --voyage-font-size-message-text: 10px;
+    --voyage-font-size-benefits-title: 14px;
+    --voyage-font-size-benefit-label: 10px;
+    --voyage-font-size-section-title: 20px;
+    --voyage-font-size-section-script: 64px;
+    --voyage-font-size-more-link: 13px;
+    --voyage-font-size-news: 11px;
+    --voyage-font-size-preview-title: 12px;
+    --voyage-font-size-preview-text: 10px;
+    --voyage-font-size-card-title: 11px;
+    --voyage-font-size-date: 11px;
+    --voyage-font-size-badge: 10px;
+    --voyage-font-size-closing-catch: 22px;
+    --voyage-font-size-closing-message: 10px;
+    /* 記事と固定ページ（デザイン未着手の仮） */
+    --voyage-font-size-article-title: 18px;
+    --voyage-font-size-article-body: 14px;
+    --voyage-font-size-pagination: 12px;
+    --voyage-font-size-error-code: 40px;
+    --voyage-font-size-error-message: 14px;
+    /* フッター */
+    --voyage-font-size-footer-menu: 12px;
+    --voyage-font-size-copyright: 10px;
+}
+
+@media (min-resolution: 2dppx) {
+    :root {
+        --voyage-hairline: 0.5px;
+        --voyage-hairline-03: 0.6;
+        --voyage-hairline-05: 1;
+    }
+}

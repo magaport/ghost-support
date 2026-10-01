@@ -1,0 +1,255 @@
+/* Header
+/* ---------------------------------------------------------- */
+
+/* Figma どおりスクロールには追従させない */
+.voyage-header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    /* 上下の余白は MENU に合わせる。ロゴは MENU より背が高いので、高さを固定して上へはみ出させる */
+    height: 111px;
+    /* 402px では Figma の左 35px・右 28px。デスクトップ案ではロゴとナビが本文の列より外、画面の端から約 1 割の位置にあるので、
+    /* 本文の列の端には揃えず、402px から広がった幅の 1 割強を余白に足す */
+    padding: 66px max(28px, 28px + (100% - 402px) * 0.11) 14px max(35px, 35px + (100% - 402px) * 0.106);
+    background-color: var(--voyage-white);
+}
+
+/* ナビを並べるのは下の container query の幅から。それより狭いときは MENU から開く */
+.voyage-header-nav {
+    display: none;
+    gap: 32px;
+    align-items: center;
+    height: 31px;
+    white-space: nowrap;
+}
+
+.voyage-header-nav .voyage-menu-list {
+    display: flex;
+    gap: 32px;
+}
+
+.voyage-header-nav .voyage-menu-list li {
+    border-bottom: 0;
+}
+
+.voyage-header-nav .voyage-menu-list a,
+.voyage-header-link {
+    padding: 0;
+    font-family: var(--voyage-font-sans);
+    font-size: var(--voyage-font-size-header-nav);
+    font-weight: 400;
+    line-height: normal;
+    color: var(--voyage-blue);
+}
+
+.voyage-header-button {
+    display: inline-flex;
+    align-items: center;
+    height: 28px;
+    padding-inline: 20px;
+    font-family: var(--voyage-font-sans);
+    font-size: var(--voyage-font-size-header-nav);
+    line-height: 1;
+    border-radius: 32px;
+}
+
+.voyage-header-button.is-gold {
+    color: var(--voyage-white);
+    background-color: var(--voyage-gold);
+}
+
+.voyage-header-button.is-outline {
+    color: var(--voyage-blue);
+    border: 1px solid var(--voyage-blue);
+}
+
+.voyage-header-nav a:hover {
+    opacity: 0.8;
+}
+
+.voyage-header-logo {
+    display: block;
+    width: 81px;
+}
+
+.voyage-burger {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+    width: 43px;
+    padding: 0;
+    cursor: pointer;
+    background: none;
+    border: 0;
+}
+
+.voyage-burger > img {
+    width: 43px;
+}
+
+.voyage-burger-label {
+    margin-top: -2px;
+    font-family: var(--voyage-font-serif);
+    font-size: var(--voyage-font-size-menu-label);
+    font-weight: 700;
+    line-height: 14px;
+    color: var(--voyage-blue);
+}
+
+/* Menu panel — デザイン未着手の仮
+/* ---------------------------------------------------------- */
+
+/* popover の UA スタイルは内容の大きさに縮み、枠線と Canvas 色も付くので打ち消す */
+.voyage-menu {
+    position: fixed;
+    inset: 0;
+    flex-direction: column;
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+    color: inherit;
+    background-color: var(--voyage-white);
+    border: 0;
+}
+
+.voyage-menu > * {
+    width: 100%;
+    max-width: var(--voyage-page-width);
+    margin-inline: auto;
+}
+
+/* display を常に指定すると、閉じた popover を隠す UA の display: none に勝ってしまう */
+.voyage-menu:popover-open {
+    display: flex;
+}
+
+/* popover は top layer に出て z-index では Portal のダイアログの下に回せないので、ダイアログを開いている間は描かない。
+/* Portal はダイアログを開いている間、data-portal の要素に gh-portal-open を付ける */
+.voyage-menu:popover-open:has(.gh-portal-open) {
+    display: none;
+}
+
+body:has(.voyage-menu:popover-open) {
+    overflow: hidden;
+}
+
+/* ナビを並べ始める幅は、デスクトップ案のナビ（非会員 4 項目とボタン 2 つ、会員 3 項目とボタン 1 つ）が収まる幅。
+/* ナビの幅そのものは CSS から参照できないので値で持つ。管理画面でナビの項目を増やしたり文言を長くしたら、ここを見直す。
+/* 画面ではなく .gh-viewport の幅で判定するのは、Portal がダイアログを開くと body に余白を足して幅が変わるため */
+@container voyage-page (min-width: 480px) {
+    [data-voyage-nav="member"] .voyage-header-nav {
+        display: flex;
+    }
+
+    [data-voyage-nav="member"] .voyage-header .voyage-burger,
+    [data-voyage-nav="member"] .voyage-menu:popover-open {
+        display: none;
+    }
+}
+
+@container voyage-page (min-width: 660px) {
+    [data-voyage-nav="guest"] .voyage-header-nav {
+        display: flex;
+    }
+
+    [data-voyage-nav="guest"] .voyage-header .voyage-burger,
+    [data-voyage-nav="guest"] .voyage-menu:popover-open {
+        display: none;
+    }
+}
+
+.voyage-menu-header {
+    flex-shrink: 0;
+}
+
+/* Figma に閉じるボタンの素材が無いので、アイコン用の SVG を足さず線で × を描く */
+.voyage-menu-close-icon {
+    position: relative;
+    display: block;
+    width: 31px;
+    height: 14px;
+}
+
+.voyage-menu-close-icon::before,
+.voyage-menu-close-icon::after {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    width: 21px;
+    height: 1.4px;
+    content: "";
+    background-color: var(--voyage-blue);
+}
+
+.voyage-menu-close-icon::before {
+    transform: rotate(35deg);
+}
+
+.voyage-menu-close-icon::after {
+    transform: rotate(-35deg);
+}
+
+.voyage-menu-body {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    gap: 40px;
+    padding: 24px var(--voyage-gutter) 48px;
+}
+
+.voyage-menu-list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.voyage-menu-list li {
+    border-bottom: var(--voyage-hairline) solid rgb(var(--voyage-blue-rgb) / var(--voyage-hairline-03));
+}
+
+.voyage-menu-list a {
+    display: block;
+    padding: 14px 2px;
+    font-family: var(--voyage-font-serif);
+    font-size: var(--voyage-font-size-menu-link);
+    font-weight: 700;
+    line-height: normal;
+    color: var(--voyage-blue);
+}
+
+.voyage-menu-member {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+}
+
+.voyage-menu-secondary {
+    margin-top: auto;
+}
+
+/* Secondary ナビは {{navigation}} がフッターと同じ .voyage-footer-menu で出すので、メニューの中だけ色を上書きする */
+.voyage-menu-secondary .voyage-footer-menu {
+    align-items: center;
+}
+
+.voyage-menu-secondary .voyage-footer-menu a {
+    color: var(--voyage-blue);
+}
+
+/* Announcement bar
+/* ---------------------------------------------------------- */
+
+/* Figma にお知らせバーは無いので、出すときはヘッダーの下に青地で置く */
+/* お知らせバーの CSS はスクリプトが後から読み込む。同じ詳細度だと負けるので id で上書きする */
+#announcement-bar-root .gh-announcement-bar {
+    z-index: 1;
+    font-family: var(--voyage-font-sans);
+    color: var(--voyage-white);
+    background-color: var(--voyage-blue);
+}

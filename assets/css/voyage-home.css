@@ -1,0 +1,472 @@
+/* Hero
+/* ---------------------------------------------------------- */
+
+.voyage-hero {
+    position: relative;
+    overflow: hidden;
+    /* cover 未設定でも白抜きの文字が読めるよう、写真の海の色で埋める */
+    background-color: var(--voyage-blue);
+}
+
+.voyage-hero-visual {
+    position: absolute;
+    inset: 0;
+}
+
+/* 写真の枠は Figma の写真の大きさ（636px 幅など）にせず、ページ幅に収めて object-position で切り出し位置を合わせる。
+/* 写真の大きさで置くと、Figma から枠の形に切り出した画像を cover にされたときに拡大されてずれる */
+.voyage-hero-image {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    max-width: none;
+    object-fit: cover;
+}
+
+.voyage-hero-visual::after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    content: "";
+    background: var(--voyage-fade-to-white);
+}
+
+.voyage-hero-brand {
+    position: relative;
+    display: flex;
+    /* 文字とロゴの配置は Figma のアートボードの中で組んであるので、その幅の箱ごと動かす。
+    /* 中央に置くとデスクトップ案より右に寄る。案では文字の左端が画面の約 2 割にあるので、余った幅の一部だけ左に空ける */
+    width: calc(402 * var(--voyage-hero-unit));
+    max-width: 100%;
+    margin-left: max(0px, (100% - 402 * var(--voyage-hero-unit)) * var(--voyage-hero-brand-shift));
+    flex-direction: column;
+    align-items: flex-start;
+    color: var(--voyage-white);
+}
+
+.voyage-hero-lead {
+    margin: 0;
+    font-family: var(--voyage-font-serif);
+    line-height: calc(27 * var(--voyage-hero-unit));
+    text-align: center;
+    white-space: nowrap;
+}
+
+.voyage-hero-logo {
+    margin: 0;
+    font-family: var(--voyage-font-script);
+    font-size: 64px;
+    font-weight: 400;
+    line-height: 1;
+}
+
+.voyage-hero-logo picture,
+.voyage-hero-logo img {
+    display: block;
+    width: 100%;
+}
+
+.voyage-hero-catch {
+    margin: 0;
+    font-family: var(--voyage-font-serif);
+    font-size: calc(20 * var(--voyage-hero-unit));
+    line-height: calc(33 * var(--voyage-hero-unit));
+    white-space: nowrap;
+}
+
+/* 会員と非会員で Figma の切り出しと文字の位置が違うので、共通化せず別々に持つ */
+.is-member .voyage-hero {
+    /* 402px では Figma の 417px。広い画面では写真が横長になりすぎないよう少し伸ばす */
+    height: max(417px, 36vw);
+}
+
+.is-member .voyage-hero-image {
+    top: -64px;
+    /* Figma の写真は枠の下端より 13px 下まである */
+    height: calc(100% + 77px);
+    /* Figma は 636px 幅の写真を左に 72px ずらしている。はみ出す 234px のうち 72px を左で切る。
+    /* 縦は Figma の幅では余らないので、広い画面で余る分だけ水平線が残る位置で切る */
+    object-position: 30.8% 60%;
+}
+
+.is-member .voyage-hero-visual::after {
+    height: 112px;
+}
+
+.is-member .voyage-hero-brand {
+    /* 1280px で文字の左端が画面の 19% になる割合 */
+    --voyage-hero-brand-shift: 0.22;
+    padding-top: calc(84 * var(--voyage-hero-unit));
+}
+
+.is-member .voyage-hero-lead {
+    width: calc(237 * var(--voyage-hero-unit));
+    margin-left: calc(63 * var(--voyage-hero-unit));
+    font-size: calc(16 * var(--voyage-hero-unit));
+}
+
+.is-member .voyage-hero-logo {
+    width: calc(174 * var(--voyage-hero-unit));
+    margin: calc(9 * var(--voyage-hero-unit)) 0 0 calc(86 * var(--voyage-hero-unit));
+}
+
+.is-member .voyage-hero-catch {
+    margin: calc(9 * var(--voyage-hero-unit)) 0 0 calc(79 * var(--voyage-hero-unit));
+}
+
+.is-guest .voyage-hero {
+    height: max(383px, 40vw);
+}
+
+.is-guest .voyage-hero-image {
+    top: -128px;
+    height: calc(100% + 251px);
+    /* Figma は 817px 幅の写真を左に 143px ずらしている。はみ出す 415px のうち 143px を左で切る */
+    object-position: 34.5% 60%;
+}
+
+.is-guest .voyage-hero-visual::after {
+    height: 96px;
+}
+
+.is-guest .voyage-hero-brand {
+    /* 非会員は文字とロゴを中央揃えのまま、1280px で文字の左端が画面の 19% になる割合 */
+    --voyage-hero-brand-shift: 0.14;
+    align-items: center;
+    padding-top: calc(57 * var(--voyage-hero-unit));
+    padding-left: calc(18 * var(--voyage-hero-unit));
+}
+
+.is-guest .voyage-hero-lead {
+    font-size: calc(17 * var(--voyage-hero-unit));
+}
+
+.is-guest .voyage-hero-logo {
+    width: calc(203 * var(--voyage-hero-unit));
+    margin-top: calc(12 * var(--voyage-hero-unit));
+}
+
+/* Join (非会員)
+/* ---------------------------------------------------------- */
+
+.voyage-join {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    align-items: center;
+    /* ボタンの中心をヒーローの下端に置き、上半分を背景に被せる */
+    margin-top: -24px;
+}
+
+/* Message
+/* ---------------------------------------------------------- */
+
+.voyage-message {
+    position: relative;
+    display: grid;
+    grid-template-columns: 109px 1fr;
+    column-gap: 12px;
+    align-items: center;
+    min-height: 191px;
+    margin-top: 16px;
+    padding: 15px 3px 15px 10px;
+    background-color: var(--voyage-white);
+    /* Figma は枠線と影を持つ矩形ごと不透明度 20% にしているので、その分を色に掛けてある */
+    border: 1px solid rgb(0 0 0 / 0.048);
+    border-radius: var(--voyage-radius);
+    box-shadow: 2px 2px 5px rgb(0 0 0 / 0.1);
+}
+
+.voyage-message-portrait {
+    width: 109px;
+    height: 109px;
+    object-fit: cover;
+    background-color: var(--voyage-blue-pale);
+    border-radius: 50%;
+}
+
+.voyage-message-body {
+    align-self: start;
+}
+
+.voyage-message-title {
+    margin: 0;
+    font-family: var(--voyage-font-serif);
+    font-size: var(--voyage-font-size-message-title);
+    font-weight: 700;
+    line-height: 20px;
+    color: var(--voyage-blue);
+}
+
+.voyage-message-text {
+    margin-top: 4px;
+    font-family: var(--voyage-font-serif);
+    font-size: var(--voyage-font-size-message-text);
+    line-height: 18px;
+    letter-spacing: -0.2px;
+}
+
+.voyage-message-text p {
+    margin: 0;
+}
+
+.voyage-message-signature {
+    position: absolute;
+    right: 25px;
+    bottom: 8px;
+    width: 72px;
+}
+
+.voyage-about-link {
+    display: flex;
+    justify-content: center;
+    margin-top: 33px;
+}
+
+/* Benefits
+/* ---------------------------------------------------------- */
+
+.voyage-benefits {
+    margin-top: 41px;
+    /* 見出しの線は本文の列より 12px 外まで伸ばす */
+    padding-inline: max(21px, (100% - var(--voyage-content-width)) / 2 - 12px);
+}
+
+.voyage-benefits-title {
+    display: flex;
+    gap: 17px;
+    align-items: center;
+    margin: 0;
+    font-family: var(--voyage-font-serif);
+    font-size: var(--voyage-font-size-benefits-title);
+    font-weight: 700;
+    line-height: 20px;
+    color: var(--voyage-blue);
+}
+
+.voyage-benefits-title::before,
+.voyage-benefits-title::after {
+    flex-grow: 1;
+    content: "";
+    border-top: var(--voyage-hairline) solid rgb(var(--voyage-blue-rgb) / var(--voyage-hairline-05));
+}
+
+.voyage-benefits-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 19px 12px 0 13px;
+    padding: 0;
+    list-style: none;
+}
+
+.voyage-benefit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 76px;
+    border: var(--voyage-hairline) solid rgb(var(--voyage-blue-rgb) / var(--voyage-hairline-05));
+    border-radius: var(--voyage-radius);
+}
+
+/* アイコンの高さが揃っていないので、中央揃えにすると Figma と違って下端がずれる */
+.voyage-benefit-icon {
+    display: flex;
+    align-items: flex-end;
+    height: 46px;
+}
+
+.voyage-benefit-label {
+    margin-top: 9px;
+    font-family: var(--voyage-font-sans);
+    font-size: var(--voyage-font-size-benefit-label);
+    line-height: 12px;
+    white-space: nowrap;
+    color: var(--voyage-blue);
+}
+
+/* News
+/* ---------------------------------------------------------- */
+
+.voyage-news {
+    margin-top: 5px;
+}
+
+.is-guest .voyage-news {
+    margin-top: 44px;
+}
+
+.voyage-news-list {
+    margin: 9px 0 0;
+    padding: 0;
+    list-style: none;
+    border-top: var(--voyage-hairline) solid rgb(var(--voyage-gold-rgb) / var(--voyage-hairline-03));
+}
+
+.voyage-news-list li {
+    border-bottom: var(--voyage-hairline) solid rgb(var(--voyage-blue-rgb) / var(--voyage-hairline-03));
+}
+
+.is-guest .voyage-news-list li:last-child {
+    border-bottom: 0;
+}
+
+/* Figma の線の間隔 43px に線の太さを含めるため、行の高さから線の分を引く */
+.voyage-news-item {
+    display: flex;
+    align-items: center;
+    height: calc(43px - var(--voyage-hairline));
+    padding: 0 19px 0 15px;
+    font-size: var(--voyage-font-size-news);
+    line-height: normal;
+}
+
+.voyage-news-date {
+    flex-shrink: 0;
+    width: 77px;
+    font-family: var(--voyage-font-serif);
+    font-weight: 700;
+    color: var(--voyage-gold);
+}
+
+.voyage-news-title {
+    flex-grow: 1;
+    min-width: 0;
+    margin-right: 10px;
+    overflow: hidden;
+    font-family: var(--voyage-font-sans);
+    color: var(--voyage-blue);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.voyage-news-chevron {
+    flex-shrink: 0;
+    width: 4px;
+}
+
+/* Members Only Preview (非会員)
+/* ---------------------------------------------------------- */
+
+.voyage-preview {
+    position: relative;
+    height: 138px;
+    margin-top: 39px;
+    overflow: hidden;
+    border-radius: var(--voyage-radius);
+}
+
+.voyage-preview-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.voyage-preview-body {
+    position: relative;
+    width: 81%;
+    height: 100%;
+    padding: 12px 0 12px 19px;
+    background: linear-gradient(90deg, rgb(var(--voyage-preview-fade)) 25.475%, rgb(var(--voyage-preview-fade) / 0.733) 56.437%, rgb(var(--voyage-preview-fade) / 0.431) 79.658%, rgb(var(--voyage-preview-fade) / 0) 100%);
+}
+
+.voyage-preview-title {
+    margin: 0;
+    font-family: var(--voyage-font-serif);
+    font-size: var(--voyage-font-size-preview-title);
+    font-weight: 400;
+    line-height: 17px;
+    color: var(--voyage-blue);
+}
+
+.voyage-preview-text {
+    margin: 6px 0 0 3px;
+    font-family: var(--voyage-font-serif);
+    font-size: var(--voyage-font-size-preview-text);
+    line-height: 14px;
+}
+
+.voyage-preview-link {
+    display: inline-flex;
+    gap: 5px;
+    align-items: center;
+    margin: 8px 0 0 3px;
+    font-family: var(--voyage-font-sans);
+    font-size: var(--voyage-font-size-text-link);
+    line-height: normal;
+    color: var(--voyage-gold);
+}
+
+/* Log & NoteBook
+/* ---------------------------------------------------------- */
+
+.voyage-log {
+    margin-top: 12px;
+}
+
+/* 絵は 402px で左 19px になる位置に置き、その左右を線で埋める */
+.voyage-divider {
+    grid-template-columns: max(0px, 50% - 182px) 391px 1fr;
+    margin: 36px 0 0 min(0px, 50% - 182px);
+}
+
+.voyage-notebook {
+    margin-top: 19px;
+}
+
+/* 非会員の Figma は Log から NoteBook までの間隔が会員と違うので、それぞれに合わせる */
+.is-guest .voyage-log-grid {
+    margin-top: 22px;
+}
+
+.is-guest .voyage-divider {
+    margin-top: 20px;
+}
+
+.is-guest .voyage-notebook {
+    margin-top: 25px;
+}
+
+.is-guest .voyage-notebook-list {
+    margin-top: 13px;
+}
+
+.is-member {
+    padding-bottom: 74px;
+}
+
+/* Closing (非会員)
+/* ---------------------------------------------------------- */
+
+/* フッターの上端は白から青へ溶けるので、その白い部分に重ねて置く */
+.voyage-closing {
+    position: relative;
+    z-index: 1;
+    margin-top: 59px;
+    text-align: center;
+}
+
+.voyage-closing-catch {
+    margin: 0;
+    font-family: var(--voyage-font-serif);
+    font-size: var(--voyage-font-size-closing-catch);
+    line-height: 23px;
+    letter-spacing: -0.44px;
+    color: var(--voyage-blue);
+}
+
+.voyage-closing-message {
+    margin: 10px 0 0;
+    font-family: var(--voyage-font-serif);
+    font-size: var(--voyage-font-size-closing-message);
+    line-height: 18px;
+    letter-spacing: -0.2px;
+}
+
+.is-guest + .voyage-footer {
+    margin-top: -27px;
+}

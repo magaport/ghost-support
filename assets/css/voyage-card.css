@@ -1,0 +1,126 @@
+/* Log card
+/* ---------------------------------------------------------- */
+
+/* 列数は画面幅で切り替えず、155px のカードが並ぶだけ並べる。
+/* auto-fill だと件数が少ないときに空の列が残り、非会員の 2 件が広い画面で伸びない。
+/* 155px が 2 枚入らない狭い画面でも 1 列に落とさず、縮めて 2 列を保つ */
+.voyage-log-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(155px, (100% - 26px) / 2), 1fr));
+    gap: 19px 26px;
+    margin-top: 19px;
+}
+
+/* 見出しに 140px 取れる幅があれば画像の右に、無ければ画像の下に回す */
+.voyage-log-card {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    column-gap: 16px;
+    align-items: flex-start;
+    /* グリッドで隣のカードの高さまで伸ばされても、折り返した見出しを画像の下に詰めておく */
+    align-content: flex-start;
+    min-width: 0;
+}
+
+.voyage-log-card-media {
+    position: relative;
+    display: block;
+    flex: 1 0 min(155px, 100%);
+}
+
+.voyage-log-card-body {
+    display: block;
+    flex: 1 1 140px;
+    min-width: 0;
+}
+
+.voyage-log-card-image {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: var(--voyage-radius);
+    box-shadow: var(--voyage-card-shadow);
+}
+
+.voyage-log-card-image.is-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--voyage-blue-pale);
+}
+
+.voyage-log-card .voyage-new {
+    position: absolute;
+    top: 12px;
+    left: 10px;
+}
+
+.voyage-log-card-title {
+    display: -webkit-box;
+    margin: 9px 14px 0 9px;
+    overflow: hidden;
+    font-family: var(--voyage-font-serif);
+    font-size: var(--voyage-font-size-card-title);
+    font-weight: 700;
+    line-height: 16px;
+    color: var(--voyage-blue);
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.voyage-log-card .voyage-date {
+    margin: 5px 0 0 9px;
+}
+
+.voyage-log-card:hover .voyage-log-card-image,
+.voyage-notebook-card:hover {
+    opacity: 0.8;
+}
+
+/* NoteBook card
+/* ---------------------------------------------------------- */
+
+/* 320px のカードが 2 枚並ぶ幅があれば 2 列にする */
+.voyage-notebook-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: 12px 26px;
+    margin-top: 14px;
+}
+
+.voyage-notebook-card {
+    position: relative;
+    display: block;
+    height: 68px;
+    /* 枠線は 1px で描くので、Figma の 0.5px の線との差を上の余白で吸収する */
+    padding: 13px 36px 0 12px;
+    border: var(--voyage-hairline) solid rgb(var(--voyage-blue-rgb) / var(--voyage-hairline-05));
+    border-radius: var(--voyage-radius);
+}
+
+.voyage-notebook-card-meta {
+    display: flex;
+    gap: 7px;
+    align-items: center;
+}
+
+.voyage-notebook-card-title {
+    margin: 7px 0 0;
+    overflow: hidden;
+    font-family: var(--voyage-font-serif);
+    font-size: var(--voyage-font-size-card-title);
+    font-weight: 700;
+    line-height: 16px;
+    color: var(--voyage-blue);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.voyage-notebook-card-chevron {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    width: 7px;
+    transform: translateY(-50%);
+}

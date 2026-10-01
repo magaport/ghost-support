@@ -47,6 +47,20 @@ yarn dev
 - ローカル Ghost の `content/themes/<your-theme>` に配置（または symlink）
 - Ghost 再起動後、管理画面 → **Design & branding** からテーマ選択
 
+#### zip をローカル Ghost へ自動で反映する
+
+ローカル Ghost の管理画面 → Settings → Integrations でカスタム統合を作り、Admin API キーをテーマ直下の `mise.local.toml`（gitignore 済み）に書く。
+
+```toml
+[env]
+PREVIEW_URL = "http://localhost:2368"
+PREVIEW_ADMIN_API_KEY = "<Admin API キー>"
+```
+
+```bash
+yarn deploy:local  # zip をビルドし、upload → activate する
+```
+
 > 既存プロジェクトで `ghost/core/content/themes` 以下を直接置換する運用の場合は、環境更新時の衝突や追従コストに注意。標準の `content/themes` 配下運用が推奨です。
 
 ---
@@ -109,8 +123,7 @@ yarn test:workflow
 
 `source` / `casper` は Ghost がアップロードを拒否する予約名のため、その名前でも Release を作れない。
 
-`main` の `name` は `source` のため、このブランチからは Release を作れない。
-テーマごとの実際のタグ名と zip 名は、各テーマブランチの同じドキュメントに書いてある。
+このブランチの `name` は `voyage` なので、タグは `voyage-v<X.Y.Z>`、zip は `dist/voyage.zip` になる。
 
 ### Release を作る
 

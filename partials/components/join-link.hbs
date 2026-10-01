@@ -1,0 +1,9 @@
+{{!-- ログイン済みの無料メンバーは入会画面を開けないので、プラン選択に送る --}}
+<a class="{{class}}" {{#if @member}}href="#/portal/account/plans" data-portal="account/plans"{{else}}href="#/portal/signup" data-portal="signup"{{/if}}>
+    {{label}}
+    {{#match chevron "white"}}
+        <img src="{{asset "images/voyage_chevron_white.svg"}}" alt="" width="5" height="11">
+    {{else}}
+        <img src="{{asset "images/voyage_chevron_gold_small.svg"}}" alt="" width="4" height="8">
+    {{/match}}
+</a>

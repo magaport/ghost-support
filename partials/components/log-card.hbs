@@ -1,0 +1,24 @@
+<a class="voyage-log-card" href="{{url}}">
+    <span class="voyage-log-card-media">
+        {{#if feature_image}}
+            <img class="voyage-log-card-image"
+                srcset="{{img_url feature_image size="s" format="webp"}} 320w,
+                        {{img_url feature_image size="m" format="webp"}} 600w,
+                        {{img_url feature_image size="l" format="webp"}} 960w"
+                {{!-- カードは 155px から、2 列で本文の列の半分（336px）まで広がる --}}
+                sizes="min(50vw - 46px, 336px)"
+                src="{{img_url feature_image size="s"}}"
+                alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+                loading="lazy">
+        {{else}}
+            <span class="voyage-log-card-image is-placeholder">
+                <img src="{{asset "images/voyage_logo_header.svg"}}" alt="" width="81" height="49">
+            </span>
+        {{/if}}
+        {{> "components/new-badge" variant="gold"}}
+    </span>
+    <span class="voyage-log-card-body">
+        <h3 class="voyage-log-card-title">{{title}}</h3>
+        <time class="voyage-date" datetime="{{date format="YYYY-MM-DD"}}">date {{date format="YYYY.MM.DD"}}</time>
+    </span>
+</a>

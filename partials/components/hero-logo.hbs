@@ -1,0 +1,23 @@
+{{!-- 白抜きのロゴは Publication logo から引く。未設定ならサイト名で代える。
+      ロゴは画面が広いほど大きく描くので、形式と解像度はブラウザに選ばせる。
+      sizes は CSS の幅（Figma の幅 × max(1px, 100vw / 900)）と同じ式にする --}}
+<h1 class="voyage-hero-logo">
+    {{#if @site.logo}}
+        <picture>
+            <source type="image/webp"
+                srcset="{{img_url @site.logo size="s" format="webp"}} 320w,
+                        {{img_url @site.logo size="m" format="webp"}} 600w,
+                        {{img_url @site.logo size="l" format="webp"}} 960w"
+                sizes="{{sizes}}">
+            <img
+                srcset="{{img_url @site.logo size="s"}} 320w,
+                        {{img_url @site.logo size="m"}} 600w,
+                        {{img_url @site.logo size="l"}} 960w"
+                sizes="{{sizes}}"
+                src="{{img_url @site.logo size="m"}}"
+                alt="{{@site.title}}">
+        </picture>
+    {{else}}
+        {{@site.title}}
+    {{/if}}
+</h1>
