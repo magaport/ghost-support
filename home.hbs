@@ -1,12 +1,46 @@
 {{!< default}}
 {{!-- The tag above means: insert everything in this file into the body of the default.hbs template --}}
 
-{{> "components/header" headerStyle=@custom.header_style}}
+<main class="raiden-home">
 
-{{#match @custom.header_style "!=" "Highlight"}}
-    {{> "components/featured" showFeatured=@custom.show_featured_posts limit=4}}
-{{/match}}
+    <section class="raiden-hero">
+        <img class="raiden-hero-bolt" src="{{asset "images/raiden_thunder1.png"}}" alt="" width="52" height="253">
 
-{{> "components/cta"}}
+        <div class="raiden-hero-brand">
+            {{#if @site.logo}}
+                <img class="raiden-hero-logo" src="{{img_url @site.logo size="l"}}" alt="{{@site.title}}">
+            {{else}}
+                <span class="raiden-hero-logo">{{@site.title}}</span>
+            {{/if}}
+        </div>
 
-{{> "components/post-list" feed="home" postFeedStyle=@custom.post_feed_style showTitle=true showSidebar=@custom.show_publication_info_sidebar}}
+        <div class="raiden-hero-visual">
+            {{#if @site.cover_image}}
+                <img class="raiden-hero-image" src="{{img_url @site.cover_image size="xl"}}" alt="{{@site.title}}">
+            {{else}}
+                <div class="raiden-hero-image"></div>
+            {{/if}}
+            <a class="raiden-button raiden-hero-cta" href="{{@site.url}}/about/">ROOM RAIDEN とは</a>
+        </div>
+    </section>
+
+    {{!-- 文面は Figma のダミーのまま。本番の文面が来たら差し替える --}}
+    <section class="raiden-section raiden-news">
+        <h2 class="raiden-heading"><span class="raiden-heading-text">News</span></h2>
+        <div class="raiden-news-body">
+            <p>この文章はダミーですこの文章はダミーですこの文章はダミーですこの文章はダミーですこの文章はダミーですこの文章はダミーですこの文章はダミーですこの文章はダミーですこの文章はダミーですこの文章はダミーです</p>
+        </div>
+    </section>
+
+    <section class="raiden-section raiden-articles">
+        <h2 class="raiden-heading"><span class="raiden-heading-text">Article</span></h2>
+        <div class="raiden-card-grid">
+            {{#foreach posts limit="2"}}
+                {{> "components/card"}}
+            {{/foreach}}
+        </div>
+    </section>
+
+    {{> "components/cta"}}
+
+</main>

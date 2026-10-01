@@ -1,25 +1,14 @@
 {{#if @site.members_enabled}}
     {{#unless @member}}
-        {{#match @custom.header_style "!=" "Landing"}}
-        {{#match @custom.header_style "!=" "Search"}}
-        {{#match @custom.header_style "!=" "Off"}}
-        {{#match posts.length ">=" 7}}
-            <section class="gh-cta gh-outer">
-                <div class="gh-cta-inner gh-inner">
-                    <div class="gh-cta-content">
-                        <h2 class="gh-cta-title is-title">
-                            {{#if @custom.signup_heading}}{{@custom.signup_heading}}{{else}}{{@site.title}}{{/if}}
-                        </h2>
-                        <p class="gh-cta-description is-body">
-                            {{#if @custom.signup_subheading}}{{@custom.signup_subheading}}{{else}}{{@site.description}}{{/if}}
-                        </p>
-                    </div>
-                    {{> "email-subscription" email_field_id="cta-email"}}
-                </div>
-            </section>
-        {{/match}}
-        {{/match}}
-        {{/match}}
-        {{/match}}
+        {{!-- compact=true で見出しを省きボタンだけの帯にする（About 用） --}}
+        <section class="raiden-cta{{#if compact}} is-compact{{/if}}">
+            {{#unless compact}}
+                <h2 class="raiden-cta-title">この先は会員限定</h2>
+            {{/unless}}
+            <a class="raiden-cta-button" href="#/portal/signup" data-portal="signup">
+                入会する
+                <svg class="raiden-cta-bolt" viewBox="0 0 9 21" aria-hidden="true"><path d="M6 0 0 12h4l-2 9 7-13H5l3-8z"/></svg>
+            </a>
+        </section>
     {{/unless}}
 {{/if}}
