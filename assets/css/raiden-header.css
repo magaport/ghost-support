@@ -153,6 +153,19 @@ body:has(.raiden-menu:popover-open) {
     color: var(--raiden-white);
 }
 
+.raiden-menu-signout {
+    font-family: var(--raiden-font-display);
+    font-size: var(--raiden-font-size-menu-link);
+    font-weight: 700;
+    line-height: 43px;
+    letter-spacing: 1px;
+    color: var(--raiden-white);
+}
+
+.raiden-menu-signout a {
+    color: inherit;
+}
+
 /* 間隔を margin-top に固定値で書くと下端に寄らず、auto だけだと Primary の項目が多いときに詰まる */
 .raiden-menu-secondary {
     margin-top: auto;

@@ -39,6 +39,12 @@
         <p class="raiden-menu-title">MENU</p>
         <div class="raiden-menu-primary">
             {{navigation}}
+            {{#if @member}}
+                <div class="raiden-menu-signout">
+                    <div>-</div>
+                    <a href="javascript:" data-members-signout>Log Out</a>
+                </div>
+            {{/if}}
         </div>
         <div class="raiden-menu-secondary">
             {{navigation type="secondary"}}
