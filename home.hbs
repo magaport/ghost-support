@@ -1,8 +1,7 @@
 {{!< default}}
 {{!-- The tag above means: insert everything in this file into the body of the default.hbs template --}}
 
-{{!-- 有料会員だけを会員として扱い、無料メンバーには非会員向けの画面を出す --}}
-{{#if @member.paid}}
+{{#if @member}}
 
 <main class="voyage-home is-member">
 
@@ -40,12 +39,10 @@
     {{#if @site.members_enabled}}
         <div class="voyage-join">
             {{> "components/join-link" class="voyage-button is-primary" label="新規入会はこちら" chevron="white"}}
-            {{#unless @member}}
-                <a class="voyage-text-link" href="#/portal/signin" data-portal="signin">
-                    ログイン
-                    <img src="{{asset "images/voyage_chevron_blue_small.svg"}}" alt="" width="3" height="6">
-                </a>
-            {{/unless}}
+            <a class="voyage-text-link" href="#/portal/signin" data-portal="signin">
+                ログイン
+                <img src="{{asset "images/voyage_chevron_blue_small.svg"}}" alt="" width="3" height="6">
+            </a>
         </div>
     {{/if}}
 

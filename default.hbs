@@ -24,8 +24,8 @@
 </head>
 <body class="{{body_class}}">
 
-{{!-- ヘッダーのナビは会員（有料）とそれ以外で項目とボタンが違い幅も変わるので、ナビを並べ始める幅を分ける --}}
-<div class="gh-viewport" data-voyage-nav="{{#if @member.paid}}member{{else}}guest{{/if}}">
+{{!-- ヘッダーのナビは会員と非会員で項目とボタンが違い幅も変わるので、ナビを並べ始める幅を分ける --}}
+<div class="gh-viewport" data-voyage-nav="{{#if @member}}member{{else}}guest{{/if}}">
 
     {{> "components/navigation"}}
 
