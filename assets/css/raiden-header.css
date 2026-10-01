@@ -31,8 +31,10 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 75px;
+    /* 幅を 75px に固定すると、LOG IN より長い ACCOUNT で左右の余白がなくなる。余白は LOG IN が 75px になる値 */
+    min-width: 75px;
     height: 28px;
+    padding: 0 14px;
     font-size: var(--raiden-font-size-header-login);
     font-weight: 700;
     letter-spacing: 0.08em;
