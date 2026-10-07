@@ -9,10 +9,10 @@
     min-height: 424px;
     padding: 224px var(--voyage-gutter) 24px;
     color: var(--voyage-white);
-    /* 上端の 156px で白から青へ溶かす。Figma では白へ溶かす帯を 180° 回して重ねている */
-    background:
-        linear-gradient(180deg, #fff 0, rgb(255 255 255 / 0.89) 22.923%, rgb(255 255 255 / 0.81) 39.823%, rgb(255 255 255 / 0) 100%) top / 100% 156px no-repeat,
-        var(--voyage-blue);
+    /* 上端の 156px で白から青へ溶かす。Figma のように白の帯を青の上に重ねると、
+    /* フッターの上端が小数の位置に来たとき帯の縁から青がにじみ、横線に見える。
+    /* そのため帯の白と青をあらかじめ混ぜた色（--voyage-blue に白 89% と 81%）で 1 本のグラデーションにする */
+    background: linear-gradient(180deg, #fff 0, #e7f2f7 35.76px, #d6e8f0 62.12px, var(--voyage-blue) 156px);
 }
 
 /* 絵は 402px で左 -26px になる位置に置き、その左右を線で埋める */
