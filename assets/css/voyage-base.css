@@ -28,6 +28,25 @@ body {
     padding-inline: var(--voyage-inline);
 }
 
+/* Links
+/* ---------------------------------------------------------- */
+
+/* hover で opacity を下げるリンクとカード画像に、切り替わりのトランジションをかける。
+/* リンクをクラスごとに列挙しないのは、Source の a:hover がすべてのリンクの opacity を下げるため */
+a,
+.voyage-log-card-image {
+    transition-property: opacity, background-color;
+    transition-duration: var(--voyage-link-duration);
+    transition-timing-function: var(--voyage-link-easing);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    a,
+    .voyage-log-card-image {
+        transition: none;
+    }
+}
+
 /* Section heading
 /* ---------------------------------------------------------- */
 
@@ -118,6 +137,11 @@ body {
 .voyage-text-link:hover,
 .voyage-more-link:hover {
     opacity: 0.8;
+}
+
+.voyage-button.is-primary:hover {
+    opacity: 1;
+    background-color: var(--voyage-gold-hover);
 }
 
 .voyage-text-link {

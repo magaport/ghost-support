@@ -9,6 +9,8 @@
     --voyage-blue-badge: rgb(41 134 178 / 0.8);
     --voyage-blue-pale: rgb(41 134 178 / 0.1);
     --voyage-gold: #c8984a;
+    /* 金地のボタンは hover で透かすと地の白が混ざって色が褪せるため、透かさずに濃くする */
+    --voyage-gold-hover: #b8873f;
     --voyage-script-gray: #d9d9d9;
     --voyage-preview-fade: 234 239 247;
     --voyage-black: #000;
@@ -37,6 +39,11 @@
     --voyage-inline: max(var(--voyage-gutter), (100% - var(--voyage-content-width)) / 2);
     --voyage-radius: 8px;
     --voyage-card-shadow: 0 4px 4px rgb(0 0 0 / 0.25);
+
+    /* Motion */
+    /* リンクの hover。動き出しを鋭く、終わりを長く減速させる強い ease-out */
+    --voyage-link-duration: 0.25s;
+    --voyage-link-easing: cubic-bezier(0.16, 1, 0.3, 1);
 
     /* Typography */
     --voyage-font-serif: "Noto Serif JP", "Hiragino Mincho ProN", serif;

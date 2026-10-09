@@ -69,6 +69,11 @@
     opacity: 0.8;
 }
 
+.voyage-header-nav .voyage-header-button.is-gold:hover {
+    opacity: 1;
+    background-color: var(--voyage-gold-hover);
+}
+
 .voyage-header-logo {
     display: block;
     width: 81px;
