@@ -8,15 +8,24 @@
  * GhostのContent APIエンドポイント (例: /ghost/api/content/posts/:postId/like?key=YOUR_API_KEY) を想定
  */
 
+// @site.url をそのまま前に付けずパスだけを使うのは、設定と異なるホスト（www の有無など）で開かれたときに別オリジンへの送信になり、Cookie が送られなくなるため
+const getSitePath = (button) => {
+    try {
+        return new URL(button.getAttribute('data-site-url')).pathname.replace(/\/$/, '');
+    } catch {
+        return '';
+    }
+};
+
 // Cookie セッションから GhostMembers JWT を取得してキャッシュする
 // Content API の認証には Authorization: GhostMembers <token> が必要
 let memberTokenCache;
-const getMemberToken = async () => {
+const getMemberToken = async (sitePath) => {
     if (memberTokenCache !== undefined) {
         return memberTokenCache;
     }
     try {
-        const res = await fetch('/members/api/session', {credentials: 'include'});
+        const res = await fetch(`${sitePath}/members/api/session`, {credentials: 'include'});
         if (!res.ok) {
             memberTokenCache = null;
             return null;
@@ -30,9 +39,9 @@ const getMemberToken = async () => {
     }
 };
 
-const getPostLike = async (postId, contentApiKey) => {
-    const token = await getMemberToken();
-    const res = await fetch(`/ghost/api/content/posts/${postId}/like?key=${contentApiKey}`, {
+const getPostLike = async (sitePath, postId, contentApiKey) => {
+    const token = await getMemberToken(sitePath);
+    const res = await fetch(`${sitePath}/ghost/api/content/posts/${postId}/like?key=${contentApiKey}`, {
         method: 'GET',
         credentials: 'include',
         headers: {
@@ -50,9 +59,9 @@ const getPostLike = async (postId, contentApiKey) => {
 
 // いいねする会員はサーバーが GhostMembers トークンから決めるので、会員 ID は送らない。
 // Ghost の API フレームワークは POST の本文に空でない post_likes を求めるので、本文を空にはできない
-const addPostLike = async (postId, contentApiKey) => {
-    const token = await getMemberToken();
-    const res = await fetch(`/ghost/api/content/posts/${postId}/like?key=${contentApiKey}`, {
+const addPostLike = async (sitePath, postId, contentApiKey) => {
+    const token = await getMemberToken(sitePath);
+    const res = await fetch(`${sitePath}/ghost/api/content/posts/${postId}/like?key=${contentApiKey}`, {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -71,9 +80,9 @@ const addPostLike = async (postId, contentApiKey) => {
     return;
 };
 
-const removePostLike = async (postId, contentApiKey) => {
-    const token = await getMemberToken();
-    const res = await fetch(`/ghost/api/content/posts/${postId}/like?key=${contentApiKey}`, {
+const removePostLike = async (sitePath, postId, contentApiKey) => {
+    const token = await getMemberToken(sitePath);
+    const res = await fetch(`${sitePath}/ghost/api/content/posts/${postId}/like?key=${contentApiKey}`, {
         method: 'DELETE',
         credentials: 'include',
         headers: {
@@ -97,6 +106,7 @@ const removePostLike = async (postId, contentApiKey) => {
 async function initializeLikeButtonUI(button) {
     const postId = button.getAttribute('data-post-id');
     const contentApiKey = button.getAttribute('data-content-api-key');
+    const sitePath = getSitePath(button);
 
     if (!postId) {
         console.warn('[post-like] No postId, cannot proceed');
@@ -106,7 +116,7 @@ async function initializeLikeButtonUI(button) {
     try {
         // いいね情報を取得
         // レスポンス形式: {"post_likes": [[{"count": N, "liked_by_me": bool}]]}
-        const responsePostLikes = await getPostLike(postId, contentApiKey);
+        const responsePostLikes = await getPostLike(sitePath, postId, contentApiKey);
         const postLikesData = responsePostLikes.post_likes?.[0]?.[0] ?? {count: 0, liked_by_me: false};
         const likeCount = postLikesData.count;
 
@@ -147,6 +157,7 @@ async function handleLikeButtonClick(event) {
     const button = event.currentTarget;
     const postId = button.getAttribute('data-post-id');
     const contentApiKey = button.getAttribute('data-content-api-key');
+    const sitePath = getSitePath(button);
     // 未ログイン？
     if (button.getAttribute('data-signed-in') !== 'true') {
         alert('ログインが必要です');
@@ -157,9 +168,9 @@ async function handleLikeButtonClick(event) {
 
     try {
         if (currentIsLiked) {
-            await removePostLike(postId, contentApiKey);
+            await removePostLike(sitePath, postId, contentApiKey);
         } else {
-            await addPostLike(postId, contentApiKey);
+            await addPostLike(sitePath, postId, contentApiKey);
         }
     } catch (error) {
         console.error('[post-like] いいね操作に失敗しました:', error);
