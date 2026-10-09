@@ -1,24 +1,27 @@
 /* Page shell
 /* ---------------------------------------------------------- */
 
+/* 背景画像は 16:9 の画面で本文カラムの左右に人物とロゴが来る構図。
+/* fixed にしないと cover が文書全体の高さに合わせて拡大し、長いページで左右の要素が切れる */
 html {
-    background-color: var(--raiden-black);
+    background: var(--raiden-black) url("../images/roomraiden_bg.jpg") center / cover no-repeat fixed;
 }
 
-/* 地の黒は html だけに持たせる。body にも敷くと、見出しの稲妻(z-index: -1)が
-/* body の背景の下に回り込んで見えなくなる */
+/* body に背景を敷くと、見出しの稲妻(z-index: -1)が body の背景の下に回り込んで見えなくなる */
 body {
     font-family: var(--raiden-font);
     color: var(--raiden-white);
 }
 
-/* 背景は html 側に持たせる。見出しの稲妻を z-index: -1 で敷くため、
-/* ここに background があると稲妻がその下に隠れる */
+/* 白文字を載せるので本文カラムには黒を敷く。isolate で重ね合わせの基準を作り、
+/* 中の z-index: -1(見出しの稲妻)がこの背景の下に隠れないようにする */
 .gh-viewport {
+    isolation: isolate;
     width: 100%;
     max-width: var(--raiden-page-width);
     min-height: 100vh;
     margin-inline: auto;
+    background-color: var(--raiden-black);
 }
 
 /* 本文が短いページでもフッターを画面下端に置く。.gh-viewport は Source 由来で縦並びの flex */
