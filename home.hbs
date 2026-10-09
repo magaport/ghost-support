@@ -35,9 +35,18 @@
     <section class="raiden-section raiden-articles">
         <h2 class="raiden-heading"><span class="raiden-heading-text">Article</span></h2>
         <div class="raiden-card-grid">
-            {{#foreach posts limit="2"}}
-                {{> "components/card"}}
-            {{/foreach}}
+            {{#if @member}}
+                {{#foreach posts limit="2"}}
+                    {{> "components/card"}}
+                {{/foreach}}
+            {{else}}
+                {{!-- 非会員には free タグの付いた記事だけを出す。有料記事のカードを非会員に見せない --}}
+                {{#get "posts" filter="tag:free" limit="2"}}
+                    {{#foreach posts}}
+                        {{> "components/card"}}
+                    {{/foreach}}
+                {{/get}}
+            {{/if}}
         </div>
     </section>
 
