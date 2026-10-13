@@ -5,10 +5,18 @@
     let allPosts = [];
     let currentPage = 0;
 
-    async function fetchLikedPosts(key, memberId) {
+    async function fetchLikedPosts(key) {
         try {
+            // 会員はサーバーがトークンから決める。memberId はクエリに付けない
+            const token = await getMemberToken();
+            const headers = {};
+            if (token) {
+                headers['Authorization'] = `GhostMembers ${token}`;
+            }
+
             const response = await fetch(
-                `/ghost/api/content/liked-posts/?key=${key}&memberId=${memberId}&limit=50`
+                `/ghost/api/content/liked-posts/?key=${key}&limit=50`,
+                {credentials: 'include', headers}
             );
 
             if (!response.ok) {
@@ -25,14 +33,12 @@
 
     async function initialize() {
         const contentApiKey = window.ghostConfig.contentApiKey;
-        const memberEmail = window.currentMember.email;
-        const memberInfo = await getMemberByEmail(memberEmail, contentApiKey);
-        const memberId = memberInfo?.id;
-        if (!memberId) {
+        const isMember = Boolean(window.currentMember?.uuid);
+        if (!isMember) {
             return;
         }
 
-        const likedPosts = await fetchLikedPosts(contentApiKey, memberId);
+        const likedPosts = await fetchLikedPosts(contentApiKey);
         const headingElement = document.querySelector('h1.post-likes-heading')
 
         if (likedPosts.length === 0) {
@@ -118,12 +124,8 @@
      */
     async function initializeLikeButtonsInList(container) {
         const buttons = container.querySelectorAll('.gh-post-like-button');
-        const memberEmail = window.currentMember.email;
-        const memberInfo = await getMemberByEmail(memberEmail);
-        const memberId = memberInfo?.id;
 
         buttons.forEach(button => {
-            button.setAttribute('data-member-id', memberId || '');
             button.addEventListener('click', handleUnlikeInList);
         });
     }
@@ -135,15 +137,15 @@
     async function handleUnlikeInList(event) {
         const button = event.currentTarget;
         const postId = button.getAttribute('data-post-id');
-        const memberId = button.getAttribute('data-member-id');
+        const isMember = Boolean(window.currentMember?.uuid);
         const contentApiKey = window.ghostConfig.contentApiKey;
 
-        if (!memberId) {
+        if (!isMember) {
             return;
         }
 
         try {
-            await removePostLike(postId, memberId, contentApiKey);
+            await removePostLike(postId, contentApiKey);
 
             // カードを取得して削除
             const card = button.closest('.card');
