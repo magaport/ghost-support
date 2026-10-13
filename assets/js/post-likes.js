@@ -33,10 +33,8 @@
 
     async function initialize() {
         const contentApiKey = window.ghostConfig.contentApiKey;
-        const memberEmail = window.currentMember.email;
-        const memberInfo = await getMemberByEmail(memberEmail, contentApiKey);
-        const memberId = memberInfo?.id;
-        if (!memberId) {
+        const isMember = Boolean(window.currentMember?.uuid);
+        if (!isMember) {
             return;
         }
 
@@ -126,12 +124,8 @@
      */
     async function initializeLikeButtonsInList(container) {
         const buttons = container.querySelectorAll('.gh-post-like-button');
-        const memberEmail = window.currentMember.email;
-        const memberInfo = await getMemberByEmail(memberEmail);
-        const memberId = memberInfo?.id;
 
         buttons.forEach(button => {
-            button.setAttribute('data-member-id', memberId || '');
             button.addEventListener('click', handleUnlikeInList);
         });
     }
@@ -143,15 +137,15 @@
     async function handleUnlikeInList(event) {
         const button = event.currentTarget;
         const postId = button.getAttribute('data-post-id');
-        const memberId = button.getAttribute('data-member-id');
+        const isMember = Boolean(window.currentMember?.uuid);
         const contentApiKey = window.ghostConfig.contentApiKey;
 
-        if (!memberId) {
+        if (!isMember) {
             return;
         }
 
         try {
-            await removePostLike(postId, memberId, contentApiKey);
+            await removePostLike(postId, contentApiKey);
 
             // カードを取得して削除
             const card = button.closest('.card');

@@ -66,7 +66,6 @@ function createPostCard(post, options = {}) {
             <button
                 class="gh-post-like-button favorite"
                 data-post-id="${post.id}"
-                data-member-id=""
                 data-liked="${isLiked}"
                 type="button"
                 aria-label="${isLiked ? 'お気に入り解除' : 'お気に入り'}"
