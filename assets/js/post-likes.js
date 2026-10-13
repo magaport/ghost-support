@@ -5,10 +5,18 @@
     let allPosts = [];
     let currentPage = 0;
 
-    async function fetchLikedPosts(key, memberId) {
+    async function fetchLikedPosts(key) {
         try {
+            // 会員はサーバーがトークンから決める。memberId はクエリに付けない
+            const token = await getMemberToken();
+            const headers = {};
+            if (token) {
+                headers['Authorization'] = `GhostMembers ${token}`;
+            }
+
             const response = await fetch(
-                `/ghost/api/content/liked-posts/?key=${key}&memberId=${memberId}&limit=50`
+                `/ghost/api/content/liked-posts/?key=${key}&limit=50`,
+                {credentials: 'include', headers}
             );
 
             if (!response.ok) {
@@ -32,7 +40,7 @@
             return;
         }
 
-        const likedPosts = await fetchLikedPosts(contentApiKey, memberId);
+        const likedPosts = await fetchLikedPosts(contentApiKey);
         const headingElement = document.querySelector('h1.post-likes-heading')
 
         if (likedPosts.length === 0) {
