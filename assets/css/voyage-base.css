@@ -184,11 +184,12 @@ a,
     background-color: var(--voyage-blue-badge);
 }
 
+/* 前へ・次へが無いページでもその列を空けておき、ページ番号をどのページでも中央に置く */
 .voyage-pagination {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     gap: 16px;
     align-items: center;
-    justify-content: center;
     margin-top: 32px;
     font-family: var(--voyage-font-serif);
     font-size: var(--voyage-font-size-pagination);
@@ -198,6 +199,20 @@ a,
 
 .voyage-pagination a {
     color: var(--voyage-gold);
+}
+
+.voyage-pagination-prev {
+    grid-column: 1;
+    justify-self: end;
+}
+
+.voyage-pagination-current {
+    grid-column: 2;
+}
+
+.voyage-pagination-next {
+    grid-column: 3;
+    justify-self: start;
 }
 
 /* Line art — partials/components/line-*.hbs
