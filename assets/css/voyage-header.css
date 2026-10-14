@@ -145,10 +145,10 @@ body:has(.voyage-menu:popover-open) {
     overflow: hidden;
 }
 
-/* ナビを並べ始める幅は、デスクトップ案のナビ（非会員 4 項目とボタン 2 つ、会員 3 項目とボタン 1 つ）が収まる幅。
-/* ナビの幅そのものは CSS から参照できないので値で持つ。管理画面でナビの項目を増やしたり文言を長くしたら、ここを見直す。
+/* ナビを並べ始める幅は、ナビ（8 項目に、非会員はボタン 2 つ、会員はボタン 1 つ）とロゴの間が 44px ほど空く幅。
+/* ナビの幅そのものは CSS から参照できないので値で持つ。components/site-nav の項目を増やしたり文言を長くしたら、ここを見直す。
 /* 画面ではなく .gh-viewport の幅で判定するのは、Portal がダイアログを開くと body に余白を足して幅が変わるため */
-@container voyage-page (min-width: 480px) {
+@container voyage-page (min-width: 1060px) {
     [data-voyage-nav="member"] .voyage-header-nav {
         display: flex;
     }
@@ -159,7 +159,7 @@ body:has(.voyage-menu:popover-open) {
     }
 }
 
-@container voyage-page (min-width: 660px) {
+@container voyage-page (min-width: 1140px) {
     [data-voyage-nav="guest"] .voyage-header-nav {
         display: flex;
     }
