@@ -122,7 +122,9 @@
     border: 0;
 }
 
-.voyage-menu > * {
+/* ヘッダーは幅を絞らない。ページのヘッダーは画面幅いっぱいで、左右の余白も画面幅から決まるので、
+/* 402px に絞って中央に寄せると画面が 402px より広いときにロゴと CLOSE が内側へずれる */
+.voyage-menu-body {
     width: 100%;
     max-width: var(--voyage-page-width);
     margin-inline: auto;
