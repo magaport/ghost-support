@@ -8,6 +8,8 @@
         <div class="voyage-notebook-list">
             {{#foreach posts}}
                 {{> "components/notebook-card"}}
+            {{else}}
+                {{> "components/empty"}}
             {{/foreach}}
         </div>
         {{pagination}}

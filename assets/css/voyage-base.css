@@ -215,6 +215,16 @@ a,
     justify-self: start;
 }
 
+/* 記事が無い一覧の案内。Figma に無いので、ページ送りと同じ文字の大きさで控えめに出す */
+.voyage-empty {
+    grid-column: 1 / -1;
+    margin: 24px 0 0;
+    font-family: var(--voyage-font-sans);
+    font-size: var(--voyage-font-size-empty);
+    color: var(--voyage-blue);
+    text-align: center;
+}
+
 /* Line art — partials/components/line-*.hbs
 /* ---------------------------------------------------------- */
 

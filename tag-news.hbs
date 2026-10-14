@@ -5,7 +5,11 @@
 <main class="voyage-list">
     <section class="voyage-section voyage-news">
         {{> "components/section-heading" label="News"}}
-        {{> "components/news-list"}}
+        {{#if posts}}
+            {{> "components/news-list"}}
+        {{else}}
+            {{> "components/empty"}}
+        {{/if}}
         {{pagination}}
     </section>
 </main>

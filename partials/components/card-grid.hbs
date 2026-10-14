@@ -2,5 +2,7 @@
 <div class="voyage-log-grid">
     {{#foreach posts}}
         {{> "components/log-card"}}
+    {{else}}
+        {{> "components/empty"}}
     {{/foreach}}
 </div>
