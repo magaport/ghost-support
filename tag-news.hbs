@@ -4,7 +4,7 @@
 {{!-- 一覧のデザインは未着手なので仮。トップの News と同じ並びにする --}}
 <main class="voyage-list">
     <section class="voyage-section voyage-news">
-        {{> "components/section-heading" label="News"}}
+        {{> "components/section-heading" script="News" label="お知らせ"}}
         {{!-- 非会員には一覧を見せず、見出しの下に入会の案内を出す --}}
         {{#if @member}}
             {{#if posts}}

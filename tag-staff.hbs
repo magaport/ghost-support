@@ -5,7 +5,7 @@
       channel には tag のデータが無く、data: tag.staff で渡すと同じ理由で 404 になるので、見出しは固定で書く --}}
 <main class="voyage-list">
     <section class="voyage-section">
-        {{> "components/section-heading" label="スタッフ通信"}}
+        {{> "components/section-heading" script="Staff" label="スタッフ通信"}}
         {{!-- 非会員には一覧を見せず、見出しの下に入会の案内を出す --}}
         {{#if @member}}
             {{> "components/card-grid"}}

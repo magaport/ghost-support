@@ -7,8 +7,17 @@
 
     <article class="voyage-section">
         {{#match @page.show_title_and_feature_image}}
+            {{!-- ナビに並ぶページだけ英字を重ねる。英字と和文は管理画面のタイトルから決められないので slug で引く --}}
             <header class="voyage-article-header">
-                <h1 class="voyage-article-title">{{title}}</h1>
+                {{#match slug "about"}}
+                    {{> "components/page-title" script="About" label="Voyage+ とは"}}
+                {{else match slug "profile"}}
+                    {{> "components/page-title" script="Profile" label="プロフィール"}}
+                {{else match slug "faq"}}
+                    {{> "components/page-title" script="FAQ" label="よくある質問"}}
+                {{else}}
+                    <h1 class="voyage-article-title">{{title}}</h1>
+                {{/match}}
             </header>
 
             {{#if feature_image}}
