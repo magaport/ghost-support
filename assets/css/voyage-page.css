@@ -79,3 +79,46 @@
     font-weight: 700;
     color: var(--voyage-blue);
 }
+
+/* Paid only — 会員向けの一覧を非会員が開いたときの案内
+/* ---------------------------------------------------------- */
+
+/* 枠と影はトップの Message のカードに揃える */
+.voyage-paid-only {
+    margin-top: 24px;
+    padding: 32px 16px;
+    text-align: center;
+    background-color: var(--voyage-white);
+    border: 1px solid rgb(0 0 0 / 0.048);
+    border-radius: var(--voyage-radius);
+    box-shadow: 2px 2px 5px rgb(0 0 0 / 0.1);
+}
+
+.voyage-paid-only-title {
+    margin: 0;
+    font-family: var(--voyage-font-serif);
+    font-size: var(--voyage-font-size-paid-only-title);
+    font-weight: 700;
+    line-height: normal;
+    color: var(--voyage-blue);
+}
+
+.voyage-paid-only-text {
+    margin: 12px 0 0;
+    font-family: var(--voyage-font-serif);
+    font-size: var(--voyage-font-size-paid-only-text);
+    line-height: 1.8;
+}
+
+/* 記事の中では本文のリンクの下線（.voyage-article-body a）を受けるので、ボタンとリンクから外す */
+.voyage-paid-only a {
+    text-decoration: none;
+}
+
+.voyage-paid-only-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    align-items: center;
+    margin-top: 24px;
+}

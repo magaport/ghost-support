@@ -87,6 +87,8 @@
     --voyage-font-size-empty: 12px;
     --voyage-font-size-error-code: 40px;
     --voyage-font-size-error-message: 14px;
+    --voyage-font-size-paid-only-title: 16px;
+    --voyage-font-size-paid-only-text: 12px;
     /* フッター */
     --voyage-font-size-footer-menu: 12px;
     --voyage-font-size-copyright: 10px;

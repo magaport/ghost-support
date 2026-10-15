@@ -1,0 +1,22 @@
+{{!-- 会員向けの一覧を非会員が開いたときと、会員限定の記事・固定ページ（content-cta）で出す。
+      ywlr の content-cta（記事の続きを隠すフタ）の文言と導線を下敷きにしている。
+      一覧には続きを透かして見せる本文が無いので、ywlr のグラデーションは使わず、トップの Message と同じカードに収める --}}
+{{!-- 見出しの引数を title にすると、記事の中で呼んだとき渡さなくても記事のタイトルを拾ってしまう --}}
+<div class="voyage-paid-only">
+    <p class="voyage-paid-only-title">{{#if heading}}{{heading}}{{else}}この先は有料会員限定{{/if}}</p>
+    <p class="voyage-paid-only-text">会員になると、すべてのコンテンツをご覧いただけます。</p>
+    {{#if @site.members_enabled}}
+        <div class="voyage-paid-only-actions">
+            {{!-- ログイン済みの無料メンバーは入会済みなので、プランの確認を促し、ログインの導線は出さない --}}
+            {{#if @member}}
+                {{> "components/join-link" class="voyage-button is-primary" label="プランを確認する" chevron="white"}}
+            {{else}}
+                {{> "components/join-link" class="voyage-button is-primary" label="新規入会はこちら" chevron="white"}}
+                <a class="voyage-text-link" href="#/portal/signin" data-portal="signin">
+                    ログイン
+                    <img src="{{asset "images/voyage_chevron_blue_small.svg"}}" alt="" width="3" height="6">
+                </a>
+            {{/if}}
+        </div>
+    {{/if}}
+</div>

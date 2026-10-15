@@ -20,7 +20,7 @@
                 alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}">
         {{/if}}
 
-        {{!-- 会員限定の記事で権限が無いときは、Ghost 標準の入会案内が {{content}} の末尾に出る --}}
+        {{!-- 会員限定の記事で権限が無いときは、partials/content-cta の入会案内が {{content}} の末尾に出る --}}
         <div class="gh-content voyage-article-body">
             {{content}}
         </div>
