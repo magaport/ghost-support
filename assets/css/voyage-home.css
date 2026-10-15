@@ -357,7 +357,7 @@
 
 .voyage-preview {
     position: relative;
-    height: 138px;
+    /* Figma の高さ 138px は 5 行の文が収まる高さ。行数は幅で変わるので、高さは決めずに中身から決める */
     margin-top: 39px;
     overflow: hidden;
     border-radius: var(--voyage-radius);
@@ -373,8 +373,9 @@
 
 .voyage-preview-body {
     position: relative;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
     width: 81%;
-    height: 100%;
     padding: 12px 0 12px 19px;
     background: linear-gradient(90deg, rgb(var(--voyage-preview-fade)) 25.475%, rgb(var(--voyage-preview-fade) / 0.733) 56.437%, rgb(var(--voyage-preview-fade) / 0.431) 79.658%, rgb(var(--voyage-preview-fade) / 0) 100%);
 }
@@ -388,7 +389,9 @@
     color: var(--voyage-blue);
 }
 
+/* 広い画面で 1 行が伸びると、グラデーションが薄くなる写真の上まで文がかかるので、<br> で切っていたときの行の長さで止める */
 .voyage-preview-text {
+    max-width: 22em;
     margin: 6px 0 0 3px;
     font-family: var(--voyage-font-serif);
     font-size: var(--voyage-font-size-preview-text);
@@ -404,6 +407,21 @@
     font-size: var(--voyage-font-size-text-link);
     line-height: normal;
     color: var(--voyage-gold);
+}
+
+.voyage-preview-break {
+    display: none;
+}
+
+/* 本文の列が上限（--voyage-content-width）まで広がる幅。句点で改行すると 1 行が 22em を超えるので、上限を外す */
+@container voyage-page (min-width: 764px) {
+    .voyage-preview-break {
+        display: inline;
+    }
+
+    .voyage-preview-text {
+        max-width: none;
+    }
 }
 
 /* Log & NoteBook
