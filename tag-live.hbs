@@ -6,7 +6,12 @@
 <main class="voyage-list">
     <section class="voyage-section">
         {{> "components/section-heading" label="LIVE配信"}}
-        {{> "components/card-grid"}}
-        {{pagination}}
+        {{!-- 非会員には一覧を見せず、見出しの下に入会の案内を出す --}}
+        {{#if @member}}
+            {{> "components/card-grid"}}
+            {{pagination}}
+        {{else}}
+            {{> "components/paid-only"}}
+        {{/if}}
     </section>
 </main>

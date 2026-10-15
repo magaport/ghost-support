@@ -5,11 +5,16 @@
 <main class="voyage-list">
     <section class="voyage-section voyage-news">
         {{> "components/section-heading" label="News"}}
-        {{#if posts}}
-            {{> "components/news-list"}}
+        {{!-- 非会員には一覧を見せず、見出しの下に入会の案内を出す --}}
+        {{#if @member}}
+            {{#if posts}}
+                {{> "components/news-list"}}
+            {{else}}
+                {{> "components/empty"}}
+            {{/if}}
+            {{pagination}}
         {{else}}
-            {{> "components/empty"}}
+            {{> "components/paid-only"}}
         {{/if}}
-        {{pagination}}
     </section>
 </main>
