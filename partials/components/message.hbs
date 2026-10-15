@@ -2,11 +2,12 @@
     <img class="voyage-message-portrait" src="{{asset "images/voyage_message_portrait.jpg"}}" alt="" width="109" height="109">
 
     <div class="voyage-message-body">
-        <h2 class="voyage-message-title">いつも応援してくださる皆さんへ。</h2>
+        {{!-- 改行は <wbr> の文節の切れ目だけで起こす（word-break: keep-all）。<br> で固定すると、幅が変わったときに行の途中で折り返されて行頭に 1〜2 文字だけ残る。
+              word-break: auto-phrase なら文節を自動で判定できるが、Safari と Firefox が対応していない --}}
+        <h2 class="voyage-message-title">いつも<wbr>応援して<wbr>くださる<wbr>皆さんへ。</h2>
         <div class="voyage-message-text">
-            <p>挑戦の道のりは一人では進めませんでした。<br>支えてくれる皆さんの存在が、<br>私にとっての大きな力になっています。</p>
-            <p>この場所で、もっと近くに、もっと深く、<br>未来への航海を一緒に</p>
-            <p>楽しみましょう。</p>
+            <p>挑戦の<wbr>道のりは<wbr>一人では<wbr>進めませんでした。<wbr>支えてくれる<wbr>皆さんの<wbr>存在が、<wbr>私にとっての<wbr>大きな<wbr>力に<wbr>なっています。</p>
+            <p>この<wbr>場所で、<wbr>もっと<wbr>近くに、<wbr>もっと<wbr>深く、<wbr>未来への<wbr>航海を<wbr>一緒に<wbr>楽しみましょう。</p>
         </div>
     </div>
 

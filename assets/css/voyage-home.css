@@ -169,7 +169,7 @@
     grid-template-columns: 109px 1fr;
     column-gap: 12px;
     align-items: center;
-    min-height: 191px;
+    /* Figma の高さ 191px は、署名を本文の右下に重ねたときの高さ。署名を本文の下に置いたので、高さは決めずに中身から決める */
     margin-top: 16px;
     padding: 15px 3px 15px 10px;
     background-color: var(--voyage-white);
@@ -179,7 +179,9 @@
     box-shadow: 2px 2px 5px rgb(0 0 0 / 0.1);
 }
 
+/* 署名は本文の下の行に置く。重ねて置くと、幅が狭いときに本文の行が増えて署名に被る */
 .voyage-message-portrait {
+    grid-row: 1 / span 2;
     width: 109px;
     height: 109px;
     object-fit: cover;
@@ -189,6 +191,9 @@
 
 .voyage-message-body {
     align-self: start;
+    word-break: keep-all;
+    /* 文節が 1 行に収まらないほど狭いときだけ、文節の途中でも折り返す */
+    overflow-wrap: anywhere;
 }
 
 .voyage-message-title {
@@ -213,10 +218,10 @@
 }
 
 .voyage-message-signature {
-    position: absolute;
-    right: 25px;
-    bottom: 8px;
+    grid-column: 2;
+    justify-self: start;
     width: 72px;
+    margin-top: 8px;
 }
 
 .voyage-about-link {
