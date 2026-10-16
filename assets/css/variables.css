@@ -9,6 +9,14 @@
     --raiden-white: #fff;
     --raiden-copyright-bg: #fff;
 
+    /* Source の配色変数を黒背景用に切り替える。値は Source の :root.has-light-text と同じ。
+    /* Source は背景色の明暗を見て html に has-light-text を付けるが、その処理は default.hbs から外したので、クラスに頼らず変数を直接上書きする */
+    --color-lighter-gray: rgb(255 255 255 / 0.1);
+    --color-darker-gray: #fff;
+    --color-secondary-text: rgb(255 255 255 / 0.64);
+    --color-border: rgb(255 255 255 / 0.15);
+    --color-dark-border: rgb(255 255 255 / 0.5);
+
     /* Gradients */
     --raiden-header-gradient: linear-gradient(180deg, #f4bf0e 0%, #f3e727 100%);
     --raiden-button-gradient: linear-gradient(180deg, #f5b005 0%, #f2e424 100%);
