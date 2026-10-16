@@ -29,3 +29,18 @@
         wrapper.appendChild(table);
     });
 })();
+
+/* ナビを並べる幅に広がったら、開いたままのメニューを閉じる */
+(function () {
+    const menu = document.getElementById('voyage-menu');
+    const burger = document.querySelector('header.voyage-header > .voyage-burger');
+    if (!menu || !burger) return;
+
+    // CSS の display: none では popover が開いたままで、本文のスクロール制限が残る。
+    // 幅の判定は CSS の container query だけに持たせたいので、JS で幅を比べず MENU が隠れたことで知る
+    new ResizeObserver(function () {
+        if (burger.offsetWidth === 0 && menu.matches(':popover-open')) {
+            menu.hidePopover();
+        }
+    }).observe(burger);
+})();
