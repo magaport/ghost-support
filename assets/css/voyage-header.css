@@ -8,8 +8,8 @@
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-    /* MENU の上の余白。モバイルは 63px、ナビを並べる幅（デスクトップ）は下の container query で 66px にする */
-    --voyage-header-top: 63px;
+    /* MENU の上の余白。モバイルは 35px、ナビを並べる幅（デスクトップ）は下の container query で 38px にする */
+    --voyage-header-top: 35px;
     /* 上下の余白は MENU（高さ 31px）に合わせる。ロゴは MENU より背が高いので、高さを固定して上へはみ出させる。
     /* 高さを数値で持つと上の余白を変えても MENU の位置が動かないので、余白から計算する */
     height: calc(var(--voyage-header-top) + 31px + 14px);
@@ -154,7 +154,7 @@ body:has(.voyage-menu:popover-open) {
 /* 画面ではなく .gh-viewport の幅で判定するのは、Portal がダイアログを開くと body に余白を足して幅が変わるため */
 @container voyage-page (min-width: 1060px) {
     [data-voyage-nav="member"] .voyage-header {
-        --voyage-header-top: 66px;
+        --voyage-header-top: 38px;
     }
 
     [data-voyage-nav="member"] .voyage-header-nav {
@@ -169,7 +169,7 @@ body:has(.voyage-menu:popover-open) {
 
 @container voyage-page (min-width: 640px) {
     [data-voyage-nav="guest"] .voyage-header {
-        --voyage-header-top: 66px;
+        --voyage-header-top: 38px;
     }
 
     [data-voyage-nav="guest"] .voyage-header-nav {
