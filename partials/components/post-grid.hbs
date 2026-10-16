@@ -1,0 +1,17 @@
+<section class="raiden-section raiden-list">
+    <h1 class="raiden-heading raiden-list-title"><span class="raiden-heading-text">{{listTitle}}</span></h1>
+
+    <div class="raiden-card-grid">
+        {{#foreach posts}}
+            {{> "components/card"}}
+        {{/foreach}}
+    </div>
+
+    {{#if pagination}}
+        <nav class="raiden-pagination">
+            {{#if pagination.prev}}<a href="{{page_url pagination.prev}}">前へ</a>{{/if}}
+            <span>{{pagination.page}} / {{pagination.pages}}</span>
+            {{#if pagination.next}}<a href="{{page_url pagination.next}}">次へ</a>{{/if}}
+        </nav>
+    {{/if}}
+</section>
