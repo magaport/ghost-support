@@ -1,81 +1,77 @@
 {{!< default}}
 {{!-- The tag above means: insert everything in this file into the body of the default.hbs template --}}
 
-{{#if @member}}
-
-<main class="voyage-home is-member">
+{{!-- 記事の欄は件数だけ会員かどうかで変える。ヒーローの大きさは is-member / is-guest で CSS が切り替える --}}
+<main class="voyage-home {{#if @member}}is-member{{else}}is-guest{{/if}}">
 
     <section class="voyage-hero">
-        {{> "components/hero-visual" sizes="max(100vw, (max(417px, 36vw) + 77px) * 1.289)"}}
+        {{#if @member}}
+            {{> "components/hero-visual" sizes="max(100vw, (max(417px, 36vw) + 77px) * 1.289)"}}
+        {{else}}
+            {{> "components/hero-visual" sizes="max(100vw, (max(383px, 40vw) + 251px) * 1.289)"}}
+        {{/if}}
         <div class="voyage-hero-brand">
             <p class="voyage-hero-lead">髙木美帆　公式コミュニティ</p>
-            {{> "components/hero-logo" sizes="max(174px, 19.34vw)"}}
-            <p class="voyage-hero-catch">共に、次の景色へ。</p>
+            {{#if @member}}
+                {{> "components/hero-logo" sizes="max(174px, 19.34vw)"}}
+                <p class="voyage-hero-catch">共に、次の景色へ。</p>
+            {{else}}
+                {{> "components/hero-logo" sizes="max(203px, 22.56vw)"}}
+            {{/if}}
         </div>
     </section>
 
-    {{> "components/news-section"}}
+    {{#unless @member}}
+        {{#if @site.members_enabled}}
+            <div class="voyage-join">
+                {{> "components/join-link" class="voyage-button is-primary" label="新規入会はこちら" chevron="white"}}
+                <a class="voyage-text-link" href="#/portal/signin" data-portal="signin">
+                    ログイン
+                    <img src="{{asset "images/voyage_chevron_blue_small.svg"}}" alt="" width="3" height="6">
+                </a>
+            </div>
+        {{/if}}
 
-    {{> "components/log-section" filter="tag:log" limit="4" moreUrl=(concat @site.url "/tag/log/")}}
-
-    {{> "components/line-skate" class="voyage-divider"}}
-
-    {{> "components/notebook-section" filter="tag:notebook" limit="4" moreUrl=(concat @site.url "/tag/notebook/")}}
-
-</main>
-
-{{else}}
-
-<main class="voyage-home is-guest">
-
-    <section class="voyage-hero">
-        {{> "components/hero-visual" sizes="max(100vw, (max(383px, 40vw) + 251px) * 1.289)"}}
-        <div class="voyage-hero-brand">
-            <p class="voyage-hero-lead">髙木美帆　公式コミュニティ</p>
-            {{> "components/hero-logo" sizes="max(203px, 22.56vw)"}}
+        <div class="voyage-section">
+            {{> "components/message"}}
         </div>
-    </section>
 
-    {{#if @site.members_enabled}}
-        <div class="voyage-join">
-            {{> "components/join-link" class="voyage-button is-primary" label="新規入会はこちら" chevron="white"}}
-            <a class="voyage-text-link" href="#/portal/signin" data-portal="signin">
-                ログイン
-                <img src="{{asset "images/voyage_chevron_blue_small.svg"}}" alt="" width="3" height="6">
+        <div class="voyage-section voyage-about-link">
+            <a class="voyage-button is-sub" href="{{@site.url}}/about/">
+                Voyage+ とは
+                <img src="{{asset "images/voyage_chevron_blue.svg"}}" alt="" width="5" height="11">
             </a>
         </div>
-    {{/if}}
 
-    <div class="voyage-section">
-        {{> "components/message"}}
-    </div>
-
-    {{!-- 遷移先は先方に確認中。固定ページを /about/ に置く想定で仮置きする --}}
-    <div class="voyage-section voyage-about-link">
-        <a class="voyage-button is-sub" href="{{@site.url}}/about/">
-            Voyage+ とは
-            <img src="{{asset "images/voyage_chevron_blue.svg"}}" alt="" width="5" height="11">
-        </a>
-    </div>
-
-    {{> "components/benefits"}}
+        {{> "components/benefits"}}
+    {{/unless}}
 
     {{> "components/news-section"}}
 
-    {{> "components/preview"}}
+    {{#unless @member}}
+        {{> "components/preview"}}
+    {{/unless}}
 
-    {{!-- 非会員には free タグの付いた記事だけを出す。有料記事のカードを非会員に見せない --}}
-    {{> "components/log-section" filter="tag:log+tag:free" limit="4"}}
+    {{!-- Ghost のテンプレートには値を選ぶインラインの if が無いので、件数ごとブロックで分ける --}}
+    {{#if @member}}
+        {{> "components/log-section" filter="tag:log" limit="4" moreUrl=(concat @site.url "/tag/log/")}}
+    {{else}}
+        {{> "components/log-section" filter="tag:log" limit="2" moreUrl=(concat @site.url "/tag/log/")}}
+    {{/if}}
 
     {{> "components/line-skate" class="voyage-divider"}}
 
-    {{> "components/notebook-section" filter="tag:notebook+tag:free" limit="4"}}
+    {{#if @member}}
+        {{> "components/notebook-section" filter="tag:notebook" limit="4" moreUrl=(concat @site.url "/tag/notebook/")}}
+    {{else}}
+        {{> "components/notebook-section" filter="tag:notebook" limit="2" moreUrl=(concat @site.url "/tag/notebook/")}}
+    {{/if}}
 
-    <section class="voyage-closing">
-        <p class="voyage-closing-catch">共に、次の景色へ。</p>
-        <p class="voyage-closing-message">Voyage+で、特別な航海をはじめましょう。</p>
-    </section>
+    {{#unless @member}}
+        <section class="voyage-closing">
+            <p class="voyage-closing-catch">共に、次の景色へ。</p>
+            <p class="voyage-closing-message">Voyage+で、特別な航海をはじめましょう。</p>
+        </section>
+    {{/unless}}
 
 </main>
-
-{{/if}}

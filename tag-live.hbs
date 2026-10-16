@@ -6,20 +6,7 @@
 <main class="voyage-list">
     <section class="voyage-section">
         {{> "components/section-heading" script="Live" label="LIVE配信"}}
-        {{#if @member}}
-            {{> "components/card-grid"}}
-            {{pagination}}
-        {{else}}
-            {{!-- 非会員には free タグの付いた記事だけを並べ、1 件も無ければ入会の案内を出す。
-                  page を渡すのは、{{pagination}} が作る /page/N/ のリンクと取り出す記事を揃えるため --}}
-            {{#get "posts" filter="tag:live+tag:free" limit=@config.posts_per_page page=pagination.page}}
-                {{#if posts}}
-                    {{> "components/card-grid"}}
-                    {{pagination}}
-                {{else}}
-                    {{> "components/paid-only"}}
-                {{/if}}
-            {{/get}}
-        {{/if}}
+        {{> "components/card-grid"}}
+        {{pagination}}
     </section>
 </main>

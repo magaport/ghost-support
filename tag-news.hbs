@@ -5,24 +5,11 @@
 <main class="voyage-list">
     <section class="voyage-section voyage-news">
         {{> "components/section-heading" script="News" label="お知らせ"}}
-        {{#if @member}}
-            {{#if posts}}
-                {{> "components/news-list"}}
-            {{else}}
-                {{> "components/empty"}}
-            {{/if}}
-            {{pagination}}
+        {{#if posts}}
+            {{> "components/news-list"}}
         {{else}}
-            {{!-- 非会員には free タグの付いた記事だけを並べ、1 件も無ければ入会の案内を出す。
-                  page を渡すのは、{{pagination}} が作る /page/N/ のリンクと取り出す記事を揃えるため --}}
-            {{#get "posts" filter="tag:news+tag:free" limit=@config.posts_per_page page=pagination.page}}
-                {{#if posts}}
-                    {{> "components/news-list"}}
-                    {{pagination}}
-                {{else}}
-                    {{> "components/paid-only"}}
-                {{/if}}
-            {{/get}}
+            {{> "components/empty"}}
         {{/if}}
+        {{pagination}}
     </section>
 </main>
