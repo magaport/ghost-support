@@ -1,53 +1,61 @@
-<header id="gh-navigation" class="gh-navigation is-{{#match navigationLayout "Logo on the left"}}left-logo{{else match navigationLayout "Stacked"}}stacked{{else}}middle-logo{{/match}}{{#match @custom.header_and_footer_color "Accent color"}} has-accent-color{{/match}} gh-outer">
-    <div class="gh-navigation-inner gh-inner">
+<header class="voyage-header">
+    <a class="voyage-header-logo" href="{{@site.url}}">
+        {{!-- ヒーローの白抜きロゴは Publication logo から引くので、ヘッダーの色付きロゴは差し替え先が無く同梱する --}}
+        <img src="{{asset "images/voyage_logo_header.svg"}}" alt="{{@site.title}}" width="81" height="49">
+    </a>
 
-        <div class="gh-navigation-brand">
-            <a class="gh-navigation-logo is-title" href="{{@site.url}}">
-                {{#if @site.logo}}
-                    <img src="{{@site.logo}}" alt="{{@site.title}}">
-                {{else}}
-                    {{@site.title}}
-                {{/if}}
-            </a>
-            {{> "search-toggle"}}
-            <button class="gh-burger gh-icon-button" aria-label="Menu">
-                {{> "icons/burger"}}
-                {{> "icons/close"}}
-            </button>
-        </div>
-
-        <nav class="gh-navigation-menu">
-            {{navigation}}
-            {{#unless @site.members_enabled}}
-                {{#match navigationLayout "Stacked"}}
-                    {{> "search-toggle"}}
-                {{/match}}
-            {{/unless}}
-        </nav>
-
-        <div class="gh-navigation-actions">
-            {{#unless @site.members_enabled}}
-                {{^match navigationLayout "Stacked"}}
-                    {{> "search-toggle"}}
-                {{/match}}
+    {{!-- ハンバーガーと同じナビを、ヘッダーに収まる広さのときだけ並べる。広さの判定は assets/css/voyage-header.css --}}
+    <nav class="voyage-header-nav" aria-label="メインメニュー">
+        {{> "components/site-nav"}}
+        {{#if @site.members_enabled}}
+            {{#if @member}}
+                <a class="voyage-header-button is-outline" href="#/portal/account" data-portal="account">マイページ</a>
             {{else}}
-                {{> "search-toggle"}}
-                <div class="gh-navigation-members">
-                    {{#unless @member}}
-                        {{#unless @site.members_invite_only}}
-                            <a href="#/portal/signin" data-portal="signin">{{t "Sign in"}}</a>
-                            {{#unless hideSubscribeButton}}
-                                <a class="gh-button" href="#/portal/signup" data-portal="signup">{{t "Subscribe"}}</a>
-                            {{/unless}}
-                        {{else}}
-                            <a class="gh-button" href="#/portal/signin" data-portal="signin">{{t "Sign in"}}</a>
-                        {{/unless}}
-                    {{else}}
-                        <a class="gh-button" href="#/portal/account" data-portal="account">{{t "Account"}}</a>
-                    {{/unless}}
-                </div>
-            {{/unless}}
+                <a class="voyage-header-link" href="#/portal/signin" data-portal="signin">ログイン</a>
+                <a class="voyage-header-button is-gold" href="#/portal/signup" data-portal="signup">新規入会</a>
+            {{/if}}
+        {{/if}}
+    </nav>
+
+    <button class="voyage-burger" type="button" aria-label="メニューを開く" popovertarget="voyage-menu">
+        <img src="{{asset "images/voyage_menu.svg"}}" alt="" width="43" height="31">
+    </button>
+</header>
+
+{{!-- お知らせバーのスクリプトはこの id の要素があればそこに描く。無ければ body の先頭に足すので、ヘッダーの上に出てしまう --}}
+<div id="announcement-bar-root"></div>
+
+{{!-- メニューを開いたときのデザインは未着手なので仮。
+      チェックボックスで開閉する CSS だけの方法は、開閉状態が支援技術に伝わらず Esc でも閉じられないので使わない --}}
+<nav id="voyage-menu" class="voyage-menu" aria-label="メニュー" popover>
+    <div class="voyage-header voyage-menu-header">
+        <a class="voyage-header-logo" href="{{@site.url}}">
+            <img src="{{asset "images/voyage_logo_header.svg"}}" alt="{{@site.title}}" width="81" height="49">
+        </a>
+        <button class="voyage-burger voyage-menu-close" type="button" aria-label="メニューを閉じる" popovertarget="voyage-menu" popovertargetaction="hide" autofocus>
+            <span class="voyage-menu-close-icon" aria-hidden="true"></span>
+            <span class="voyage-burger-label">CLOSE</span>
+        </button>
+    </div>
+
+    <div class="voyage-menu-body">
+        <div class="voyage-menu-primary">
+            {{> "components/site-nav"}}
         </div>
 
+        {{#if @site.members_enabled}}
+            <div class="voyage-menu-member">
+                {{#if @member}}
+                    <a class="voyage-button is-sub" href="#/portal/account" data-portal="account">マイページ</a>
+                {{else}}
+                    <a class="voyage-button is-primary" href="#/portal/signup" data-portal="signup">新規入会はこちら</a>
+                    <a class="voyage-text-link" href="#/portal/signin" data-portal="signin">ログイン</a>
+                {{/if}}
+            </div>
+        {{/if}}
+
+        <div class="voyage-menu-secondary">
+            {{navigation type="secondary"}}
+        </div>
     </div>
-</header>
+</nav>

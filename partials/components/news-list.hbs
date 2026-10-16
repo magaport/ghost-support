@@ -1,0 +1,11 @@
+<ul class="voyage-news-list">
+    {{#foreach posts}}
+        <li>
+            <a class="voyage-news-item" href="{{url}}">
+                <time class="voyage-news-date" datetime="{{date format="YYYY-MM-DD"}}">{{date format="YYYY.MM.DD"}}</time>
+                <span class="voyage-news-title">{{title}}</span>
+                <img class="voyage-news-chevron" src="{{asset "images/voyage_chevron_news.svg"}}" alt="" width="4" height="6">
+            </a>
+        </li>
+    {{/foreach}}
+</ul>

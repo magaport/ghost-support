@@ -1,20 +1,3 @@
-/* Mobile menu burger toggle */
-(function () {
-    const navigation = document.querySelector('.gh-navigation');
-    const burger = navigation.querySelector('.gh-burger');
-    if (!burger) return;
-
-    burger.addEventListener('click', function () {
-        if (!navigation.classList.contains('is-open')) {
-            navigation.classList.add('is-open');
-            document.documentElement.style.overflowY = 'hidden';
-        } else {
-            navigation.classList.remove('is-open');
-            document.documentElement.style.overflowY = null;
-        }
-    });
-})();
-
 /* Add lightbox to gallery images */
 (function () {
     lightbox(
@@ -35,26 +18,29 @@
     reframe(document.querySelectorAll(sources.join(',')));
 })();
 
-/* Turn the main nav into dropdown menu when there are more than 5 menu items */
-(function () {
-    dropdown();
-})();
-
-/* Infinite scroll pagination */
-(function () {
-    if (!document.body.classList.contains('home-template') && !document.body.classList.contains('post-template')) {
-        pagination();
-    }
-})();
-
 /* Responsive HTML table */
 (function () {
     const tables = document.querySelectorAll('.gh-content > table:not(.gist table)');
-    
+
     tables.forEach(function (table) {
         const wrapper = document.createElement('div');
         wrapper.className = 'gh-table';
         table.parentNode.insertBefore(wrapper, table);
         wrapper.appendChild(table);
     });
+})();
+
+/* ナビを並べる幅に広がったら、開いたままのメニューを閉じる */
+(function () {
+    const menu = document.getElementById('voyage-menu');
+    const burger = document.querySelector('header.voyage-header > .voyage-burger');
+    if (!menu || !burger) return;
+
+    // CSS の display: none では popover が開いたままで、本文のスクロール制限が残る。
+    // 幅の判定は CSS の container query だけに持たせたいので、JS で幅を比べず MENU が隠れたことで知る
+    new ResizeObserver(function () {
+        if (burger.offsetWidth === 0 && menu.matches(':popover-open')) {
+            menu.hidePopover();
+        }
+    }).observe(burger);
 })();

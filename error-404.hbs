@@ -1,0 +1,14 @@
+{{!< default}}
+{{!-- The tag above means: insert everything in this file into the body of the default.hbs template --}}
+
+{{!-- 404 のデザインは未着手なので仮。ヘッダーとフッターを残し、トップへ戻す導線だけ置く --}}
+<main class="voyage-error">
+    <section class="voyage-section">
+        <p class="voyage-error-code">404</p>
+        <h1 class="voyage-error-message">ページが見つかりません。</h1>
+        <a class="voyage-button is-sub" href="{{@site.url}}">
+            TOPページへ戻る
+            <img src="{{asset "images/voyage_chevron_blue.svg"}}" alt="" width="5" height="11">
+        </a>
+    </section>
+</main>

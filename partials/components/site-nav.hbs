@@ -1,0 +1,16 @@
+{{!-- ヘッダーとハンバーガーで共通のナビ。Ghost の Primary nav で管理すると管理画面から項目を変えられてしまい、
+      ヘッダーに並べ始める幅（assets/css/voyage-header.css）とずれるので、項目はテーマに固定する。
+      News・日常・学び以外の遷移先は先方に確認中なので、/about/ と同じく想定の URL で仮置きする --}}
+<ul class="voyage-menu-list">
+    {{!-- 会員向けの一覧は非会員には出さない。直接開かれたときは各 tag-*.hbs が入会の案内を出す --}}
+    {{#if @member}}
+        <li><a href="{{@site.url}}/tag/news/">NEWS</a></li>
+        <li><a href="{{@site.url}}/tag/log/">LOG</a></li>
+        <li><a href="{{@site.url}}/tag/notebook/">NOTEBOOK</a></li>
+        <li><a href="{{@site.url}}/tag/staff/">スタッフ通信</a></li>
+        <li><a href="{{@site.url}}/tag/live/">LIVE配信</a></li>
+    {{/if}}
+    <li><a href="{{@site.url}}/about/">About</a></li>
+    <li><a href="{{@site.url}}/profile/">プロフィール</a></li>
+    <li><a href="{{@site.url}}/faq/">FAQ</a></li>
+</ul>

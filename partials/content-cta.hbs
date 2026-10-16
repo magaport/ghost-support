@@ -1,0 +1,10 @@
+{{!-- 会員限定の記事・固定ページを権限の無い人が開いたとき、{{content}} が本文の代わりに描く。
+      Ghost 標準の案内はアクセントカラーの帯で英語の文言が混ざるので、会員向けの一覧と同じ案内に差し替える --}}
+{{{html}}}
+{{#has visibility="tiers"}}
+    {{> "components/paid-only" heading=(concat "この先は" (tiers separator="・" lastSeparator="・" suffix="") "プラン限定")}}
+{{else has visibility="members"}}
+    {{> "components/paid-only" heading="この先は会員限定"}}
+{{else}}
+    {{> "components/paid-only"}}
+{{/has}}

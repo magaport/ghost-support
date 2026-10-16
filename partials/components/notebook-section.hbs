@@ -1,0 +1,12 @@
+{{!-- filter と limit は会員かどうかで home.hbs から渡す --}}
+<section class="voyage-section voyage-notebook">
+    {{> "components/section-heading" script="NoteBook" label="学び" moreUrl=moreUrl moreLabel="思考一覧"}}
+
+    <div class="voyage-notebook-list">
+        {{#get "posts" filter=filter limit=limit}}
+            {{#foreach posts}}
+                {{> "components/notebook-card"}}
+            {{/foreach}}
+        {{/get}}
+    </div>
+</section>

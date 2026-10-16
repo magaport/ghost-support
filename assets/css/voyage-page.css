@@ -1,0 +1,124 @@
+/* Post & page — デザイン未着手の仮。トップの配色と書体に合わせる
+/* ---------------------------------------------------------- */
+
+.voyage-post,
+.voyage-page,
+.voyage-list {
+    padding-top: 24px;
+    padding-bottom: 74px;
+}
+
+.voyage-article-title {
+    margin: 0;
+    font-family: var(--voyage-font-serif);
+    font-size: var(--voyage-font-size-article-title);
+    font-weight: 700;
+    line-height: 1.5;
+    color: var(--voyage-blue);
+}
+
+.voyage-article-header .voyage-date {
+    margin-top: 8px;
+}
+
+.voyage-article-image {
+    width: 100%;
+    margin-top: 20px;
+    border-radius: var(--voyage-radius);
+}
+
+.voyage-article-body {
+    margin-top: 24px;
+    font-family: var(--voyage-font-sans);
+    font-size: var(--voyage-font-size-article-body);
+    line-height: 1.9;
+}
+
+.voyage-article-body h2,
+.voyage-article-body h3 {
+    font-family: var(--voyage-font-serif);
+    font-weight: 700;
+    color: var(--voyage-blue);
+}
+
+.voyage-article-body a {
+    color: var(--voyage-blue);
+    text-decoration: underline;
+}
+
+.voyage-article-like {
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+}
+
+.voyage-comments {
+    margin-top: 40px;
+}
+
+/* 404 — デザイン未着手の仮
+/* ---------------------------------------------------------- */
+
+.voyage-error {
+    padding-block: 64px 74px;
+    text-align: center;
+}
+
+.voyage-error-code {
+    margin: 0;
+    font-family: var(--voyage-font-script);
+    font-size: var(--voyage-font-size-error-code);
+    line-height: 1.2;
+    color: var(--voyage-blue);
+}
+
+.voyage-error-message {
+    margin: 8px 0 32px;
+    font-family: var(--voyage-font-serif);
+    font-size: var(--voyage-font-size-error-message);
+    font-weight: 700;
+    color: var(--voyage-blue);
+}
+
+/* Paid only — 会員向けの一覧を非会員が開いたときの案内
+/* ---------------------------------------------------------- */
+
+/* 枠と影はトップの Message のカードに揃える */
+.voyage-paid-only {
+    margin-top: 24px;
+    padding: 32px 16px;
+    text-align: center;
+    background-color: var(--voyage-white);
+    border: 1px solid rgb(0 0 0 / 0.048);
+    border-radius: var(--voyage-radius);
+    box-shadow: 2px 2px 5px rgb(0 0 0 / 0.1);
+}
+
+.voyage-paid-only-title {
+    margin: 0;
+    font-family: var(--voyage-font-serif);
+    font-size: var(--voyage-font-size-paid-only-title);
+    font-weight: 700;
+    line-height: normal;
+    color: var(--voyage-blue);
+}
+
+.voyage-paid-only-text {
+    margin: 12px 0 0;
+    font-family: var(--voyage-font-serif);
+    font-size: var(--voyage-font-size-paid-only-text);
+    line-height: 1.8;
+}
+
+/* 記事の中では本文のリンクの下線（.voyage-article-body a）を受けるので、ボタンとリンクから外す */
+.voyage-paid-only a {
+    text-decoration: none;
+}
+
+.voyage-paid-only-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    align-items: center;
+    margin-top: 24px;
+}

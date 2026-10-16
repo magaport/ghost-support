@@ -1,0 +1,25 @@
+{{!< default}}
+{{!-- The tag above means: insert everything in this file into the body of the default.hbs template --}}
+
+{{!-- 公開済みの記事が無いタグは Ghost が 404 にするので、/tag/live/ は routes.yaml の channel で開く。
+      channel には tag のデータが無く、data: tag.live で渡すと同じ理由で 404 になるので、見出しは固定で書く --}}
+<main class="voyage-list">
+    <section class="voyage-section">
+        {{> "components/section-heading" script="Live" label="LIVE配信"}}
+        {{#if @member}}
+            {{> "components/card-grid"}}
+            {{pagination}}
+        {{else}}
+            {{!-- 非会員には free タグの付いた記事だけを並べ、1 件も無ければ入会の案内を出す。
+                  page を渡すのは、{{pagination}} が作る /page/N/ のリンクと取り出す記事を揃えるため --}}
+            {{#get "posts" filter="tag:live+tag:free" limit=@config.posts_per_page page=pagination.page}}
+                {{#if posts}}
+                    {{> "components/card-grid"}}
+                    {{pagination}}
+                {{else}}
+                    {{> "components/paid-only"}}
+                {{/if}}
+            {{/get}}
+        {{/if}}
+    </section>
+</main>

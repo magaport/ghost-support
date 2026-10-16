@@ -1,0 +1,25 @@
+{{!-- 写真は Publication cover から引く。未設定でも崩れないよう枠は CSS で固定し、地の色で埋める。
+      写真は object-fit: cover で枠いっぱいに描くので、描かれる幅は「枠の幅」と「枠の高さ × 写真の縦横比」の大きい方になる。
+      sizes は home.hbs から渡し、CSS の枠の式と同じにする。固定値にすると広い画面でも小さい画像が選ばれて粗くなる --}}
+<div class="voyage-hero-visual">
+    {{#if @site.cover_image}}
+        <picture>
+            <source type="image/webp"
+                srcset="{{img_url @site.cover_image size="m" format="webp"}} 600w,
+                        {{img_url @site.cover_image size="l" format="webp"}} 960w,
+                        {{img_url @site.cover_image size="xl" format="webp"}} 1200w,
+                        {{img_url @site.cover_image size="xxl" format="webp"}} 2000w,
+                        {{img_url @site.cover_image size="hero" format="webp"}} 2880w"
+                sizes="{{sizes}}">
+            <img class="voyage-hero-image"
+                srcset="{{img_url @site.cover_image size="m"}} 600w,
+                        {{img_url @site.cover_image size="l"}} 960w,
+                        {{img_url @site.cover_image size="xl"}} 1200w,
+                        {{img_url @site.cover_image size="xxl"}} 2000w,
+                        {{img_url @site.cover_image size="hero"}} 2880w"
+                sizes="{{sizes}}"
+                src="{{img_url @site.cover_image size="xl"}}"
+                alt="">
+        </picture>
+    {{/if}}
+</div>

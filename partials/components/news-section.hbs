@@ -1,0 +1,7 @@
+<section class="voyage-section voyage-news">
+    {{> "components/section-heading" label="News" moreUrl=(concat @site.url "/tag/news/") moreLabel="一覧へ"}}
+
+    {{#get "posts" filter="tag:news" limit="3"}}
+        {{> "components/news-list"}}
+    {{/get}}
+</section>

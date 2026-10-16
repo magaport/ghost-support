@@ -1,0 +1,12 @@
+{{!-- filter と limit は会員かどうかで home.hbs から渡す --}}
+<section class="voyage-section voyage-log">
+    {{> "components/section-heading" script="Log" label="日常" moreUrl=moreUrl moreLabel="記事一覧"}}
+
+    <div class="voyage-log-grid">
+        {{#get "posts" filter=filter limit=limit}}
+            {{#foreach posts}}
+                {{> "components/log-card"}}
+            {{/foreach}}
+        {{/get}}
+    </div>
+</section>

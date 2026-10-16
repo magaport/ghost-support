@@ -1,0 +1,18 @@
+<section class="voyage-section">
+    <div class="voyage-preview">
+        {{!-- テーマの画像は img_url で縮められないので、2 つの大きさを同梱して選ばせる。幅は本文の列と同じ --}}
+        <img class="voyage-preview-image"
+            srcset="{{asset "images/voyage_preview_700.jpg"}} 700w,
+                    {{asset "images/voyage_preview.jpg"}} 1962w"
+            sizes="min(100vw - 66px, 698px)"
+            src="{{asset "images/voyage_preview_700.jpg"}}"
+            alt="" width="335" height="137" loading="lazy">
+        <div class="voyage-preview-body">
+            <h2 class="voyage-preview-title">Members Only Preview</h2>
+            {{!-- 改行は components/message と同じく <wbr> の文節の切れ目だけで起こす。
+                 本文の列がいちばん広いときだけ、句点の後ろの <br> を効かせて文ごとに改行する --}}
+            <p class="voyage-preview-text">ここから先は<wbr>会員限定の<wbr>世界を、<wbr>特別に<wbr>少しだけ<wbr>お裾分け。<br class="voyage-preview-break">髙木美帆の<wbr>日常と、<wbr>その<wbr>思考に<wbr>触れる<wbr>時間を<wbr>どうぞ<wbr>お楽しみください。</p>
+            {{> "components/join-link" class="voyage-preview-link" label="会員になってすべて見る" chevron="gold"}}
+        </div>
+    </div>
+</section>
