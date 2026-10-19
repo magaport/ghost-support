@@ -25,6 +25,15 @@
         <div class="gh-content raiden-page-body">
             {{content}}
         </div>
+
+        {{!-- 本文を読めないメンバーにいいねだけ押させない --}}
+        {{#if @member}}
+            {{#if access}}
+                <div class="raiden-article-like">
+                    {{> "post-like" post_id=id}}
+                </div>
+            {{/if}}
+        {{/if}}
     </article>
 
     {{#if comments}}
