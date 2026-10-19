@@ -1,0 +1,35 @@
+{{!-- ywlr と同じく default.hbs を使わない単独のページにし、ヘッダーとフッターを出さない --}}
+<!DOCTYPE html>
+<html lang="{{@site.locale}}">
+<head>
+
+    <title>{{statusCode}} — {{message}}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preload" as="style" href="{{asset "built/screen.css"}}">
+
+    {{!-- default.hbs を通らないので、書体の読み込みもここで持つ --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="{{asset "built/screen.css"}}">
+
+</head>
+<body>
+
+<main class="gh-viewport raiden-error" id="main">
+    <div class="raiden-error-message">
+        <h1 class="raiden-error-code">404</h1>
+        <p class="raiden-error-description">ページが見つかりません。</p>
+    </div>
+
+    {{!-- ywlr の選手写真は別ブランドの素材なので使わず、フッターのロゴで枠を埋める --}}
+    <img class="raiden-error-image" src="{{asset "images/raiden_logo_footer.png"}}" alt="" width="178" height="61">
+
+    <a class="raiden-button raiden-button-large" href="{{@site.url}}">TOPページへ戻る</a>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,220 @@
+/* Header
+/* ---------------------------------------------------------- */
+
+.raiden-header {
+    position: relative;
+    /* ヒーローの稲妻はお知らせバーに重ねるため上にはみ出す。バーが無いときにヘッダーへ食い込まないよう手前に置く */
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    height: 85px;
+    /* Figma ではロゴ類が帯の中心より 2px ほど下にある */
+    padding-top: 5px;
+    padding-left: 21px;
+    padding-right: 18px;
+    background: var(--raiden-header-gradient);
+}
+
+.raiden-header-logo {
+    display: block;
+    width: 104px;
+}
+
+.raiden-header-actions {
+    display: flex;
+    gap: 23px;
+    align-items: center;
+    margin-left: auto;
+}
+
+.raiden-header-login {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* 幅を 75px に固定すると、LOG IN より長い ACCOUNT で左右の余白がなくなる。余白は LOG IN が 75px になる値 */
+    min-width: 75px;
+    height: 28px;
+    padding: 0 14px;
+    font-size: var(--raiden-font-size-header-login);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--raiden-black);
+    background: var(--raiden-white);
+    border-radius: 999px;
+}
+
+.raiden-header-login:hover {
+    opacity: 0.85;
+}
+
+.raiden-burger {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    justify-content: center;
+    width: 27px;
+    height: 22px;
+    padding: 0;
+    cursor: pointer;
+    background: none;
+    border: 0;
+}
+
+.raiden-burger-line {
+    display: block;
+    width: 27px;
+    height: 2px;
+    background-color: var(--raiden-black);
+}
+
+/* Menu panel
+/* ---------------------------------------------------------- */
+
+/* popover の UA スタイルは内容の大きさに縮み、枠線と Canvas 色も付くので打ち消す */
+.raiden-menu {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    max-width: var(--raiden-page-width);
+    height: auto;
+    padding: 0;
+    margin: 0 auto;
+    overflow-y: auto;
+    color: inherit;
+    background-color: var(--raiden-black);
+    border: 0;
+}
+
+/* display を .raiden-menu に書くと UA の [popover]:not(:popover-open) { display: none } に勝ち、閉じていても出てしまう */
+.raiden-menu:popover-open {
+    display: flex;
+    flex-direction: column;
+}
+
+body:has(.raiden-menu:popover-open) {
+    overflow: hidden;
+}
+
+/* 閉じるボタンはバーガーと同じ位置に来るよう、ヘッダーの帯の寸法をそのまま使う */
+.raiden-menu-header {
+    flex-shrink: 0;
+    justify-content: space-between;
+}
+
+/* 寸法は ywlr の閉じるボタン(32px 四方の中に 24px のアイコン)に合わせる */
+.raiden-menu-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    color: var(--raiden-black);
+    cursor: pointer;
+    background: none;
+    border: 0;
+}
+
+.raiden-menu-close svg {
+    width: 24px;
+    height: 24px;
+}
+
+.raiden-menu-body {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    padding: 18px var(--raiden-gutter) 40px;
+}
+
+.raiden-menu-title {
+    margin: 0;
+    font-family: var(--raiden-font-display);
+    font-size: var(--raiden-font-size-menu-title);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--raiden-yellow);
+}
+
+.raiden-menu-primary {
+    margin-top: 48px;
+}
+
+.raiden-menu-list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.raiden-menu-list a {
+    font-family: var(--raiden-font-display);
+    font-size: var(--raiden-font-size-menu-link);
+    font-weight: 700;
+    line-height: 43px;
+    letter-spacing: 1px;
+    color: var(--raiden-white);
+}
+
+.raiden-menu-signout {
+    font-family: var(--raiden-font-display);
+    font-size: var(--raiden-font-size-menu-link);
+    font-weight: 700;
+    line-height: 43px;
+    letter-spacing: 1px;
+    color: var(--raiden-white);
+}
+
+.raiden-menu-signout a {
+    color: inherit;
+}
+
+/* 間隔を margin-top に固定値で書くと下端に寄らず、auto だけだと Primary の項目が多いときに詰まる */
+.raiden-menu-secondary {
+    margin-top: auto;
+    padding-top: 48px;
+}
+
+/* Secondary ナビは {{navigation}} がフッターと同じ .raiden-footer-menu で出すので、メニューの中だけ上書きする */
+.raiden-menu-secondary .raiden-footer-menu li {
+    font-size: var(--raiden-font-size-menu-secondary-link);
+    line-height: 30px;
+}
+
+.raiden-menu-secondary .raiden-footer-menu li + li {
+    margin-top: 0;
+}
+
+.raiden-menu-secondary .raiden-footer-menu a {
+    font-size: var(--raiden-font-size-menu-secondary-link);
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* Announcement bar — Ghost のお知らせバーを Figma の白い帯に寄せる */
+/* お知らせバーの CSS はスクリプトが後から読み込む。同じ詳細度だと負けるので id で上書きする */
+#announcement-bar-root .gh-announcement-bar {
+    /* z-index を持たせると、上に重なるヒーローの稲妻がこの帯の下に潜る */
+    z-index: auto;
+    justify-content: flex-start;
+    min-height: 0;
+    height: 22px;
+    margin: 11px 8px 0;
+    padding: 0 11px;
+    font-size: var(--raiden-font-size-announcement-bar);
+    font-weight: 700;
+    line-height: 1;
+    text-align: left;
+    color: var(--raiden-black);
+    background-color: var(--raiden-white);
+    border-radius: 999px;
+}
+
+/* Figma ではお知らせバーはトップにしか無い */
+body:not(.home-template) #announcement-bar-root {
+    display: none;
+}
+
+/* Figma の帯に閉じるボタンは無い */
+#announcement-bar-root .gh-announcement-bar button {
+    display: none;
+}

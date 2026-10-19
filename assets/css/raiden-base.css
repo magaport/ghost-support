@@ -1,0 +1,102 @@
+/* Page shell
+/* ---------------------------------------------------------- */
+
+/* 背景画像は 16:9 の画面で本文カラムの左右に人物とロゴが来る構図。
+/* fixed にしないと cover が文書全体の高さに合わせて拡大し、長いページで左右の要素が切れる */
+html {
+    background: var(--raiden-black) url("../images/roomraiden_bg.jpg") center / cover no-repeat fixed;
+}
+
+/* body に背景を敷くと、見出しの稲妻(z-index: -1)が body の背景の下に回り込んで見えなくなる */
+body {
+    font-family: var(--raiden-font);
+    color: var(--raiden-white);
+}
+
+/* 白文字を載せるので本文カラムには黒を敷く。isolate で重ね合わせの基準を作り、
+/* 中の z-index: -1(見出しの稲妻)がこの背景の下に隠れないようにする */
+.gh-viewport {
+    isolation: isolate;
+    width: 100%;
+    max-width: var(--raiden-page-width);
+    min-height: 100vh;
+    margin-inline: auto;
+    background-color: var(--raiden-black);
+}
+
+/* 本文が短いページでもフッターを画面下端に置く。.gh-viewport は Source 由来で縦並びの flex */
+.gh-viewport > main {
+    flex-grow: 1;
+}
+
+.raiden-section {
+    padding-left: var(--raiden-gutter);
+    padding-right: var(--raiden-gutter-right);
+}
+
+/* Section heading — yellow display type with the lightning streak behind it */
+.raiden-heading {
+    position: relative;
+    /* 稲妻を見出しの中だけで z-index: -1 にし、上に食い込む写真より手前に出す */
+    z-index: 0;
+    margin: 0;
+    padding-left: 13px;
+    font-size: var(--raiden-font-size-section-heading);
+    font-weight: 700;
+    line-height: 1.2;
+    /* Cabin は Gill Sans より字幅が狭いので、字間で Figma の見出しの幅に寄せる */
+    letter-spacing: 0.04em;
+    color: var(--raiden-yellow);
+}
+
+/* The lightning streak starts outside the section padding and runs past the
+/* heading, so it is drawn behind the text rather than reserving space. */
+.raiden-heading::before {
+    position: absolute;
+    top: -51px;
+    left: -11px;
+    z-index: -1;
+    width: 23px;
+    height: 114px;
+    content: "";
+    background: url("../images/raiden_thunder1.png") no-repeat center / contain;
+    pointer-events: none;
+}
+
+.raiden-heading-text {
+    position: relative;
+}
+
+/* Yellow pill button (ROOM RAIDEN とは) */
+.raiden-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 173px;
+    height: 28px;
+    font-size: var(--raiden-font-size-button);
+    font-weight: 600;
+    color: var(--raiden-black);
+    background: var(--raiden-button-gradient);
+    border-radius: 999px;
+}
+
+.raiden-button:hover {
+    opacity: 0.85;
+}
+
+/* 404 の下端に置く幅いっぱいのボタン。.raiden-button はトップと About でも使うので寸法は変えずに足す */
+.raiden-button-large {
+    width: 100%;
+    height: 54px;
+    font-size: var(--raiden-font-size-error-button);
+    border-radius: 30px;
+}
+
+.raiden-header-login,
+.raiden-button,
+.raiden-card-date,
+.raiden-article-date,
+.raiden-copyright {
+    font-family: var(--raiden-font-display);
+}
