@@ -116,12 +116,13 @@
 }
 
 .is-guest .voyage-hero {
-    height: max(383px, 40vw);
+    /* 402px では Figma の「新規入会はこちら」ボタンの中心（ヘッダー下から 396px）がヒーローの下端になる高さ */
+    height: max(396px, 40vw);
 }
 
 .is-guest .voyage-hero-image {
     top: -128px;
-    height: calc(100% + 251px);
+    height: calc(100% + 238px);
     /* Figma は 817px 幅の写真を左に 143px ずらしている。はみ出す 415px のうち 143px を左で切る */
     object-position: 34.5% 60%;
 }

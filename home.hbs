@@ -8,15 +8,15 @@
         {{#if @member}}
             {{> "components/hero-visual" sizes="max(100vw, (max(417px, 36vw) + 77px) * 1.289)"}}
         {{else}}
-            {{> "components/hero-visual" sizes="max(100vw, (max(383px, 40vw) + 251px) * 1.289)"}}
+            {{> "components/hero-visual" sizes="max(100vw, (max(396px, 40vw) + 238px) * 1.289)"}}
         {{/if}}
         <div class="voyage-hero-brand">
             <p class="voyage-hero-lead">髙木美帆　公式コミュニティ</p>
             {{#if @member}}
-                {{> "components/hero-logo" sizes="max(174px, 19.34vw)"}}
+                {{> "components/hero-logo" src="images/voyageplus_logo_member.svg" width="174" height="105"}}
                 <p class="voyage-hero-catch">共に、次の景色へ。</p>
             {{else}}
-                {{> "components/hero-logo" sizes="max(203px, 22.56vw)"}}
+                {{> "components/hero-logo" src="images/voyageplus_logo_guest.svg" width="203" height="123"}}
             {{/if}}
         </div>
     </section>
