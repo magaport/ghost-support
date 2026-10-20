@@ -1,6 +1,6 @@
 {{!-- filter と limit は home.hbs から渡す --}}
 <section class="voyage-section voyage-notebook">
-    {{> "components/section-heading" script="NoteBook" label="学び" moreUrl=moreUrl moreLabel="思考一覧"}}
+    {{> "components/section-heading" script="NoteBook" label="学び" moreUrl=moreUrl moreLabel="学び一覧"}}
 
     <div class="voyage-notebook-list">
         {{#get "posts" filter=filter limit=limit}}
