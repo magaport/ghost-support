@@ -196,7 +196,7 @@
 			"enable_ec": {
 				"type": "boolean",
 				"default": false,
-				"description": "EC機能（カート・商品一覧・購入履歴）をエンドユーザーに表示します。オフの間は EC のスクリプトも読み込まれません。"
+				"description": "オンにすると、サイトにカート・商品一覧・購入履歴が表示されます。"
 			},
 			"fms_api_key": {
 				"type": "text",
