@@ -76,7 +76,9 @@
 <script src="https://cdn.cove.chat/comments.js" data-cove-id="{{@custom.cove_id}}" async></script>
 {{/if}}
 
+{{#if @custom.enable_ec}}
 {{> "components/ec-init"}}
+{{/if}}
 
 {{!-- Ghost outputs required functional scripts with this tag, it should always be the last thing before the closing body tag --}}
 {{ghost_foot}}
