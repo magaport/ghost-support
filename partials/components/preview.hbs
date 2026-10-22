@@ -1,11 +1,9 @@
 <section class="voyage-section">
     <div class="voyage-preview">
-        {{!-- テーマの画像は img_url で縮められないので、2 つの大きさを同梱して選ばせる。幅は本文の列と同じ --}}
+        {{!-- 写真は枠より横に長く、枠の高さに合わせて cover で切り出して右の人物を残す。
+             枠の幅いっぱいに縮めた大きさでは粗くなるため、大きさ違いは用意せず 1 枚だけ置く --}}
         <img class="voyage-preview-image"
-            srcset="{{asset "images/voyage_preview_700.jpg"}} 700w,
-                    {{asset "images/voyage_preview.jpg"}} 1962w"
-            sizes="min(100vw - 66px, 698px)"
-            src="{{asset "images/voyage_preview_700.jpg"}}"
+            src="{{asset "images/voyage_preview.jpg"}}"
             alt="" width="335" height="137" loading="lazy">
         <div class="voyage-preview-body">
             <h2 class="voyage-preview-title">Members Only Preview</h2>

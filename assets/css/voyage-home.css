@@ -370,13 +370,16 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    /* 人物は写真の右端にあり、左半分は文字を載せる無地の青 */
+    object-position: right;
 }
 
 .voyage-preview-body {
     position: relative;
     word-break: keep-all;
     overflow-wrap: anywhere;
-    width: 81%;
+    /* 人物は写真の右 4 割にいるので、文字の列はその手前で折り返す */
+    width: 60%;
     padding: 12px 0 12px 19px;
     background: linear-gradient(90deg, rgb(var(--voyage-preview-fade)) 25.475%, rgb(var(--voyage-preview-fade) / 0.733) 56.437%, rgb(var(--voyage-preview-fade) / 0.431) 79.658%, rgb(var(--voyage-preview-fade) / 0) 100%);
 }
