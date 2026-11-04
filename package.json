@@ -194,13 +194,13 @@
             },
             "community_api_domain": {
                 "type": "text",
-                "default": "",
-                "description": "コミュニティ機能のAPIドメイン（例: https://api.example.com）。空の場合は同一ドメインの相対パスを使います。"
+                "default": "/community",
+                "description": "コミュニティ機能のAPIドメイン（例: https://api.example.com）。Unleash 統合（パス配信）では /community。空の場合は同一ドメインの相対パスを使います。"
             },
             "community_web_domain": {
                 "type": "text",
-                "default": "",
-                "description": "コミュニティ機能のWebドメイン（例: https://community.example.com）。ルーム詳細・一覧へのリンク先に使います。空の場合は同一ドメインの相対パスを使います。"
+                "default": "/community",
+                "description": "コミュニティ機能のWebドメイン（例: https://community.example.com）。ルーム詳細・一覧へのリンク先に使います。Unleash 統合（パス配信）では /community。空の場合は同一ドメインの相対パスを使います。"
             },
             "fms_api_key": {
                 "type": "text",
