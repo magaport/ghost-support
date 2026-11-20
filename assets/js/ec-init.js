@@ -48,6 +48,30 @@ async function ensureOidcMemberMatches(memberUuid) {
 }
 
 /**
+ * 記事内の固定プレビューを商品ページへのリンクで包む。
+ * EC の読み込みに失敗すると <product-item> が定義されず、直後のプレビューがリンク無しの
+ * まま残って読者が商品へ移れなくなるため、その代わりにリンクだけでも付ける。
+ * 正常に初期化できたときは <product-item> が表示を引き継ぐので呼ばない。
+ */
+function linkProductPreviews() {
+  document.querySelectorAll('product-item[item-id]').forEach(function (item) {
+    const preview = item.nextElementSibling;
+    if (!preview || !preview.classList.contains('unleash-product-preview')) {
+      return;
+    }
+    // 二重に包まない
+    if (preview.parentElement && preview.parentElement.tagName === 'A') {
+      return;
+    }
+    const link = document.createElement('a');
+    link.href = '/product/detail/?id=' + encodeURIComponent(item.getAttribute('item-id'));
+    link.style.cssText = 'color: inherit; text-decoration: none; display: block;';
+    preview.parentNode.insertBefore(link, preview);
+    link.appendChild(preview);
+  });
+}
+
+/**
  * EC 初期化スクリプト
  * FMS ローダー・OIDC 認証・カート UI の起動を行う。
  *
@@ -57,7 +81,16 @@ async function ensureOidcMemberMatches(memberUuid) {
  * @param {string}  opts.servicePath   - FMS サービスパス
  * @param {string}  opts.apiKey        - FMS API キー
  */
-async function initEC({ isGhostMember, memberUuid, servicePath, apiKey }) {
+async function initEC(opts) {
+  try {
+    await loadEC(opts);
+  } catch (error) {
+    console.error('EC の読み込みに失敗しました', error);
+    linkProductPreviews();
+  }
+}
+
+async function loadEC({ isGhostMember, memberUuid, servicePath, apiKey }) {
   // Ghost がサブディレクトリ配下にあっても nginx の location はルートなので @site.url は使わない
   const origin = window.location.origin;
 
@@ -91,57 +124,65 @@ async function initEC({ isGhostMember, memberUuid, servicePath, apiKey }) {
     await import(`${MP_FMS_JS_URL}/loader/index.js`);
   }
 
-  FMS.load(['oidc', 'base/user', 'unleash'], {
+  await FMS.load(['oidc', 'base/user', 'unleash'], {
     baseUrl: MP_FMS_JS_URL,
     servicePath,
     apiBaseUrl: MP_BASE_API_URL,
     tkmDomain: MP_TKM_URL,
     silentLogin: isGhostMember
   }, async (baseUser, unleash) => {
-    // 認証を使う処理より先に判定する。前の会員のトークンのまま
-    // baseUser.init() やカートを動かすと、その会員として扱われてしまう
-    if (await ensureOidcMemberMatches(memberUuid)) {
-      return;
-    }
-
-    if (isGhostMember) {
-      try {
-        await baseUser.init();
-      } catch (error) {
-        // 認証初期化に失敗しても商品リストは表示する
-        console.error('FMS base/user の初期化に失敗しました', error);
+    // コールバック内の例外は FMS.load の呼び出し元に届かないので、ここで受ける
+    try {
+      // 認証を使う処理より先に判定する。前の会員のトークンのまま
+      // baseUser.init() やカートを動かすと、その会員として扱われてしまう
+      if (await ensureOidcMemberMatches(memberUuid)) {
+        // EC は起動しないので、固定プレビューだけでも商品へ移れるようにする
+        linkProductPreviews();
+        return;
       }
-      // baseUser.init() の成否に依存させない。ここに到達しないと
-      // ナビゲーションの Log Out が使えなくなる
-      unleash.init();
-    } else if (window.FMS.oidc.isLogin()) {
-      // Ghost は未ログインだが OIDC セッションが残っている場合: 強制クリア
-      const result = await window.FMS.oidc.logout();
-      if (result && !result.ok) {
-        console.error(`残存 OIDC セッションのクリアに失敗しました: ${result.reason}`);
-      }
-    }
 
-    // OIDC 認証状態が確定してからカート UI を読み込む
-    // （Cart コンポーネントは isLogin() をマウント時に評価するため）
-    // dev: Vite dev サーバーが TS を直接配信 / 本番: ビルド済み JS を使用
-    if (isDev) {
-      await import(`${MP_FMS_CART_URL}/src/main.ts`);
-    } else {
-      await import(`${MP_FMS_CART_URL}/js/main.js`);
-    }
-
-    await window.FMS.initialize({ k: apiKey, h: MP_MEDUSA_URL });
-
-    // カート変更バッジの更新を購読
-    if (window.FMS.cart && window.FMS.cart.addEventListener) {
-      window.FMS.cart.addEventListener('cartChange', function (count) {
-        var badge = document.getElementById('gh-cart-badge');
-        if (badge) {
-          badge.textContent = count;
-          badge.style.display = count > 0 ? '' : 'none';
+      if (isGhostMember) {
+        try {
+          await baseUser.init();
+        } catch (error) {
+          // 認証初期化に失敗しても商品リストは表示する
+          console.error('FMS base/user の初期化に失敗しました', error);
         }
-      });
+        // baseUser.init() の成否に依存させない。ここに到達しないと
+        // ナビゲーションの Log Out が使えなくなる
+        unleash.init();
+      } else if (window.FMS.oidc.isLogin()) {
+        // Ghost は未ログインだが OIDC セッションが残っている場合: 強制クリア
+        const result = await window.FMS.oidc.logout();
+        if (result && !result.ok) {
+          console.error(`残存 OIDC セッションのクリアに失敗しました: ${result.reason}`);
+        }
+      }
+
+      // OIDC 認証状態が確定してからカート UI を読み込む
+      // （Cart コンポーネントは isLogin() をマウント時に評価するため）
+      // dev: Vite dev サーバーが TS を直接配信 / 本番: ビルド済み JS を使用
+      if (isDev) {
+        await import(`${MP_FMS_CART_URL}/src/main.ts`);
+      } else {
+        await import(`${MP_FMS_CART_URL}/js/main.js`);
+      }
+
+      await window.FMS.initialize({ k: apiKey, h: MP_MEDUSA_URL });
+
+      // カート変更バッジの更新を購読
+      if (window.FMS.cart && window.FMS.cart.addEventListener) {
+        window.FMS.cart.addEventListener('cartChange', function (count) {
+          var badge = document.getElementById('gh-cart-badge');
+          if (badge) {
+            badge.textContent = count;
+            badge.style.display = count > 0 ? '' : 'none';
+          }
+        });
+      }
+    } catch (error) {
+      console.error('EC の初期化に失敗しました', error);
+      linkProductPreviews();
     }
   });
 }
