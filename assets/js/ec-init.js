@@ -48,26 +48,38 @@ async function ensureOidcMemberMatches(memberUuid) {
 }
 
 /**
- * 記事内の固定プレビューを商品ページへのリンクで包む。
+ * 記事内の固定プレビューを、商品ページへのリンクで覆う。
  * EC の読み込みに失敗すると <product-item> が定義されず、直後のプレビューがリンク無しの
  * まま残って読者が商品へ移れなくなるため、その代わりにリンクだけでも付ける。
  * 正常に初期化できたときは <product-item> が表示を引き継ぐので呼ばない。
  */
 function linkProductPreviews() {
   document.querySelectorAll('product-item[item-id]').forEach(function (item) {
+    const itemId = (item.getAttribute('item-id') || '').trim();
+    if (!itemId) {
+      return;
+    }
     const preview = item.nextElementSibling;
     if (!preview || !preview.classList.contains('unleash-product-preview')) {
       return;
     }
-    // 二重に包まない
-    if (preview.parentElement && preview.parentElement.tagName === 'A') {
+    if (preview.classList.contains('unleash-product-preview--linked')) {
       return;
     }
+    // プレビューを <a> の中へ移すと <product-item> の直後でなくなり、EC が後から動いたときに
+    // product-item:defined+.unleash-product-preview で隠れなくなる。位置は変えずに上から覆う
     const link = document.createElement('a');
-    link.href = '/product/detail/?id=' + encodeURIComponent(item.getAttribute('item-id'));
-    link.style.cssText = 'color: inherit; text-decoration: none; display: block;';
-    preview.parentNode.insertBefore(link, preview);
-    link.appendChild(preview);
+    link.href = '/product/detail/?id=' + encodeURIComponent(itemId);
+    const title = preview.querySelector(':scope > div > div:first-child');
+    const name = ((title || preview).textContent || '').trim();
+    if (name) {
+      link.setAttribute('aria-label', name);
+    }
+    link.style.position = 'absolute';
+    link.style.inset = '0';
+    preview.style.position = 'relative';
+    preview.classList.add('unleash-product-preview--linked');
+    preview.appendChild(link);
   });
 }
 
@@ -124,6 +136,9 @@ async function loadEC({ isGhostMember, memberUuid, servicePath, apiKey }) {
     await import(`${MP_FMS_JS_URL}/loader/index.js`);
   }
 
+  // FMS.load がモジュールの読み込み失敗を reject で知らせるか分からないため、
+  // コールバックまで進んだかを見て、進まなかったときも商品へ移れるようにする
+  let loaded = false;
   await FMS.load(['oidc', 'base/user', 'unleash'], {
     baseUrl: MP_FMS_JS_URL,
     servicePath,
@@ -131,12 +146,13 @@ async function loadEC({ isGhostMember, memberUuid, servicePath, apiKey }) {
     tkmDomain: MP_TKM_URL,
     silentLogin: isGhostMember
   }, async (baseUser, unleash) => {
+    loaded = true;
     // コールバック内の例外は FMS.load の呼び出し元に届かないので、ここで受ける
     try {
       // 認証を使う処理より先に判定する。前の会員のトークンのまま
       // baseUser.init() やカートを動かすと、その会員として扱われてしまう
       if (await ensureOidcMemberMatches(memberUuid)) {
-        // EC は起動しないので、固定プレビューだけでも商品へ移れるようにする
+        // EC は起動しない（またはこの後リロードする）ので、固定プレビューだけでも商品へ移れるようにする
         linkProductPreviews();
         return;
       }
@@ -185,4 +201,8 @@ async function loadEC({ isGhostMember, memberUuid, servicePath, apiKey }) {
       linkProductPreviews();
     }
   });
+  if (!loaded) {
+    console.error('FMS のモジュールを読み込めませんでした');
+    linkProductPreviews();
+  }
 }
