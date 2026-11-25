@@ -48,38 +48,27 @@ async function ensureOidcMemberMatches(memberUuid) {
 }
 
 /**
- * 記事内の固定プレビューを、商品ページへのリンクで覆う。
- * EC の読み込みに失敗すると <product-item> が定義されず、直後のプレビューがリンク無しの
- * まま残って読者が商品へ移れなくなるため、その代わりにリンクだけでも付ける。
+ * 記事内の固定プレビューを、取得失敗の文言に差し替える。
+ * EC の読み込みに失敗すると <product-item> が定義されず、直後のプレビューが
+ * 古い固定の表示のまま残る。公開記事の <product-item> が取得に失敗したときと同じ文言にそろえ、
+ * 実在しない価格や在庫を読者に見せ続けないようにする。
  * 正常に初期化できたときは <product-item> が表示を引き継ぐので呼ばない。
  */
-function linkProductPreviews() {
+function showProductLoadFailure() {
   document.querySelectorAll('product-item[item-id]').forEach(function (item) {
-    const itemId = (item.getAttribute('item-id') || '').trim();
-    if (!itemId) {
-      return;
-    }
     const preview = item.nextElementSibling;
     if (!preview || !preview.classList.contains('unleash-product-preview')) {
       return;
     }
-    if (preview.classList.contains('unleash-product-preview--linked')) {
+    // 4 か所から呼ばれ、同じプレビューに二度かかることがある
+    if (preview.classList.contains('unleash-product-preview--failed')) {
       return;
     }
-    // プレビューを <a> の中へ移すと <product-item> の直後でなくなり、EC が後から動いたときに
-    // product-item:defined+.unleash-product-preview で隠れなくなる。位置は変えずに上から覆う
-    const link = document.createElement('a');
-    link.href = '/product/detail/?id=' + encodeURIComponent(itemId);
-    const title = preview.querySelector(':scope > div > div:first-child');
-    const name = ((title || preview).textContent || '').trim();
-    if (name) {
-      link.setAttribute('aria-label', name);
-    }
-    link.style.position = 'absolute';
-    link.style.inset = '0';
-    preview.style.position = 'relative';
-    preview.classList.add('unleash-product-preview--linked');
-    preview.appendChild(link);
+    // カートの読み込み後に初期化が失敗しても、:defined の表示切り替えより優先する
+    item.style.setProperty('display', 'none', 'important');
+    preview.style.setProperty('display', 'block', 'important');
+    preview.classList.add('unleash-product-preview--failed');
+    preview.textContent = '商品を読み込めませんでした';
   });
 }
 
@@ -98,7 +87,7 @@ async function initEC(opts) {
     await loadEC(opts);
   } catch (error) {
     console.error('EC の読み込みに失敗しました', error);
-    linkProductPreviews();
+    showProductLoadFailure();
   }
 }
 
@@ -152,8 +141,8 @@ async function loadEC({ isGhostMember, memberUuid, servicePath, apiKey }) {
       // 認証を使う処理より先に判定する。前の会員のトークンのまま
       // baseUser.init() やカートを動かすと、その会員として扱われてしまう
       if (await ensureOidcMemberMatches(memberUuid)) {
-        // EC は起動しない（またはこの後リロードする）ので、固定プレビューだけでも商品へ移れるようにする
-        linkProductPreviews();
+        // EC は起動しない（またはこの後リロードする）ので、固定プレビューを失敗の表示にしておく
+        showProductLoadFailure();
         return;
       }
 
@@ -198,11 +187,11 @@ async function loadEC({ isGhostMember, memberUuid, servicePath, apiKey }) {
       }
     } catch (error) {
       console.error('EC の初期化に失敗しました', error);
-      linkProductPreviews();
+      showProductLoadFailure();
     }
   });
   if (!loaded) {
     console.error('FMS のモジュールを読み込めませんでした');
-    linkProductPreviews();
+    showProductLoadFailure();
   }
 }
