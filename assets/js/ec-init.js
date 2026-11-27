@@ -174,6 +174,9 @@ async function loadEC({ isGhostMember, memberUuid, servicePath, apiKey }) {
       }
 
       await window.FMS.initialize({ k: apiKey, h: MP_MEDUSA_URL });
+      if (document.querySelector('product-item[item-id]') && !customElements.get('product-item')) {
+        showProductLoadFailure();
+      }
 
       // カート変更バッジの更新を購読
       if (window.FMS.cart && window.FMS.cart.addEventListener) {
