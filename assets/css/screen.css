@@ -465,6 +465,11 @@ product-list {
     min-height: 0;
 }
 
+.unleash-product-preview--failed {
+    padding: 1.6rem;
+    text-align: center;
+}
+
 .gh-canvas,
 .kg-width-full.kg-content-wide {
     --main: min(var(--content-width, 720px), 100% - var(--container-gap) * 2);
